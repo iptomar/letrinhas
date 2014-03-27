@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Internacionalizacao - France</string>
+    <string name="hello_world">bonjour, tout le monde</string>
+    <string name="action_settings">configurations</string> 
+	<string name="bt_teste">Ne fait rien</string>
+</resources>
