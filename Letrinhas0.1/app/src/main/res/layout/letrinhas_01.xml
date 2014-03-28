@@ -35,19 +35,20 @@
 
         </LinearLayout>
 
-        <Button android:id="@+id/dummy_button"
+        <Button android:id="@+id/bEntrar1"
             style="?metaButtonBarButtonStyle"
             android:layout_width="735dp"
             android:layout_height="152dp"
             android:text="@string/entrar"
-            android:layout_gravity="center_horizontal|bottom" />
+            android:layout_gravity="center_horizontal|bottom"
+            android:textSize="72dp"
+            android:textStyle="bold" />
 
         <ImageButton
             android:layout_width="85dp"
             android:layout_height="104dp"
             android:id="@+id/iBSair"
             android:layout_gravity="right|top"
-            android:contentDescription=""
             android:src="@drawable/abc_ic_clear_normal"
             android:adjustViewBounds="true" />
 

@@ -11,12 +11,21 @@
             android:name="com.example.app.PagInicial"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.app.pg2Menu"
+            android:label="@string/Menu" >
+        </activity>
+        <activity
+            android:name="com.example.app.pg3TesteDemo"
+            android:label="@string/title_activity_pg3_teste_demo" >
         </activity>
     </application>
 

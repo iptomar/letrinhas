@@ -3,22 +3,32 @@ package com.example.app;
 import com.example.app.util.SystemUiHider;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
+
 import android.app.Activity;
+
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * Página Inicial
+ *
+ * com um exemplo de uma actividade full-screen, que mostra e esconde o User Interface de sistema
+ * (i.e. status bar and navigation/system bar) com a interação do utilizador
  *
  * @see SystemUiHider
+ *
+ * @author Thiago
  */
 public class PagInicial extends Activity {
+    Button bentrar;
+    ImageButton ibotao;
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -48,16 +58,8 @@ public class PagInicial extends Activity {
     private SystemUiHider mSystemUiHider;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // If the Android version is lower than Jellybean, use this call to hide
-        // the status bar.
-        if (Build.VERSION.SDK_INT < 16) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-
 
         setContentView(R.layout.letrinhas_01);
 
@@ -121,9 +123,42 @@ public class PagInicial extends Activity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.bEntrar1).setOnTouchListener(mDelayHideTouchListener);
+
+        bentrar = (Button) findViewById(R.id.bEntrar1);
+        ibotao = (ImageButton) findViewById(R.id.iBSair);
+
+        escutaBotoes();
     }
 
+    private void escutaBotoes(){
+        bentrar.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //iniciar a pagina 2 (menu)
+                        Intent it= new Intent(PagInicial.this,pg2Menu.class);
+                        startActivity(it);
+                        //finish();
+                    }
+                }
+
+        );
+
+        ibotao.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //sair da aplicação
+                        System.exit(0);
+                    }
+                }
+        );
+
+
+
+
+    }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
