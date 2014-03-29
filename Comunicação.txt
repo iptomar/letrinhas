@@ -1,9 +1,13 @@
+3-Criei uma pequena tabela (excel) com as principais tarefas que ma ocorrem, 
+se econtrarem mais alguma coisa adicionem lá s.f.f.
+						ass:Tiago
 
-Estes vao ser os objectivos a serem alcançados, mas que tarefas especificas poderam
+
+2-Estes vao ser os objectivos a serem alcançados, mas que tarefas especificas poderam
 ser atribuidas?? Ass: Dário
 
 
-Objectivos postados pelo Diogo Neto introduzidos na aula de 28/03/2014:
+1-Objectivos postados pelo Diogo Neto introduzidos na aula de 28/03/2014:
 
 ler teste do servidor (online)
 
