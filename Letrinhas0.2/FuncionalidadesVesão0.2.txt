@@ -1,0 +1,18 @@
+APP
+
+ler teste do servidor (online)
+realizar teste (offline)
+enviar os resultados para o servidor (online)
+
+
+SI
+
+suportar testes normais (texto)
+suportar testes com imagens
+
+
+AS
+
+Análse da versão 0.2
+Modelação de dados até à proxima quinta-feira
+Apresemtação para dia 07-04-2014
