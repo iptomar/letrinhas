@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:paddingBottom="@dimen/activity_vertical_margin"
+   android:paddingLeft="@dimen/activity_horizontal_margin"
+   android:paddingRight="@dimen/activity_horizontal_margin"
+   android:paddingTop="@dimen/activity_vertical_margin"
+   tools:context=".MainActivity" >
+
+   <TextView
+      android:id="@+id/textView1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentRight="true"
+      android:layout_alignParentTop="true"
+      android:layout_marginTop="32dp"
+      android:text="@string/Recording"
+      android:textAppearance="?android:attr/textAppearanceMedium" />
+
+   <ImageView
+      android:id="@+id/imageView1"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      android:layout_below="@+id/textView1"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="37dp"
+      android:scaleType="fitXY"
+      android:src="@android:drawable/presence_audio_online" />
+
+   <Button
+       android:id="@+id/StartP"
+       style="?android:attr/buttonStyleSmall"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/StartR"
+       android:layout_marginTop="25dp"
+       android:layout_toRightOf="@+id/StartR"
+       android:onClick="play"
+       android:text="@string/play" />
+
+   <Button
+       android:id="@+id/StopP"
+       style="?android:attr/buttonStyleSmall"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignBaseline="@+id/StartP"
+       android:layout_alignBottom="@+id/StartP"
+       android:layout_alignRight="@+id/imageView1"
+       android:onClick="play"
+       android:text="@string/stop" />
+
+   <Button
+       android:id="@+id/StartR"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/imageView1"
+       android:layout_marginTop="23dp"
+       android:layout_toLeftOf="@+id/imageView1"
+       android:onClick="start"
+       android:text="@string/start" />
+
+   <Button
+       android:id="@+id/StopR"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_above="@+id/StartP"
+       android:layout_alignLeft="@+id/imageView1"
+       android:onClick="stop"
+       android:text="@string/stop" />
+
+</RelativeLayout>
