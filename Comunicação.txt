@@ -1,0 +1,12 @@
+
+Estes vao ser os objectivos a serem alcançados, mas que tarefas especificas poderam
+ser atribuidas?? Ass: Dário
+
+
+Objectivos postados pelo Diogo Neto introduzidos na aula de 28/03/2014:
+
+ler teste do servidor (online)
+
+realizar teste (offline)
+
+enviar os resultados para o servidor (online)
