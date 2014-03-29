@@ -1,3 +1,15 @@
+Nome -  Nº -  Data    -hora
+Dário-17104-29/03/2014-20:25
+
+-> acho que seria interessante tambem adicionar uma linha identificadora deste tipo
+pode ajudar muito a organizar
+-> tenho um problema no smartgit na pasta onde tenho o repositorio local
+apaguei(acidente) umas pastas onde se encontravam os app, mas não os consigo repor
+como é que resolvo o problema? thnx!
+
+
+
+
 3-Criei uma pequena tabela (excel) com as principais tarefas que ma ocorrem, 
 se econtrarem mais alguma coisa adicionem lá s.f.f.
 						ass:Tiago
@@ -13,4 +25,4 @@ ler teste do servidor (online)
 
 realizar teste (offline)
 
-enviar os resultados para o servidor (online)
+enviar os resultados para o servidor (online) 
