@@ -103,7 +103,7 @@ public class MainActivity extends Activity {
    
    /**
     * 
-    * serve para a aplicação correr o som e parar
+    * serve para a aplicação correr o som
     * @param view
     * @throws IllegalArgumentException
     * @throws SecurityException
@@ -121,6 +121,12 @@ public class MainActivity extends Activity {
 		   Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_LONG).show();
    }
    
+   /**
+    * serve para a aplicação parar o som
+    * @param view
+    * @throws Exception
+    * @author Dário Jorge
+    */
    public void stopP(View view) throws Exception{// caso algo dê errado no throws exception implementar o ---> IllegalArgumentException, SecurityException, IllegalStateException, IOException    || em vez de Exception
 				  mP.stop();
 				  mP.release();
