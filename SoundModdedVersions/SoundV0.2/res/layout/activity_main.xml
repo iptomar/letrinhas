@@ -48,7 +48,7 @@
        android:layout_alignBaseline="@+id/StartP"
        android:layout_alignBottom="@+id/StartP"
        android:layout_alignRight="@+id/imageView1"
-       android:onClick="play"
+       android:onClick="stopP"
        android:text="@string/stop" />
 
    <Button
@@ -67,7 +67,7 @@
        android:layout_height="wrap_content"
        android:layout_above="@+id/StartP"
        android:layout_alignLeft="@+id/imageView1"
-       android:onClick="stop"
+       android:onClick="stopR"
        android:text="@string/stop" />
 
 </RelativeLayout>
