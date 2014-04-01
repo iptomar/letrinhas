@@ -15,8 +15,8 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
    private MediaRecorder myAudioRecorder;
-   private MediaPlayer mP= new MediaPlayer();
-   private String outputFile = null;
+   private MediaPlayer mP = new MediaPlayer();
+   private String outputFile;
    private Button startR,stopR,startP,stopP;
    
    /**
@@ -32,21 +32,26 @@ public class MainActivity extends Activity {
       startP = (Button)findViewById(R.id.StartP);
       stopP = (Button)findViewById(R.id.StopP);
 
-      stopR.setEnabled(false);
-      stopP.setEnabled(false);
-      startP.setEnabled(false);
+      setUp();
+   }
+
+   /**
+    * 
+    */
+   	public void setUp(){
+   	  outputFile = Environment.getExternalStorageDirectory().
+      getAbsolutePath() + "/myrecording.3gpp";
       
-      outputFile = Environment.getExternalStorageDirectory().
-      getAbsolutePath() + "/myrecording.gpp";
-      
-      myAudioRecorder = new MediaRecorder();
+   	  myAudioRecorder = new MediaRecorder();
       myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
       myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
       myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
       myAudioRecorder.setOutputFile(outputFile);
-
-   }
-
+      
+      stopR.setEnabled(false);
+      stopP.setEnabled(false);
+      startP.setEnabled(false);
+   	}
    /**
     * serve para começar o record
     * @param view
@@ -54,6 +59,7 @@ public class MainActivity extends Activity {
     */
    public void start(View view){
       try {
+    	  setUp();
          myAudioRecorder.prepare();
          myAudioRecorder.start();
       } catch (IllegalStateException e) {
@@ -79,7 +85,6 @@ public class MainActivity extends Activity {
 	  try{
 	      myAudioRecorder.stop();
 	      myAudioRecorder.release();
-	      myAudioRecorder  = null;
 	      stopR.setEnabled(false);
 	      startP.setEnabled(true);
 	      Toast.makeText(getApplicationContext(), "Audio recorded successfully",
@@ -130,7 +135,7 @@ public class MainActivity extends Activity {
    public void stopP(View view) throws Exception{// caso algo dê errado no throws exception implementar o ---> IllegalArgumentException, SecurityException, IllegalStateException, IOException    || em vez de Exception
 				  mP.stop();
 				  mP.release();
-				  mP = null;
+				 // mP = null;
 				  startR.setEnabled(true);
 				  stopP.setEnabled(false);
 				  Toast.makeText(getApplicationContext(), "Audio Stoped", Toast.LENGTH_LONG).show();
