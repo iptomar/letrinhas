@@ -1,3 +1,8 @@
+tiago-17253-29-03-2014- 20:46
+	Os trabalhos estão a correr dentro do tempo, contudo espero que abrandes, pois creio 
+que existe novos requisitos à app, contudo podes limitar-te às tarefas que já definimos, a não ser que 
+identifiques mais algumas. nesse caso adiciona-as na lista de tarefas.
+
 Dário-17104-03/04/2014-11:45
 -> Está tudo a correr bem com os trabalhos? Preciso de saber se continuo a desenvolver
 a aplicação á parte e depois junta-se, já que a versão actual do letrinhas
