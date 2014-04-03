@@ -1,3 +1,8 @@
+Dário-17104-03/04/2014-11:45
+-> Está tudo a correr bem com os trabalhos? Preciso de saber se continuo a desenvolver
+a aplicação á parte e depois junta-se, já que a versão actual do letrinhas
+n é a melhor.
+
 Dário-17104-29/03/2014-22:43
 -> Tive a organizar as versões da aplicação da captura de som e ja fiz
 uma versão 0.2 alpha pois preciso que testem num android pa ver se
