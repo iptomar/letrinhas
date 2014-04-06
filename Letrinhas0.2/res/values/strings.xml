@@ -14,5 +14,6 @@
     <string name="title_activity_escolhe_teste">EscolheTeste</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="sair">sair</string>
 
 </resources>
