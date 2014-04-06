@@ -1,3 +1,7 @@
+Dário-17104-06/04/2014-2:00
+->Na conectividade será para ligar automaticamente? se sim como é que se escolhe pelo quel se ligar se
+houver várias ligações possiveis?
+
 tiago-17253-29-03-2014- 20:46
 	Os trabalhos estão a correr dentro do tempo, contudo espero que abrandes, pois creio 
 que existe novos requisitos à app, contudo podes limitar-te às tarefas que já definimos, a não ser que 
