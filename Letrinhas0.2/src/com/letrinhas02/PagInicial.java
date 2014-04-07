@@ -132,14 +132,18 @@ public class PagInicial extends Activity {
         bentrar = (Button) findViewById(R.id.bEntrar1);
         ibotao = (ImageButton) findViewById(R.id.iBSair);
         link= (ProgressBar) findViewById(R.id.pBarLink);
-
+        
+        //esconder o botão de entrar..
+        bentrar.setVisibility(View.INVISIBLE);
+        link.setVisibility(View.VISIBLE);
         Toast.makeText(getApplicationContext(),"À procura de rede...", Toast.LENGTH_LONG).show();
 //#######################################################################################################       
-//###### Iniciar uma classe do tipo thread para detetar a ligação, iniciar a sincronização, desativar
+//###### Iniciar uma classe do tipo thread para detetar a ligação, iniciar a sincronização da BD, desativar
 //###### a barra de progresso e ativar o botão para entrar.
         
-        link.setVisibility(View.VISIBLE);
-
+        
+        
+        
         escutaBotoes();
 	}
 
@@ -148,10 +152,10 @@ public class PagInicial extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //iniciar a pagina 2 (menu)
-                        //Intent it= new Intent(PagInicial.this,pg2Menu.class);
-                        //startActivity(it);
-                        //finish();
+                        //iniciar a pagina 2 (escolher teste)
+                        Intent it= new Intent(PagInicial.this,EscolheTeste.class);
+                        startActivity(it);
+                        finish();
                     }
                 }
 

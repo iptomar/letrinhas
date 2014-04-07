@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    android:configChanges="orientation|keyboardHidden|screenSize"
+    android:contentDescription="@string/start"
+    android:gravity="center"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:screenOrientation="landscape"
+    tools:context="com.letrinhas02.EscolheTeste$PlaceholderFragment" >
+
+    <ImageView
+        android:id="@+id/ivetlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="22dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/logo2" />
+
+    <ScrollView
+        android:id="@+id/svEscolher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ibetvoltar"
+        android:layout_alignLeft="@+id/ivetlogo"
+        android:layout_below="@+id/ivetlogo"
+        android:layout_toLeftOf="@+id/ibetvoltar"
+        android:background="@color/black_overlay" >
+
+        <LinearLayout
+            android:id="@+id/llescteste"
+            android:layout_width="match_parent"
+            android:layout_height="457dp"
+            android:orientation="vertical" >
+
+            <ToggleButton
+                android:id="@+id/ToggleButton02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/start"
+                android:textOff="@string/stop"
+                android:textOn="@string/start" />
+
+            <ToggleButton
+                android:id="@+id/ToggleButton01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/start"
+                android:textOff="@string/stop"
+                android:textOn="@string/start" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/start"
+                android:textOff="@string/stop"
+                android:textOn="@string/start" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/ibetvoltar"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="28dp"
+        android:layout_marginRight="21dp"
+        android:contentDescription="@string/voltar"
+        android:onClick="voltar"
+        android:src="@drawable/voltar" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_marginBottom="25dp"
+        android:layout_toRightOf="@+id/ivetlogo"
+        android:text="@string/title_activity_escolhe_teste"
+        android:textColor="#5ddfff"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/svEscolher"
+        android:text="@string/letrinhas"
+        android:textColor="#5ddfff"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/imageView1"
+        android:layout_alignTop="@+id/svEscolher"
+        android:contentDescription="@string/start"
+        android:onClick="executarTestes"
+        android:src="@drawable/right" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ibetvoltar"
+        android:layout_alignTop="@+id/ivetlogo"
+        android:layout_marginLeft="22dp"
+        android:contentDescription="@string/teste"
+        android:src="@drawable/index" />
+
+</RelativeLayout>
