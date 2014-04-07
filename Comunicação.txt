@@ -1,3 +1,7 @@
+tiago-17253-29-03-2014- 09:46
+->Na conectividade é para se ligar automaticamente em wi-fi, contudo irá existir um pequeno menu
+para o caso de utilizador querer alterar o tipo de ligação, seja este WI-FI, 3G, 4G, GSM.
+
 Dário-17104-06/04/2014-15:30
 ->Já tenho a funcionar a ligação automatica e a pesquisa de redes, a fazer a própria ligação.
 
