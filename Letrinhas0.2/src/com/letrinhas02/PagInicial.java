@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings.System;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -153,9 +152,8 @@ public class PagInicial extends Activity {
                     @Override
                     public void onClick(View view) {
                         //iniciar a pagina 2 (escolher teste)
-                        Intent it= new Intent(PagInicial.this,EscolheTeste.class);
+                        Intent it= new Intent(PagInicial.this,EscModo.class);
                         startActivity(it);
-                        finish();
                     }
                 }
 

@@ -27,10 +27,10 @@
         android:id="@+id/svEscolher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ibetvoltar"
+        android:layout_alignBottom="@+id/escmVoltar"
         android:layout_alignLeft="@+id/ivetlogo"
         android:layout_below="@+id/ivetlogo"
-        android:layout_toLeftOf="@+id/ibetvoltar"
+        android:layout_toLeftOf="@+id/escmVoltar"
         android:background="@color/black_overlay" >
 
         <LinearLayout
@@ -53,7 +53,7 @@
     </ScrollView>
 
     <ImageButton
-        android:id="@+id/ibetvoltar"
+        android:id="@+id/escmVoltar"
         android:layout_width="100sp"
         android:layout_height="100sp"
         android:layout_alignParentBottom="true"
@@ -65,10 +65,10 @@
         android:src="@drawable/voltar" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/esmCabecalho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
+        android:layout_alignBottom="@+id/esmLogo"
         android:layout_marginBottom="25dp"
         android:layout_toRightOf="@+id/ivetlogo"
         android:text="@string/title_activity_escolhe_teste"
@@ -77,7 +77,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/TextView01"
+        android:id="@+id/escmRodape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -91,17 +91,17 @@
         android:id="@+id/ibComecar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/imageView1"
+        android:layout_alignRight="@+id/esmLogo"
         android:layout_alignTop="@+id/svEscolher"
         android:contentDescription="@string/start"
         android:onClick="executarTestes"
         android:src="@drawable/right" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/esmLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ibetvoltar"
+        android:layout_alignLeft="@+id/escmVoltar"
         android:layout_alignTop="@+id/ivetlogo"
         android:layout_marginLeft="22dp"
         android:contentDescription="@string/teste"

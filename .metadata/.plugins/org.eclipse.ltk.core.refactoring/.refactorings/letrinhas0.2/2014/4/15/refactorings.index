@@ -2,3 +2,11 @@
 1396840960323	Extracts string 'null' into R.string.teste
 1396842658040	Rename field 'imageButton1'
 1396842973260	Rename field 'ToggleButton02'
+1396892962430	Rename field 'imageView1'
+1396893012354	Rename field 'textView1'
+1396893047336	Extracts string 'null' into R.string.escolhe_Modo
+1396893365511	Rename field 'ibetvoltar'
+1396894486446	Rename field 'TextView01'
+1396894606246	Extracts string 'null' into R.string.porAluno
+1396894632550	Extracts string 'null' into R.string.porProf
+1396896062291	Convert to Compound Drawable

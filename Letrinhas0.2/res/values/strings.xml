@@ -17,5 +17,9 @@
     <string name="sair">sair</string>
     <string name="voltar">voltar</string>
     <string name="teste">teste</string>
+    <string name="title_activity_esc_modo">Escolher Modo do teste</string>
+    <string name="escolhe_Modo">Escolher o Modo do teste a realizar</string>
+    <string name="porAluno">Por Aluno</string>
+    <string name="porProf">Por Professor</string>
 
 </resources>

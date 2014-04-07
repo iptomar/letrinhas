@@ -1,7 +1,5 @@
 package com.letrinhas02;
 
-import java.util.TooManyListenersException;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -48,8 +46,7 @@ public class EscolheTeste extends Activity {
 	 * Finalizar a ativity e voltar para a pagina anterior
 	 */
 	public void voltar(){
-        finish();
-		
+        finish();		
 	}
 	
 	@Override
