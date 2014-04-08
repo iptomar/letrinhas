@@ -1,16 +1,9 @@
 package com.letrinhas02.util;
 
-import java.util.List;
-
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiManager;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
+import android.net.wifi.WifiManager;
+import android.widget.Toast;
 
 /**
  * Classe para garantir que existe conecção à rede, seja por WI-FI (preferencialmente)
@@ -22,28 +15,22 @@ import android.content.Intent;
  */
 public class coneccaoW extends Thread{
 	WifiManager mainWifiObj;
-	WifiScanReceiver wifiReciever;
-	ListView list;
-	String wifis[];
-	//activity
-	Activity atc;
+	Activity act;
+	public coneccaoW(Activity act) {
+		this.act = act;
+	}
 	
-
-	   
-	   
-	   
-	private class WifiScanReceiver extends BroadcastReceiver {
-	      @SuppressLint("UseValueOf")
-	      public void onReceive(Context c, Intent intent) {
-	         List<ScanResult> wifiScanList = mainWifiObj.getScanResults();
-	         wifis = new String[wifiScanList.size()];
-	         for(int i = 0; i < wifiScanList.size(); i++){
-	            wifis[i] = ((wifiScanList.get(i)).toString());
-	         }
-
-	         list.setAdapter(new ArrayAdapter<String>(atc.getApplicationContext(),
-	         android.R.layout.simple_list_item_1,wifis));
-	      }
-	   }
-	   
+	public void run(){
+	mainWifiObj = (WifiManager) act.getSystemService(Context.WIFI_SERVICE);
+    //Automatic Connection to wifi 
+    if (mainWifiObj.isWifiEnabled()){
+        //wifi is enabled
+  	  Toast.makeText(act.getApplicationContext(),"Enabled", Toast.LENGTH_LONG).show();
+        }else{
+      	  Toast.makeText(act.getApplicationContext(),"Disable", Toast.LENGTH_SHORT).show();
+      	  Toast.makeText(act.getApplicationContext(),"Activating", Toast.LENGTH_SHORT).show();
+      	  mainWifiObj.setWifiEnabled(true);
+      	  Toast.makeText(act.getApplicationContext(),"Enabled", Toast.LENGTH_LONG).show();
+        }
+	}
 }

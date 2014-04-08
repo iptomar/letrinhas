@@ -1,6 +1,7 @@
 package com.letrinhas02;
 
 import com.letrinhas02.util.SystemUiHider;
+import com.letrinhas02.util.coneccaoW;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -141,7 +142,8 @@ public class PagInicial extends Activity {
 //#######################################################################################################       
 //###### Iniciar uma classe do tipo thread para detetar a ligação, iniciar a sincronização da BD, desativar
 //###### a barra de progresso e ativar o botão para entrar.
-        
+        coneccaoW con = new coneccaoW(this);
+        con.run();
         
         
         
