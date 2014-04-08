@@ -23,8 +23,8 @@ public class WiFi extends Activity {
 	   String wifis[];
 	   public void onCreate(Bundle savedInstanceState) {
 	      super.onCreate(savedInstanceState);
-	      setContentView(R.layout.activity_wi_fi);
-	      list = (ListView)findViewById(R.id.listView1);
+	      setContentView(R.layout.pag_inicial);
+	      //list = (ListView)findViewById(R.id.listView1);
 	      mainWifiObj = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 	      if (mainWifiObj.isWifiEnabled()){
 	          //wifi is enabled
@@ -39,17 +39,28 @@ public class WiFi extends Activity {
 	      mainWifiObj.startScan();
 	   }
 
+	   /**
+	    * 
+	    */
 	   protected void onPause() {
 	      unregisterReceiver(wifiReciever);
 	      super.onPause();
 	   }
 
+	   /**
+	    * 
+	    */
 	   protected void onResume() {
 	      registerReceiver(wifiReciever, new IntentFilter(
 	      WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 	      super.onResume();
 	   }
 
+	   /**
+	    * 
+	    * @author Dário
+	    *
+	    */
 	   class WifiScanReceiver extends BroadcastReceiver {
 	      @SuppressLint("UseValueOf")
 	      public void onReceive(Context c, Intent intent) {
