@@ -1,3 +1,8 @@
+Dário-17104-09/04/2014-20:00
+->Preciso de saber se o teste da ligação automatica do letrinhas funcionou.
+->Diogo, não consigo testar o teu esboço pois está numa versão mais avançada do android e penso que ninguem o consegue testar por causa disso
+tenta reduzir a versão nessária.
+
 tiago-17253-29-03-2014- 09:46
 ->Na conectividade é para se ligar automaticamente em wi-fi, contudo irá existir um pequeno menu
 para o caso de utilizador querer alterar o tipo de ligação, seja este WI-FI, 3G, 4G, GSM.
