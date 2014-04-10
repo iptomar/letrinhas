@@ -1,3 +1,9 @@
+Diogo-17652-10/04/2014-14:14
+-> Dário o outro o som do que eu tinha feito não estava bem decidi ver pelo teu que garavava o som
+ bem... agora falta ir buscar o texto a base de dados, vou falar com o Luís na aula para tentar fazer
+ isso e depois pode servir de base para os testes que apenas têm texto, a seguir pode-se fazer alguns
+ testes para no Letrinhas 02 colocar nos testes disponíveis...
+
 Dário-17104-10/04/2014-07:54
 ->Diogo não me leves a mal, mas o que é k acabaste de enviar? mais do mesmo
 do som??????
