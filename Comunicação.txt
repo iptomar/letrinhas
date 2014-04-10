@@ -1,3 +1,8 @@
+Diogo-17652-10/04/2014-15:34
+-> Já coloquei outra versão do texte de leitura, ontem enganei-me a fazer o push se alguém poder testar
+num tablet para ver se está a funcionar... agradecia um feedback.
+
+
 Diogo-17652-10/04/2014-14:14
 -> Dário o outro o som do que eu tinha feito não estava bem decidi ver pelo teu que garavava o som
  bem... agora falta ir buscar o texto a base de dados, vou falar com o Luís na aula para tentar fazer
