@@ -1,3 +1,6 @@
+﻿Luis-17332-11/04/2014-11:45
+-> Ja esta no repositorio uma demo da BD, pra ja esta defenida para trabalhar com strings mas penso que trabalha com qualquer outro objecto, penso eu... nao testei ainda
+
 Rafael-13686-11/04/2014-03:00
 -> Luis quando poderes poe aqui o que ja tens feito de base de dados. Preciso disso para ver se consigo fazer
 os testes com as imagens. Ainda nao consegui por imagens na base de dados e depois ir la buscar. E alguem sabe como
