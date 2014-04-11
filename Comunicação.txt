@@ -1,82 +1,90 @@
+Rafael-13686-11/04/2014-03:00
+-> Luis quando poderes poe aqui o que ja tens feito de base de dados. Preciso disso para ver se consigo fazer
+os testes com as imagens. Ainda nao consegui por imagens na base de dados e depois ir la buscar. E alguem sabe como
+serÃ¡ a estrutura da base de dados das perguntas com imagens? Se isso tera uma tabela? Quais os campos? 
+Porque tenho que saber para ver como irei buscar os valores, e como fazer referencia as imagens dessa pergunta. 
+Para tambÃ©m depois poder saber se a resposta Ã© certa ou errada. Esta parte do teste com imagens ta um pouco confusa 
+acho que ficou por decidir na aula teorica passada mas nao sei como acabou por ficar.
+
 Diogo-17652-10/04/2014-15:34
--> Já coloquei outra versão do texte de leitura, ontem enganei-me a fazer o push se alguém poder testar
-num tablet para ver se está a funcionar... agradecia um feedback.
+-> Jï¿½ coloquei outra versï¿½o do texte de leitura, ontem enganei-me a fazer o push se alguï¿½m poder testar
+num tablet para ver se estï¿½ a funcionar... agradecia um feedback.
 
 
 Diogo-17652-10/04/2014-14:14
--> Dário o outro o som do que eu tinha feito não estava bem decidi ver pelo teu que garavava o som
- bem... agora falta ir buscar o texto a base de dados, vou falar com o Luís na aula para tentar fazer
- isso e depois pode servir de base para os testes que apenas têm texto, a seguir pode-se fazer alguns
- testes para no Letrinhas 02 colocar nos testes disponíveis...
+-> Dï¿½rio o outro o som do que eu tinha feito nï¿½o estava bem decidi ver pelo teu que garavava o som
+ bem... agora falta ir buscar o texto a base de dados, vou falar com o Luï¿½s na aula para tentar fazer
+ isso e depois pode servir de base para os testes que apenas tï¿½m texto, a seguir pode-se fazer alguns
+ testes para no Letrinhas 02 colocar nos testes disponï¿½veis...
 
-Dário-17104-10/04/2014-07:54
-->Diogo não me leves a mal, mas o que é k acabaste de enviar? mais do mesmo
+Dï¿½rio-17104-10/04/2014-07:54
+->Diogo nï¿½o me leves a mal, mas o que ï¿½ k acabaste de enviar? mais do mesmo
 do som??????
 
 tiago-17253-09-04-2014- 23:46
-->OK!! Eu já tinha visto isso!! contudo Acho que a 1ªa versão do que tinhamos está mais desenvolvida..
+->OK!! Eu jï¿½ tinha visto isso!! contudo Acho que a 1ï¿½a versï¿½o do que tinhamos estï¿½ mais desenvolvida..
 
-Dário-17104-09/04/2014-20:12
-->tiago esquci-me de te avisar que a aplicação do diogo tem de ser vista em landescape
-vê isso e diz ai a opinião.
+Dï¿½rio-17104-09/04/2014-20:12
+->tiago esquci-me de te avisar que a aplicaï¿½ï¿½o do diogo tem de ser vista em landescape
+vï¿½ isso e diz ai a opiniï¿½o.
 
-Dário-17104-09/04/2014-20:00
-->Preciso de saber se o teste da ligação automatica do letrinhas funcionou.
-->Diogo, não consigo testar o teu esboço pois está numa versão mais avançada do android e penso que ninguem o consegue testar por causa disso
-tenta reduzir a versão nessária.
+Dï¿½rio-17104-09/04/2014-20:00
+->Preciso de saber se o teste da ligaï¿½ï¿½o automatica do letrinhas funcionou.
+->Diogo, nï¿½o consigo testar o teu esboï¿½o pois estï¿½ numa versï¿½o mais avanï¿½ada do android e penso que ninguem o consegue testar por causa disso
+tenta reduzir a versï¿½o nessï¿½ria.
 
 tiago-17253-29-03-2014- 09:46
-->Na conectividade é para se ligar automaticamente em wi-fi, contudo irá existir um pequeno menu
-para o caso de utilizador querer alterar o tipo de ligação, seja este WI-FI, 3G, 4G, GSM.
+->Na conectividade ï¿½ para se ligar automaticamente em wi-fi, contudo irï¿½ existir um pequeno menu
+para o caso de utilizador querer alterar o tipo de ligaï¿½ï¿½o, seja este WI-FI, 3G, 4G, GSM.
 
-Dário-17104-06/04/2014-15:30
-->Já tenho a funcionar a ligação automatica e a pesquisa de redes, a fazer a própria ligação.
+Dï¿½rio-17104-06/04/2014-15:30
+->Jï¿½ tenho a funcionar a ligaï¿½ï¿½o automatica e a pesquisa de redes, a fazer a prï¿½pria ligaï¿½ï¿½o.
 
-Dário-17104-06/04/2014-2:00
-->Na conectividade será para ligar automaticamente? se sim como é que se escolhe pelo quel se ligar se
-houver várias ligações possiveis?
+Dï¿½rio-17104-06/04/2014-2:00
+->Na conectividade serï¿½ para ligar automaticamente? se sim como ï¿½ que se escolhe pelo quel se ligar se
+houver vï¿½rias ligaï¿½ï¿½es possiveis?
 
 tiago-17253-29-03-2014- 20:46
-	Os trabalhos estão a correr dentro do tempo, contudo espero que abrandes, pois creio 
-que existe novos requisitos à app, contudo podes limitar-te às tarefas que já definimos, a não ser que 
+	Os trabalhos estï¿½o a correr dentro do tempo, contudo espero que abrandes, pois creio 
+que existe novos requisitos ï¿½ app, contudo podes limitar-te ï¿½s tarefas que jï¿½ definimos, a nï¿½o ser que 
 identifiques mais algumas. nesse caso adiciona-as na lista de tarefas.
 
-Dário-17104-03/04/2014-11:45
--> Está tudo a correr bem com os trabalhos? Preciso de saber se continuo a desenvolver
-a aplicação á parte e depois junta-se, já que a versão actual do letrinhas
-n é a melhor.
+Dï¿½rio-17104-03/04/2014-11:45
+-> Estï¿½ tudo a correr bem com os trabalhos? Preciso de saber se continuo a desenvolver
+a aplicaï¿½ï¿½o ï¿½ parte e depois junta-se, jï¿½ que a versï¿½o actual do letrinhas
+n ï¿½ a melhor.
 
-Dário-17104-29/03/2014-22:43
--> Tive a organizar as versões da aplicação da captura de som e ja fiz
-uma versão 0.2 alpha pois preciso que testem num android pa ver se
-ja se consegue parar o play da gravação
+Dï¿½rio-17104-29/03/2014-22:43
+-> Tive a organizar as versï¿½es da aplicaï¿½ï¿½o da captura de som e ja fiz
+uma versï¿½o 0.2 alpha pois preciso que testem num android pa ver se
+ja se consegue parar o play da gravaï¿½ï¿½o
 
 tiago-17253-29-03-2014- 21:35
 	pois talvez seja...
-Quanto à tua duvida não sei como te ajudar, mas eu pus na pasta testes as tuas 3 app, que
-tinhas criado!! vai lá dar uma espreitadela!!
+Quanto ï¿½ tua duvida nï¿½o sei como te ajudar, mas eu pus na pasta testes as tuas 3 app, que
+tinhas criado!! vai lï¿½ dar uma espreitadela!!
 
 
 
-Nome -  Nº -  Data    -hora
-Dário-17104-29/03/2014-20:25
+Nome -  Nï¿½ -  Data    -hora
+Dï¿½rio-17104-29/03/2014-20:25
 
 -> acho que seria interessante tambem adicionar uma linha identificadora deste tipo
 pode ajudar muito a organizar
 -> tenho um problema no smartgit na pasta onde tenho o repositorio local
-apaguei(acidente) umas pastas onde se encontravam os app, mas não os consigo repor
-como é que resolvo o problema? thnx!
+apaguei(acidente) umas pastas onde se encontravam os app, mas nï¿½o os consigo repor
+como ï¿½ que resolvo o problema? thnx!
 
 
 
 
 3-Criei uma pequena tabela (excel) com as principais tarefas que ma ocorrem, 
-se econtrarem mais alguma coisa adicionem lá s.f.f.
+se econtrarem mais alguma coisa adicionem lï¿½ s.f.f.
 						ass:Tiago
 
 
-2-Estes vao ser os objectivos a serem alcançados, mas que tarefas especificas poderam
-ser atribuidas?? Ass: Dário
+2-Estes vao ser os objectivos a serem alcanï¿½ados, mas que tarefas especificas poderam
+ser atribuidas?? Ass: Dï¿½rio
 
 
 1-Objectivos postados pelo Diogo Neto introduzidos na aula de 28/03/2014:
