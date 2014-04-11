@@ -1,3 +1,6 @@
+﻿﻿Luis-17332-11/04/2014-15:46
+-> Quanto a BD eu devia ter explicado: Por baixo do botao de get existe um EditText, ai tens que por o id do teste, a pesquisa ta feita pelo Id.
+
 Rafael-13686-11/04/2014-14:30
 -> Pessoal tinhamos dito que iamos a aula de hoje. Mas não podemos ir. Desculpem lá, mas houve um imprevisto.
 Nós não temos casa em tomar, e viemos para Lisboa ontem, entretanto houve um problema e nao conseguimos ir para Tomar. 
