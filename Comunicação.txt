@@ -1,3 +1,12 @@
+Rafael-13686-11/04/2014-14:30
+-> Pessoal tinhamos dito que iamos a aula de hoje. Mas nÃ£o podemos ir. Desculpem lÃ¡, mas houve um imprevisto.
+NÃ³s nÃ£o temos casa em tomar, e viemos para Lisboa ontem, entretanto houve um problema e nao conseguimos ir para Tomar. 
+Eu falei com o Diogo, e o Jorge tambÃ©m jÃ¡ pos no git o projecto de seleccionar texto. Aquilo ainda tem umas falhas mas 
+para apresentar hoje qualquer coisa esta ai o que esta feito. Eu nao consegui fazer aquilo das imagens na BD.
+Luis, estive a testar a BD e aquilo dÃ¡ erro quando fazes get. Nao sei se esta a inserir na BD, mas quando fazes get da erro.
+
+
+
 <<<<<<< 2b2242ceec8e2e2be9a2cc86b3ff1438e7beea95
 ï»¿Luis-17332-11/04/2014-11:45
 -> Ja esta no repositorio uma demo da BD, pra ja esta defenida para trabalhar com strings mas penso que trabalha com qualquer outro objecto, penso eu... nao testei ainda
@@ -15,8 +24,8 @@ Diogo-17652-10/04/2014-15:34
 num tablet para ver se estï¿½ a funcionar... agradecia um feedback.
 =======
 tiago-17253-11-04-2014- 12:46
-->É só para vos informar, que hoje não posso comparecer na aula teórica. pois não consegui trocar o meu turno.
-Avisem o Prof. que infelizmente não conseguimos entregar a versão 0.2 a funcionar devidamente  no prazo
+->ï¿½ sï¿½ para vos informar, que hoje nï¿½o posso comparecer na aula teï¿½rica. pois nï¿½o consegui trocar o meu turno.
+Avisem o Prof. que infelizmente nï¿½o conseguimos entregar a versï¿½o 0.2 a funcionar devidamente  no prazo
 estabelecido (Hoje).
 
 
