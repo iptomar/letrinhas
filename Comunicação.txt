@@ -1,3 +1,4 @@
+<<<<<<< 2b2242ceec8e2e2be9a2cc86b3ff1438e7beea95
 ï»¿Luis-17332-11/04/2014-11:45
 -> Ja esta no repositorio uma demo da BD, pra ja esta defenida para trabalhar com strings mas penso que trabalha com qualquer outro objecto, penso eu... nao testei ainda
 
@@ -12,6 +13,15 @@ acho que ficou por decidir na aula teorica passada mas nao sei como acabou por f
 Diogo-17652-10/04/2014-15:34
 -> Jï¿½ coloquei outra versï¿½o do texte de leitura, ontem enganei-me a fazer o push se alguï¿½m poder testar
 num tablet para ver se estï¿½ a funcionar... agradecia um feedback.
+=======
+tiago-17253-11-04-2014- 12:46
+->É só para vos informar, que hoje não posso comparecer na aula teórica. pois não consegui trocar o meu turno.
+Avisem o Prof. que infelizmente não conseguimos entregar a versão 0.2 a funcionar devidamente  no prazo
+estabelecido (Hoje).
+
+
+
+>>>>>>> 08f88d433778cfa1531b6d0619db5f2cbf360862
 
 
 Diogo-17652-10/04/2014-14:14
