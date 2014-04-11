@@ -9,6 +9,7 @@
    tools:context=".MainActivity" >
 
    <ListView
+      android:clickable="true"
       android:id="@+id/listView1"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -17,6 +18,5 @@
       android:drawSelectorOnTop="false"
       android:background="@android:color/background_dark"
       android:listSelector="@android:color/darker_gray" >
-
    </ListView>
 </RelativeLayout>
