@@ -47,4 +47,13 @@
         android:layout_below="@+id/txtReadText"
         android:text="Get" />
 
+    <EditText
+        android:id="@+id/edtID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btGet"
+        android:layout_below="@+id/btGet"
+        android:ems="10"
+        android:inputType="number" />
+
 </RelativeLayout>

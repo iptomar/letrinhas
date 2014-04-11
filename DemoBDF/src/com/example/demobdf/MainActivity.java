@@ -51,8 +51,9 @@ public class MainActivity extends Activity {
         buttonGet.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-            	obj = datasource.getObj(9);
             	TextView txtV = (TextView) findViewById(R.id.txtReadText);
+            	EditText edtID = (EditText) findViewById(R.id.edtID);
+            	obj = datasource.getObj(Integer.parseInt(edtID.getText().toString()));
             	String result = obj.getId() +" - " + obj.getType() +" - "+ (String)obj.getObj();
         		txtV.setText(result);
             }
