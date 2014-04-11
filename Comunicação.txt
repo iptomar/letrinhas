@@ -1,4 +1,15 @@
-﻿﻿Luis-17332-11/04/2014-15:46
+﻿Dário-17104-11/04/2014-20:50
+->Para as próximas 2 semanas teremos que acabar a versão 0.2 e a versão 0.3
+ou seja trabalhar bem e é para ser feito.
+----->Apartir de agora tudo o que for entregue terá de ser no letrinhas0.2/0.3(em breve será disponibilizado) 
+e apenas aqui, criem as vossas classes, mas metam tudo lá
+para que não se repita o que se passou hoje, ou seja, eu e o Diogo(os únicos que foram á aula)
+não tivemos nada para mostrar ao professor, pois quando enviaram, os que enviaram, o que fizeram
+não deu para integrar no letrinhas a tempo e POR FAVOR usem mais este meio de comunicação
+pois todos tem acesso a ela.
+
+
+﻿Luis-17332-11/04/2014-15:46
 -> Quanto a BD eu devia ter explicado: Por baixo do botao de get existe um EditText, ai tens que por o id do teste, a pesquisa ta feita pelo Id.
 
 Rafael-13686-11/04/2014-14:30
