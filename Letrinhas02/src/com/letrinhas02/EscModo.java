@@ -4,9 +4,12 @@ import com.letrinhas02.util.SystemUiHider;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -66,25 +69,35 @@ public class EscModo extends Activity {
 	
 
 	public void modAluno(){
+		((TextView) findViewById(R.id.tvmoAluno)).setTextColor(Color.GREEN);
+        ((TextView) findViewById(R.id.tvmoProf)).setTextColor(Color.rgb(0x5d, 0xdf , 0xff));
+        ((RadioButton) findViewById(R.id.rbmod1)).on;
+        
+        
 		//declarar de como o teste será apresentado!
 		Toast.makeText(getApplicationContext(),"Entrar no teste em modo de Aluno", Toast.LENGTH_LONG).show();
 		 //iniciar a pagina 2 (escolher teste)
         Intent it= new Intent(EscModo.this,EscolheTeste.class);
         startActivity(it);
         
+        
     	//Toast.makeText(getApplicationContext(),"Irá muda de página", Toast.LENGTH_LONG).show();
-		finish();
+		//finish();
 	}
 
 	public void modProf(){
 		//declarar de como o teste será apresentado!
+
+        ((TextView) findViewById(R.id.tvmoProf)).setTextColor(Color.GREEN);
+        ((TextView) findViewById(R.id.tvmoAluno)).setTextColor(Color.rgb(0x5d, 0xdf , 0xff));
 		Toast.makeText(getApplicationContext(),"Entrar no teste em modo de Professor", Toast.LENGTH_LONG).show();
 		 //iniciar a pagina 2 (escolher teste)
         Intent it= new Intent(EscModo.this,EscolheTeste.class);
         startActivity(it);
         
+
     	//Toast.makeText(getApplicationContext(),"Irá muda de página", Toast.LENGTH_LONG).show();
-		finish();
+		//finish();
 	}
 
 	public void voltar(){

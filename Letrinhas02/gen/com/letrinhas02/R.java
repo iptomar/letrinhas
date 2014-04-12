@@ -71,26 +71,31 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int voltar=0x7f020023;
     }
     public static final class id {
-        public static final int TextView01=0x7f090006;
-        public static final int TextView02=0x7f090007;
-        public static final int ToggleButton1=0x7f09000b;
-        public static final int action_settings=0x7f090013;
-        public static final int bEntrar1=0x7f09000f;
-        public static final int ecmAluno=0x7f090005;
+        public static final int ToggleButton1=0x7f09000f;
+        public static final int action_settings=0x7f090018;
+        public static final int bEntrar1=0x7f090014;
+        public static final int ecmAluno=0x7f090006;
+        public static final int esTCabecalho=0x7f090011;
+        public static final int esTLogo=0x7f090010;
+        public static final int escTRodape=0x7f09000c;
+        public static final int escTVoltar=0x7f09000b;
         public static final int escmRodape=0x7f090003;
         public static final int escmVoltar=0x7f090002;
         public static final int esmCabecalho=0x7f090000;
-        public static final int esmLogo=0x7f09000c;
-        public static final int esmProf=0x7f090004;
-        public static final int fullscreen_content=0x7f09000d;
-        public static final int fullscreen_content_controls=0x7f09000e;
-        public static final int iBSair=0x7f090012;
-        public static final int iVLogo=0x7f090010;
-        public static final int ibComecar=0x7f090009;
+        public static final int esmProf=0x7f090005;
+        public static final int fullscreen_content=0x7f090012;
+        public static final int fullscreen_content_controls=0x7f090013;
+        public static final int iBSair=0x7f090017;
+        public static final int iVLogo=0x7f090015;
+        public static final int ibComecar=0x7f09000d;
         public static final int linearLayout1=0x7f090001;
-        public static final int llescteste=0x7f09000a;
-        public static final int pBarLink=0x7f090011;
-        public static final int svEscolher=0x7f090008;
+        public static final int llescteste=0x7f09000e;
+        public static final int pBarLink=0x7f090016;
+        public static final int rbmod1=0x7f090008;
+        public static final int rbmod2=0x7f090009;
+        public static final int svEscolher=0x7f09000a;
+        public static final int tvmoAluno=0x7f090007;
+        public static final int tvmoProf=0x7f090004;
     }
     public static final class layout {
         public static final int esc_modo=0x7f030000;

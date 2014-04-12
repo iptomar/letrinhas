@@ -16,10 +16,10 @@
         android:id="@+id/svEscolher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/escmVoltar"
-        android:layout_alignLeft="@+id/escmRodape"
+        android:layout_alignBottom="@+id/escTVoltar"
+        android:layout_alignLeft="@+id/escTRodape"
         android:layout_alignTop="@+id/ibComecar"
-        android:layout_toLeftOf="@+id/escmVoltar"
+        android:layout_toLeftOf="@+id/escTVoltar"
         android:background="@color/black_overlay" >
 
         <LinearLayout
@@ -31,17 +31,17 @@
             <ToggleButton
                 android:id="@+id/ToggleButton1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="83dp"
                 android:text="@string/teste"
                 android:textOff="@string/teste"
                 android:textOn="@string/teste"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                android:textSize="32sp"
+                android:textStyle="normal" />
         </LinearLayout>
     </ScrollView>
 
     <TextView
-        android:id="@+id/escmRodape"
+        android:id="@+id/escTRodape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -52,10 +52,10 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/esmLogo"
+        android:id="@+id/esTLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/escmVoltar"
+        android:layout_alignLeft="@+id/escTVoltar"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="25dp"
         android:contentDescription="@string/teste"
@@ -65,15 +65,15 @@
         android:id="@+id/ibComecar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/esmLogo"
-        android:layout_below="@+id/esmLogo"
+        android:layout_alignLeft="@+id/esTLogo"
+        android:layout_below="@+id/esTLogo"
         android:contentDescription="@string/start"
         android:clickable="true"
         android:onClick="executarTestes"
         android:src="@drawable/right" />
 
     <ImageButton
-        android:id="@+id/escmVoltar"
+        android:id="@+id/escTVoltar"
         android:layout_width="100sp"
         android:layout_height="100sp"
         android:layout_alignParentBottom="true"
@@ -85,11 +85,11 @@
         android:src="@drawable/voltar" />
 
     <TextView
-        android:id="@+id/esmCabecalho"
+        android:id="@+id/esTCabecalho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/esmLogo"
-        android:layout_alignLeft="@+id/escmRodape"
+        android:layout_alignBottom="@+id/esTLogo"
+        android:layout_alignLeft="@+id/escTRodape"
         android:drawableLeft="@drawable/logo2"
         android:text="@string/title_activity_escolhe_teste"
         android:textColor="#5ddfff"

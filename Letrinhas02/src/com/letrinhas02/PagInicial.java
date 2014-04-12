@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 /**
  * Página Inicial
  *
@@ -137,8 +136,7 @@ public class PagInicial extends Activity {
         
         //esconder o botão de entrar..
        // bentrar.setVisibility(View.INVISIBLE);
-        link.setVisibility(View.VISIBLE);
-        Toast.makeText(getApplicationContext(),"À procura de rede...", Toast.LENGTH_LONG).show();
+       //link.setVisibility(View.VISIBLE);
 //#######################################################################################################       
 //###### Iniciar uma classe do tipo thread para detetar a ligação, iniciar a sincronização da BD, desativar
 //###### a barra de progresso e ativar o botão para entrar.

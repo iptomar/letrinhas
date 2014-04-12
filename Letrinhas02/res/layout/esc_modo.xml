@@ -55,17 +55,8 @@
         android:contentDescription="@string/voltar"
         android:src="@drawable/voltar" />
 
-    <ImageButton
-        android:id="@+id/esmProf"
-        android:layout_width="215dp"
-        android:layout_height="205dp"
-        android:layout_alignRight="@+id/esmCabecalho"
-        android:layout_alignTop="@+id/ecmAluno"
-        android:contentDescription="@string/porProf"
-        android:src="@drawable/docentes" />
-
     <TextView
-        android:id="@+id/TextView01"
+        android:id="@+id/tvmoProf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/esmCabecalho"
@@ -87,7 +78,7 @@
         android:src="@drawable/boy" />
 
     <TextView
-        android:id="@+id/TextView02"
+        android:id="@+id/tvmoAluno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/esmCabecalho"
@@ -97,5 +88,29 @@
         android:textColor="#5ddfff"
         android:textSize="40sp"
         android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/esmProf"
+        android:layout_width="215dp"
+        android:layout_height="205dp"
+        android:layout_alignLeft="@+id/tvmoProf"
+        android:layout_alignTop="@+id/ecmAluno"
+        android:contentDescription="@string/porProf"
+        android:src="@drawable/docentes" />
+
+    <RadioButton
+        android:id="@+id/rbmod1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvmoProf"
+        android:layout_toRightOf="@+id/ecmAluno" />
+
+    <RadioButton
+        android:id="@+id/rbmod2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvmoProf"
+        android:layout_marginRight="22dp"
+        android:layout_toLeftOf="@+id/tvmoProf" />
 
 </RelativeLayout>
