@@ -3,6 +3,7 @@ package com.letrinhas02;
 import com.letrinhas02.util.ExecutaTestes;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,12 +19,13 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class EscolheTeste extends Activity {
-	//modo prof, tvmoAluno = #5ddfff
+	// modo prof, tvmoAluno = #5ddfff
 	ImageButton volt, exect;
-	int nTestes = 15;
-	String titulos[];
+	public int nTestes = 15;
+	public String titulos[];
 	boolean modo;
-	//Enderço/Query dos testes [];
+
+	// Enderço/Query dos testes [];
 
 	/****************************
 	 * Por Fazer ******************************** executar os testes
@@ -32,9 +34,9 @@ public class EscolheTeste extends Activity {
 	public void executarTestes() {
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
 		int nElements = ll.getChildCount();
-		
+
 		int j = 0;
-		//descobrir quantos e quais foram selecionados
+		// descobrir quantos e quais foram selecionados
 		for (int i = 0; i < nElements; i++) {
 			// verificar se o teste está ativo
 			if (((ToggleButton) ll.getChildAt(i)).isChecked()) {
@@ -44,14 +46,32 @@ public class EscolheTeste extends Activity {
 			}
 		}
 
-		//mostra quantos foram pressionados
+		// mostra quantos foram pressionados
 		Toast.makeText(getApplicationContext(),
 				"" + j + " Testes seleccionados", Toast.LENGTH_SHORT).show();
-		// iniciar os testes.... por fazer
 		
-		if(
-		ExecutaTestes exect = new ExecutaTestes(this, modo);
-		exect.start();
+		// iniciar os testes.... por fazer
+		//Se existe items seleccionados arranca com os testes, 
+		if (0 < j) {
+			ExecutaTestes exect = new ExecutaTestes(this, modo);
+			exect.start();
+		}
+		else {//senão avisa que n~so existe nada seleccionado
+			android.app.AlertDialog alerta;
+	        //Cria o gerador do AlertDialog
+	        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	        //define o titulo
+	        builder.setTitle("Letrinhas 02");
+	        //define a mensagem
+	        builder.setMessage("Não existe testes seleccionados!");
+	        //define um botão como positivo
+	        builder.setPositiveButton("OK",null);
+
+	        //cria o AlertDialog
+	        alerta = builder.create();
+	        //Mostra
+	        alerta.show();			
+		}
 
 	}
 
@@ -84,8 +104,9 @@ public class EscolheTeste extends Activity {
 		// Botão original que existe por defenição
 		ToggleButton tg1 = (ToggleButton) findViewById(R.id.ToggleButton1);
 
-		// Se o nº de testes for superior a 0, cria o nº de botões referentes aos testes
-		if (0<nTestes) {
+		// Se o nº de testes for superior a 0, cria o nº de botões referentes
+		// aos testes
+		if (0 < nTestes) {
 			int i = 0;
 			// Atribuo o primeiro título ao primeiro botão
 			// texto por defeito
@@ -93,59 +114,54 @@ public class EscolheTeste extends Activity {
 			// texto se não seleccionado = "titulo do teste sem numeração"
 			tg1.setTextOff("O título do teste");
 			// texto se seleccionado = "titulo do teste com numeração"
-			tg1.setTextOn((i+1) + " - " + "O título do teste");
+			tg1.setTextOn((i + 1) + " - " + "O título do teste");
 			i++;
 
-			//Resto do títulos
-			while(i<nTestes){
+			// Resto do títulos
+			while (i < nTestes) {
 				// um novo botão
 				ToggleButton tg = new ToggleButton(getBaseContext());
 				// copiar os parametros de layout do 1º botão
 				tg.setLayoutParams(tg1.getLayoutParams());
-				tg.setTextSize(tg1.getTextSize());				
+				tg.setTextSize(tg1.getTextSize());
 				// texto por defeito
 				tg.setText("O título do teste");
 				// texto se não seleccionado = "titulo do teste sem numeração"
 				tg.setTextOff("O título do teste");
 				// texto se seleccionado = "titulo do teste com numeração"
-				tg.setTextOn((i+1) + " - " + "O título do teste");				
+				tg.setTextOn((i + 1) + " - " + "O título do teste");
 				// inserir no scroll view
 				ll.addView(tg);
 				i++;
 			}
-		}
-		else{
-			
+		} else {
+
 		}
 
 		volt = (ImageButton) findViewById(R.id.escTVoltar);
 		exect = (ImageButton) findViewById(R.id.ibComecar);
-		
+
 		escutaBotoes();
 	}
-	
-	private void escutaBotoes(){
-        exect.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                    	executarTestes();
-                    }
-                }
 
-        );
+	private void escutaBotoes() {
+		exect.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				executarTestes();
+			}
+		}
 
-        volt.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //sair da aplicação
-                        finish();
-                    }
-                }
-        );
+		);
+
+		volt.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				// sair da aplicação
+				finish();
+			}
+		});
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

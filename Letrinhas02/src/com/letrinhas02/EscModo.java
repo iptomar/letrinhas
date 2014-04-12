@@ -71,8 +71,8 @@ public class EscModo extends Activity {
 	public void modAluno(){
 		((TextView) findViewById(R.id.tvmoAluno)).setTextColor(Color.GREEN);
         ((TextView) findViewById(R.id.tvmoProf)).setTextColor(Color.rgb(0x5d, 0xdf , 0xff));
-        ((RadioButton) findViewById(R.id.rbmod1)).on;
-        
+        ((RadioButton) findViewById(R.id.rbmod1)).setActivated(true);
+        ((RadioButton) findViewById(R.id.rbmod2)).setActivated(false);
         
 		//declarar de como o teste será apresentado!
 		Toast.makeText(getApplicationContext(),"Entrar no teste em modo de Aluno", Toast.LENGTH_LONG).show();
@@ -90,7 +90,9 @@ public class EscModo extends Activity {
 
         ((TextView) findViewById(R.id.tvmoProf)).setTextColor(Color.GREEN);
         ((TextView) findViewById(R.id.tvmoAluno)).setTextColor(Color.rgb(0x5d, 0xdf , 0xff));
-		Toast.makeText(getApplicationContext(),"Entrar no teste em modo de Professor", Toast.LENGTH_LONG).show();
+        ((RadioButton) findViewById(R.id.rbmod2)).setActivated(true);
+        ((RadioButton) findViewById(R.id.rbmod1)).setActivated(false);
+        Toast.makeText(getApplicationContext(),"Entrar no teste em modo de Professor", Toast.LENGTH_LONG).show();
 		 //iniciar a pagina 2 (escolher teste)
         Intent it= new Intent(EscModo.this,EscolheTeste.class);
         startActivity(it);
