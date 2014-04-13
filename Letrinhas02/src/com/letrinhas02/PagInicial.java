@@ -127,8 +127,7 @@ public class PagInicial extends Activity {
 		// Upon interacting with UI controls, delay any scheduled hide()
 		// operations to prevent the jarring behavior of controls going away
 		// while interacting with the UI.
-		findViewById(R.id.bEntrar1).setOnTouchListener(
-				mDelayHideTouchListener);
+		findViewById(R.id.bEntrar1).setOnTouchListener(mDelayHideTouchListener);
 		
 		bentrar = (Button) findViewById(R.id.bEntrar1);
         ibotao = (ImageButton) findViewById(R.id.iBSair);
@@ -157,7 +156,6 @@ public class PagInicial extends Activity {
                         Intent it= new Intent(PagInicial.this,EscModo.class);
                         startActivity(it);
                         //finish();
-                    	//Toast.makeText(getApplicationContext(),"Irá muda de página", Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -180,7 +178,7 @@ public class PagInicial extends Activity {
 		// Trigger the initial hide() shortly after the activity has been
 		// created, to briefly hint to the user that UI controls
 		// are available.
-		delayedHide(100);
+		delayedHide(1000);
 	}
 
 	/**

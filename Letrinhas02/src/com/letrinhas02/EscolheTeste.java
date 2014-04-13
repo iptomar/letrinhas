@@ -1,11 +1,11 @@
 package com.letrinhas02;
 
 import com.letrinhas02.util.ExecutaTestes;
+import com.letrinhas02.util.SystemUiHider;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -26,6 +25,16 @@ public class EscolheTeste extends Activity {
 	boolean modo;
 
 	// Enderço/Query dos testes [];
+
+	/*********************************************************************
+	 * The flags to pass to {@link SystemUiHider#getInstance}.
+	 */
+	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+
+	/**
+	 * The instance of the {@link SystemUiHider} for this activity.
+	 */
+	private SystemUiHider mSystemUiHider;
 
 	/****************************
 	 * Por Fazer ******************************** executar os testes
@@ -47,30 +56,29 @@ public class EscolheTeste extends Activity {
 		}
 
 		// mostra quantos foram pressionados
-		Toast.makeText(getApplicationContext(),
-				"" + j + " Testes seleccionados", Toast.LENGTH_SHORT).show();
-		
-		// iniciar os testes.... por fazer
-		//Se existe items seleccionados arranca com os testes, 
-		if (0 < j) {
-			ExecutaTestes exect = new ExecutaTestes(this, modo);
-			exect.start();
-		}
-		else {//senão avisa que n~so existe nada seleccionado
-			android.app.AlertDialog alerta;
-	        //Cria o gerador do AlertDialog
-	        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	        //define o titulo
-	        builder.setTitle("Letrinhas 02");
-	        //define a mensagem
-	        builder.setMessage("Não existe testes seleccionados!");
-	        //define um botão como positivo
-	        builder.setPositiveButton("OK",null);
+		// Toast.makeText(getApplicationContext(),
+		// "" + j + " Testes seleccionados", Toast.LENGTH_SHORT).show();
 
-	        //cria o AlertDialog
-	        alerta = builder.create();
-	        //Mostra
-	        alerta.show();			
+		// iniciar os testes.... por fazer
+		// Se existe items seleccionados arranca com os testes,
+		if (0 < j) {
+			ExecutaTestes exect = new ExecutaTestes(EscolheTeste.this, modo);
+			exect.start();
+		} else {// senão avisa que n~so existe nada seleccionado
+			android.app.AlertDialog alerta;
+			// Cria o gerador do AlertDialog
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			// define o titulo
+			builder.setTitle("Letrinhas 02");
+			// define a mensagem
+			builder.setMessage("Não existe testes seleccionados!");
+			// define um botão como positivo
+			builder.setPositiveButton("OK", null);
+
+			// cria o AlertDialog
+			alerta = builder.create();
+			// Mostra
+			alerta.show();
 		}
 
 	}
@@ -86,6 +94,16 @@ public class EscolheTeste extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.escolhe_teste);
+
+		// esconder o title
+		final View contentView = findViewById(R.id.escTeste);
+
+		// Set up an instance of SystemUiHider to control the system UI for
+		// this activity.
+		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
+				HIDER_FLAGS);
+		mSystemUiHider.setup();
+		mSystemUiHider.hide();
 
 		/************************************************************************
 		 * Criação de um painel dinâmico para os botões de selecção dos testes
@@ -104,11 +122,13 @@ public class EscolheTeste extends Activity {
 		// Botão original que existe por defenição
 		ToggleButton tg1 = (ToggleButton) findViewById(R.id.ToggleButton1);
 
-		// Se o nº de testes for superior a 0, cria o nº de botões referentes
-		// aos testes
+		// Se existirem testes no repositório correspondentes, cria o nº de
+		// botões
+		// referentes ao nº de testes existentes
 		if (0 < nTestes) {
 			int i = 0;
 			// Atribuo o primeiro título ao primeiro botão
+			// ********************************+
 			// texto por defeito
 			tg1.setText("O título do teste");
 			// texto se não seleccionado = "titulo do teste sem numeração"
@@ -118,6 +138,7 @@ public class EscolheTeste extends Activity {
 			i++;
 
 			// Resto do títulos
+			// *********************************************************
 			while (i < nTestes) {
 				// um novo botão
 				ToggleButton tg = new ToggleButton(getBaseContext());
@@ -135,7 +156,8 @@ public class EscolheTeste extends Activity {
 				i++;
 			}
 		} else {
-
+			Toast.makeText(getApplicationContext(),
+					"Não existem Testes associados", Toast.LENGTH_SHORT).show();
 		}
 
 		volt = (ImageButton) findViewById(R.id.escTVoltar);

@@ -19,7 +19,17 @@ import android.widget.Toast;
  * @see SystemUiHider
  */
 public class EscModo extends Activity {
-	ImageButton aluno,prof,volt;
+	ImageButton aluno, prof, volt;
+
+	/*********************************************************************
+	 * The flags to pass to {@link SystemUiHider#getInstance}.
+	 */
+	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+
+	/**
+	 * The instance of the {@link SystemUiHider} for this activity.
+	 */
+	private SystemUiHider mSystemUiHider;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,82 +37,91 @@ public class EscModo extends Activity {
 
 		setContentView(R.layout.esc_modo);
 
+		// esconder o title
+		final View contentView = findViewById(R.id.escTeste);
+
+		// Set up an instance of SystemUiHider to control the system UI for
+		// this activity.
+		mSystemUiHider = SystemUiHider.getInstance(this, contentView,HIDER_FLAGS);
+		mSystemUiHider.setup();
+		mSystemUiHider.hide();
+
+		//inicializar os botões
 		aluno = (ImageButton) findViewById(R.id.ecmAluno);
 		prof = (ImageButton) findViewById(R.id.esmProf);
 		volt = (ImageButton) findViewById(R.id.escmVoltar);
 
 		escutaBotoes();
 	}
-	
-	private void escutaBotoes(){
-        aluno.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        modAluno();
-                    }
-                }
 
-        );
-        
-        prof.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        modProf();
-                    }
-                }
+	private void escutaBotoes() {
+		aluno.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				modAluno();
+			}
+		}
 
-        );
+		);
 
-        volt.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //sair da aplicação
-                        finish();
-                    }
-                }
-        );
+		prof.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				modProf();
+			}
+		}
+
+		);
+
+		volt.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				// sair da aplicação
+				finish();
+			}
+		});
 	}
 
-	
-
-	public void modAluno(){
+	public void modAluno() {
 		((TextView) findViewById(R.id.tvmoAluno)).setTextColor(Color.GREEN);
-        ((TextView) findViewById(R.id.tvmoProf)).setTextColor(Color.rgb(0x5d, 0xdf , 0xff));
-        ((RadioButton) findViewById(R.id.rbmod1)).setActivated(true);
-        ((RadioButton) findViewById(R.id.rbmod2)).setActivated(false);
-        
-		//declarar de como o teste será apresentado!
-		Toast.makeText(getApplicationContext(),"Entrar no teste em modo de Aluno", Toast.LENGTH_LONG).show();
-		 //iniciar a pagina 2 (escolher teste)
-        Intent it= new Intent(EscModo.this,EscolheTeste.class);
-        startActivity(it);
-        
-        
-    	//Toast.makeText(getApplicationContext(),"Irá muda de página", Toast.LENGTH_LONG).show();
-		//finish();
+		((TextView) findViewById(R.id.tvmoProf)).setTextColor(Color.rgb(0x5d,
+				0xdf, 0xff));
+		((RadioButton) findViewById(R.id.rbmod1)).setActivated(true);
+		((RadioButton) findViewById(R.id.rbmod2)).setActivated(false);
+
+		// declarar de como o teste será apresentado!
+		Toast.makeText(getApplicationContext(),
+				"Entrar no teste em modo de Aluno", Toast.LENGTH_LONG).show();
+		// iniciar a pagina 2 (escolher teste)
+		Intent it = new Intent(EscModo.this, EscolheTeste.class);
+		startActivity(it);
+
+		// Toast.makeText(getApplicationContext(),"Irá muda de página",
+		// Toast.LENGTH_LONG).show();
+		// finish();
 	}
 
-	public void modProf(){
-		//declarar de como o teste será apresentado!
+	public void modProf() {
+		// declarar de como o teste será apresentado!
 
-        ((TextView) findViewById(R.id.tvmoProf)).setTextColor(Color.GREEN);
-        ((TextView) findViewById(R.id.tvmoAluno)).setTextColor(Color.rgb(0x5d, 0xdf , 0xff));
-        ((RadioButton) findViewById(R.id.rbmod2)).setActivated(true);
-        ((RadioButton) findViewById(R.id.rbmod1)).setActivated(false);
-        Toast.makeText(getApplicationContext(),"Entrar no teste em modo de Professor", Toast.LENGTH_LONG).show();
-		 //iniciar a pagina 2 (escolher teste)
-        Intent it= new Intent(EscModo.this,EscolheTeste.class);
-        startActivity(it);
-        
+		((TextView) findViewById(R.id.tvmoProf)).setTextColor(Color.GREEN);
+		((TextView) findViewById(R.id.tvmoAluno)).setTextColor(Color.rgb(0x5d,
+				0xdf, 0xff));
+		((RadioButton) findViewById(R.id.rbmod2)).setActivated(true);
+		((RadioButton) findViewById(R.id.rbmod1)).setActivated(false);
+		Toast.makeText(getApplicationContext(),
+				"Entrar no teste em modo de Professor", Toast.LENGTH_LONG)
+				.show();
+		// iniciar a pagina 2 (escolher teste)
+		Intent it = new Intent(EscModo.this, EscolheTeste.class);
+		startActivity(it);
 
-    	//Toast.makeText(getApplicationContext(),"Irá muda de página", Toast.LENGTH_LONG).show();
-		//finish();
+		// Toast.makeText(getApplicationContext(),"Irá muda de página",
+		// Toast.LENGTH_LONG).show();
+		// finish();
 	}
 
-	public void voltar(){
+	public void voltar() {
 		finish();
 	}
 
