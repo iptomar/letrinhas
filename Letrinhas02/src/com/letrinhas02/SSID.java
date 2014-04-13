@@ -38,9 +38,7 @@ public class SSID extends Activity {
 	 * @param view
 	 */
 	public void OK(View view){
-		Toast.makeText(getApplicationContext(),"herehere", Toast.LENGTH_LONG).show();
-		connectToSSID("aluno17104@ipt.pt", ".PuqnCa");
-		Toast.makeText(getApplicationContext(),"here", Toast.LENGTH_LONG).show();
+		connectToSSID("tvSsid", "tvPass");
 		Intent intent = new Intent(this, ConnectionList.class);
 		startActivity(intent);
 	}

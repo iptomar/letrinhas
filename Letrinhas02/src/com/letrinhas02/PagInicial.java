@@ -142,6 +142,8 @@ public class PagInicial extends Activity {
         coneccaoW con = new coneccaoW(this);
         con.run();
         
+        Intent intent = new Intent(this, ConnectionList.class);
+        this.startActivity(intent);
         
         
         escutaBotoes();
