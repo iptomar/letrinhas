@@ -23,5 +23,6 @@
     <string name="escolhe_Modo">Escolher o Modo do teste a realizar</string>
     <string name="porAluno">Por Aluno</string>
     <string name="porProf">Por Professor</string>
+    <string name="title_activity_connection_list">ConnectionList</string>
 
 </resources>
