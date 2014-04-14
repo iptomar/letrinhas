@@ -2,100 +2,40 @@ package com.letrinhas02;
 
 import com.letrinhas02.util.ExecutaTestes;
 import com.letrinhas02.util.SystemUiHider;
+import com.letrinhas02.util.Teste;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class EscolheTeste extends Activity {
-	// modo prof, tvmoAluno = #5ddfff
 	ImageButton volt, exect;
-	public int nTestes = 15;
-	public String titulos[];
+	public int nTestes;
 	boolean modo;
-
-	// Enderço/Query dos testes [];
+	Teste[] teste;
 
 	/*********************************************************************
 	 * The flags to pass to {@link SystemUiHider#getInstance}.
 	 */
 	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
-
 	/**
 	 * The instance of the {@link SystemUiHider} for this activity.
 	 */
 	private SystemUiHider mSystemUiHider;
-
-	/****************************
-	 * Por Fazer ******************************** executar os testes
-	 * selecionados, um de cada vez
-	 */
-	public void executarTestes() {
-		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
-		int nElements = ll.getChildCount();
-
-		int j = 0;
-		// descobrir quantos e quais foram selecionados
-		for (int i = 0; i < nElements; i++) {
-			// verificar se o teste está ativo
-			if (((ToggleButton) ll.getChildAt(i)).isChecked()) {
-				// inserir numa lista a criar o teste a realizar.
-				// por fazer ********************************************+
-				j++;
-			}
-		}
-
-		// mostra quantos foram pressionados
-		// Toast.makeText(getApplicationContext(),
-		// "" + j + " Testes seleccionados", Toast.LENGTH_SHORT).show();
-
-		// iniciar os testes.... por fazer
-		// Se existe items seleccionados arranca com os testes,
-		if (0 < j) {
-			ExecutaTestes exect = new ExecutaTestes(EscolheTeste.this, modo);
-			exect.start();
-		} else {// senão avisa que n~so existe nada seleccionado
-			android.app.AlertDialog alerta;
-			// Cria o gerador do AlertDialog
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			// define o titulo
-			builder.setTitle("Letrinhas 02");
-			// define a mensagem
-			builder.setMessage("Não existe testes seleccionados!");
-			// define um botão como positivo
-			builder.setPositiveButton("OK", null);
-
-			// cria o AlertDialog
-			alerta = builder.create();
-			// Mostra
-			alerta.show();
-		}
-
-	}
-
-	/**
-	 * Finalizar a ativity e voltar para a pagina anterior
-	 */
-	public void voltar() {
-		finish();
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.escolhe_teste);
 
-		// esconder o title
+		volt = (ImageButton) findViewById(R.id.escTVoltar);
+		exect = (ImageButton) findViewById(R.id.ibComecar);
+		// esconder o title************************************************+
 		final View contentView = findViewById(R.id.escTeste);
 
 		// Set up an instance of SystemUiHider to control the system UI for
@@ -111,34 +51,53 @@ public class EscolheTeste extends Activity {
 		 * 
 		 * É necessário de saber primeiro onde estão os testes e quantos são!
 		 * (Comunicar com a BD)
+		 * 
+		 * aceder à BD local, contar o nº de testes, ex: 
+		 * 		nTestes ="Conta(blá.blá.blá)" ; 
+		 * 		teste= new Teste[nTestes];
+		 * 
+		 * e os seus títulos guardar essa informação num array para se aceder na
+		 * construção do scroll view. ex:
+		 * 			 for(int i=0;i<teste.length i++){ 
+		 * 				int tipo= "tipo(blá.blá.blá)"; 
+		 * 				String tit = "titulo(blábláblá)"; 
+		 * 				String ender = "endereço(blábláblá)"; 
+		 * 				teste[i]=new Teste(tip,tit,ender); 
+		 * 			}
+		 * 
 		 */
-		// aceder à BD local, contar o nº de testes e os seus títulos
-		// guardar essa informação num array para se aceder na construção do
-		// scroll view
 
-		//
-		// ScrollView sv = (ScrollView)findViewById(R.id.svEscolher);
+		
+		//teste:::::::::::
+		nTestes = 30;
+		teste = new Teste[nTestes];
+		for (int i = 0; i < teste.length; i++) {
+			int tip = i%3; //tipo texto
+			String tit = "O título do teste";
+			String ender =  "teste/myteste.txt";
+			teste[i] = new Teste(tip, tit, ender);
+		}//:::::::::::::::::::::::::::::::::::::::::::
+
+		// Painel dinâmico ****************************************************
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
 		// Botão original que existe por defenição
 		ToggleButton tg1 = (ToggleButton) findViewById(R.id.ToggleButton1);
 
 		// Se existirem testes no repositório correspondentes, cria o nº de
-		// botões
-		// referentes ao nº de testes existentes
+		// botões referentes ao nº de testes existentes
 		if (0 < nTestes) {
 			int i = 0;
 			// Atribuo o primeiro título ao primeiro botão
 			// ********************************+
 			// texto por defeito
-			tg1.setText("O título do teste");
+			tg1.setText(teste[i].getTitulo());
 			// texto se não seleccionado = "titulo do teste sem numeração"
-			tg1.setTextOff("O título do teste");
+			tg1.setTextOff(teste[i].getTitulo());
 			// texto se seleccionado = "titulo do teste com numeração"
-			tg1.setTextOn((i + 1) + " - " + "O título do teste");
+			tg1.setTextOn((i + 1) + " - " + teste[i].getTitulo());
 			i++;
 
 			// Resto do títulos
-			// *********************************************************
 			while (i < nTestes) {
 				// um novo botão
 				ToggleButton tg = new ToggleButton(getBaseContext());
@@ -146,80 +105,142 @@ public class EscolheTeste extends Activity {
 				tg.setLayoutParams(tg1.getLayoutParams());
 				tg.setTextSize(tg1.getTextSize());
 				// texto por defeito
-				tg.setText("O título do teste");
+				tg.setText(teste[i].getTitulo());
 				// texto se não seleccionado = "titulo do teste sem numeração"
-				tg.setTextOff("O título do teste");
+				tg.setTextOff(teste[i].getTitulo());
 				// texto se seleccionado = "titulo do teste com numeração"
-				tg.setTextOn((i + 1) + " - " + "O título do teste");
+				tg.setTextOn((i + 1) + " - " + teste[i].getTitulo());
 				// inserir no scroll view
 				ll.addView(tg);
 				i++;
 			}
 		} else {
-			Toast.makeText(getApplicationContext(),
-					"Não existem Testes associados", Toast.LENGTH_SHORT).show();
+			android.app.AlertDialog alerta;
+			// Cria o gerador do AlertDialog
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			// define o titulo
+			builder.setTitle("Letrinhas 02");
+			// define a mensagem
+			builder.setMessage("Não foram encontrados testes no repositório");
+			// define um botão como positivo
+			builder.setPositiveButton("OK", null);
+			// cria o AlertDialog
+			alerta = builder.create();
+			// Mostra
+			alerta.show();
+			
+			//esconder os botões
+			tg1.setVisibility(View.INVISIBLE);
+			exect.setVisibility(View.INVISIBLE);
+			
 		}
-
+		
 		volt = (ImageButton) findViewById(R.id.escTVoltar);
 		exect = (ImageButton) findViewById(R.id.ibComecar);
 
 		escutaBotoes();
 	}
 
+	/**
+	 * Procedimento para voltar a esconder o titulo caso este esteja activo
+	 * 
+	 * @author Thiago
+	 */
+	@Override
+	public boolean hasWindowFocus() {
+		// esconder o title
+		final View contentView = findViewById(R.id.escTeste);
+		// Set up an instance of SystemUiHider to control the system UI for
+		// this activity.
+		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
+				HIDER_FLAGS);
+		mSystemUiHider.setup();
+		mSystemUiHider.hide();
+		return true;
+	}
+
+	/**
+	 * Procedimento para veirficar os botões
+	 * 
+	 * @author Thiago
+	 */
 	private void escutaBotoes() {
 		exect.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				executarTestes();
 			}
-		}
-
-		);
+		});
 
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {
-				// sair da aplicação
+			public void onClick(View view) {// sair da aplicação
 				finish();
 			}
 		});
 	}
+	
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.escolhe_teste, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
+	/**************************************************************************
+	 * Por Fazer ******************************** executar os testes
+	 * selecionados, um de cada vez
 	 */
-	public static class PlaceholderFragment extends Fragment {
+	public void executarTestes() {
+		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
+		// contar o nº de elementos (testes)
+		int nElements = ll.getChildCount();
 
-		public PlaceholderFragment() {
+		int j = 0;
+		// contar quantos e quais foram selecionados
+		for (int i = 0; i < nElements; i++) {
+			// verificar se o teste está ativo
+			if (((ToggleButton) ll.getChildAt(i)).isChecked()) {
+				j++;
+			}
+		}
+		Toast.makeText(getApplicationContext(), j + " Testes seleccionados",
+				Toast.LENGTH_SHORT).show();
+		
+		//Copiar os testes seleccionados para uma lista auxiliar
+		Teste []lista= new Teste[j];
+		j = 0;
+		for (int i = 0; i < nElements; i++) {
+			if (((ToggleButton) ll.getChildAt(i)).isChecked()) {
+				lista[j]=teste[i];
+				j++;
+			}
+		}
+		
+		// /identificar o modo de apresentação de testes, se Professor ou
+		// aluno*****************+++++++++++++++
+		// Descobrir como passar valores/parametros entre activity's
+
+		// modo =
+		// findViewById(R.layout.esc_modo).findViewById(id.rbmod2).isSelected();
+
+		// iniciar os testes.... 
+		// Se existe items seleccionados arranca com os testes,
+		if (0 < j) {
+			ExecutaTestes exect = new ExecutaTestes(this, modo, lista);
+			exect.run(); // Método run, pois a DVM é burra!!! e não funciona
+							// muito bem com as threads
+
+		} else {// senão avisa que não existe nada seleccionado
+			android.app.AlertDialog alerta;
+			// Cria o gerador do AlertDialog
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			// define o titulo
+			builder.setTitle("Letrinhas 02");
+			// define a mensagem
+			builder.setMessage("Não existem testes seleccionados!");
+			// define um botão como positivo
+			builder.setPositiveButton("OK", null);
+			// cria o AlertDialog
+			alerta = builder.create();
+			// Mostra
+			alerta.show();
 		}
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.escolhe_teste, container,
-					false);
-			return rootView;
-		}
 	}
 
 }

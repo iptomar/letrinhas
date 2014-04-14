@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/escModo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
@@ -97,20 +98,5 @@
         android:layout_alignTop="@+id/ecmAluno"
         android:contentDescription="@string/porProf"
         android:src="@drawable/docentes" />
-
-    <RadioButton
-        android:id="@+id/rbmod1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvmoProf"
-        android:layout_toRightOf="@+id/ecmAluno" />
-
-    <RadioButton
-        android:id="@+id/rbmod2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvmoProf"
-        android:layout_marginRight="22dp"
-        android:layout_toLeftOf="@+id/tvmoProf" />
 
 </RelativeLayout>

@@ -10,10 +10,10 @@ import android.widget.Toast;
  * (preferencialmente) 3G, 4G, GSM
  * 
  * 
- * @author ...
+ * @author Dário
  * 
  */
-public class coneccaoW extends Thread {
+public class coneccaoW extends Thread{
 	WifiManager mainWifiObj;
 	Activity act;
 
@@ -21,27 +21,31 @@ public class coneccaoW extends Thread {
 		this.act = act;
 	}
 
-	/**
-	 * Liga autoaticamente ao wifi se existir uma ligação e ou se esta não estiver ligada
-	 * @author Dário
-	 */
+	@Override
 	public void run() {
 		mainWifiObj = (WifiManager) act.getSystemService(Context.WIFI_SERVICE);
 		// Automatic Connection to wifi
 		if (mainWifiObj.isWifiEnabled()) {
 			// wifi is enabled
-			Toast.makeText(act.getApplicationContext(), "WI-FI Ligado",Toast.LENGTH_LONG).show();
+			Toast.makeText(act.getApplicationContext(), "WI-FI Ligado",
+					Toast.LENGTH_LONG).show();
 		} else {
 			try {
-				Toast.makeText(act.getApplicationContext(), "WI-FI Desligado",Toast.LENGTH_SHORT).show();
+				Toast.makeText(act.getApplicationContext(), "WI-FI Desligado",
+						Toast.LENGTH_SHORT).show();
 				Thread.sleep(500);
-				Toast.makeText(act.getApplicationContext(), "A Ligar",Toast.LENGTH_SHORT).show();
+				Toast.makeText(act.getApplicationContext(), "A Ligar",
+						Toast.LENGTH_SHORT).show();
 				Thread.sleep(500);
 				mainWifiObj.setWifiEnabled(true);
-				Toast.makeText(act.getApplicationContext(), "WI-FI Ligado",Toast.LENGTH_LONG).show();
+				Toast.makeText(act.getApplicationContext(), "WI-FI Ligado",
+						Toast.LENGTH_LONG).show();
 			} catch (InterruptedException e) {
-				Toast.makeText(act.getApplicationContext(),"Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
+				Toast.makeText(act.getApplicationContext(),
+						"Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
 			}
 		}
+		
+		
 	}
 }

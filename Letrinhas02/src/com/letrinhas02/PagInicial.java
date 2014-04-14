@@ -140,11 +140,7 @@ public class PagInicial extends Activity {
 //###### Iniciar uma classe do tipo thread para detetar a ligação, iniciar a sincronização da BD, desativar
 //###### a barra de progresso e ativar o botão para entrar.
         coneccaoW con = new coneccaoW(this);
-        con.run();
-        
-        Intent intent = new Intent(this, ConnectionList.class);
-        this.startActivity(intent);
-        
+        con.run();//Método run, pois a DVM é burra!!! e não funciona muito bem com as threads e a tarefa Start()
         
         escutaBotoes();
 	}

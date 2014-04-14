@@ -25,7 +25,6 @@
             android:theme="@style/FullscreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -40,10 +39,7 @@
             android:label="@string/title_activity_escolhe_teste"
             android:theme="@style/FullscreenTheme" >
         </activity>
-        <activity
-            android:name="com.letrinhas02.ConnectionList"
-            android:label="@string/title_activity_connection_list" >
-        </activity>
+       
     </application>
 
 </manifest>
