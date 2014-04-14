@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
+    android:screenOrientation="landscape"
+    android:configChanges="orientation|keyboardHidden|screenSize"
     tools:context="com.letrinhas02.PagInicial" >
 
     <!--

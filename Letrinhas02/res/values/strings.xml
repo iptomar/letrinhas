@@ -26,5 +26,10 @@
     <string name="title_activity_leitura_texto">Leitura de Textos</string>
     <string name="title_activity_leitura_palavras">Leitura de Palavras</string>
     <string name="concetList">ConectList</string>
+    <string name="title_activity_texto">Teste de texto</string>
+    <string name="title_activity_teste_texto">Teste de texto</string>
+    <string name="title_activity_teste__imagem">Teste de Imagem</string>
+    <string name="title_activity_teste__palavras">Teste_Palavras</string>
+    <string name="title_activity_teste__poema">Teste de Poema</string>
 
 </resources>

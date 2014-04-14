@@ -25,6 +25,7 @@
             android:theme="@style/FullscreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -39,20 +40,36 @@
             android:label="@string/title_activity_escolhe_teste"
             android:theme="@style/FullscreenTheme" >
         </activity>
-        
         <activity
             android:name="com.letrinhas02.ConnectionList"
             android:label="@string/concetList"
             android:theme="@style/FullscreenTheme" >
         </activity>
-        
-        
         <activity
             android:name="com.letrinhas02.SSID"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" >
         </activity>
-       
+        <activity
+            android:name="Testes.TextoActivity"
+            android:label="@string/title_activity_texto" >
+        </activity>
+        <activity
+            android:name="Testes.Teste_texto"
+            android:label="@string/title_activity_teste_texto" >
+        </activity>
+        <activity
+            android:name="Testes.Teste_Imagem"
+            android:label="@string/title_activity_teste__imagem" >
+        </activity>
+        <activity
+            android:name="Testes.Teste_Palavras"
+            android:label="@string/title_activity_teste__palavras" >
+        </activity>
+        <activity
+            android:name="Testes.Teste_Poema"
+            android:label="@string/title_activity_teste__poema" >
+        </activity>
     </application>
 
 </manifest>
