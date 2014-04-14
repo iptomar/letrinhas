@@ -27,6 +27,14 @@
          android:fitsSystemWindows.
     -->
 
+    <ProgressBar
+        android:id="@+id/pBarLink"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="575sp"
+        android:layout_marginTop="450sp" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -69,23 +77,13 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/logo2" />
 
+        <ImageButton
+            android:id="@+id/iBSair"
+            android:layout_width="110dp"
+            android:layout_height="122dp"
+            android:adjustViewBounds="false"
+            android:background="@drawable/exit"
+            android:contentDescription="@string/sair" />
     </FrameLayout>
-
-    <ProgressBar
-        android:id="@+id/pBarLink"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginLeft="575sp"
-        android:layout_marginTop="450sp" />
-
-    <ImageButton
-        android:id="@+id/iBSair"
-        android:layout_width="185dp"
-        android:layout_height="204dp"
-        android:layout_gravity="right"
-        android:adjustViewBounds="false"
-        android:background="@drawable/exit"
-        android:contentDescription="@string/sair" />
 
 </FrameLayout>

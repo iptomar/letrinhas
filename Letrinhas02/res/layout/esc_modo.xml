@@ -13,21 +13,6 @@
     android:screenOrientation="landscape"
     tools:context="com.letrinhas02.EscModo" >
 
-    <TextView
-        android:id="@+id/esmCabecalho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="76dp"
-        android:layout_marginTop="38dp"
-        android:drawableLeft="@drawable/logo2"
-        android:drawablePadding="31dp"
-        android:text="@string/escolhe_Modo"
-        android:textColor="#5ddfff"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
@@ -56,17 +41,6 @@
         android:contentDescription="@string/voltar"
         android:src="@drawable/voltar" />
 
-    <TextView
-        android:id="@+id/tvmoProf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/esmCabecalho"
-        android:layout_below="@+id/esmProf"
-        android:text="@string/porProf"
-        android:textColor="#5ddfff"
-        android:textSize="40sp"
-        android:textStyle="bold" />
-
     <ImageButton
         android:id="@+id/ecmAluno"
         android:layout_width="wrap_content"
@@ -90,12 +64,37 @@
         android:textSize="40sp"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/tvmoProf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/esmProf"
+        android:layout_below="@+id/esmProf"
+        android:text="@string/porProf"
+        android:textColor="#5ddfff"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/esmCabecalho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:drawableLeft="@drawable/logo2"
+        android:drawablePadding="31dp"
+        android:text="@string/escolhe_Modo"
+        android:textColor="#5ddfff"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
     <ImageButton
         android:id="@+id/esmProf"
         android:layout_width="215dp"
         android:layout_height="205dp"
-        android:layout_alignLeft="@+id/tvmoProf"
+        android:layout_alignRight="@+id/linearLayout1"
         android:layout_alignTop="@+id/ecmAluno"
+        android:layout_marginRight="103dp"
         android:contentDescription="@string/porProf"
         android:src="@drawable/docentes" />
 

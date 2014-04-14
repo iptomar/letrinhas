@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/escTVoltar"
         android:layout_alignLeft="@+id/escTRodape"
-        android:layout_alignTop="@+id/ibComecar"
+        android:layout_below="@+id/esTCabecalho"
         android:layout_toLeftOf="@+id/escTVoltar"
         android:background="@color/black_overlay" >
 
@@ -89,8 +89,8 @@
         android:id="@+id/esTCabecalho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/esTLogo"
-        android:layout_alignLeft="@+id/escTRodape"
+        android:layout_alignLeft="@+id/svEscolher"
+        android:layout_alignTop="@+id/esTLogo"
         android:drawableLeft="@drawable/logo2"
         android:text="@string/title_activity_escolhe_teste"
         android:textColor="#5ddfff"
