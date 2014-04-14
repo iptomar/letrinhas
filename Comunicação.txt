@@ -1,4 +1,13 @@
-﻿Tiago-17253-14-04-2014-01:17
+﻿Tiago-17253-14-04-2014-01:53
+->ola outravez! esta a trabalhar, apesar de algum promenores que te esqueceste! está a funcar!
+
+Tiago-17253-14-04-2014-01:38
+->ola outravez! Lamento mas não consegui testar as tuas alterações, pois acho que as alterações que faziam 
+arrancar as activity's, desapareceram... Mas estou a trabalhar nisso!!
+ 
+se mantiveram... Abraço
+
+Tiago-17253-14-04-2014-01:17
 ->ok! Mas ocorreu um erro outravez ao git, pois tu e eu andámos a fazer versões do mesmo doc, e isto deu raia, acho que já resolvi, mas tens de verificar se as tuas alterações 
 se mantiveram... Abraço
 

@@ -25,5 +25,6 @@
     <string name="porProf">Por Professor</string>
     <string name="title_activity_leitura_texto">Leitura de Textos</string>
     <string name="title_activity_leitura_palavras">Leitura de Palavras</string>
+    <string name="concetList">ConectList</string>
 
 </resources>

@@ -84,6 +84,14 @@
             android:adjustViewBounds="false"
             android:background="@drawable/exit"
             android:contentDescription="@string/sair" />
+
+        <Button
+            android:id="@+id/conect"
+            android:layout_width="138dp"
+            android:layout_height="128dp"
+            android:layout_gravity="right"
+            android:text="@string/concetList" />
+
     </FrameLayout>
 
 </FrameLayout>
