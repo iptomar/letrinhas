@@ -25,7 +25,7 @@ import android.widget.ProgressBar;
  * @author Thiago
  */
 public class PagInicial extends Activity {
-	 Button bentrar,conectL;	//botão para aceder ao menu
+	 Button bentrar;	//botão para aceder ao menu
 	 ImageButton ibotao;//botão para sair da app
 	 ProgressBar link;	//barra de progresso para simbolizar a sincronização caso exista ligação ao servidor.
 	
@@ -129,7 +129,6 @@ public class PagInicial extends Activity {
 		// while interacting with the UI.
 		findViewById(R.id.bEntrar1).setOnTouchListener(mDelayHideTouchListener);
 		
-		conectL= (Button) findViewById(R.id.conect);
 		
 		bentrar = (Button) findViewById(R.id.bEntrar1);
         ibotao = (ImageButton) findViewById(R.id.iBSair);
@@ -163,20 +162,6 @@ public class PagInicial extends Activity {
                 }
 
         );
-        
-        conectL.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(PagInicial.this, ConnectionList.class);
-                        startActivity(intent);
-
-                        //finish();
-                    }
-                }
-
-        );
-
 
         ibotao.setOnClickListener(
                 new View.OnClickListener() {
