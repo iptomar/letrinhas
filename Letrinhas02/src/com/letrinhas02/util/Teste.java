@@ -10,6 +10,7 @@ public class Teste {
 	int tipo;
 	String titulo;
 	String endereco;
+	byte[] image;
 	
 	/**
 	 * De momento este objeto tem um tipo, um título e o endereço/Query do seu conteúdo.
@@ -23,6 +24,15 @@ public class Teste {
 		this.tipo = tipo;
 		this.titulo = titulo;
 		this.endereco = endereco;
+	}
+	
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	public int getTipo() {

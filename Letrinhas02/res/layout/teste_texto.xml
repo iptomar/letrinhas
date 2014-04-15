@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="Testes.Teste_texto" >
+
+    <TextView
+        android:id="@+id/textCabecalho"
+        android:layout_width="213dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:drawableLeft="@drawable/logo2"
+        android:text="@string/teste"
+        android:textColor="#5ddfff"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/txtRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textCabecalho"
+        android:src="@drawable/record" />
+
+    <ImageButton
+        android:id="@+id/txtPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtRecord"
+        android:layout_below="@+id/textCabecalho"
+        android:src="@drawable/palyoff" />
+
+    <ImageButton
+        android:id="@+id/txtVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/voltar" />
+
+    <TextView
+        android:id="@+id/escmRodape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtVoltar"
+        android:layout_marginLeft="32dp"
+        android:layout_toRightOf="@+id/txtVoltar"
+        android:text="@string/letrinhas"
+        android:textColor="#5ddfff"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/txtAvaliar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/escmRodape"
+        android:layout_alignRight="@+id/txtPlay"
+        android:src="@drawable/right" />
+
+</RelativeLayout>
