@@ -142,10 +142,6 @@ public class PagInicial extends Activity {
 //###### a barra de progresso e ativar o botão para entrar.
         coneccaoW con = new coneccaoW(this);
         con.run();//Método run, pois a DVM é burra!!! e não funciona muito bem com as threads e a tarefa Start()
-        
-        Intent it= new Intent(PagInicial.this, Autenticacao.class);
-        startActivity(it);
-        
         escutaBotoes();
 	}
 
@@ -157,7 +153,7 @@ public class PagInicial extends Activity {
                     @Override
                     public void onClick(View view) {
                         //iniciar a pagina 2 (escolher teste)
-                        Intent it= new Intent(PagInicial.this,EscModo.class);
+                        Intent it= new Intent(PagInicial.this,Autenticacao.class);
                         startActivity(it);
                         //finish();
                     }
