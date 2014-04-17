@@ -31,40 +31,44 @@
         </activity>
         <activity
             android:name="com.letrinhas02.EscModo"
-            android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_esc_modo"
+            android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name="com.letrinhas02.EscolheTeste"
-            android:screenOrientation="landscape"
             android:label="@string/title_activity_escolhe_teste"
+            android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="Testes$Teste_texto"
-            android:screenOrientation="landscape"
+            android:name="com.letrinhas02.Testes$Teste_texto"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_teste_texto" >
+            android:label="@string/title_activity_teste_texto"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="Testes$Teste_Imagem"
-            android:screenOrientation="landscape"
+            android:name="com.letrinhas02.Testes$Teste_Imagem"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_teste__imagem" >
+            android:label="@string/title_activity_teste__imagem"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="Testes$Teste_Palavras"
-            android:screenOrientation="landscape"
+            android:name="com.letrinhas02.Testes$Teste_Palavras"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_teste__palavras" >
+            android:label="@string/title_activity_teste__palavras"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="Testes$Teste_Poema"
-            android:screenOrientation="portrait"
+            android:name="com.letrinhas02.Testes$Teste_Poema"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_teste__poema" >
+            android:label="@string/title_activity_teste__poema"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.letrinhas02.Autenticacao"
+            android:label="@string/title_activity_autenticacao" >
         </activity>
     </application>
 

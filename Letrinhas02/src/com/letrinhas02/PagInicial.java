@@ -143,7 +143,9 @@ public class PagInicial extends Activity {
         coneccaoW con = new coneccaoW(this);
         con.run();//Método run, pois a DVM é burra!!! e não funciona muito bem com as threads e a tarefa Start()
         
-
+        Intent it= new Intent(PagInicial.this, Autenticacao.class);
+        startActivity(it);
+        
         escutaBotoes();
 	}
 
