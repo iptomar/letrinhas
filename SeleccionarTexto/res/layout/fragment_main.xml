@@ -9,12 +9,13 @@
     tools:context="com.jorge.seleccionartexto.MainActivity$PlaceholderFragment" >
 
     <TextView
-        android:id="@+id/TextoAEscolher"     
+        android:id="@+id/TextoAEscolher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="@string/hello_world"
         android:textIsSelectable="true"
-        android:onClick="onClick"/>
+        android:textSize="50sp" />
 
     <TextView
         android:id="@+id/ClassificacoesEscolhidas"

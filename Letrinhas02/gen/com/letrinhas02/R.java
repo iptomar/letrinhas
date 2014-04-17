@@ -144,6 +144,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int dummy_content=0x7f060002;
         public static final int entrar=0x7f060003;
         public static final int escolhe_Modo=0x7f060013;
+        public static final int exemploTexto=0x7f060023;
         public static final int hello_world=0x7f06000d;
         public static final int letrinhas=0x7f060005;
         public static final int login=0x7f060021;

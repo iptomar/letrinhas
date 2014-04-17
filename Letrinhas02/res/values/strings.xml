@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <string name="app_name">Letrinhas02</string>
     <string name="dummy_button">Dummy Button</string>
@@ -36,5 +36,20 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="title_activity_autenticacao">Autenticacao</string>
+    <string name="exemploTexto"> Atirei o pau ao gato to\n 
+        Mas o gato to\n 
+        Não morreu eu eu\n 
+        A Dona Chica ca\n 
+        Assustou-se se\n 
+        Com o berro, com o berro\n 
+        Que o gato deu\n 
+        Miau !!!\n \n \n 
+        Sentado na chaminé é é!\n 
+        Veio uma pulga ga,\n 
+        morder-lhe o pé é é!\n 
+        Ou ele chora ra,\n 
+        ou ele grita ta:\n 
+        -Vai-te embora!\n 
+        -Pulga Maldita!!!</string>
 
 </resources>
