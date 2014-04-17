@@ -1,4 +1,8 @@
-﻿Dário-17104-17/04/2014-03:10
+﻿Tiago-17253-17-04-2014-21:30
+-> Dário, o exemplo do ecrã de autenticação está "impec", contudo fará mais sentido que este 
+ecrã apareça quando se estiver a escolher o professor, e este seja autenticado com as próprias credenciais.
+
+Dário-17104-17/04/2014-03:10
 ->A autenticação aparece ao carregares no enter, onde supostamente irias para o escmod
 e a pass e o user que pus de ante mão é admin admin
 
