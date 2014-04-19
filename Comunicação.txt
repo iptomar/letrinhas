@@ -1,3 +1,6 @@
+﻿Dário-17104-19/04/2014-19:50
+->Posso dar como acabado então o ecrã de autenticação? Como faltam componentes para se usar o ecrã e este ta feito passo á seguinte tarefa
+
 Diogo-17652-19-04-2014-18:24
 ->Tiago, Eu não percebo bem o teu layout para o teste de texto, não me está a parecer o mais intuitivo 
 para as crianças, mas isto é só uma opinião. 
