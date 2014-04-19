@@ -138,14 +138,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class layout {
         public static final int activity_autenticacao=0x7f030000;
-        public static final int activity_login=0x7f030001;
-        public static final int esc_modo=0x7f030002;
-        public static final int escolhe_teste=0x7f030003;
-        public static final int pag_inicial=0x7f030004;
-        public static final int teste_imagem=0x7f030005;
-        public static final int teste_palavras=0x7f030006;
-        public static final int teste_poema=0x7f030007;
-        public static final int teste_texto=0x7f030008;
+        public static final int esc_modo=0x7f030001;
+        public static final int escolhe_teste=0x7f030002;
+        public static final int pag_inicial=0x7f030003;
+        public static final int teste_imagem=0x7f030004;
+        public static final int teste_palavras=0x7f030005;
+        public static final int teste_poema=0x7f030006;
+        public static final int teste_texto=0x7f030007;
     }
     public static final class menu {
         public static final int autenticacao=0x7f080000;
