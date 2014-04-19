@@ -1,3 +1,11 @@
+Diogo-17652-19-04-2014-18:24
+->Tiago, Eu não percebo bem o teu layout para o teste de texto, não me está a parecer o mais intuitivo 
+para as crianças, mas isto é só uma opinião. 
+Se houver disponibilidade eu sugeria uma reunião esta semana com todos os elementos do grupo, ou pelo
+menos os que puderem, para discutir alguns pontos do projeto. Acho que seria produtivo para estarmos todos 
+sincronizados, o que não tem sido fácil até agora, de minha parte se alguém quiser aparecer na escola
+durante a semana estou disponível qualquer que seja o dia.
+
 ﻿Tiago-17253-17-04-2014-21:30
 -> Dário, o exemplo do ecrã de autenticação está "impec", contudo fará mais sentido que este 
 ecrã apareça quando se estiver a escolher o professor, e este seja autenticado com as próprias credenciais.
