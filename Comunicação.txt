@@ -1,10 +1,20 @@
-﻿Dário-17104-19/04/2014-21:3
+﻿Tiago-17253-20-04-2014-12:35
+->Diogo o Layout do teste de texto, serve para os dois modos, sendo que no modo de aluno o painel de avaliação 
+não estará visivel, deixando apenas visivel o painel do texto e os botões de gravação de voz, reprodução, 
+avançar e sair. Deixando assim para o aluno apenas a tarefa de ler e mantendo a opção de repetir a leitura as 
+vezes que entender. Se tudo correr bem, amanhã deverei ter este layout terminado. Contudo se continuares com 
+dúvidas, e perferires podemos encontramo-nos no ipt quando quiseres e explico-te a ideia melhor.
+->Sim Dário, podes passar à próxima tarefa, mas temos que ver o que nos dá a BD, pois já temos muitos objetos
+que necessitam de recorrer à BD para que se tornem coerentes. 
+
+Dário-17104-19/04/2014-21:3
 -> Diogo não é de uma reunião que precisamos, precisamos é que não seja sempre os mesmos
 a trabalharem e quanto ao layout que o tiago apresentou feito
 não é para os alunos serve de auxiliar na avaliação do professor
 
 Dário-17104-19/04/2014-19:50
-->Posso dar como acabado então o ecrã de autenticação? Como faltam componentes para se usar o ecrã e este ta feito passo á seguinte tarefa
+->Posso dar como acabado então o ecrã de autenticação? Como faltam componentes para se usar o ecrã e este ta 
+feito passo á seguinte tarefa.
 
 Diogo-17652-19-04-2014-18:24
 ->Tiago, Eu não percebo bem o teu layout para o teste de texto, não me está a parecer o mais intuitivo 
