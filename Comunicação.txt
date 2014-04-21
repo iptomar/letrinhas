@@ -1,4 +1,11 @@
-﻿Tiago-17253-20-04-2014-12:35
+﻿Dário-17104-21/04/2014-20:50
+-> Como não vejo nada feito em relação á bd que temos que usar localmente para 
+podermos avançar com algum trabalho, tenho estado a pesquizar e
+entre hoje e amanhã(espero eu) terei pronto uma bd feita por mim com fim apenas de criação local
+ou seja para que se possa fazer algo tendo alguma coisa para trabalhar, espero que gostem da ideia
+porque foi a unica que tive para não perder tempo e assim poder avançar com alguma coisa.
+
+Tiago-17253-20-04-2014-12:35
 ->Diogo o Layout do teste de texto, serve para os dois modos, sendo que no modo de aluno o painel de avaliação 
 não estará visivel, deixando apenas visivel o painel do texto e os botões de gravação de voz, reprodução, 
 avançar e sair. Deixando assim para o aluno apenas a tarefa de ler e mantendo a opção de repetir a leitura as 
