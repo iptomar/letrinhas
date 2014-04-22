@@ -1,4 +1,9 @@
-﻿Dário-17104-22/04/2014-16:59
+﻿Dário-17104-22/04/2014-18:09
+->Estou a conseguir alguma coisa, mas por agora só terei 2 tabelas muito simples
+a profs e a alunos e espero ter isto pronto para termos algo para poder trabalhar
+
+
+Dário-17104-22/04/2014-16:59
 ->isto está complicado sei criar as tabelas, mas para inserir dados e ver os dados,
 não consigo sem que seja manualmente o que tinha-se que alterar o código fonte
 toda a vez que se quer alterações :S
