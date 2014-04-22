@@ -1,4 +1,8 @@
-﻿
+﻿Dário-17104-22/04/2014-16:59
+->isto está complicado sei criar as tabelas, mas para inserir dados e ver os dados,
+não consigo sem que seja manualmente o que tinha-se que alterar o código fonte
+toda a vez que se quer alterações :S
+
 Tiago-17253-20-04-2014-12:35
 -> Se é a unica maneira de conseguir-mos avançar, força nisso! Não te esqueças dos comentários para poder-mos
  usar isso no resto dos conteúdos. E apesar de estares a fazê-lo à parte, segue o modelo de dados de SI, assim
