@@ -51,5 +51,11 @@
         ou ele grita ta:\n 
         -Vai-te embora!\n 
         -Pulga Maldita!!!</string>
+    <string name="min">minutos</string>
+    <string name="sec">seg</string>
+    <string name="vacilar">Vacilações</string>
+    <string name="fragment">Fragmentações</string>
+    <string name="silabac">Silabações</string>
+    <string name="repeti">Repetições</string>
 
 </resources>

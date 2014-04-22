@@ -1,4 +1,10 @@
-﻿Dário-17104-21/04/2014-20:50
+﻿
+Tiago-17253-20-04-2014-12:35
+-> Se é a unica maneira de conseguir-mos avançar, força nisso! Não te esqueças dos comentários para poder-mos
+ usar isso no resto dos conteúdos. E apesar de estares a fazê-lo à parte, segue o modelo de dados de SI, assim
+será mais facil de criar um "Interface" entre os dois sistemas.
+
+Dário-17104-21/04/2014-20:50
 -> Como não vejo nada feito em relação á bd que temos que usar localmente para 
 podermos avançar com algum trabalho, tenho estado a pesquizar e
 entre hoje e amanhã(espero eu) terei pronto uma bd feita por mim com fim apenas de criação local
