@@ -1,4 +1,8 @@
 ﻿Dário-17104-22/04/2014-18:09
+->Entre amanhã e depois de amanhã será disponibilizado pelo grupo de SI o material
+para podermos sincronizar e assim aceder a uma bd local
+
+Dário-17104-22/04/2014-18:09
 ->Estou a conseguir alguma coisa, mas por agora só terei 2 tabelas muito simples
 a profs e a alunos e espero ter isto pronto para termos algo para poder trabalhar
 
