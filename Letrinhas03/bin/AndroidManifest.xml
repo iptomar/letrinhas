@@ -48,9 +48,13 @@
         </activity>
         <activity
             android:name="com.letrinhas03.Teste_Texto"
-            android:label="@string/title_activity_teste_texto" 
+            android:label="@string/title_activity_teste_texto"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name="com.letrinhas03.Teste_Poema"
+            android:label="@string/title_activity_teste__poema" >
         </activity>
     </application>
 
