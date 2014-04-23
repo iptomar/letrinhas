@@ -3,11 +3,15 @@ package com.letrinhas03;
 import com.letrinhas03.util.SystemUiHider;
 import com.letrinhas03.util.Teste;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -21,6 +25,16 @@ public class EscolheTeste extends Activity {
 	Teste[] teste;
 	Teste[] lista;
 
+	/**
+	 * Whether or not the system UI should be auto-hidden after
+	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
+	 */
+	private static final boolean AUTO_HIDE = true;
+	/**
+	 * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
+	 * user interaction before hiding the system UI.
+	 */
+	private static final int AUTO_HIDE_DELAY_MILLIS = 1000;
 	/*********************************************************************
 	 * The flags to pass to {@link SystemUiHider#getInstance}.
 	 */
@@ -34,12 +48,11 @@ public class EscolheTeste extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.escolhe_teste);
+
 		// recebe o parametro de modo
 		Bundle b = getIntent().getExtras();
 		modo = b.getBoolean("Modo");
 
-		volt = (ImageButton) findViewById(R.id.escTVoltar);
-		exect = (ImageButton) findViewById(R.id.ibComecar);
 		// esconder o title************************************************+
 		final View contentView = findViewById(R.id.escTeste);
 
@@ -48,7 +61,27 @@ public class EscolheTeste extends Activity {
 		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
 				HIDER_FLAGS);
 		mSystemUiHider.setup();
-		mSystemUiHider.hide();
+		mSystemUiHider
+				.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
+					// Cached values.
+					int mShortAnimTime;
+
+					@Override
+					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+					public void onVisibilityChange(boolean visible) {
+						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+							if (mShortAnimTime == 0) {
+								mShortAnimTime = getResources().getInteger(
+										android.R.integer.config_shortAnimTime);
+							}
+						}
+
+						if (visible && AUTO_HIDE) {
+							// Schedule a hide().
+							delayedHide(AUTO_HIDE_DELAY_MILLIS);
+						}
+					}
+				});
 
 		/************************************************************************
 		 * Criação de um painel dinâmico para os botões de selecção dos testes
@@ -67,14 +100,14 @@ public class EscolheTeste extends Activity {
 		 * 
 		 */
 
-		// teste:::::::::::
+		// teste:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		nTestes = 30;
 		teste = new Teste[nTestes];
 		for (int i = 0; i < teste.length; i++) {
 			int tip = 0; // tipo texto
 			String tit = "O título do teste";
 			teste[i] = new Teste(i, tip, tit);
-		}// :::::::::::::::::::::::::::::::::::::::::::
+		}// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 		// Painel dinâmico ****************************************************
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
@@ -139,23 +172,48 @@ public class EscolheTeste extends Activity {
 		escutaBotoes();
 	}
 
-	/**
-	 * Procedimento para voltar a esconder o titulo caso este esteja activo
-	 * 
-	 * @author Thiago
-	 */
 	@Override
-	public boolean hasWindowFocus() {
-		// esconder o title
-		final View contentView = findViewById(R.id.escTeste);
-		// Set up an instance of SystemUiHider to control the system UI for
-		// this activity.
-		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
-				HIDER_FLAGS);
-		mSystemUiHider.setup();
-		mSystemUiHider.hide();
-		return true;
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+
+		// Trigger the initial hide() shortly after the activity has been
+		// created, to briefly hint to the user that UI controls
+		// are available.
+		delayedHide(1000);
 	}
+
+	/**
+	 * Touch listener to use for in-layout UI controls to delay hiding the
+	 * system UI. This is to prevent the jarring behavior of controls going away
+	 * while interacting with activity UI.
+	 */
+	View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+		@Override
+		public boolean onTouch(View view, MotionEvent motionEvent) {
+			if (AUTO_HIDE) {
+				delayedHide(AUTO_HIDE_DELAY_MILLIS);
+			}
+			return false;
+		}
+	};
+
+	Handler mHideHandler = new Handler();
+	Runnable mHideRunnable = new Runnable() {
+		@Override
+		public void run() {
+			mSystemUiHider.hide();
+		}
+	};
+
+	/**
+	 * Schedules a call to hide() in [delay] milliseconds, canceling any
+	 * previously scheduled calls.
+	 */
+	private void delayedHide(int delayMillis) {
+		mHideHandler.removeCallbacks(mHideRunnable);
+		mHideHandler.postDelayed(mHideRunnable, delayMillis);
+	}
+
 
 	/**
 	 * Procedimento para veirficar os botões
@@ -178,9 +236,10 @@ public class EscolheTeste extends Activity {
 		});
 	}
 
-	/**************************************************************************
-	 * Por Fazer ******************************** executar os testes
-	 * selecionados, um de cada vez
+	/**
+	 * Procedimento para executar os testes selecionados, um de cada vez
+	 * 
+	 * @author Thiago
 	 */
 	public void executarTestes() {
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
@@ -209,9 +268,9 @@ public class EscolheTeste extends Activity {
 		}
 
 		// iniciar os testes....
-		// Se existe items seleccionados arranca com os testes,
+		// Se existir items seleccionados arranca com os testes,
 		if (0 < j) {
-			//Decompor o array de teste, para poder enviar por parametros
+			// Decompor o array de teste, para poder enviar por parametros
 			int[] lstID = new int[lista.length];
 			int[] lstTipo = new int[lista.length];
 			String[] lstTitulo = new String[lista.length];
@@ -221,66 +280,55 @@ public class EscolheTeste extends Activity {
 				lstTitulo[i] = lista[i].getTitulo();
 			}
 
+			// enviar o parametro de modo
+			Bundle wrap = new Bundle();
+			wrap.putBoolean("Modo", modo);
+
+			// teste, a depender das informações da BD
+			// ****************************************************************************
+			wrap.putString("Aluno", "EI3C-Tiago Fernandes");
+			wrap.putString("Professor", "ESTT-Antonio Manso");
+
+			// resto dos parametros
+			wrap.putIntArray("ListaID", lstID);
+			wrap.putIntArray("ListaTipo", lstTipo);
+			wrap.putStringArray("ListaTitulo", lstTitulo);
+
 			switch (lista[0].getTipo()) {
-			case 0:
-				
-				// lançar a nova activity do tipo texto,
-				// enviar o parametro de modo
-				Bundle wrap = new Bundle();
-				wrap.putBoolean("Modo", modo);
+			case 0: // lançar a nova activity do tipo texto,
 
-				// teste, a depender das informações da BD
-				// ****************************
-				wrap.putString("Aluno", "EI3C-Tiago Fernandes");
-				wrap.putString("Professor", "ESTT-Antonio Manso");
-
-				wrap.putIntArray("ListaID", lstID);
-				wrap.putIntArray("ListaTipo", lstTipo);
-				wrap.putStringArray("ListaTitulo", lstTitulo);
-
-				// iniciar a pagina 2 (escolher teste)
 				Intent it = new Intent(getApplicationContext(),
 						Teste_Texto.class);
 				it.putExtras(wrap);
 
 				startActivity(it);
 
-				// while(isRunning);
+				break;
+			case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
+					//
+					// Intent it = new Intent(getApplicationContext(),
+					// Teste_Texto.class);
+					// it.putExtras(wrap);
 
-				// Toast.makeText(null, "TEste acabou!!!",
-				// Toast.LENGTH_LONG).show();
+				// startActivity(it);
 
 				break;
-			case 1:
-
-				Toast.makeText(getApplicationContext(), "" + 1 + " - Palavras",
-						Toast.LENGTH_SHORT).show();
-
-				// lançar a nova activity do tipo Palavras, e o seu conteúdo
+			case 2: // lançar a nova activity do tipo Poema, e o seu conteúdo
 				//
-				// Intent it = new
-				// Intent(act.getApplicationContext(),texto.class);
-				// act.startActivity(it);
+				// Intent it = new Intent(getApplicationContext(),
+				// Teste_Texto.class);
+				// it.putExtras(wrap);
 
-				// esperar que esta termine
-				// while (!act.isDestroyed());
+				// startActivity(it);
 
 				break;
-			case 2:
-				Toast.makeText(getApplicationContext(), 2 + " - Poemas",
-						Toast.LENGTH_SHORT).show();
-				// lançar a nova activity do tipo Poema, e o seu conteúdo
+			case 3: // lançar a nova activity do tipo imagem, e o seu conteúdo
 				//
-				//
+				// Intent it = new Intent(getApplicationContext(),
+				// Teste_Texto.class);
+				// it.putExtras(wrap);
 
-				break;
-			case 3:
-				Toast.makeText(getApplicationContext(), 3 + " - Imagens",
-						Toast.LENGTH_SHORT).show();
-				// lançar a nova activity do tipo imagem, e o seu conteúdo
-				//
-				//
-
+				// startActivity(it);
 				break;
 			default:
 				Toast.makeText(getApplicationContext(), " - Tipo não defenido",

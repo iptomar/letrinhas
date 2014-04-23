@@ -63,5 +63,6 @@
     <string name="mais">mais</string>
     <string name="espaco">"                        "</string>
     <string name="numer">20</string>
+    <string name="pErrada">P. Erradas:</string>
 
 </resources>

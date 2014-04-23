@@ -91,7 +91,7 @@
                 android:background="#505050"
                 android:text="@string/min"
                 android:textColor="#eeeeee"
-                android:textSize="35sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -101,7 +101,31 @@
                 android:background="#505050"
                 android:text="@string/sec"
                 android:textColor="#eeeeee"
-                android:textSize="35sp"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/pErrada"
+                android:text="@string/pErrada"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/TextView07"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/numer"
+                android:textColor="#ff2020"
+                android:textSize="30sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -115,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/vacilar"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -161,7 +185,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -207,7 +231,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/silabac"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -253,7 +277,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/repeti"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -317,7 +341,9 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="fill"
                 android:text="@string/exemploTexto"
+                android:textIsSelectable="true"
                 android:textSize="35sp" />
+
         </LinearLayout>
     </ScrollView>
 
