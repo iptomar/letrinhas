@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/textCabecalho"
-        android:layout_width="213dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -41,7 +41,7 @@
         android:src="@drawable/voltar" />
 
     <TextView
-        android:id="@+id/escmRodape"
+        android:id="@+id/textRodape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/txtVoltar"
@@ -325,7 +325,7 @@
         android:id="@+id/txtAvaliar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/escmRodape"
+        android:layout_alignBottom="@+id/textRodape"
         android:layout_alignRight="@+id/txtControlo"
         android:contentDescription="@string/entrar"
         android:src="@drawable/valido" />

@@ -1,11 +1,12 @@
 package com.letrinhas03;
 
-import com.letrinhas03.util.ExecutaTestes;
 import com.letrinhas03.util.SystemUiHider;
 import com.letrinhas03.util.Teste;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -18,6 +19,7 @@ public class EscolheTeste extends Activity {
 	public int nTestes;
 	boolean modo;
 	Teste[] teste;
+	Teste[] lista;
 
 	/*********************************************************************
 	 * The flags to pass to {@link SystemUiHider#getInstance}.
@@ -32,7 +34,7 @@ public class EscolheTeste extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.escolhe_teste);
-		//recebe o parametro de modo
+		// recebe o parametro de modo
 		Bundle b = getIntent().getExtras();
 		modo = b.getBoolean("Modo");
 
@@ -55,31 +57,24 @@ public class EscolheTeste extends Activity {
 		 * É necessário de saber primeiro onde estão os testes e quantos são!
 		 * (Comunicar com a BD)
 		 * 
-		 * aceder à BD local, contar o nº de testes, ex: 
-		 * 		nTestes ="Conta(blá.blá.blá)" ; 
-		 * 		teste= new Teste[nTestes];
+		 * aceder à BD local, contar o nº de testes, ex: nTestes
+		 * ="Conta(blá.blá.blá)" ; teste= new Teste[nTestes];
 		 * 
 		 * e os seus títulos guardar essa informação num array para se aceder na
-		 * construção do scroll view. ex:
-		 * 			 for(int i=0;i<teste.length i++){ 
-		 * 				int tipo= "tipo(blá.blá.blá)"; 
-		 * 				String tit = "titulo(blábláblá)"; 
-		 * 				String ender = "endereço(blábláblá)"; 
-		 * 				teste[i]=new Teste(tip,tit,ender); 
-		 * 			}
+		 * construção do scroll view. ex: for(int i=0;i<teste.length i++){ int
+		 * tipo= "tipo(blá.blá.blá)"; String tit = "titulo(blábláblá)"; String
+		 * ender = "endereço(blábláblá)"; teste[i]=new Teste(tip,tit,ender); }
 		 * 
 		 */
 
-		
-		//teste:::::::::::
+		// teste:::::::::::
 		nTestes = 30;
 		teste = new Teste[nTestes];
 		for (int i = 0; i < teste.length; i++) {
-			int tip = i%3; //tipo texto
+			int tip = 0; // tipo texto
 			String tit = "O título do teste";
-			String ender =  "teste/myteste.txt";
-			teste[i] = new Teste(tip, tit, ender);
-		}//:::::::::::::::::::::::::::::::::::::::::::
+			teste[i] = new Teste(i, tip, tit);
+		}// :::::::::::::::::::::::::::::::::::::::::::
 
 		// Painel dinâmico ****************************************************
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
@@ -131,13 +126,13 @@ public class EscolheTeste extends Activity {
 			alerta = builder.create();
 			// Mostra
 			alerta.show();
-			
-			//esconder os botões
+
+			// esconder os botões
 			tg1.setVisibility(View.INVISIBLE);
 			exect.setVisibility(View.INVISIBLE);
-			
+
 		}
-		
+
 		volt = (ImageButton) findViewById(R.id.escTVoltar);
 		exect = (ImageButton) findViewById(R.id.ibComecar);
 
@@ -182,7 +177,6 @@ public class EscolheTeste extends Activity {
 			}
 		});
 	}
-	
 
 	/**************************************************************************
 	 * Por Fazer ******************************** executar os testes
@@ -203,24 +197,98 @@ public class EscolheTeste extends Activity {
 		}
 		Toast.makeText(getApplicationContext(), j + " Testes seleccionados",
 				Toast.LENGTH_SHORT).show();
-		
-		//Copiar os testes seleccionados para uma lista auxiliar
-		Teste []lista= new Teste[j];
+
+		// Copiar os testes seleccionados para uma lista auxiliar
+		lista = new Teste[j];
 		j = 0;
 		for (int i = 0; i < nElements; i++) {
 			if (((ToggleButton) ll.getChildAt(i)).isChecked()) {
-				lista[j]=teste[i];
+				lista[j] = teste[i];
 				j++;
 			}
 		}
-		
-		
-		// iniciar os testes.... 
+
+		// iniciar os testes....
 		// Se existe items seleccionados arranca com os testes,
 		if (0 < j) {
-			ExecutaTestes exect = new ExecutaTestes(this, modo, lista);
-			exect.run(); // Método run, pois a DVM é burra!!! e não funciona
-							// muito bem com as threads
+			//Decompor o array de teste, para poder enviar por parametros
+			int[] lstID = new int[lista.length];
+			int[] lstTipo = new int[lista.length];
+			String[] lstTitulo = new String[lista.length];
+			for (int i = 0; i < lista.length; i++) {
+				lstID[i] = lista[i].getID();
+				lstTipo[i] = lista[i].getTipo();
+				lstTitulo[i] = lista[i].getTitulo();
+			}
+
+			switch (lista[0].getTipo()) {
+			case 0:
+				
+				// lançar a nova activity do tipo texto,
+				// enviar o parametro de modo
+				Bundle wrap = new Bundle();
+				wrap.putBoolean("Modo", modo);
+
+				// teste, a depender das informações da BD
+				// ****************************
+				wrap.putString("Aluno", "EI3C-Tiago Fernandes");
+				wrap.putString("Professor", "ESTT-Antonio Manso");
+
+				wrap.putIntArray("ListaID", lstID);
+				wrap.putIntArray("ListaTipo", lstTipo);
+				wrap.putStringArray("ListaTitulo", lstTitulo);
+
+				// iniciar a pagina 2 (escolher teste)
+				Intent it = new Intent(getApplicationContext(),
+						Teste_Texto.class);
+				it.putExtras(wrap);
+
+				startActivity(it);
+
+				// while(isRunning);
+
+				// Toast.makeText(null, "TEste acabou!!!",
+				// Toast.LENGTH_LONG).show();
+
+				break;
+			case 1:
+
+				Toast.makeText(getApplicationContext(), "" + 1 + " - Palavras",
+						Toast.LENGTH_SHORT).show();
+
+				// lançar a nova activity do tipo Palavras, e o seu conteúdo
+				//
+				// Intent it = new
+				// Intent(act.getApplicationContext(),texto.class);
+				// act.startActivity(it);
+
+				// esperar que esta termine
+				// while (!act.isDestroyed());
+
+				break;
+			case 2:
+				Toast.makeText(getApplicationContext(), 2 + " - Poemas",
+						Toast.LENGTH_SHORT).show();
+				// lançar a nova activity do tipo Poema, e o seu conteúdo
+				//
+				//
+
+				break;
+			case 3:
+				Toast.makeText(getApplicationContext(), 3 + " - Imagens",
+						Toast.LENGTH_SHORT).show();
+				// lançar a nova activity do tipo imagem, e o seu conteúdo
+				//
+				//
+
+				break;
+			default:
+				Toast.makeText(getApplicationContext(), " - Tipo não defenido",
+						Toast.LENGTH_SHORT).show();
+				// não lançar nada e continuar
+
+				break;
+			}
 
 		} else {// senão avisa que não existe nada seleccionado
 			android.app.AlertDialog alerta;

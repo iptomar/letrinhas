@@ -9,15 +9,17 @@
         android:layout_height="wrap_content"
         android:text="@string/login_title"
         android:gravity="center_horizontal"
-        android:textSize="20dp" 
+        android:textSize="20sp" 
         />
     <!-- Login Image -->
     <ImageView
+        android:id="@+id/Afoto"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:gravity="center_horizontal"
         android:src="@drawable/ic_launcher"
         android:layout_weight="1.1"
+        android:contentDescription="@string/letrinhas"
         android:padding="20dp"
         />
     <!-- layout for Username -->
@@ -29,17 +31,16 @@
       android:padding="10dp">
      
         <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1.0"
             android:text="@string/username"
-            android:textSize="18dp"
-            />
+            android:textSize="18sp" />
+
         <EditText
             android:id="@+id/username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"
+            android:layout_weight="0.97"
             android:ems="10"
             android:inputType="text" >
 
@@ -55,20 +56,20 @@
       android:layout_weight="0.01"
       android:padding="10dp"
       >
+
         <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1.0"
             android:text="@string/password"
-            android:textSize="18dp"
-            />
+            android:textSize="18sp" />
+
         <EditText
             android:id="@+id/password"
+            android:layout_width="0sp"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1.0"
-            android:inputType="textPassword"
-            />
+            android:layout_weight="0.97"
+            android:inputType="textPassword" />
+
     </LinearLayout>
     <Button
         android:id="@+id/login"
