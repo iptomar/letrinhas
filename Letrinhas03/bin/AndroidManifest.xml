@@ -60,6 +60,9 @@
             android:name="com.letrinhas03.Teste_Poema"
             android:label="@string/title_activity_teste__poema" >
         </activity>
+        <activity
+            android:name="com.letrinhas03.BaseDados.MainScreenActivity">
+        </activity>
     </application>
 
 </manifest>

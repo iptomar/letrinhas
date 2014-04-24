@@ -69,4 +69,21 @@
 	<string name="listaPalavras4"> linha\n ligadura\n cinema\n aquecedor\n sofá\n cachecol\n almofada\n escadas\n pilar\n castanho\n cordas\n desempenho\n comunicação\n tartaruga\n ilha</string>
 	
 	<string name="poema1">A Luz de um Sonho\n\n\nUma vontade de sorrir\nNasce da luminosidade do luar\nSendo eu criança\nTudo me leva a sonhar\n\nCriança com sua alegria\nEspontânea e inconstante\nImagina o objecto mais brilhante\nPermanecendo assim este o seu guia\n\nCriança, de extrema fragilidade\nIngénua e empolgante\nTudo lhe é fascinante\n\nMas com seu sorriso\nMesmo o mais disparatado\nPossui alegria contagiante\nQue torna o Mundo mais belo e radiante !</string>
+	
+
+    <string name="title_activity_view_more_info">Ver mais Informação</string>
+    <string name="title_all_tests">Ver mais Informação</string>
+
+    <string name="btnback">Voltar</string>
+    <string name="title_activity_all__tests">Todos os Testes</string>
+    <string name="btnMainAllTest">Todos os Testes</string>
+    <string name="btnMainSendResult">Criar e enviar Resultado de Teste</string>
+    <string name="btnSendResult">Enviar Resultado</string>
+    <string name="title_activity_send__result_test">Enviar Resultado de Teste</string>
+    <string name="lb_mainIpServidor">IP do Servidor:</string>
+    <string name="mainPorta">Porta:</string>
+    <string name="title_activity_receber_imagem">ReceberImagem</string>
+    <string name="btnReceberImagem">Ver imagem da BD Profs</string>
+    <string name="title_activity_reprod_audio">ReprodAudio</string>
+    <string name="title_activity_main_bd">MainBD</string>
 </resources>

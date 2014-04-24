@@ -1,5 +1,6 @@
 package com.letrinhas03;
 
+import com.letrinhas03.BaseDados.MainScreenActivity;
 import com.letrinhas03.util.SystemUiHider;
 import com.letrinhas03.util.coneccaoW;
 
@@ -154,7 +155,7 @@ public class PaginaInicial extends Activity {
                     @Override
                     public void onClick(View view) {
                         //iniciar a pagina 2 (escolher teste)
-                        Intent it= new Intent(PaginaInicial.this,EscModo.class);//Autenticacao.class);
+                        Intent it= new Intent(PaginaInicial.this, EscModo.class);//Autenticacao.class);
                         startActivity(it);
                         //finish();
                     }
