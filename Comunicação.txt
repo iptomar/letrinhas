@@ -1,4 +1,9 @@
-﻿Dário-17104-24/04/2014-00:59
+﻿Tiago-17253-24-04-2014-9:35
+->Apoio o sistema de ficheiro, e guardar apenas na BD o caminho para lá chegar!! antecipei-me a isso,
+ na activity de teste_texto.
+
+
+Dário-17104-24/04/2014-00:59
 ->Ok pessoal já temos a sync com o server a funcionar e como tal a criação de uma
 base de dados local, o pessoal da SI disponiblizou-nos o material necessário para 
 podermos trabalhar e o André Carvalho mandou a sugestão de que cada 
