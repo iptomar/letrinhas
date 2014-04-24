@@ -1,4 +1,24 @@
-﻿Dário-17104-22/04/2014-18:09
+﻿Dário-17104-24/04/2014-00:59
+->Ok pessoal já temos a sync com o server a funcionar e como tal a criação de uma
+base de dados local, o pessoal da SI disponiblizou-nos o material necessário para 
+podermos trabalhar e o André Carvalho mandou a sugestão de que cada 
+vez que precisamos de aceder ou enviar algum tipo de dados no servidor teremos de 
+usar headers do tipo request.setHeader('username', 'professorWhatever'); 
+request.setHeader('password', 'pass'); , tenhão em atenção a este pormenor
+pois não podemos fugir á forma como os de SI tão a desenhar, para não haver incompatibilidades.
+Qualquer dúvida, Perguntem /// E tiago estou a usar como base de começo o que fizeste para o teste_texto,
+penso que esteja muito bem desenhado(minha opinião).
+*******************ASSUNTO A DISCUTIR************************
+Temos um problema com os ficheiros binários, tipo o som, que como podem ser muito
+grandes existe um risco na base de dados de esta ficar mais lenta e pode originar
+erros de leitura e até mesmo crashes.
+
+Por isso temos duas soluções(por agora) ou arrisca-se a alujar estas na bd ou
+montamos um sistema de ficheiros.
+
+Digam as vossas opiniões.
+
+Dário-17104-22/04/2014-18:09
 ->Entre amanhã e depois de amanhã será disponibilizado pelo grupo de SI o material
 para podermos sincronizar e assim aceder a uma bd local
 
