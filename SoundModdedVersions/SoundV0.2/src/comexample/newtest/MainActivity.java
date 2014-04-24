@@ -89,7 +89,7 @@ public class MainActivity extends Activity {
 		   }
 	   }
 	   
-	   /*
+	   /**
 	    * (non-Javadoc)
 	    * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	    * @author Dário Jorge

@@ -1,20 +1,28 @@
 package com.letrinhas03;
 
+import java.io.File;
+import java.io.IOException;
+
 import com.letrinhas03.util.SystemUiHider;
 import com.letrinhas03.util.Teste;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.text.Spannable;
 import android.text.style.ForegroundColorSpan;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -26,9 +34,14 @@ public class Teste_Texto extends Activity {
 	// objetos
 	ImageButton record, play, voltar, cancelar, avancar;
 	TextView vcl, frg, slb, rpt, pErr;
+	Chronometer chrono;
 	// variaveis contadoras para a avaliação
 	int plvErradas, vacil, fragment, silabs, repeti;
-	String endereco;
+
+	private MediaRecorder gravador;
+	private MediaPlayer reprodutor = new MediaPlayer();
+	private String endereco;
+
 	Teste[] lista;
 
 	/**
@@ -107,7 +120,8 @@ public class Teste_Texto extends Activity {
 		((TextView) findViewById(R.id.textRodape))
 				.setText(b.getString("Aluno"));
 
-		endereco = "/" + b.getString("Professor") + "/" + b.getString("Aluno")
+		endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
+				+ "/" + b.getString("Professor") + "/" + b.getString("Aluno")
 				+ "/" + lista[0].getTitulo() + ".3gpp";
 
 		// descontar este teste da lista.
@@ -132,8 +146,6 @@ public class Teste_Texto extends Activity {
 		cancelar = (ImageButton) findViewById(R.id.txtCancel);
 		avancar = (ImageButton) findViewById(R.id.txtAvaliar);
 
-		
-		
 		escutaBotoes();
 	}
 
@@ -179,6 +191,23 @@ public class Teste_Texto extends Activity {
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
 
+	public void setUp() {
+
+		gravador = new MediaRecorder();
+		gravador.setAudioSource(MediaRecorder.AudioSource.MIC);
+		gravador.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+		gravador.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+
+		// construir as pastas caso necessário
+		File file = new File(endereco);
+		if (file.getParent() != null && !file.getParentFile().exists()) {
+			file.getParentFile().mkdirs();
+		}
+
+		gravador.setOutputFile(endereco);
+
+	}
+
 	private void escutaBotoes() {
 		record.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -199,7 +228,11 @@ public class Teste_Texto extends Activity {
 		cancelar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// voltar para pag inicial
+				// salta a avaliação e vai para o próximo teste descurando a gravação gerada
+				File file = new File(endereco);
+				if(file.exists()){
+					file.delete();
+				}
 				finaliza();
 			}
 		});
@@ -222,46 +255,209 @@ public class Teste_Texto extends Activity {
 		});
 	}
 
+	int minuto,segundo;
+
+	/**
+	 * Serve para começar ou parar o recording do audio
+	 * 
+	 * @author Dário Jorge
+	 */
 	private void startGrava() {
-		if(!recording){
+		if (!recording) {
 			record.setImageResource(R.drawable.stop);
 			play.setVisibility(View.INVISIBLE);
 			cancelar.setVisibility(View.INVISIBLE);
 			voltar.setVisibility(View.INVISIBLE);
 			avancar.setVisibility(View.INVISIBLE);
 			recording = true;
-			
-		}else{
+
+			try {
+				setUp();
+				gravador.prepare();
+				gravador.start();
+				Toast.makeText(getApplicationContext(), "A gravar.",
+						Toast.LENGTH_SHORT).show();
+				// O cronometro não funciona assim tão bem...
+				chrono = (Chronometer) findViewById(R.id.cromTxt);
+				
+				//handler para controlar a GUI do android e a thread seguinte
+				play_handler = new Handler() {
+					public void handleMessage(Message msg) {
+						switch (msg.what) {
+						case PARADO:
+							chrono.setText(minuto + ":"	+ segundo);
+							break;
+						default:
+							break;
+						}
+					}
+				};
+
+				new Thread(new Runnable() {
+					public void run() {
+						minuto=0;
+						segundo=0;
+						while (recording) {
+							
+							
+							Message msg = new Message();
+							msg.what = PARADO;
+							play_handler.sendMessage(msg);
+														
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							segundo++;
+							if(segundo==60) {
+								minuto++;
+								segundo=0;								
+							}
+						}
+					}
+				}).start();
+
+			} catch (IllegalStateException | IOException e) {
+				Toast.makeText(getApplicationContext(),
+						"Erro na gravação.\n" + e.getMessage(),
+						Toast.LENGTH_SHORT).show();
+			}
+
+		} else {
 			record.setImageResource(R.drawable.record);
 			play.setVisibility(View.VISIBLE);
 			cancelar.setVisibility(View.VISIBLE);
 			voltar.setVisibility(View.VISIBLE);
 			avancar.setVisibility(View.VISIBLE);
 			recording = false;
+			try {
+				gravador.stop();
+				gravador.release();
+				Toast.makeText(getApplicationContext(),
+						"Gravação efetuada com sucesso!", Toast.LENGTH_SHORT)
+						.show();
+				Toast.makeText(
+						getApplicationContext(),
+						"Tempo de leitura: " + minuto+ ":"+segundo, Toast.LENGTH_LONG)
+						.show();
+
+			} catch (Exception e) {
+				Toast.makeText(getApplicationContext(),
+						"Erro na gravação.\n" + e.getMessage(),
+						Toast.LENGTH_SHORT).show();
+			}
 		}
 
 	}
 
+	private final int PARADO = 2;
+	private Handler play_handler;
+
+	/**
+	 * serve para a aplicação reproduzir ou parar o som
+	 * 
+	 * @author Dário Jorge
+	 */
 	private void startPlay() {
-		if(!playing){
+		if (!playing) {
 			play.setImageResource(R.drawable.play_on);
 			record.setVisibility(View.INVISIBLE);
 			playing = true;
-			
-		}else{
+			try {
+				reprodutor = new MediaPlayer();
+				reprodutor.setDataSource(endereco);
+				reprodutor.prepare();
+				reprodutor.start();
+				Toast.makeText(getApplicationContext(), "A reproduzir.",
+						Toast.LENGTH_SHORT).show();
+				// espetar aqui uma thread, para caso isto pare
+				//handler para controlara a GUI do androi e a thread seguinte
+				play_handler = new Handler() {
+					public void handleMessage(Message msg) {
+						switch (msg.what) {
+						case PARADO:
+							play.setImageResource(R.drawable.palyoff);
+							record.setVisibility(View.VISIBLE);
+							playing = false;
+							try {
+								reprodutor.stop();
+								reprodutor.release();
+								Toast.makeText(getApplicationContext(),
+										"Fim da reprodução.",
+										Toast.LENGTH_SHORT).show();
+							} catch (Exception ex) {
+							}
+							break;
+						default:
+							break;
+						}
+					}
+				};
+
+				new Thread(new Runnable() {
+					public void run() {
+						while (reprodutor.isPlaying())
+							;
+						Message msg = new Message();
+						msg.what = PARADO;
+						play_handler.sendMessage(msg);
+					}
+				}).start();
+
+			} catch (Exception ex) {
+				Toast.makeText(getApplicationContext(),
+						"Erro na reprodução.\n" + ex.getMessage(),
+						Toast.LENGTH_SHORT).show();
+			}
+
+		} else {
 			play.setImageResource(R.drawable.palyoff);
 			record.setVisibility(View.VISIBLE);
 			playing = false;
+			try {
+				reprodutor.stop();
+				reprodutor.release();
+
+				Toast.makeText(getApplicationContext(),
+						"Reprodução interrompida.", Toast.LENGTH_SHORT).show();
+			} catch (Exception ex) {
+				Toast.makeText(getApplicationContext(),
+						"Erro na reprodução.\n" + ex.getMessage(),
+						Toast.LENGTH_SHORT).show();
+			}
 		}
 
 	}
 
 	private void startAvalia() {
 		if (modo) {// iniciar a avaliação
-
+			File file = new File(endereco);
+			if(file.exists()){
+				//uma pop-up ou activity para determinar o valor de exprecividade da leitura
+				//usar a classe Avaliação para calcular os resultados.
+				// avançar para o próximo teste caso este exista.
+				finaliza();
+			}else{
+				android.app.AlertDialog alerta;
+				// Cria o gerador do AlertDialog
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				// define o titulo
+				builder.setTitle("Letrinhas 03");
+				// define a mensagem
+				builder.setMessage(" Ainda não executou a gravação da leitura!\n"
+									+" Faça-o antes de avaliar.");
+				// define um botão como positivo
+				builder.setPositiveButton("OK", null);
+				// cria o AlertDialog
+				alerta = builder.create();
+				// Mostra
+				alerta.show();
+			}
 		}
 
-		finaliza();
+		
 
 	}
 
@@ -286,14 +482,12 @@ public class Teste_Texto extends Activity {
 		slb = (TextView) findViewById(R.id.TextView03);
 		rpt = (TextView) findViewById(R.id.TextView06);
 		pErr = (TextView) findViewById(R.id.TextView07);
-		
+
 		vcl.setText("" + vacil);
 		frg.setText("" + fragment);
 		slb.setText("" + silabs);
 		rpt.setText("" + repeti);
 		pErr.setText("" + plvErradas);
-		
-		
 
 		// ativar os controlos
 		v1.setOnClickListener(new View.OnClickListener() {
@@ -356,21 +550,22 @@ public class Teste_Texto extends Activity {
 				rpt.setText("" + repeti);
 			}
 		});
-		
+
 		((TextView) findViewById(R.id.txtTexto))
-			.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				marcaPalavra();
-			}
-		});
+				.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						marcaPalavra();
+					}
+				});
 
 	}
 
-	/** Marcar a palvra errada no texto  *** A melhorar
+	/**
+	 * Marcar a palvra errada no texto *** A melhorar
 	 */
 	public void marcaPalavra() {
-		
+
 		final TextView textozico = (TextView) findViewById(R.id.txtTexto);
 		textozico.performLongClick();
 		final int startSelection = textozico.getSelectionStart();
@@ -381,7 +576,7 @@ public class Teste_Texto extends Activity {
 		WordtoSpan.setSpan(cor, startSelection, endSelection,
 				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		textozico.setText(WordtoSpan);
-		pErr.setText(""+ plvErradas);
+		pErr.setText("" + plvErradas);
 	}
 
 	private void finaliza() {
