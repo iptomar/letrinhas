@@ -1,4 +1,13 @@
-﻿Tiago-17253-24-04-2014-9:35
+﻿Dário-17104-24/04/2014-22:16
+->Já se encontra integrado no projecto o que foi disponibilizado pelo grupo de
+SI, mas ainda não fiz linkagens pois tem que se fazer alterações, pois este
+irá funcionar em background e como está actualmente é quase uma programa á parte
+mas filtrar este não será dificil, mas aconselho a que não o seja feito de imediato
+o que se pode fazer será acrescentar um botão na pagina inicial para termos acesso
+á interface total desta ferramenta, para testes, pois este funciona e é mais facil 
+a detecção de erros mas como disse é apenas uma opinião
+
+Tiago-17253-24-04-2014-9:35
 ->Apoio o sistema de ficheiro, e guardar apenas na BD o caminho para lá chegar!! antecipei-me a isso,
  na activity de teste_texto.
 
