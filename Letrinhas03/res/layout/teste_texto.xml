@@ -17,7 +17,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:drawableLeft="@drawable/logo2"
-        android:text="@string/teste"
+        android:text="@string/title_activity_teste_texto"
         android:textColor="#5ddfff"
         android:textSize="50sp"
         android:textStyle="bold" />

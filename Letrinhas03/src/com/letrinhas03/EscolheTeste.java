@@ -98,10 +98,12 @@ public class EscolheTeste extends Activity {
 		 * ender = "endereço(blábláblá)"; teste[i]=new Teste(tip,tit,ender); }
 		 * 
 		 */
+		
 
 		// teste:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		nTestes = 30;
 		teste = new Teste[nTestes];
+		
 		for (int i = 0; i < teste.length; i++) {
 			int tip = 0; // tipo texto
 			String tit = "O título do teste";
