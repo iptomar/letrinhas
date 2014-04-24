@@ -64,5 +64,8 @@
     <string name="espaco">"                        "</string>
     <string name="numer">20</string>
     <string name="pErrada">P. Erradas:</string>
-
+    <string name="listaPalavras1"> café\n papel\n filme\n volta\n rápido\n mundo\n trabalho\n leitura\n legendado\n sociedade\n filme\n firma\n descoberta\n importância\n informação\n</string>
+	<string name="listaPalavras2"> propaganda\n validação\n normal\n cão\n chuva\n botas\n ontem\n maçã\n televisão\n viola\n caneta\n coelho\n computador\n  atualizarmos\n incompatível\n</string>
+	<string name="listaPalavras3"> brinquedos\n alfaiate\n professora\n flor\n dentadura\n ténis\n raquete\n tinta\n livro\n almoço\n disco\n bicicleta\ seia\n guardanapo\n tinta\n guarda</string>
+	<string name="listaPalavras4"> linha\n ligadura\n cinema\n aquecedor\n sofá\n cachecol\n almofada\n escadas\n pilar\n castanho\n cordas\n desempenho\n comunicação\n tartaruga\n ilha</string>
 </resources>
