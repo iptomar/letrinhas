@@ -6,6 +6,10 @@
 package com.letrinhas03.util;
 
 public class Avaliacao {
+	public float plm,pl,vl;
+	public int express, ritmo;
+	
+	
 
 	/**
 	 * palavras lidas por minuto

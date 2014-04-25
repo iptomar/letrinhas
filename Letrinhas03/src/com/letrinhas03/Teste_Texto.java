@@ -20,10 +20,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Spannable;
 import android.text.style.ForegroundColorSpan;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,10 +35,10 @@ public class Teste_Texto extends Activity {
 	boolean modo, gravado, recording, playing;
 	// objetos
 	ImageButton record, play, voltar, cancelar, avancar;
-	TextView vcl, frg, slb, rpt, pErr;
+	TextView pnt, vcl, frg, slb, rpt, pErr;
 	Chronometer chrono;
 	// variaveis contadoras para a avaliação
-	int plvErradas, vacil, fragment, silabs, repeti;
+	int plvErradas, pontua, vacil, fragment, silabs, repeti;
 
 	private MediaRecorder gravador;
 	private MediaPlayer reprodutor = new MediaPlayer();
@@ -228,9 +230,10 @@ public class Teste_Texto extends Activity {
 		cancelar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// salta a avaliação e vai para o próximo teste descurando a gravação gerada
+				// salta a avaliação e vai para o próximo teste descurando a
+				// gravação gerada
 				File file = new File(endereco);
-				if(file.exists()){
+				if (file.exists()) {
 					file.delete();
 				}
 				finaliza();
@@ -255,7 +258,7 @@ public class Teste_Texto extends Activity {
 		});
 	}
 
-	int minuto,segundo;
+	int minuto, segundo;
 
 	/**
 	 * Serve para começar ou parar o recording do audio
@@ -277,27 +280,28 @@ public class Teste_Texto extends Activity {
 				gravador.start();
 				Toast.makeText(getApplicationContext(), "A gravar.",
 						Toast.LENGTH_SHORT).show();
-				// O cronometro não funciona assim tão bem no seu modo original...
+				// O cronometro não funciona assim tão bem no seu modo
+				// original...
 				chrono = (Chronometer) findViewById(R.id.cromTxt);
-				
-				//handler para controlar a GUI do android e a thread seguinte
+
+				// handler para controlar a GUI do android e a thread seguinte
 				play_handler = new Handler() {
 					public void handleMessage(Message msg) {
 						switch (msg.what) {
 						case PARADO:
-							String m,s;
-							if(minuto<10){
-								m="0"+minuto+":";
-							}else{
-								m=minuto+":";
+							String m,
+							s;
+							if (minuto < 10) {
+								m = "0" + minuto + ":";
+							} else {
+								m = minuto + ":";
 							}
-							if(segundo<10){
-								s="0"+segundo;
+							if (segundo < 10) {
+								s = "0" + segundo;
+							} else {
+								s = "" + segundo;
 							}
-							else{
-								s=""+segundo;
-							}
-							chrono.setText(m+s);
+							chrono.setText(m + s);
 							break;
 						default:
 							break;
@@ -305,16 +309,16 @@ public class Teste_Texto extends Activity {
 					}
 				};
 
-				//pequena thread, para interagir com o cronometro
+				// pequena thread, para interagir com o cronometro
 				new Thread(new Runnable() {
 					public void run() {
-						minuto=0;
-						segundo=0;
+						minuto = 0;
+						segundo = 0;
 						while (recording) {
 							Message msg = new Message();
 							msg.what = PARADO;
 							play_handler.sendMessage(msg);
-														
+
 							try {
 								Thread.sleep(1000);
 							} catch (InterruptedException e) {
@@ -322,9 +326,9 @@ public class Teste_Texto extends Activity {
 								e.printStackTrace();
 							}
 							segundo++;
-							if(segundo==60) {
+							if (segundo == 60) {
 								minuto++;
-								segundo=0;								
+								segundo = 0;
 							}
 						}
 					}
@@ -349,10 +353,9 @@ public class Teste_Texto extends Activity {
 				Toast.makeText(getApplicationContext(),
 						"Gravação efetuada com sucesso!", Toast.LENGTH_SHORT)
 						.show();
-				Toast.makeText(
-						getApplicationContext(),
-						"Tempo de leitura: " + minuto+ ":"+segundo, Toast.LENGTH_LONG)
-						.show();
+				Toast.makeText(getApplicationContext(),
+						"Tempo de leitura: " + minuto + ":" + segundo,
+						Toast.LENGTH_LONG).show();
 
 			} catch (Exception e) {
 				Toast.makeText(getApplicationContext(),
@@ -384,7 +387,7 @@ public class Teste_Texto extends Activity {
 				Toast.makeText(getApplicationContext(), "A reproduzir.",
 						Toast.LENGTH_SHORT).show();
 				// espetar aqui uma thread, para caso isto pare
-				//handler para controlara a GUI do androi e a thread seguinte
+				// handler para controlara a GUI do androi e a thread seguinte
 				play_handler = new Handler() {
 					public void handleMessage(Message msg) {
 						switch (msg.what) {
@@ -442,19 +445,18 @@ public class Teste_Texto extends Activity {
 
 	}
 
-
 	private void startAvalia() {
 		if (modo) { // se está em modo de professor
 					// inicia a avaliação
 			File file = new File(endereco);
-			if(file.exists()){ //se já fez uma gravação
-				//uma pop-up ou activity para determinar o valor de exprecividade da leitura
-				//usar a classe Avaliação para calcular os resultados.
+			if (file.exists()) { // se já fez uma gravação
+				// uma pop-up ou activity para determinar o valor de
+				// exprecividade da leitura
+				// usar a classe Avaliação para calcular os resultados.
 				// avançar para o próximo teste caso este exista.
-				
-				
+
 				finaliza();
-			}else{
+			} else {
 				android.app.AlertDialog alerta;
 				// Cria o gerador do AlertDialog
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -462,7 +464,7 @@ public class Teste_Texto extends Activity {
 				builder.setTitle("Letrinhas 03");
 				// define a mensagem
 				builder.setMessage(" Ainda não executou a gravação da leitura!\n"
-									+" Faça-o antes de avaliar.");
+						+ " Faça-o antes de avaliar.");
 				// define um botão como positivo
 				builder.setPositiveButton("OK", null);
 				// cria o AlertDialog
@@ -472,18 +474,18 @@ public class Teste_Texto extends Activity {
 			}
 		}
 
-		
-
 	}
 
 	/**
-	 * Procedimento para ativar a selecção das palavras erradas no texto e 
-	 * o painel de controlo de erros.
+	 * Procedimento para ativar a selecção das palavras erradas no texto e o
+	 * painel de controlo de erros.
 	 */
 	private void setCorreccao() {
 		// Painel de controlo:
-		ImageButton v1, v2, f1, f2, s1, s2, r1, r2;
+		ImageButton p1, p2, v1, v2, f1, f2, s1, s2, r1, r2;
 
+		p1 = (ImageButton) findViewById(R.id.txtPontErrMn);
+		p2 = (ImageButton) findViewById(R.id.txtPontErrMS);
 		v1 = (ImageButton) findViewById(R.id.txtVacilMen);
 		v2 = (ImageButton) findViewById(R.id.txtVacilMais);
 		f1 = (ImageButton) findViewById(R.id.txtFragMen);
@@ -493,12 +495,14 @@ public class Teste_Texto extends Activity {
 		r1 = (ImageButton) findViewById(R.id.txtRepMen);
 		r2 = (ImageButton) findViewById(R.id.txtRepMais);
 
+		pnt = (TextView) findViewById(R.id.textView9);
 		vcl = (TextView) findViewById(R.id.textView1);
 		frg = (TextView) findViewById(R.id.TextView02);
 		slb = (TextView) findViewById(R.id.TextView03);
 		rpt = (TextView) findViewById(R.id.TextView06);
 		pErr = (TextView) findViewById(R.id.TextView07);
 
+		pnt.setText("" + pontua);
 		vcl.setText("" + vacil);
 		frg.setText("" + fragment);
 		slb.setText("" + silabs);
@@ -506,6 +510,21 @@ public class Teste_Texto extends Activity {
 		pErr.setText("" + plvErradas);
 
 		// ativar os controlos
+		p1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (pontua != 0)
+					pontua--;
+				pnt.setText("" + pontua);
+			}
+		});
+		p2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				pontua++;
+				pnt.setText("" + pontua);
+			}
+		});
 		v1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -567,7 +586,7 @@ public class Teste_Texto extends Activity {
 			}
 		});
 
-		//tela do texto
+		// tela do texto
 		((TextView) findViewById(R.id.txtTexto))
 				.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -577,28 +596,79 @@ public class Teste_Texto extends Activity {
 				});
 	}
 
-	/****************************************************** A melhorar *****************
-	 * Marcar a palvra errada no texto *** A melhorar, deverá contabilizar correctamente a palavra, e 
-	 * desmarcar se repetir a selecção da palavra, isto deveria incluir a pontuação.
+	/******************************************************
+	 * ***************** Marcar a palvra errada no texto *** A melhorar, deverá
+	 * contabilizar correctamente a palavra, e desmarcar se repetir a selecção
+	 * da palavra.
+	 * 
+	 * @author Jorge
 	 */
 	public void marcaPalavra() {
-		
+
+		/*
+		 * final TextView textozico = (TextView) findViewById(R.id.txtTexto);
+		 * textozico.performLongClick(); final int startSelection =
+		 * textozico.getSelectionStart(); final int endSelection =
+		 * textozico.getSelectionEnd(); plvErradas++; Spannable WordtoSpan =
+		 * (Spannable) textozico.getText(); ForegroundColorSpan cor = new
+		 * ForegroundColorSpan(Color.RED); WordtoSpan.setSpan(cor,
+		 * startSelection, endSelection, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		 * textozico.setText(WordtoSpan); pErr.setText("" + plvErradas);
+		 */
+
+		// Mostrar Popup se caregou no ecra
 		final TextView textozico = (TextView) findViewById(R.id.txtTexto);
 		textozico.performLongClick();
 		final int startSelection = textozico.getSelectionStart();
 		final int endSelection = textozico.getSelectionEnd();
-		plvErradas++;
-		Spannable WordtoSpan = (Spannable) textozico.getText();
-		ForegroundColorSpan cor = new ForegroundColorSpan(Color.RED);
-		WordtoSpan.setSpan(cor, startSelection, endSelection,
-				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		textozico.setText(WordtoSpan);
-		pErr.setText("" + plvErradas);
+		final String selectedText = textozico.getText().toString()
+				.substring(startSelection, endSelection);
+
+		PopupMenu menu = new PopupMenu(getApplicationContext(), textozico);
+		menu.getMenuInflater().inflate(R.menu.menu, menu.getMenu());
+		menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				// Mostrar palavra seleccionada na textbox
+				switch (item.getItemId()) {
+				case R.id.PalavraErrada:
+					plvErradas++;
+					pErr.setText("" + plvErradas);
+					Spannable WordtoSpan = (Spannable) textozico.getText();
+					ForegroundColorSpan cor = new ForegroundColorSpan(Color.RED);
+					WordtoSpan.setSpan(cor, startSelection, endSelection,
+							Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+					textozico.setText(WordtoSpan);
+					break;
+				case R.id.CancelarSeleccao:
+					if (plvErradas > 0) {
+						Spannable WordtoCancelSpan = (Spannable) textozico
+								.getText();
+						ForegroundColorSpan corCancelar = new ForegroundColorSpan(
+								Color.BLACK);
+						WordtoCancelSpan.setSpan(corCancelar, startSelection,
+								endSelection,
+								Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+						textozico.setText(WordtoCancelSpan);
+						plvErradas--;
+						pErr.setText("" + plvErradas);
+					} else {
+						Toast toast = Toast.makeText(getApplicationContext(),
+								"Não existem palavras erradas",
+								Toast.LENGTH_SHORT);
+						toast.show();
+					}
+				}
+				return true;
+			}
+		});
+		menu.show();
+
 	}
 
 	/**
-	 * Prepara a finalização da activity, descobrindo qual o próximo teste a realizar
-	 * Este método deverá ser usado em todas as paginas de teste.
+	 * Prepara a finalização da activity, descobrindo qual o próximo teste a
+	 * realizar Este método deverá ser usado em todas as paginas de teste.
 	 */
 	private void finaliza() {
 		if (lista.length != 0) {
@@ -611,68 +681,72 @@ public class Teste_Texto extends Activity {
 				lstTipo[i] = lista[i].getTipo();
 				lstTitulo[i] = lista[i].getTitulo();
 			}
-			//identifico otipo de teste
+			// enviar o parametro de modo
+			Bundle wrap = new Bundle();
+			wrap.putBoolean("Modo", modo);
+
+			// teste, a depender das informações da BD
+			// ***********************************************************+
+			wrap.putString("Aluno", "EI3C-Tiago Fernandes");
+			wrap.putString("Professor", "ESTT-Antonio Manso");
+
+			wrap.putIntArray("ListaID", lstID);
+			wrap.putIntArray("ListaTipo", lstTipo);
+			wrap.putStringArray("ListaTitulo", lstTitulo);
+
+			
+			// identifico o tipo de teste
 			switch (lista[0].getTipo()) {
 			case 0:
-
 				// lançar a nova activity do tipo texto,
-				// enviar o parametro de modo
-				Bundle wrap = new Bundle();
-				wrap.putBoolean("Modo", modo);
-
-				// teste, a depender das informações da BD
-				// ****************************
-				wrap.putString("Aluno", "EI3C-Tiago Fernandes");
-				wrap.putString("Professor", "ESTT-Antonio Manso");
-
-				wrap.putIntArray("ListaID", lstID);
-				wrap.putIntArray("ListaTipo", lstTipo);
-				wrap.putStringArray("ListaTitulo", lstTitulo);
-
+				
 				// iniciar a pagina 2 (escolher teste)
 				Intent it = new Intent(getApplicationContext(),
 						Teste_Texto.class);
 				it.putExtras(wrap);
 
 				startActivity(it);
-				
-				break;
-			case 1:
-
-				Toast.makeText(getApplicationContext(), "" + 1 + " - Palavras",
-						Toast.LENGTH_SHORT).show();
-
-				// lançar a nova activity do tipo Palavras, e o seu conteúdo
-				//
-				// Intent it = new
-				// Intent(act.getApplicationContext(),texto.class);
-				// act.startActivity(it);
-
-				// esperar que esta termine
-				// while (!act.isDestroyed());
 
 				break;
-			case 2:
-				Toast.makeText(getApplicationContext(), 2 + " - Poemas",
-						Toast.LENGTH_SHORT).show();
-				// lançar a nova activity do tipo Poema, e o seu conteúdo
-				//
-				//
+			case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
+					//
+				Intent ip = new Intent(getApplicationContext(),
+						Teste_Palavras.class);
+				ip.putExtras(wrap);
+
+				startActivity(ip);
 
 				break;
-			case 3:
-				Toast.makeText(getApplicationContext(), 3 + " - Imagens",
-						Toast.LENGTH_SHORT).show();
-				// lançar a nova activity do tipo imagem, e o seu conteúdo
+			case 2: // lançar a nova activity do tipo Poema, e o seu conteúdo
 				//
-				//
+				Intent ipm = new Intent(getApplicationContext(),
+						Teste_Poema.class);
+				ipm.putExtras(wrap);
 
+				startActivity(ipm);
+
+				break;
+			case 3: // lançar a nova activity do tipo imagem, e o seu conteúdo
+				//
+				// Intent it = new Intent(getApplicationContext(),
+				// Teste_Texto.class);
+				// it.putExtras(wrap);
+
+				// startActivity(it);
 				break;
 			default:
 				Toast.makeText(getApplicationContext(), " - Tipo não defenido",
 						Toast.LENGTH_SHORT).show();
-				// não lançar nada e continuar
+				// retirar o teste errado e continuar
 
+				int k = 0;
+				Teste aux[] = new Teste[lista.length - 1];
+				for (int i = 1; i < lista.length; i++) {
+					aux[k] = lista[i];
+					k++;
+				}
+				lista = aux;
+				finaliza();
 				break;
 			}
 

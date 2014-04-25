@@ -98,14 +98,13 @@ public class EscolheTeste extends Activity {
 		 * ender = "endereço(blábláblá)"; teste[i]=new Teste(tip,tit,ender); }
 		 * 
 		 */
-		
 
 		// teste:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		nTestes = 30;
 		teste = new Teste[nTestes];
-		
+
 		for (int i = 0; i < teste.length; i++) {
-			int tip = 0; // tipo texto
+			int tip =i%6; // tipo texto
 			String tit = "O título do teste";
 			teste[i] = new Teste(i, tip, tit);
 		}// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -215,7 +214,6 @@ public class EscolheTeste extends Activity {
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
 
-
 	/**
 	 * Procedimento para veirficar os botões
 	 * 
@@ -267,7 +265,11 @@ public class EscolheTeste extends Activity {
 				j++;
 			}
 		}
-
+		
+		iniciar(j);
+	}
+	
+	public void iniciar(int j){
 		// iniciar os testes....
 		// Se existir items seleccionados arranca com os testes,
 		if (0 < j) {
@@ -307,20 +309,20 @@ public class EscolheTeste extends Activity {
 				break;
 			case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
 					//
-					// Intent it = new Intent(getApplicationContext(),
-					// Teste_Texto.class);
-					// it.putExtras(wrap);
+				Intent ip = new Intent(getApplicationContext(),
+						Teste_Palavras.class);
+				ip.putExtras(wrap);
 
-				// startActivity(it);
+				startActivity(ip);
 
 				break;
 			case 2: // lançar a nova activity do tipo Poema, e o seu conteúdo
 				//
-				// Intent it = new Intent(getApplicationContext(),
-				// Teste_Texto.class);
-				// it.putExtras(wrap);
+				Intent ipm = new Intent(getApplicationContext(),
+						Teste_Poema.class);
+				ipm.putExtras(wrap);
 
-				// startActivity(it);
+				startActivity(ipm);
 
 				break;
 			case 3: // lançar a nova activity do tipo imagem, e o seu conteúdo
@@ -334,8 +336,16 @@ public class EscolheTeste extends Activity {
 			default:
 				Toast.makeText(getApplicationContext(), " - Tipo não defenido",
 						Toast.LENGTH_SHORT).show();
-				// não lançar nada e continuar
-
+				// retirar o teste errado e continuar
+				
+				int k=0;
+				Teste aux[] = new Teste[lista.length-1]; 
+				for (int i = 1; i < lista.length; i++) {
+					aux[k]=lista[i];
+					k++;
+				}
+				lista = aux;
+				iniciar(lista.length);
 				break;
 			}
 

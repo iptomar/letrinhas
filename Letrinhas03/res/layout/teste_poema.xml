@@ -58,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/txtTela"
         android:layout_alignRight="@+id/txtRecord"
+        android:layout_alignTop="@+id/txtTela"
         android:paddingLeft="10dp" >
 
         <TableRow

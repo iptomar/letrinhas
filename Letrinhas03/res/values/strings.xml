@@ -83,5 +83,7 @@
     <string name="title_activity_reprod_audio">ReprodAudio</string>
     <string name="title_activity_main_bd">MainBD</string>
     <string name="pontErrada">Pontuação</string>
+    <string name="PalavraErrada">Palavra Errada</string>
+    <string name="CancelarSeleccao">Cancelar Seleccao</string>
 
 </resources>

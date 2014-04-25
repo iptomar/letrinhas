@@ -58,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/txtTela"
         android:layout_alignRight="@+id/txtRecord"
+        android:layout_alignTop="@+id/ScrollView01"
         android:paddingLeft="10dp" >
 
         <TableRow
@@ -379,7 +380,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/txtCancel"
-        android:layout_below="@+id/textCabecalho"
+        android:layout_alignTop="@+id/txtTela"
         android:layout_marginLeft="27dp"
         android:layout_toRightOf="@+id/txtTela"
         android:background="#ccccff"
@@ -411,7 +412,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/txtControlo"
-        android:layout_below="@+id/textCabecalho"
+        android:layout_alignTop="@+id/ScrollView01"
         android:layout_marginLeft="36dp"
         android:layout_toRightOf="@+id/ScrollView01"
         android:background="#ccccff"
