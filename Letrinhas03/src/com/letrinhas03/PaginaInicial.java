@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 /**
  * Página Inicial
  *
@@ -177,10 +178,12 @@ public class PaginaInicial extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //iniciar a pagina 2 (escolher teste)
-                        Intent it= new Intent(PaginaInicial.this,Teste_Texto.class);//Autenticacao.class);
+                        //iniciar a pagina 
+                        Intent it= new Intent(PaginaInicial.this,MainScreenActivity.class);//Autenticacao.class);
                         startActivity(it);
                         //finish();
+                    	Toast.makeText(getApplicationContext(), "Nenhuma Pagina associada!",
+        						Toast.LENGTH_LONG).show();
                     }
                 }
 

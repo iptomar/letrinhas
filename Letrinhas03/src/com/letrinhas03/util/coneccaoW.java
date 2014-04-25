@@ -13,7 +13,7 @@ import android.widget.Toast;
  * @author Dário
  * 
  */
-public class coneccaoW extends Thread{
+public class coneccaoW extends Thread {
 	WifiManager mainWifiObj;
 	Activity act;
 
@@ -25,27 +25,15 @@ public class coneccaoW extends Thread{
 	public void run() {
 		mainWifiObj = (WifiManager) act.getSystemService(Context.WIFI_SERVICE);
 		// Automatic Connection to wifi
-		if (mainWifiObj.isWifiEnabled()) {
-			// wifi is enabled
-			Toast.makeText(act.getApplicationContext(), "WI-FI Ligado",
-					Toast.LENGTH_LONG).show();
-		} else {
-			try {
-				Toast.makeText(act.getApplicationContext(), "WI-FI Desligado",
-						Toast.LENGTH_SHORT).show();
-				Thread.sleep(500);
-				Toast.makeText(act.getApplicationContext(), "A Ligar",
-						Toast.LENGTH_SHORT).show();
-				Thread.sleep(500);
-				mainWifiObj.setWifiEnabled(true);
-				Toast.makeText(act.getApplicationContext(), "WI-FI Ligado",
-						Toast.LENGTH_LONG).show();
-			} catch (InterruptedException e) {
-				Toast.makeText(act.getApplicationContext(),
-						"Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
-			}
+		if (!mainWifiObj.isWifiEnabled()) {// se estiver desligado, vai ligar-se
+			Toast.makeText(act.getApplicationContext(), "WI-FI está desligado.", 
+					Toast.LENGTH_SHORT).show();
+			Toast.makeText(act.getApplicationContext(), "Estou a Ligar WI-FI.",
+					Toast.LENGTH_SHORT).show();
+			mainWifiObj.setWifiEnabled(true);
+			Toast.makeText(act.getApplicationContext(), "O WI-FI já está ligado.", 
+					Toast.LENGTH_SHORT).show();
 		}
-		
-		
+
 	}
 }

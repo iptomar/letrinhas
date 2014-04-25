@@ -277,7 +277,7 @@ public class Teste_Texto extends Activity {
 				gravador.start();
 				Toast.makeText(getApplicationContext(), "A gravar.",
 						Toast.LENGTH_SHORT).show();
-				// O cronometro não funciona assim tão bem...
+				// O cronometro não funciona assim tão bem no seu modo original...
 				chrono = (Chronometer) findViewById(R.id.cromTxt);
 				
 				//handler para controlar a GUI do android e a thread seguinte
@@ -285,7 +285,19 @@ public class Teste_Texto extends Activity {
 					public void handleMessage(Message msg) {
 						switch (msg.what) {
 						case PARADO:
-							chrono.setText(minuto + ":"	+ segundo);
+							String m,s;
+							if(minuto<10){
+								m="0"+minuto+":";
+							}else{
+								m=minuto+":";
+							}
+							if(segundo<10){
+								s="0"+segundo;
+							}
+							else{
+								s=""+segundo;
+							}
+							chrono.setText(m+s);
 							break;
 						default:
 							break;
@@ -293,13 +305,12 @@ public class Teste_Texto extends Activity {
 					}
 				};
 
+				//pequena thread, para interagir com o cronometro
 				new Thread(new Runnable() {
 					public void run() {
 						minuto=0;
 						segundo=0;
 						while (recording) {
-							
-							
 							Message msg = new Message();
 							msg.what = PARADO;
 							play_handler.sendMessage(msg);
@@ -431,6 +442,7 @@ public class Teste_Texto extends Activity {
 
 	}
 
+	//
 	private void startAvalia() {
 		if (modo) {// iniciar a avaliação
 			File file = new File(endereco);
@@ -462,7 +474,8 @@ public class Teste_Texto extends Activity {
 	}
 
 	/**
-	 * Procedimento para ativar a selecção das palavras erradas no texto
+	 * Procedimento para ativar a selecção das palavras erradas no texto e 
+	 * o painel de controlo de erros.
 	 */
 	private void setCorreccao() {
 		// Painel de controlo:
@@ -551,6 +564,7 @@ public class Teste_Texto extends Activity {
 			}
 		});
 
+		//tela do texto
 		((TextView) findViewById(R.id.txtTexto))
 				.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -558,14 +572,14 @@ public class Teste_Texto extends Activity {
 						marcaPalavra();
 					}
 				});
-
 	}
 
-	/**
-	 * Marcar a palvra errada no texto *** A melhorar
+	/****************************************************** A melhorar *****************
+	 * Marcar a palvra errada no texto *** A melhorar, deverá contabilizar correctamente a palavra, e 
+	 * desmarcar se repetir a selecção da palavra, isto deveria incluir a pontuação.
 	 */
 	public void marcaPalavra() {
-
+		
 		final TextView textozico = (TextView) findViewById(R.id.txtTexto);
 		textozico.performLongClick();
 		final int startSelection = textozico.getSelectionStart();
@@ -579,6 +593,10 @@ public class Teste_Texto extends Activity {
 		pErr.setText("" + plvErradas);
 	}
 
+	/**
+	 * Prepara a finalização da activity, descobrindo qual o próximo teste a realizar
+	 * Este método deverá ser usado em todas as paginas de teste.
+	 */
 	private void finaliza() {
 		if (lista.length != 0) {
 			// Decompor o array de teste, para poder enviar por parametros
@@ -590,7 +608,7 @@ public class Teste_Texto extends Activity {
 				lstTipo[i] = lista[i].getTipo();
 				lstTitulo[i] = lista[i].getTitulo();
 			}
-
+			//identifico otipo de teste
 			switch (lista[0].getTipo()) {
 			case 0:
 
@@ -614,12 +632,7 @@ public class Teste_Texto extends Activity {
 				it.putExtras(wrap);
 
 				startActivity(it);
-
-				// while(isRunning);
-
-				// Toast.makeText(null, "TEste acabou!!!",
-				// Toast.LENGTH_LONG).show();
-
+				
 				break;
 			case 1:
 
@@ -662,25 +675,6 @@ public class Teste_Texto extends Activity {
 
 		}
 		finish();
-
-	}
-
-	/**
-	 * Procedimento para voltar a esconder o titulo caso este esteja activo
-	 * 
-	 * @author Thiago
-	 */
-	@Override
-	public boolean hasWindowFocus() {
-		// esconder o title
-		final View contentView = findViewById(R.id.testTexto);
-		// Set up an instance of SystemUiHider to control the system UI for
-		// this activity.
-		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
-				HIDER_FLAGS);
-		mSystemUiHider.setup();
-		mSystemUiHider.hide();
-		return true;
 	}
 
 }
