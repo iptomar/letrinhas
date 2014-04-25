@@ -442,14 +442,17 @@ public class Teste_Texto extends Activity {
 
 	}
 
-	//
+
 	private void startAvalia() {
-		if (modo) {// iniciar a avaliação
+		if (modo) { // se está em modo de professor
+					// inicia a avaliação
 			File file = new File(endereco);
-			if(file.exists()){
+			if(file.exists()){ //se já fez uma gravação
 				//uma pop-up ou activity para determinar o valor de exprecividade da leitura
 				//usar a classe Avaliação para calcular os resultados.
 				// avançar para o próximo teste caso este exista.
+				
+				
 				finaliza();
 			}else{
 				android.app.AlertDialog alerta;

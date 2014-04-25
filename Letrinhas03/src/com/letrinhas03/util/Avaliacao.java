@@ -20,7 +20,7 @@ public class Avaliacao {
 	 * precisão na leitura
 	 * @author Dário
 	 */
-	public double PL(int totalDePalavras, int palavrasCertas){
+	public float PL(int totalDePalavras, int palavrasCertas){
 		return (palavrasCertas/totalDePalavras)*100;
 	}
 	
@@ -28,7 +28,7 @@ public class Avaliacao {
 	 * velocidade de leitura
 	 * @author Dário
 	 */
-	public double VL(int minutos, int segundos,int totalDePalavras, int palavrasErradas){
+	public float VL(int minutos, int segundos,int totalDePalavras, int palavrasErradas){
 		minutos = minutos + (segundos/60);
 		int palavrasCertas = totalDePalavras - palavrasErradas;
 		return  (palavrasCertas / minutos)*60;
