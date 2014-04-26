@@ -3,6 +3,7 @@ package com.letrinhas03;
 import java.io.File;
 import java.io.IOException;
 
+import com.letrinhas03.util.Avaliacao;
 import com.letrinhas03.util.SystemUiHider;
 import com.letrinhas03.util.Teste;
 
@@ -10,6 +11,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -38,11 +40,11 @@ public class Teste_Texto extends Activity {
 	TextView pnt, vcl, frg, slb, rpt, pErr;
 	Chronometer chrono;
 	// variaveis contadoras para a avaliação
-	int plvErradas, pontua, vacil, fragment, silabs, repeti;
+	Avaliacao avaliador;
 
 	private MediaRecorder gravador;
 	private MediaPlayer reprodutor = new MediaPlayer();
-	private String endereco;
+	private String endereco, texto;
 
 	Teste[] lista;
 
@@ -116,11 +118,14 @@ public class Teste_Texto extends Activity {
 
 		modo = b.getBoolean("Modo");
 
+		// **********************************************************************************************
 		// Consultar a BD para preencher o conteúdo....
 		((TextView) findViewById(R.id.textCabecalho)).setText(lista[0]
 				.getTitulo());
 		((TextView) findViewById(R.id.textRodape))
 				.setText(b.getString("Aluno"));
+		texto = getResources().getText(R.string.exemploTexto).toString();
+		// **********************************************************************************************
 
 		endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
 				+ "/" + b.getString("Professor") + "/" + b.getString("Aluno")
@@ -194,6 +199,9 @@ public class Teste_Texto extends Activity {
 	}
 
 	public void setUp() {
+		if (modo) {// está em modo professor
+			setCorreccao();
+		}
 
 		gravador = new MediaRecorder();
 		gravador.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -450,10 +458,10 @@ public class Teste_Texto extends Activity {
 					// inicia a avaliação
 			File file = new File(endereco);
 			if (file.exists()) { // se já fez uma gravação
-				// uma pop-up ou activity para determinar o valor de
-				// exprecividade da leitura
+
 				// usar a classe Avaliação para calcular os resultados.
-				// avançar para o próximo teste caso este exista.
+				// avançar para o próximo teste caso este exista.;
+				String avaliacao = avaliador.calcula(minuto, segundo);
 
 				finaliza();
 			} else {
@@ -502,87 +510,98 @@ public class Teste_Texto extends Activity {
 		rpt = (TextView) findViewById(R.id.TextView06);
 		pErr = (TextView) findViewById(R.id.TextView07);
 
-		pnt.setText("" + pontua);
-		vcl.setText("" + vacil);
-		frg.setText("" + fragment);
-		slb.setText("" + silabs);
-		rpt.setText("" + repeti);
-		pErr.setText("" + plvErradas);
+		// texto
+		TextView txt = ((TextView) findViewById(R.id.txtTexto));
+		txt.setText(texto);
+		txt.setTextColor(Color.rgb(30, 30, 30));
+		// objeto para avaliação
+
+		// necessitamos de contar no texto, o nº de palavras e o nº de pontuação
+
+		avaliador = new Avaliacao(contaPalavras(), contaSinais());
+
+		pnt.setText("" + avaliador.getPontua());
+		vcl.setText("" + avaliador.getVacil());
+		frg.setText("" + avaliador.getFragment());
+		slb.setText("" + avaliador.getSilabs());
+		rpt.setText("" + avaliador.getRepeti());
+		pErr.setText("" + avaliador.getPlvErradas());
 
 		// ativar os controlos
+		// violação da pontuação
 		p1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (pontua != 0)
-					pontua--;
-				pnt.setText("" + pontua);
+				avaliador.decPontua();
+				pnt.setText("" + avaliador.getPontua());
 			}
 		});
 		p2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				pontua++;
-				pnt.setText("" + pontua);
+				avaliador.incPontua();
+				pnt.setText("" + avaliador.getPontua());
 			}
 		});
+		// ocorrência de vacilações
 		v1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (vacil != 0)
-					vacil--;
-				vcl.setText("" + vacil);
+				avaliador.decVacil();
+				vcl.setText("" + avaliador.getVacil());
+
 			}
 		});
 		v2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				vacil++;
-				vcl.setText("" + vacil);
+				avaliador.incVacil();
+				vcl.setText("" + avaliador.getVacil());
 			}
 		});
+		// ocorrência de fragmentações
 		f1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (fragment != 0)
-					fragment--;
-				frg.setText("" + fragment);
+				avaliador.decFragment();
+				frg.setText("" + avaliador.getFragment());
 			}
 		});
 		f2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				fragment++;
-				frg.setText("" + fragment);
+				avaliador.incFragment();
+				frg.setText("" + avaliador.getFragment());
 			}
 		});
+		// ocorrência de silabações
 		s1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (silabs != 0)
-					silabs--;
-				slb.setText("" + silabs);
+				avaliador.decSilabs();
+				slb.setText("" + avaliador.getSilabs());
 			}
 		});
 		s2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				silabs++;
-				slb.setText("" + silabs);
+				avaliador.incSilabs();
+				slb.setText("" + avaliador.getSilabs());
 			}
 		});
+		// ocorrência de repetições
 		r1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (repeti != 0)
-					repeti--;
-				rpt.setText("" + repeti);
+				avaliador.decRepeti();
+				rpt.setText("" + avaliador.getRepeti());
 			}
 		});
 		r2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				repeti++;
-				rpt.setText("" + repeti);
+				avaliador.decRepeti();
+				rpt.setText("" + avaliador.getRepeti());
 			}
 		});
 
@@ -594,6 +613,24 @@ public class Teste_Texto extends Activity {
 						marcaPalavra();
 					}
 				});
+	}
+
+	private int contaSinais() {
+		// percorre todo o texto e conta os sinais válidos
+		for (int i = 0; i < texto.length(); i++) {
+
+		}
+
+		return 0;
+	}
+
+	private int contaPalavras() {
+		// percorre todo o texto e conta as palavras
+		for (int i = 0; i < texto.length(); i++) {
+
+		}
+
+		return 0;
 	}
 
 	/******************************************************
@@ -632,8 +669,8 @@ public class Teste_Texto extends Activity {
 				// Mostrar palavra seleccionada na textbox
 				switch (item.getItemId()) {
 				case R.id.PalavraErrada:
-					plvErradas++;
-					pErr.setText("" + plvErradas);
+					avaliador.incPalErrada();
+					pErr.setText("" + avaliador.getPlvErradas());
 					Spannable WordtoSpan = (Spannable) textozico.getText();
 					ForegroundColorSpan cor = new ForegroundColorSpan(Color.RED);
 					WordtoSpan.setSpan(cor, startSelection, endSelection,
@@ -641,7 +678,7 @@ public class Teste_Texto extends Activity {
 					textozico.setText(WordtoSpan);
 					break;
 				case R.id.CancelarSeleccao:
-					if (plvErradas > 0) {
+					if (avaliador.getPlvErradas() > 0) {
 						Spannable WordtoCancelSpan = (Spannable) textozico
 								.getText();
 						ForegroundColorSpan corCancelar = new ForegroundColorSpan(
@@ -650,8 +687,8 @@ public class Teste_Texto extends Activity {
 								endSelection,
 								Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 						textozico.setText(WordtoCancelSpan);
-						plvErradas--;
-						pErr.setText("" + plvErradas);
+						avaliador.decPalErrada();
+						pErr.setText("" + avaliador.getPlvErradas());
 					} else {
 						Toast toast = Toast.makeText(getApplicationContext(),
 								"Não existem palavras erradas",
@@ -694,12 +731,11 @@ public class Teste_Texto extends Activity {
 			wrap.putIntArray("ListaTipo", lstTipo);
 			wrap.putStringArray("ListaTitulo", lstTitulo);
 
-			
 			// identifico o tipo de teste
 			switch (lista[0].getTipo()) {
 			case 0:
 				// lançar a nova activity do tipo texto,
-				
+
 				// iniciar a pagina 2 (escolher teste)
 				Intent it = new Intent(getApplicationContext(),
 						Teste_Texto.class);

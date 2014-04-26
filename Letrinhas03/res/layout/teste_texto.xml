@@ -362,6 +362,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="fill"
                 android:text="@string/exemploTexto"
+                android:textColor="#303030"
                 android:textIsSelectable="true"
                 android:textSize="35sp" />
 
