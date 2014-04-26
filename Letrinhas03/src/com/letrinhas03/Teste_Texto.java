@@ -334,7 +334,7 @@ public class Teste_Texto extends Activity {
 					}
 				}).start();
 
-			} catch (IllegalStateException | IOException e) {
+			} catch (Exception e) {
 				Toast.makeText(getApplicationContext(),
 						"Erro na gravação.\n" + e.getMessage(),
 						Toast.LENGTH_SHORT).show();
