@@ -1,14 +1,11 @@
 package com.letrinhas03;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -29,7 +26,6 @@ import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TableLayout;
-import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +40,7 @@ public class Teste_Palavras extends Activity{
 			TextView pnt, vcl, frg, slb, rpt, pErr;
 			Chronometer chrono;
 			// variaveis contadoras para a avaliação
-			int plvErradas, pontua, vacil, fragment, silabs, repeti;
+			int plvErradas, pontua, vacil, fragment, silabs, repeti,tipoDeTextView;
 			private MediaRecorder gravador;
 			private MediaPlayer reprodutor = new MediaPlayer();
 			private String endereco;
@@ -525,11 +521,29 @@ public class Teste_Palavras extends Activity{
 				});
 				// tela do texto
 				((TextView) findViewById(R.id.txtTexto)).setOnClickListener(new View.OnClickListener() {
-							@Override
-							public void onClick(View view) {
-								textViewType();
-							}
-						});
+					@Override
+					public void onClick(View view) {
+						textViewtxt();
+						//textViewtxt1();
+						//textViewtxt2();
+					}
+				});
+				((TextView) findViewById(R.id.txtTexto1)).setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						textViewtxt1();
+						//textViewtxt1();
+						//textViewtxt2();
+					}
+				});
+				((TextView) findViewById(R.id.txtTexto2)).setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						textViewtxt2();
+						//textViewtxt1();
+						//textViewtxt2();
+					}
+				});
 			}
 			/******************************************************
 			 * ***************** Marcar a palvra errada no texto *** A melhorar, deverá
@@ -538,13 +552,20 @@ public class Teste_Palavras extends Activity{
 			 * 
 			 * @author Jorge
 			 */
-			public void textViewType(){
+			public void textViewtxt(){
 				TextView textozico = (TextView) findViewById(R.id.txtTexto);
+				textozico.performLongClick();
+				marcaPalavra(textozico);
+			}
+			public void textViewtxt1(){
 				TextView textozico1 = (TextView) findViewById(R.id.txtTexto1);
+				textozico1.performLongClick();
+				marcaPalavra(textozico1);
+			}
+			public void textViewtxt2(){
 				TextView textozico2 = (TextView) findViewById(R.id.txtTexto2);
-				auxiliar = textozico;
-				auxiliar.performLongClick();
-				marcaPalavra(auxiliar);
+				textozico2.performLongClick();
+				marcaPalavra(textozico2);
 			}
 			
 			public void marcaPalavra(final TextView textozico) {
