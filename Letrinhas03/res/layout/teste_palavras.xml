@@ -108,46 +108,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/TextView08"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pontErrada"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow7"
            android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
-            <ImageButton
-                android:id="@+id/txtPontErrMn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:contentDescription="@string/menos"
-                android:src="@drawable/menos" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/numer"
-                android:textColor="#ff2020"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/txtPontErrMS"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:contentDescription="@string/mais"
-                android:src="@drawable/mais" />
         </TableRow>
 
         <TableRow

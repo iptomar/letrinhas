@@ -524,24 +524,18 @@ public class Teste_Palavras extends Activity{
 					@Override
 					public void onClick(View view) {
 						textViewtxt();
-						//textViewtxt1();
-						//textViewtxt2();
 					}
 				});
 				((TextView) findViewById(R.id.txtTexto1)).setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
 						textViewtxt1();
-						//textViewtxt1();
-						//textViewtxt2();
 					}
 				});
 				((TextView) findViewById(R.id.txtTexto2)).setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
 						textViewtxt2();
-						//textViewtxt1();
-						//textViewtxt2();
 					}
 				});
 			}
