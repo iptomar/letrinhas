@@ -24,10 +24,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.letrinhas03.util.SystemUiHider;
 import com.letrinhas03.util.Teste;
@@ -419,108 +421,11 @@ public class Teste_Palavras extends Activity{
 			 * painel de controlo de erros.
 			 */
 			private void setCorreccao() {
-				// Painel de controlo:
-				ImageButton p1, p2, v1, v2, f1, f2, s1, s2, r1, r2;
-				p1 = (ImageButton) findViewById(R.id.txtPontErrMn);
-				p2 = (ImageButton) findViewById(R.id.txtPontErrMS);
-				v1 = (ImageButton) findViewById(R.id.txtVacilMen);
-				v2 = (ImageButton) findViewById(R.id.txtVacilMais);
-				f1 = (ImageButton) findViewById(R.id.txtFragMen);
-				f2 = (ImageButton) findViewById(R.id.txtFragMais);
-				s1 = (ImageButton) findViewById(R.id.txtSilbMen);
-				s2 = (ImageButton) findViewById(R.id.txtSilbMais);
-				r1 = (ImageButton) findViewById(R.id.txtRepMen);
-				r2 = (ImageButton) findViewById(R.id.txtRepMais);
-				pnt = (TextView) findViewById(R.id.textView9);
-				vcl = (TextView) findViewById(R.id.textView1);
-				frg = (TextView) findViewById(R.id.TextView02);
-				slb = (TextView) findViewById(R.id.TextView03);
-				rpt = (TextView) findViewById(R.id.TextView06);
 				pErr = (TextView) findViewById(R.id.TextView07);
-				pnt.setText("" + pontua);
-				vcl.setText("" + vacil);
-				frg.setText("" + fragment);
-				slb.setText("" + silabs);
-				rpt.setText("" + repeti);
 				pErr.setText("" + plvErradas);
-				// ativar os controlos
-				p1.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						if (pontua != 0)
-							pontua--;
-						pnt.setText("" + pontua);
-					}
-				});
-				p2.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						pontua++;
-						pnt.setText("" + pontua);
-					}
-				});
-				v1.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						if (vacil != 0)
-							vacil--;
-						vcl.setText("" + vacil);
-					}
-				});
-				v2.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						vacil++;
-						vcl.setText("" + vacil);
-					}
-				});
-				f1.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						if (fragment != 0)
-							fragment--;
-						frg.setText("" + fragment);
-					}
-				});
-				f2.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						fragment++;
-						frg.setText("" + fragment);
-					}
-				});
-				s1.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						if (silabs != 0)
-							silabs--;
-						slb.setText("" + silabs);
-					}
-				});
-				s2.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						silabs++;
-						slb.setText("" + silabs);
-					}
-				});
-				r1.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						if (repeti != 0)
-							repeti--;
-						rpt.setText("" + repeti);
-					}
-				});
-				r2.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						repeti++;
-						rpt.setText("" + repeti);
-					}
-				});
+
 				// tela do texto
-				((TextView) findViewById(R.id.txtTexto)).setOnClickListener(new View.OnClickListener() {
+				/*((TextView) findViewById(R.id.txtTexto)).setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
 						textViewtxt();
@@ -532,12 +437,13 @@ public class Teste_Palavras extends Activity{
 						textViewtxt1();
 					}
 				});
-				((TextView) findViewById(R.id.txtTexto2)).setOnClickListener(new View.OnClickListener() {
+			/*	((TextView) findViewById(R.id.txtTexto2)).setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
 						textViewtxt2();
 					}
-				});
+				});*/
+				textReader();
 			}
 			/******************************************************
 			 * ***************** Marcar a palvra errada no texto *** A melhorar, deverá
@@ -556,12 +462,44 @@ public class Teste_Palavras extends Activity{
 				textozico1.performLongClick();
 				marcaPalavra(textozico1);
 			}
-			public void textViewtxt2(){
+			/*public void textViewtxt2(){
 				TextView textozico2 = (TextView) findViewById(R.id.txtTexto2);
 				textozico2.performLongClick();
 				marcaPalavra(textozico2);
+			}*/
+			public void textReader(){
+				String[] teste = {"manel","jakim","jusephino"};
+				// Painel dinâmico ****************************************************
+				LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
+				// Botão original que existe por defenição
+				ToggleButton tg1 = (ToggleButton) findViewById(R.id.ToggleButton1);
+				// Atribuo o primeiro título ao primeiro botão
+				// ********************************+
+				// texto por defeito
+				tg1.setText(teste[0]);
+				// texto se não seleccionado = "titulo do teste sem numeração"
+				tg1.setTextOff(teste[0]);
+				// texto se seleccionado = "titulo do teste com numeração"
+				tg1.setTextOn(teste[0]);
+
+				// Resto do títulos
+				for(int i = 0; i<teste.length;i++){
+					// um novo botão
+					ToggleButton tg = new ToggleButton(getBaseContext());
+					// copiar os parametros de layout do 1º botão
+					tg.setLayoutParams(tg1.getLayoutParams());
+					tg.setBackgroundDrawable(tg1.getBackground());
+					tg.setTextSize(tg1.getTextSize());
+					// texto por defeito
+					tg.setText(teste[i]);
+					// texto se não seleccionado = "titulo do teste sem numeração"
+					tg.setTextOff(teste[i]);
+					// texto se seleccionado = "titulo do teste com numeração"
+					tg.setTextOn(teste[i]);
+					// inserir no scroll view
+					ll.addView(tg);
+				}
 			}
-			
 			public void marcaPalavra(final TextView textozico) {
 				/*
 				 * final TextView textozico = (TextView) findViewById(R.id.txtTexto);
