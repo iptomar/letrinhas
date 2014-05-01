@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -22,7 +23,9 @@ import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Chronometer;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -31,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.letrinhas03.R.color;
 import com.letrinhas03.util.SystemUiHider;
 import com.letrinhas03.util.Teste;
 
@@ -452,7 +456,7 @@ public class Teste_Palavras extends Activity{
 			 * 
 			 * @author Jorge
 			 */
-			public void textViewtxt(){
+			/*public void textViewtxt(){
 				TextView textozico = (TextView) findViewById(R.id.txtTexto);
 				textozico.performLongClick();
 				marcaPalavra(textozico);
@@ -462,13 +466,13 @@ public class Teste_Palavras extends Activity{
 				textozico1.performLongClick();
 				marcaPalavra(textozico1);
 			}
-			/*public void textViewtxt2(){
+			public void textViewtxt2(){
 				TextView textozico2 = (TextView) findViewById(R.id.txtTexto2);
 				textozico2.performLongClick();
 				marcaPalavra(textozico2);
 			}*/
 			public void textReader(){
-				String[] teste = {"manel","jakim","jusephino","bola","maçã"};
+				/*String[] teste = {"manel","jakim","jusephino"};
 				// Painel dinâmico ****************************************************
 				LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
 				// Botão original que existe por defenição
@@ -476,33 +480,130 @@ public class Teste_Palavras extends Activity{
 				// Atribuo o primeiro título ao primeiro botão
 				// ********************************+
 				// texto por defeito
-				//tg1.setText(teste[0]);
+				tg1.setText(teste[0]);
 				// texto se não seleccionado = "titulo do teste sem numeração"
-				//tg1.setTextOff(teste[0]);
+				tg1.setTextOff(teste[0]);
 				// texto se seleccionado = "titulo do teste com numeração"
-				//tg1.setTextOn(teste[0]);
+				tg1.setTextOn(teste[0]);
 
-				
-				ToggleButton tg[] = new ToggleButton[teste.length];
-				
 				// Resto do títulos
-				for(int i = 0; i<teste.length;i++){
+				for(int i = 1; i<teste.length;i++){
 					// um novo botão
-					tg[i] = new ToggleButton(getBaseContext());
+					ToggleButton tg = new ToggleButton(getBaseContext());
 					// copiar os parametros de layout do 1º botão
-					tg[i].setLayoutParams(tg1.getLayoutParams());
-					tg[i].setBackgroundDrawable(tg1.getBackground());
-					tg[i].setTextSize(tg1.getTextSize());
+					tg.setLayoutParams(tg1.getLayoutParams());
+					tg.setBackgroundDrawable(tg1.getBackground());
+					tg.setTextSize(tg1.getTextSize());
 					// texto por defeito
-					tg[i].setText(teste[i]);
-					// texto se não seleccionado = "escreve a palavra"
-					tg[i].setTextOff(teste[i]);
-					// texto se seleccionado = "adiciona um "X" à palavra errada"
-					tg[i].setTextOn(teste[i]+" X");
+					tg.setText(teste[i]);
+					// texto se não seleccionado = "titulo do teste sem numeração"
+					tg.setTextOff(teste[i]);
+					// texto se seleccionado = "titulo do teste com numeração"
+					tg.setTextOn(teste[i]);
 					// inserir no scroll view
-					ll.addView(tg[i]);
+					ll.addView(tg);
+				}*/
+				/*Resources res = getResources();
+				String text = res.getString(R.string.listaPalavras3);
+				String[] ar = text.split("[\n]");
+				ToggleButton tg1 = (ToggleButton) findViewById(R.id.ToggleButton2);
+				tg1.setBackgroundColor(Color.DKGRAY);
+				LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste2);
+				buttonSetUp(ar,1,ll,tg1);
+		        // Resto do títulos
+				for(int i = 0; i<ar.length;i++){
+					buttonSetUp(ar,i,ll,tg1);
+				}	
+				//
+				String text1 = res.getString(R.string.listaPalavras2);
+				String[] ar1 = text1.split("[\n]");
+				ToggleButton tg2 = (ToggleButton) findViewById(R.id.ToggleButton1);
+				tg2.setBackgroundColor(Color.DKGRAY);
+				LinearLayout ll1 = (LinearLayout) findViewById(R.id.llescteste1);
+				buttonSetUp(ar,1,ll1,tg2);
+		        // Resto do títulos
+				for(int i = 0; i<ar1.length;i++){
+					buttonSetUp(ar1,i,ll1,tg2);
+				}	
+				//
+				String text2 = res.getString(R.string.listaPalavras1);
+				String[] ar2 = text2.split("[\n]");
+				ToggleButton tg3 = (ToggleButton) findViewById(R.id.ToggleButton);
+				tg3.setBackgroundColor(Color.DKGRAY);
+				LinearLayout ll2 = (LinearLayout) findViewById(R.id.llescteste);
+				buttonSetUp(ar2,1,ll2,tg3);
+		        // Resto do títulos
+				for(int i = 0; i<ar.length;i++){
+					buttonSetUp(ar2,i,ll2,tg3);
+				}	*/
+				initSetup(getResources(),R.string.listaPalavras1,R.id.ToggleButton,R.id.llescteste);
+				initSetup(getResources(),R.string.listaPalavras2,R.id.ToggleButton1,R.id.llescteste1);
+				initSetup(getResources(),R.string.listaPalavras3,R.id.ToggleButton2,R.id.llescteste2);
+			}
+			
+			public void initSetup(Resources res,int list, int toggle, int layout){
+				String text = res.getString(list);
+				String[] ar = text.split("[\n]");
+				ToggleButton tg = (ToggleButton) findViewById(toggle);
+				tg.setTextColor(Color.DKGRAY);
+				tg.setBackgroundColor(Color.DKGRAY);
+				LinearLayout ll = (LinearLayout) findViewById(layout);
+				buttonSetUp(ar,1,ll,tg);
+		        // Resto do títulos
+				for(int i = 0; i<ar.length;i++){
+					buttonSetUp(ar,i,ll,tg);
+				}	
+			}
+			
+			public void buttonSetUp(String[] teste,int i,LinearLayout ll,ToggleButton tg1){
+				if(i==0){
+					//tg1.set;
+					tg1.setTextColor(Color.WHITE);
+					tg1.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							 if (((CompoundButton) v).isChecked()) {
+						            v.setBackgroundColor(Color.RED);
+						            plvErradas++;
+						            pErr.setText("" + plvErradas);
+						        } else {
+						        	v.setBackgroundColor(Color.DKGRAY);
+						        	plvErradas--;
+						            pErr.setText("" + plvErradas);
+						        }
+						}
+					});
+			        tg1.setChecked(true);
+			        tg1.setText(teste[i]);
+			        tg1.setTextOn(teste[i]);
+			        tg1.setTextOff(teste[i]);
+				}else{
+				ToggleButton tg = new ToggleButton(getBaseContext());
+				tg.setLayoutParams(tg1.getLayoutParams());
+				tg.setBackgroundColor(Color.DKGRAY);
+				tg.setTextColor(Color.WHITE);
+				tg.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						 if (((CompoundButton) v).isChecked()) {
+					            v.setBackgroundColor(Color.RED);
+					            plvErradas++;
+					            pErr.setText("" + plvErradas);
+					        } else {
+					        	v.setBackgroundColor(Color.DKGRAY);
+					        	plvErradas--;
+					        	pErr.setText("" + plvErradas);
+					        }
+					}
+				});
+		        tg.setChecked(true);
+		        tg.setText(teste[i]);
+		        tg.setTextOn(teste[i]);
+		        tg.setTextOff(teste[i]);
+				ll.addView(tg);
 				}
 			}
+			
 			public void marcaPalavra(final TextView textozico) {
 				/*
 				 * final TextView textozico = (TextView) findViewById(R.id.txtTexto);

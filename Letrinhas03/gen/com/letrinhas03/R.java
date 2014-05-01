@@ -82,8 +82,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class id {
         public static final int Afoto=0x7f090042;
-        public static final int CancelarSeleccao=0x7f090071;
-        public static final int PalavraErrada=0x7f090070;
+        public static final int CancelarSeleccao=0x7f090073;
+        public static final int PalavraErrada=0x7f090072;
         public static final int TableRow01=0x7f090026;
         public static final int TableRow02=0x7f090028;
         public static final int TableRow03=0x7f09002e;
@@ -98,8 +98,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int TextView06=0x7f090036;
         public static final int TextView07=0x7f09001b;
         public static final int TextView08=0x7f09001e;
+        public static final int ToggleButton=0x7f090068;
         public static final int ToggleButton1=0x7f090054;
-        public static final int action_settings=0x7f09006f;
+        public static final int ToggleButton2=0x7f09006d;
+        public static final int action_settings=0x7f090071;
         public static final int bEntrar1=0x7f090063;
         public static final int btnBack=0x7f090040;
         public static final int btnBdReceber=0x7f090000;
@@ -129,11 +131,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int id=0x7f090057;
         public static final int imgVerImg=0x7f090003;
         public static final int lgdmin=0x7f09001d;
-        public static final int lgdseg=0x7f09006d;
+        public static final int lgdseg=0x7f09006f;
         public static final int linearLayout1=0x7f090047;
         public static final int llTexto=0x7f090038;
-        public static final int llTexto1=0x7f090069;
         public static final int llescteste=0x7f090053;
+        public static final int llescteste1=0x7f09006a;
+        public static final int llescteste2=0x7f09006c;
         public static final int login=0x7f090045;
         public static final int pBarLink=0x7f090061;
         public static final int password=0x7f090044;
@@ -143,11 +146,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tableRow3=0x7f090008;
         public static final int tableRow4=0x7f090009;
         public static final int tableRow5=0x7f09001c;
-        public static final int tableRow6=0x7f09006c;
+        public static final int tableRow6=0x7f09006e;
         public static final int tableRow7=0x7f09001f;
         public static final int testPalavras=0x7f090067;
         public static final int testPoema=0x7f090013;
-        public static final int testTexto=0x7f09006e;
+        public static final int testTexto=0x7f090070;
         public static final int text=0x7f090058;
         public static final int textCabecalho=0x7f090014;
         public static final int textRodape=0x7f090017;
@@ -183,11 +186,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int txtSilbMais=0x7f090031;
         public static final int txtSilbMen=0x7f09002f;
         public static final int txtTela=0x7f090019;
-        public static final int txtTela1=0x7f090068;
+        public static final int txtTela1=0x7f090069;
         public static final int txtTela2=0x7f09006b;
         public static final int txtTextHist=0x7f09003f;
         public static final int txtTexto=0x7f090039;
-        public static final int txtTexto1=0x7f09006a;
         public static final int txtTitulo=0x7f09003e;
         public static final int txtTituloImageView=0x7f090002;
         public static final int txtTries=0x7f090041;

@@ -101,20 +101,20 @@
         android:paddingTop="10dp" >
 
         <LinearLayout
-            android:id="@+id/llTexto"
+            android:id="@+id/llescteste"
             android:layout_width="240dp"
             android:layout_height="1221dp"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/txtTexto"
-                android:layout_width="220dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="fill"
-                android:text="@string/listaPalavras1"
-                android:gravity="center"
-                android:textIsSelectable="true"
-                android:textSize="35sp" />
+            <ToggleButton
+                android:id="@+id/ToggleButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="@string/teste"
+                android:textOff="@string/teste"
+                android:textOn="@string/teste"
+                android:textSize="32sp"
+                android:textStyle="normal" />
 
         </LinearLayout>
     </ScrollView>
@@ -133,20 +133,20 @@
         android:paddingTop="10dp" >
 
         <LinearLayout
-            android:id="@+id/llTexto1"
+            android:id="@+id/llescteste1"
             android:layout_width="240dp"
             android:layout_height="1221dp"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/txtTexto1"
-                android:layout_width="220dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="fill"
-                android:text="@string/listaPalavras2"
-                android:gravity="center"
-                android:textIsSelectable="true"
-                android:textSize="35sp" />
+            <ToggleButton
+                android:id="@+id/ToggleButton1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="@string/teste"
+                android:textOff="@string/teste"
+                android:textOn="@string/teste"
+                android:textSize="32sp"
+                android:textStyle="normal" />
 
         </LinearLayout>
     </ScrollView>
@@ -165,21 +165,24 @@
         android:paddingTop="10dp" >
 
         <LinearLayout
-            android:id="@+id/llescteste"
+            android:id="@+id/llescteste2"
             android:layout_width="240dp"
             android:layout_height="1221dp"
             android:orientation="vertical" >
 
            <ToggleButton
-                android:id="@+id/ToggleButton1"
+                android:id="@+id/ToggleButton2"
                 android:layout_width="match_parent"
-                android:layout_height="83dp"
+                android:layout_height="40dp"
                 android:text="@string/teste"
                 android:textOff="@string/teste"
                 android:textOn="@string/teste"
                 android:textSize="32sp"
-                android:background="@drawable/btn_toggle"
                 android:textStyle="normal" />
+           		<!--
+                android:background="@drawable/btn_toggle"
+                
+                -->
 
         </LinearLayout>
     </ScrollView>
