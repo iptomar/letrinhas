@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -73,6 +74,59 @@ public class JSONParser {
         // return JSON String
         return jObj;
     }
+
+
+
+    /**
+     * Faz um HTTP request, envia um Http Get Returna um JSONObject
+     * Recebe:
+     * - String URL do servidor
+     * - Uma lista de Parametros possiveis
+     * *
+     */
+    public JSONArray getJSONArray(String url, List<NameValuePair> params) {
+        JSONArray    jObjs = null;
+
+        // Faz um HTTP request
+        try {
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            String paramString = URLEncodedUtils.format(params, "utf-8");
+            // url += "?" + paramString;
+            url += paramString.length() > 0 ? "?" + paramString : "";
+
+            HttpGet httpGet = new HttpGet(url);
+            HttpResponse httpResponse = httpClient.execute(httpGet);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            is = httpEntity.getContent();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //Come�a a ler a resposta
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            is.close();
+            json = sb.toString();
+
+        } catch (Exception e) {
+            Log.e("Erro no Buffer", "Erro a converter resultados" + e.toString());
+        }
+        // tentar analisar a sequencia do objeto JSON
+        try {
+              jObjs = new JSONArray(json);
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Erro parsing " + e.toString());
+        }
+        // return JSON String
+        return jObjs;
+    }
+
+
 
 
     /**

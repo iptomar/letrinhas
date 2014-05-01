@@ -23,7 +23,14 @@
         android:layout_above="@+id/btnBdReceber"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="42dp"
-        android:text="Depois de Carregar tudo ver LogoCat onde mostra o que foi inserido nas Tabelas"
+        android:text="Depois de Carregar tudo ver LogCat onde mostra o que foi inserido nas Tabelas"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test Sinc"
+            android:id="@+id/bntSinc"
+            android:layout_alignParentBottom="true" android:layout_alignRight="@+id/btnBdReceber"
+            android:layout_alignLeft="@+id/btnBdReceber"/>
 
 </RelativeLayout>

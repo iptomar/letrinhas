@@ -8,14 +8,35 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".All_Tests" >
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="385dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
-
-    </ListView>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/txtAnoTestsSinc"
+            android:layout_marginTop="84dp"
+            android:layout_alignParentTop="true" android:layout_alignParentRight="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sincronizar"
+            android:id="@+id/btnSinAllTest"
+            android:layout_centerVertical="true" android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Ano:"
+            android:id="@+id/textView" android:layout_alignBottom="@+id/txtAnoTestsSinc"
+            android:layout_alignParentLeft="true" android:layout_alignTop="@+id/txtAnoTestsSinc"
+            android:layout_toLeftOf="@+id/txtAnoTestsSinc"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Escolha o Ano escolar dos testes que pretende sincronizar"
+            android:id="@+id/textView2" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+            android:layout_above="@+id/textView"/>
 
 </RelativeLayout>

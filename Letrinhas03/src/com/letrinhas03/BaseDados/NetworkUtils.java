@@ -2,7 +2,8 @@ package com.letrinhas03.BaseDados;
 
 import android.net.http.AndroidHttpClient;
 import android.util.Log;
-import com.letrinhas03.ClassesObjs.*;
+import com.letrinhas03.ClassesObjs.CorrecaoTeste;
+import com.letrinhas03.ClassesObjs.CorrecaoTesteLeitura;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -16,7 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class NetworkUtils {
-   // private static final String TAG_NET_UTILS = "net-utils";
+    private static final String TAG_NET_UTILS = "net-utils";
 
     /**
      * Le um ficheiro a partir do url especificado.

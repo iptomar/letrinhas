@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.letrinhas03.R;
 import com.letrinhas03.ClassesObjs.CorrecaoTesteLeitura;
 

@@ -32,12 +32,13 @@ public class MainScreenActivity extends Activity {
         btnViewProducts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Executar janela de listar Testes
+//                // Executar janela de listar Testes
                 Intent i = new Intent(getApplicationContext(), MainBD.class);
                 //Enviar IP e Porta para outra janela
                 i.putExtra("IP", ((TextView) findViewById(R.id.txtBoxIpServer)).getText().toString());
                 i.putExtra("PORTA", ((TextView) findViewById(R.id.txtBoxPorta)).getText().toString());
                 startActivity(i);
+
             }
         });
 

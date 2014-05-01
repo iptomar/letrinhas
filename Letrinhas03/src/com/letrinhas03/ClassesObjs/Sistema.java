@@ -10,7 +10,11 @@ public class Sistema {
     protected String nome;
     protected String valor;
 
-    public Sistema(String nome, int id, String valor) {
+    public Sistema() {
+
+    }
+
+    public Sistema(int id , String nome, String valor) {
         this.nome = nome;
         this.id = id;
         this.valor = valor;

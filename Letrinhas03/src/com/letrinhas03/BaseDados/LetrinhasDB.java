@@ -5,20 +5,19 @@
 
 
 package com.letrinhas03.BaseDados;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import com.letrinhas03.ClassesObjs.Escola;
-import com.letrinhas03.ClassesObjs.Estudante;
-import com.letrinhas03.ClassesObjs.Professor;
+import com.letrinhas03.ClassesObjs.*;
 import com.letrinhas03.ClassesObjs.Sistema;
+import com.letrinhas03.ClassesObjs.Teste;
+import com.letrinhas03.ClassesObjs.TesteLeitura;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LetrinhasDB extends SQLiteOpenHelper {
 
@@ -32,6 +31,8 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     private static final String TABELA_ESCOLAS = "tblEscolas";
     private static final String TABELA_ESTUDANTE = "tblEstudantes";
     private static final String TABELA_SISTEMA = "tblSistema";
+    private static final String TABELA_TESTE = "tblTeste";
+    private static final String TABELA_TESTELEITURA = "tblTesteLeitura";
 
     // Nomes dos campos da tabela Professores
     private static final String PROF_IDPROFS = "idProfessor";
@@ -61,6 +62,22 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     private static final String SIS_ID = "id";
     private static final String SIS_NOME = "nome";
     private static final String SIS_VALOR = "valor";
+
+    // Nomes dos campos da tabela Testes
+    private static final String TEST_ID = "idTeste";
+    private static final String TEST_AREAID = "areaId";
+    private static final String TEST_PROFESSORID = "professorId";
+    private static final String TEST_TITULO = "titulo";
+    private static final String TEST_TEXTO = "texto";
+    private static final String TEST_DATAINSERCAO = "dataInsercaoTeste";
+    private static final String TEST_GRAU = "grauEscolar";
+    private static final String TEST_TIPO= "tipo";
+
+
+    // Nomes dos campos da tabela Testes
+    private static final String TESTL_ID = "idTeste";
+    private static final String TESTL_TEXTO = "texto";
+    private static final String TESTL_SOMPROFESSOR = "somProfessor";
 
     public LetrinhasDB(Context context) {
         super(context, NOME_BASEDADOS, null, VERSAO_BASEDADOS);
@@ -114,6 +131,26 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + SIS_VALOR + " TEXT )";
         db.execSQL(createTableString);
 
+        //Construir a Tabela Teste //////////////////
+        createTableString = "CREATE TABLE " + TABELA_TESTE + "("
+                + TEST_ID + " INTEGER PRIMARY KEY,"
+                + TEST_AREAID + " INT,"
+                + TEST_PROFESSORID + " INT,"
+                + TEST_TITULO + " TEXT,"
+                + TEST_TEXTO + " TEXT, "
+                + TEST_DATAINSERCAO + " LONG, "
+                + TEST_GRAU + " INT,"
+                + TEST_TIPO + " INT)";
+        db.execSQL(createTableString);
+
+
+        //Construir a Tabela TesteLeitura //////////////////
+        createTableString = "CREATE TABLE " + TABELA_TESTELEITURA + "("
+                + TESTL_ID + " INTEGER PRIMARY KEY,"
+                + TESTL_TEXTO + " TEXT,"
+                + TESTL_SOMPROFESSOR + " TEXT)";
+        db.execSQL(createTableString);
+
     }
 
     @Override
@@ -160,7 +197,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
      * @param escola Recebe um objecto do tipo Escolas onde vai inserir
      *             os dados na base de dados na tabela Escolas
      */
-    void AddNewItemEscolas(Escola escola) {
+    void addNewItemEscolas(Escola escola) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -180,7 +217,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
      * @param estudante Recebe um objecto do tipo Estudante onde vai inserir
      *             os dados na base de dados na tabela Estudante
      */
-    void AddNewItemEstudante(Estudante estudante) {
+    void addNewItemEstudante(Estudante estudante) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(EST_ID, estudante.getIdEstudante());   // Inserir na tabela campo Id
@@ -198,7 +235,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
      * @param sistema Recebe um objecto do tipo Sistema onde vai inserir
      *             os dados na base de dados na tabela sistema
      */
-    void AddNewItemSistema(Sistema sistema) {
+    void addNewItemSistema(Sistema sistema) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SIS_ID, sistema.getId());   // Inserir na tabela campo Id
@@ -206,7 +243,57 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         values.put(SIS_VALOR, sistema.getValor());         // Inserir na tabela o campo valor
         // Inserir LINHAS:
         db.insert(TABELA_SISTEMA, null, values);
-        	db.close(); // Fechar a conecao a Base de dados
+        db.close(); // Fechar a conecao a Base de dados
+    }
+
+
+    /**
+     * Adiciona um novo registo na tabela Testes
+     * @param teste Recebe um objecto do tipo Testes onde vai inserir
+     *             os dados na base de dados na tabela sistema
+     */
+    void addNewItemTestes(Teste teste) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(TEST_ID, teste.getIdTeste());   // Inserir na tabela campo Id
+        values.put(TEST_AREAID, teste.getAreaId());   // Inserir na tabela campo Id
+        values.put(TEST_PROFESSORID, teste.getProfessorId());   // Inserir na tabela campo Id
+        values.put(TEST_TITULO, teste.getTitulo());   // Inserir na tabela campo Titulo
+        values.put(TEST_TEXTO, teste.getTexto());         // Inserir na tabela o campo Texto
+        values.put(TEST_DATAINSERCAO, teste.getDataInsercaoTeste());         // Inserir na tabela o campo dataInsercao
+        values.put(TEST_GRAU, teste.getGrauEscolar());         // Inserir na tabela o campo Grau
+        values.put(TEST_TIPO, teste.getTipo());         // Inserir na tabela o campo Tipo
+        // Inserir LINHAS:
+        db.insert(TABELA_TESTE, null, values);
+        db.close(); // Fechar a conecao a Base de dados
+    }
+
+
+    /**
+     * Adiciona um novo registo na tabela TestesLeitura
+     * @param teste Recebe um objecto do tipo TestesLeitura onde vai inserir
+     *             os dados na base de dados na tabela sistema
+     */
+    void addNewItemTestesLeitura(TesteLeitura teste) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues valuesTest = new ContentValues();
+        valuesTest.put(TESTL_ID, teste.getIdTeste());   // Inserir na tabela campo Id
+        valuesTest.put(TEST_AREAID, teste.getAreaId());   // Inserir na tabela campo Id
+        valuesTest.put(TEST_PROFESSORID, teste.getProfessorId());   // Inserir na tabela campo Id
+        valuesTest.put(TEST_TITULO, teste.getTitulo());   // Inserir na tabela campo Titulo
+        valuesTest.put(TEST_TEXTO, teste.getTexto());         // Inserir na tabela o campo Texto
+        valuesTest.put(TEST_DATAINSERCAO, teste.getDataInsercaoTeste());         // Inserir na tabela o campo dataInsercao
+        valuesTest.put(TEST_GRAU, teste.getGrauEscolar());         // Inserir na tabela o campo Grau
+        valuesTest.put(TEST_TIPO, teste.getTipo());         // Inserir na tabela o campo tIPO
+        db.insert(TABELA_TESTE, null, valuesTest);
+        //////////////////////////////////////////////////////
+        ContentValues valuesTestLeitura = new ContentValues();
+        valuesTestLeitura.put(TESTL_ID, teste.getIdTeste());         // Inserir na tabela o campo ID
+        valuesTestLeitura.put(TESTL_TEXTO, teste.getConteudoTexto());         // Inserir na tabela o campo TEXTO
+        valuesTestLeitura.put(TESTL_SOMPROFESSOR, teste.getProfessorAudioUrl());         // Inserir na tabela o campo somProfessor
+        // Inserir LINHAS:
+        db.insert(TABELA_TESTELEITURA, null, valuesTestLeitura);
+        db.close(); // Fechar a conecao a Base de dados
     }
 
 
@@ -241,7 +328,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
 
     /**
-     * Buscar Um professor pelo o ID do ITEM
+     * Buscar Um estudante pelo o ID do ITEM
      *
      * @id recebe o Id
      * Retorna um objecto que contem Professor preenchido
@@ -267,6 +354,36 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return est;
     }
 
+
+    /**
+     * Buscar Um Campo desistema pelo o ID
+     *
+     * @id recebe o Id
+     * Retorna um objecto que contem Professor preenchido
+     */
+    Sistema getSistemaByname(String name) {
+        Sistema sist = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABELA_SISTEMA,
+                new String[]{SIS_ID, SIS_NOME, SIS_VALOR},
+                SIS_NOME + "=?",
+                new String[]{name}, null, null, null, null
+        );
+        ////// Se existir dados comeca a preencher o Objecto Sistema
+        if (cursor != null) {
+            cursor.moveToFirst();
+             sist = new Sistema(cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2));
+        }
+        // return o Item ja carregado com os dados
+        db.close();
+        return sist;
+    }
+
+
+
+
     /**
      * Buscar todos os campos da Tabela Professores
      * Retorna uma lista com varios objectos do tipo "Professores"
@@ -277,7 +394,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         String selectQuery = "SELECT  * FROM " + TABELA_PROFESSORES;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        // loop atrav�s de todas as linhas e adicionando � lista
+        // loop atraves de todas as linhas e adicionando � lista
         if (cursor.moveToFirst()) {
 
             do {
@@ -311,7 +428,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         String selectQuery = "SELECT  * FROM " + TABELA_ESCOLAS;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        // loop atrav�s de todas as linhas e adicionando � lista
+        // loop atraves de todas as linhas e adicionando � lista
         if (cursor.moveToFirst()) {
             do {
                 Escola escola = new Escola();
@@ -339,7 +456,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         String selectQuery = "SELECT  * FROM " + TABELA_ESTUDANTE;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        // loop atrav�s de todas as linhas e adicionando � lista
+        // loop atraves de todas as linhas e adicionando � lista
         if (cursor.moveToFirst()) {
             do {
                 Estudante estudante = new Estudante();
@@ -358,21 +475,110 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return listEstudantes;
     }
 
-//////////////////////////////////////////APENAS PARA TESTES PARA MAIS TARDE
-    /**
-     * Actualizar um registo unico
-     * @DadosImg Objecto com os dados a actualizar
-     */
-//	public int updateContact(DadosImg contact) {
-////		SQLiteDatabase db = this.getWritableDatabase();
-////		ContentValues values = new ContentValues();
-////		values.put(PROF_NAME, contact.getName()); // Actualizar campo nome
-////		values.put(PROF_IMAGE, contact.getImage()); // Actualizar campo imagem
-////		// Actualizar registos na Base de dados
-////		return db.update(TABLE_IMAGES, values, PROF_ID + " = ?",
-////				new String[] { String.valueOf(contact.getID()) });
-//	}
 
+    /**
+     * Buscar todos os campos da Tabela Sistema
+     * Retorna uma lista com varios objectos do tipo "sistema"
+     */
+    public List<Sistema> getAllSistema() {
+        List<Sistema> listSistema = new ArrayList<Sistema>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT  * FROM " + TABELA_SISTEMA;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atravEs de todas as linhas e adicionando Alista
+        if (cursor.moveToFirst()) {
+            do {
+                Sistema sistema = new Sistema();
+                sistema.setId(cursor.getInt(0));
+                sistema.setNome(cursor.getString(1));
+                sistema.setValor(cursor.getString(2));
+             // Adicionar os os items da base de dados a lista
+                listSistema.add(sistema);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listSistema;
+    }
+
+    /**
+     * Buscar todos os campos da Tabela Testes
+     * Retorna uma lista com varios objectos do tipo "Testes"
+     */
+    public List<Teste> getAllTeste() {
+        List<Teste> listTeste = new ArrayList<Teste>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT  * FROM " + TABELA_TESTE;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atravEs de todas as linhas e adicionando Alista
+        if (cursor.moveToFirst()) {
+            do {
+                Teste teste = new Teste();
+                teste.setIdTeste(cursor.getInt(0));
+                teste.setAreaId(cursor.getInt(1));
+                teste.setProfessorId(cursor.getInt(2));
+                teste.setTitulo(cursor.getString(3));
+                teste.setTexto(cursor.getString(4));
+                teste.setDataInsercaoTeste(cursor.getLong(5));
+                teste.setGrauEscolar(cursor.getInt(6));
+                teste.setTipos(cursor.getInt(7));
+                // Adicionar os os items da base de dados a lista
+                listTeste.add(teste);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listTeste;
+    }
+
+
+    /**
+     * Buscar todos os campos da Tabela Testes
+     * Retorna uma lista com varios objectos do tipo "Testes"
+     */
+    public List<TesteLeitura> getAllTesteLeitura() {
+        List<TesteLeitura> listTeste = new ArrayList<TesteLeitura>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT  * FROM " + TABELA_TESTELEITURA;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atravEs de todas as linhas e adicionando Alista
+        if (cursor.moveToFirst()) {
+            do {
+                TesteLeitura teste = new TesteLeitura();
+
+                teste.setIdTeste(cursor.getInt(0));
+                teste.setConteudoTexto(cursor.getString(1));
+                teste.setProfessorAudioUrl(cursor.getString(2));
+                // Adicionar os os items da base de dados a lista
+                listTeste.add(teste);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listTeste;
+    }
+
+
+    /**
+     * Actualizar um registo unico da Tabela Sistema
+     * @sistema Objecto com os dados a actualizar
+     */
+	public int updateSistemaItem(Sistema sistema) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(SIS_NOME, sistema.getNome()); // Actualizar campo nome
+		values.put(SIS_VALOR, sistema.getValor()); // Actualizar campo valor
+		// Actualizar registos na Base de dados
+		return db.update(TABELA_SISTEMA, values, SIS_NOME + " = ?",
+				new String[] { String.valueOf(sistema.getNome()) });
+	}
+
+
+
+//////////////////////////////////////////APENAS PARA TESTES PARA MAIS TARDE
 
     // Apagar registo
 
@@ -418,6 +624,28 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABELA_ESTUDANTE + " WHERE 1");
         db.close();
     }
+
+
+    /**
+     * Apaga todos os dados da tabela testes
+     */
+    public void deleteAllItemsTests() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABELA_TESTE + " WHERE 1");
+        db.close();
+    }
+
+    /**
+     * Apaga todos os dados da tabela testeslEITURA
+     */
+    public void deleteAllItemsTestsLeitura() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABELA_TESTELEITURA + " WHERE 1");
+        db.close();
+    }
+
+
+
 
 ///////////////////Codigo antigo mais tarde deve dar jeito///////////
     /**
