@@ -468,7 +468,7 @@ public class Teste_Palavras extends Activity{
 				marcaPalavra(textozico2);
 			}*/
 			public void textReader(){
-				String[] teste = {"manel","jakim","jusephino"};
+				String[] teste = {"manel","jakim","jusephino","bola","maçã"};
 				// Painel dinâmico ****************************************************
 				LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
 				// Botão original que existe por defenição
@@ -476,28 +476,31 @@ public class Teste_Palavras extends Activity{
 				// Atribuo o primeiro título ao primeiro botão
 				// ********************************+
 				// texto por defeito
-				tg1.setText(teste[0]);
+				//tg1.setText(teste[0]);
 				// texto se não seleccionado = "titulo do teste sem numeração"
-				tg1.setTextOff(teste[0]);
+				//tg1.setTextOff(teste[0]);
 				// texto se seleccionado = "titulo do teste com numeração"
-				tg1.setTextOn(teste[0]);
+				//tg1.setTextOn(teste[0]);
 
+				
+				ToggleButton tg[] = new ToggleButton[teste.length];
+				
 				// Resto do títulos
 				for(int i = 0; i<teste.length;i++){
 					// um novo botão
-					ToggleButton tg = new ToggleButton(getBaseContext());
+					tg[i] = new ToggleButton(getBaseContext());
 					// copiar os parametros de layout do 1º botão
-					tg.setLayoutParams(tg1.getLayoutParams());
-					tg.setBackgroundDrawable(tg1.getBackground());
-					tg.setTextSize(tg1.getTextSize());
+					tg[i].setLayoutParams(tg1.getLayoutParams());
+					tg[i].setBackgroundDrawable(tg1.getBackground());
+					tg[i].setTextSize(tg1.getTextSize());
 					// texto por defeito
-					tg.setText(teste[i]);
-					// texto se não seleccionado = "titulo do teste sem numeração"
-					tg.setTextOff(teste[i]);
-					// texto se seleccionado = "titulo do teste com numeração"
-					tg.setTextOn(teste[i]);
+					tg[i].setText(teste[i]);
+					// texto se não seleccionado = "escreve a palavra"
+					tg[i].setTextOff(teste[i]);
+					// texto se seleccionado = "adiciona um "X" à palavra errada"
+					tg[i].setTextOn(teste[i]+" X");
 					// inserir no scroll view
-					ll.addView(tg);
+					ll.addView(tg[i]);
 				}
 			}
 			public void marcaPalavra(final TextView textozico) {
