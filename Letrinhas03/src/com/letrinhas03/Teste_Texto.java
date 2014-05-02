@@ -1,8 +1,11 @@
 package com.letrinhas03;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
+import com.letrinhas03.util.Avaliacao;
 import com.letrinhas03.util.SystemUiHider;
 import com.letrinhas03.util.Teste;
 
@@ -10,6 +13,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -33,16 +37,18 @@ import android.widget.Toast;
 public class Teste_Texto extends Activity {
 	// flags para verificar os diversos estados do teste
 	boolean modo, gravado, recording, playing;
+
 	// objetos
 	ImageButton record, play, voltar, cancelar, avancar;
 	TextView pnt, vcl, frg, slb, rpt, pErr;
 	Chronometer chrono;
+
 	// variaveis contadoras para a avaliação
-	int plvErradas, pontua, vacil, fragment, silabs, repeti;
+	Avaliacao avaliador;
 
 	private MediaRecorder gravador;
 	private MediaPlayer reprodutor = new MediaPlayer();
-	private String endereco;
+	private String endereco, texto;
 
 	Teste[] lista;
 
@@ -103,7 +109,7 @@ public class Teste_Texto extends Activity {
 		// buscar os parametros
 		Bundle b = getIntent().getExtras();
 
-		// Compor novamnete e lista de testes
+		// Compor novamente e lista de testes
 		int lstID[] = b.getIntArray("ListaID");
 		int[] lstTipo = b.getIntArray("ListaTipo");
 		String[] lstTitulo = b.getStringArray("ListaTitulo");
@@ -116,11 +122,14 @@ public class Teste_Texto extends Activity {
 
 		modo = b.getBoolean("Modo");
 
+		// **********************************************************************************************
 		// Consultar a BD para preencher o conteúdo....
 		((TextView) findViewById(R.id.textCabecalho)).setText(lista[0]
 				.getTitulo());
 		((TextView) findViewById(R.id.textRodape))
 				.setText(b.getString("Aluno"));
+		texto = getResources().getText(R.string.exemploTexto).toString();
+		// **********************************************************************************************
 
 		endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
 				+ "/" + b.getString("Professor") + "/" + b.getString("Aluno")
@@ -133,11 +142,15 @@ public class Teste_Texto extends Activity {
 		}
 		lista = aux;
 
+
+		chrono = (Chronometer) findViewById(R.id.cromTxt);
+		
 		if (modo) {// está em modo professor
 			setCorreccao();
 		} else { // está em modo aluno
 			((TableLayout) findViewById(R.id.txtControlo))
 					.setVisibility(View.INVISIBLE);
+			chrono.setVisibility(View.INVISIBLE);
 
 		}
 
@@ -194,6 +207,9 @@ public class Teste_Texto extends Activity {
 	}
 
 	public void setUp() {
+		if (modo) {// está em modo professor
+			setCorreccao();
+		}
 
 		gravador = new MediaRecorder();
 		gravador.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -282,8 +298,6 @@ public class Teste_Texto extends Activity {
 						Toast.LENGTH_SHORT).show();
 				// O cronometro não funciona assim tão bem no seu modo
 				// original...
-				chrono = (Chronometer) findViewById(R.id.cromTxt);
-
 				// handler para controlar a GUI do android e a thread seguinte
 				play_handler = new Handler() {
 					public void handleMessage(Message msg) {
@@ -450,11 +464,39 @@ public class Teste_Texto extends Activity {
 					// inicia a avaliação
 			File file = new File(endereco);
 			if (file.exists()) { // se já fez uma gravação
-				// uma pop-up ou activity para determinar o valor de
-				// exprecividade da leitura
+				file= new File(endereco.substring(0, endereco.length()-5)+"_aval.txt");
+				if(file.exists())file.delete();
 				// usar a classe Avaliação para calcular os resultados.
-				// avançar para o próximo teste caso este exista.
-
+				// avançar para o próximo teste caso este exista.;
+				String avaliacao = avaliador.calcula(minuto, segundo);
+				android.app.AlertDialog alerta;
+				// Cria o gerador do AlertDialog
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				// define o titulo
+				builder.setTitle("Relatório de "
+						+((TextView) findViewById(R.id.textRodape))
+						.getText());
+				// define a mensagem
+				builder.setMessage(((TextView) findViewById(R.id.textRodape)).getText()
+						+", conseguiu os seguintes resultados: \n"
+						+avaliacao);
+				// define um botão como positivo
+				builder.setPositiveButton("OK", null);
+				// cria o AlertDialog
+				alerta = builder.create();
+				// Mostra
+				alerta.show();
+				
+				
+				try {
+					FileOutputStream out = new FileOutputStream(file);
+					out.write(avaliacao.getBytes());
+					out.close();
+				} catch (FileNotFoundException e) {
+				} catch (IOException e) {
+				}
+				
+				
 				finaliza();
 			} else {
 				android.app.AlertDialog alerta;
@@ -502,87 +544,95 @@ public class Teste_Texto extends Activity {
 		rpt = (TextView) findViewById(R.id.TextView06);
 		pErr = (TextView) findViewById(R.id.TextView07);
 
-		pnt.setText("" + pontua);
-		vcl.setText("" + vacil);
-		frg.setText("" + fragment);
-		slb.setText("" + silabs);
-		rpt.setText("" + repeti);
-		pErr.setText("" + plvErradas);
+		// texto
+		TextView txt = ((TextView) findViewById(R.id.txtTexto));
+		txt.setText(texto);
+		txt.setTextColor(Color.rgb(30, 30, 30));
+		// objeto para avaliação
+
+		// necessitamos de contar no texto, o nº de palavras e o nº de pontuação
+		avaliador = new Avaliacao(contaPalavras(), contaSinais());
+		pnt.setText("" + avaliador.getPontua());
+		vcl.setText("" + avaliador.getVacil());
+		frg.setText("" + avaliador.getFragment());
+		slb.setText("" + avaliador.getSilabs());
+		rpt.setText("" + avaliador.getRepeti());
+		pErr.setText("" + avaliador.getPlvErradas());
 
 		// ativar os controlos
+		// violação da pontuação
 		p1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (pontua != 0)
-					pontua--;
-				pnt.setText("" + pontua);
+				avaliador.decPontua();
+				pnt.setText("" + avaliador.getPontua());
 			}
 		});
 		p2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				pontua++;
-				pnt.setText("" + pontua);
+				avaliador.incPontua();
+				pnt.setText("" + avaliador.getPontua());
 			}
 		});
+		// ocorrência de vacilações
 		v1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (vacil != 0)
-					vacil--;
-				vcl.setText("" + vacil);
+				avaliador.decVacil();
+				vcl.setText("" + avaliador.getVacil());
 			}
 		});
 		v2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				vacil++;
-				vcl.setText("" + vacil);
+				avaliador.incVacil();
+				vcl.setText("" + avaliador.getVacil());
 			}
 		});
+		// ocorrência de fragmentações
 		f1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (fragment != 0)
-					fragment--;
-				frg.setText("" + fragment);
+				avaliador.decFragment();
+				frg.setText("" + avaliador.getFragment());
 			}
 		});
 		f2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				fragment++;
-				frg.setText("" + fragment);
+				avaliador.incFragment();
+				frg.setText("" + avaliador.getFragment());
 			}
 		});
+		// ocorrência de silabações
 		s1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (silabs != 0)
-					silabs--;
-				slb.setText("" + silabs);
+				avaliador.decSilabs();
+				slb.setText("" + avaliador.getSilabs());
 			}
 		});
 		s2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				silabs++;
-				slb.setText("" + silabs);
+				avaliador.incSilabs();
+				slb.setText("" + avaliador.getSilabs());
 			}
 		});
+		// ocorrência de repetições
 		r1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (repeti != 0)
-					repeti--;
-				rpt.setText("" + repeti);
+				avaliador.decRepeti();
+				rpt.setText("" + avaliador.getRepeti());
 			}
 		});
 		r2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				repeti++;
-				rpt.setText("" + repeti);
+				avaliador.incRepeti();
+				rpt.setText("" + avaliador.getRepeti());
 			}
 		});
 
@@ -594,6 +644,75 @@ public class Teste_Texto extends Activity {
 						marcaPalavra();
 					}
 				});
+	}
+
+	private int contaSinais() {
+		boolean flag = false;
+		int sinal = 0;
+		// percorre todo o texto e conta os sinais válidos
+		for (int i = 0; i < texto.length(); i++) {
+			switch (texto.charAt(i)) {// procuro os sinais possiveis
+			// se encontrar um, ativo uma flag
+			case '!':
+				flag = true;
+				break;
+			case '?':
+				flag = true;
+				break;
+			case '.':
+				flag = true;
+				break;
+			case ',':
+				flag = true;
+				break;
+			case ';':
+				flag = true;
+				break;
+			case ':':
+				flag = true;
+				break;
+			default:
+				if (flag) {// se não for um sinal e a flag estiver ativa, é
+							// porque passei por uma
+					// secção de pontuação e incremento o nº de sinais e
+					// desativo a flag
+					sinal++;
+					flag = false;
+				}
+			}
+		}
+		// podendo ser o ultimo caracter do texto um sinal (o que é o mais
+		// provável), verifico novamente
+		// a flag e valido a pontuação, caso esta seja verdade
+		if (flag) {
+			sinal++;
+		}
+		return sinal; // devolvo o nº de pontuações existentes no texto
+	}
+
+	private int contaPalavras() {
+		boolean flag = false;
+		int palavras = 0;
+		// percorre todo o texto e conta as palavras e outros caracteres
+		// agregados às palavras
+		for (int i = 0; i < texto.length(); i++) {
+			// procura um caracter que corresponda a uma letra
+			if (('A' <= texto.charAt(i) && texto.charAt(i) <= 'Z')
+					|| ('a' <= texto.charAt(i) && texto.charAt(i) <= 'z')
+					|| (128 <= texto.charAt(i) && texto.charAt(i) <= 237))
+				flag = true;
+			else {
+				if (flag) {
+					if (texto.charAt(i) != '-') {//aqui elimina-se a hipotese de hífen (-)
+						palavras++;
+						flag = false;
+					}
+				}
+			}
+		}
+		if (flag)
+			palavras++;
+		return palavras;
 	}
 
 	/******************************************************
@@ -632,8 +751,8 @@ public class Teste_Texto extends Activity {
 				// Mostrar palavra seleccionada na textbox
 				switch (item.getItemId()) {
 				case R.id.PalavraErrada:
-					plvErradas++;
-					pErr.setText("" + plvErradas);
+					avaliador.incPalErrada();
+					pErr.setText("" + avaliador.getPlvErradas());
 					Spannable WordtoSpan = (Spannable) textozico.getText();
 					ForegroundColorSpan cor = new ForegroundColorSpan(Color.RED);
 					WordtoSpan.setSpan(cor, startSelection, endSelection,
@@ -641,7 +760,7 @@ public class Teste_Texto extends Activity {
 					textozico.setText(WordtoSpan);
 					break;
 				case R.id.CancelarSeleccao:
-					if (plvErradas > 0) {
+					if (avaliador.getPlvErradas() > 0) {
 						Spannable WordtoCancelSpan = (Spannable) textozico
 								.getText();
 						ForegroundColorSpan corCancelar = new ForegroundColorSpan(
@@ -650,8 +769,8 @@ public class Teste_Texto extends Activity {
 								endSelection,
 								Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 						textozico.setText(WordtoCancelSpan);
-						plvErradas--;
-						pErr.setText("" + plvErradas);
+						avaliador.decPalErrada();
+						pErr.setText("" + avaliador.getPlvErradas());
 					} else {
 						Toast toast = Toast.makeText(getApplicationContext(),
 								"Não existem palavras erradas",
@@ -694,12 +813,11 @@ public class Teste_Texto extends Activity {
 			wrap.putIntArray("ListaTipo", lstTipo);
 			wrap.putStringArray("ListaTitulo", lstTitulo);
 
-			
 			// identifico o tipo de teste
 			switch (lista[0].getTipo()) {
 			case 0:
 				// lançar a nova activity do tipo texto,
-				
+
 				// iniciar a pagina 2 (escolher teste)
 				Intent it = new Intent(getApplicationContext(),
 						Teste_Texto.class);
