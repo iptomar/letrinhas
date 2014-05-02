@@ -31,27 +31,6 @@
         android:contentDescription="@string/Recording"
         android:src="@drawable/record" />
 
-    <ImageButton
-        android:id="@+id/txtVoltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:contentDescription="@string/voltar"
-        android:src="@drawable/voltar" />
-
-    <TextView
-        android:id="@+id/textRodape"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtVoltar"
-        android:layout_marginLeft="32dp"
-        android:layout_toRightOf="@+id/txtVoltar"
-        android:text="@string/letrinhas"
-        android:textColor="#5ddfff"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
     <TableLayout
         android:id="@+id/txtControlo"
         android:layout_width="wrap_content"
@@ -202,7 +181,7 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/TextView01"
+                android:id="@+id/resCabecalho"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment"
@@ -363,6 +342,7 @@
                 android:layout_gravity="fill"
                 android:text="@string/exemploTexto"
                 android:textIsSelectable="true"
+                android:textColor="#303030"
                 android:textSize="35sp" />
 
         </LinearLayout>
@@ -408,6 +388,26 @@
         android:paddingRight="10sp"
         android:textColor="#50ff50"
         android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/txtVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtTela"
+        android:layout_alignParentBottom="true"
+        android:contentDescription="@string/voltar"
+        android:src="@drawable/voltar" />
+
+    <TextView
+        android:id="@+id/textRodape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtVoltar"
+        android:layout_toRightOf="@+id/txtVoltar"
+        android:text="@string/letrinhas"
+        android:textColor="#5ddfff"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
 </RelativeLayout>
