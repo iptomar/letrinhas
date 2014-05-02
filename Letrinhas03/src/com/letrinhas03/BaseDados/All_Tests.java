@@ -1,28 +1,26 @@
 package com.letrinhas03.BaseDados;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ListActivity;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.*;
-import android.widget.AdapterView.OnItemClickListener;
-import com.letrinhas03.R;
-import com.letrinhas03.ClassesObjs.Teste;
-import com.letrinhas03.ClassesObjs.TesteLeitura;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.letrinhas03.R;
+import com.letrinhas03.ClassesObjs.Teste;
+import com.letrinhas03.ClassesObjs.TesteLeitura;
 
 public class All_Tests extends Activity {
 

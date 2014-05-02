@@ -1,32 +1,31 @@
 package com.letrinhas03.BaseDados;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.text.format.Time;
-import android.util.Log;
-import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import com.letrinhas03.R;
-import com.letrinhas03.ClassesObjs.Escola;
-import com.letrinhas03.ClassesObjs.Estudante;
-import com.letrinhas03.ClassesObjs.Professor;
-import com.letrinhas03.ClassesObjs.Sistema;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+
+import com.letrinhas03.R;
+import com.letrinhas03.ClassesObjs.Escola;
+import com.letrinhas03.ClassesObjs.Estudante;
+import com.letrinhas03.ClassesObjs.Professor;
+import com.letrinhas03.ClassesObjs.Sistema;
 
 public class MainBD extends Activity {
 
@@ -35,7 +34,7 @@ public class MainBD extends Activity {
     public String porta;
     public String URlString;
     public String log;
-    JSONParser jParser = new JSONParser();
+    // JSONParser jParser = new JSONParser();
     private ProgressDialog pDialog;
 
     @Override
@@ -214,7 +213,8 @@ public class MainBD extends Activity {
 
             String url = URlString + "professors/";
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            JSONObject json = jParser.Get(url, params);
+            // JSONObject json = jParser.getJSONObject(url, params);
+            JSONObject json = JSONParser.getJSONObject(url, params);
 
             try {
 
@@ -249,7 +249,7 @@ public class MainBD extends Activity {
         protected void lerSynEscolas() {
             String url = URlString + "schools/";
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            JSONObject json = jParser.Get(url, params);
+            JSONObject json = JSONParser.getJSONObject(url, params);
 
             try {
 
@@ -283,7 +283,7 @@ public class MainBD extends Activity {
         protected void lerSynEstudante() {
             String url = URlString + "students/";
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            JSONObject json = jParser.Get(url, params);
+            JSONObject json = JSONParser.getJSONObject(url, params);
 
             try {
 

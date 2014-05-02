@@ -12,9 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import com.letrinhas03.ClassesObjs.*;
-import com.letrinhas03.ClassesObjs.Sistema;
-import com.letrinhas03.ClassesObjs.Teste;
-import com.letrinhas03.ClassesObjs.TesteLeitura;
 
 import java.util.ArrayList;
 import java.util.List;

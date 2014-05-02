@@ -1,11 +1,8 @@
 package com.letrinhas03;
 
 import java.io.File;
-import java.io.IOException;
 
-import com.letrinhas03.util.SystemUiHider;
-import com.letrinhas03.util.Teste;
-
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,6 +26,9 @@ import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.letrinhas03.util.SystemUiHider;
+import com.letrinhas03.util.Teste;
 
 public class Teste_Texto extends Activity {
 	// flags para verificar os diversos estados do teste
@@ -265,6 +265,7 @@ public class Teste_Texto extends Activity {
 	 * 
 	 * @author Dário Jorge
 	 */
+	@SuppressLint("HandlerLeak")
 	private void startGrava() {
 		if (!recording) {
 			record.setImageResource(R.drawable.stop);
@@ -374,6 +375,7 @@ public class Teste_Texto extends Activity {
 	 * 
 	 * @author Dário Jorge
 	 */
+	@SuppressLint("HandlerLeak")
 	private void startPlay() {
 		if (!playing) {
 			play.setImageResource(R.drawable.play_on);

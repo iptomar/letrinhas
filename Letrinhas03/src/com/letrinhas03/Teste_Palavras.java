@@ -34,7 +34,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.letrinhas03.R.color;
 import com.letrinhas03.util.SystemUiHider;
 import com.letrinhas03.util.Teste;
 

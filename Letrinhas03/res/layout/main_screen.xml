@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="93.108.154.243" />
+        android:text="code.dei.estt.ipt.pt" />
 
     <TextView
         android:id="@+id/TextView01"
