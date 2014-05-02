@@ -92,7 +92,7 @@
             android:layout_width="138dp"
             android:layout_height="128dp"
             android:layout_gravity="right"
-            android:text="@string/exepriment" />
+            android:text="@string/syncro" />
 
     </FrameLayout>
 

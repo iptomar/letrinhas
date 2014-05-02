@@ -51,8 +51,8 @@
         ou ele grita ta:\n 
         -Vai-te embora!\n 
         -Pulga Maldita!!!</string>
-    <string name="min"> </string>
-    <string name="sec"> </string>
+    <string name="min"></string>
+    <string name="sec"></string>
     <string name="vacilar">Vacilações</string>
     <string name="fragment">Fragmentações</string>
     <string name="silabac">Silabações</string>
@@ -85,8 +85,7 @@
     <string name="pontErrada">Pontuação</string>
     <string name="PalavraErrada">Palavra Errada</string>
     <string name="CancelarSeleccao">Cancelar Seleccao</string>
-    <string name="Texto_Poema">
-Não sou nada.\n
+    <string name="Texto_Poema">Não sou nada.\n
 Nunca serei nada.\n
 Não posso querer ser nada.\n
 À parte isso, tenho em mim todos os sonhos do mundo.\n\n
@@ -120,5 +119,10 @@ Falhei em tudo.\n
 Como não fiz propósito nenhum, talvez tudo fosse nada.\n
 A aprendizagem que me deram,\n
 Desci dela pela janela das traseiras da casa.</string>
+    <string name="title_activity_resultado">Resultado</string>
+    <string name="resultado">Resultado do teste</string>
+    <string name="avancar">Avançar</string>
+    <string name="syncro">Sincronizar BD</string>
+    <string name="act_BD">Atualizar a Base de Dados</string>
 
 </resources>

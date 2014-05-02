@@ -235,7 +235,7 @@ public class MainBD extends Activity {
                     );
                 }
                 guardarProfBD(arrProf);
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

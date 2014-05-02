@@ -100,14 +100,18 @@ public class EscolheTeste extends Activity {
 		 */
 
 		// teste:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-		nTestes = 30;
+		nTestes = 3;
 		teste = new Teste[nTestes];
 
 		for (int i = 0; i < teste.length; i++) {
-			int tip =i%6; // tipo texto
-			String tit = "O título do teste";
-			teste[i] = new Teste(i, tip, tit);
-		}// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+			int tip = i; // tipo texto
+			teste[i] = new Teste(i, 0, "Atirei o Pau ao gato.");
+		}
+		teste[0] = new Teste(0, 0, "Atirei o Pau ao gato.");
+		teste[1] = new Teste(1, 1, "Palavras soltas.");
+		teste[2] = new Teste(2, 2, "Não sou nada.");
+
+		// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 		// Painel dinâmico ****************************************************
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
@@ -146,6 +150,10 @@ public class EscolheTeste extends Activity {
 				i++;
 			}
 		} else {
+			// esconder os botões
+			tg1.setVisibility(View.INVISIBLE);
+			exect.setVisibility(View.INVISIBLE);
+
 			android.app.AlertDialog alerta;
 			// Cria o gerador do AlertDialog
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -159,11 +167,7 @@ public class EscolheTeste extends Activity {
 			alerta = builder.create();
 			// Mostra
 			alerta.show();
-
-			// esconder os botões
-			tg1.setVisibility(View.INVISIBLE);
-			exect.setVisibility(View.INVISIBLE);
-
+			
 		}
 
 		volt = (ImageButton) findViewById(R.id.escTVoltar);
@@ -265,11 +269,11 @@ public class EscolheTeste extends Activity {
 				j++;
 			}
 		}
-		
+
 		iniciar(j);
 	}
-	
-	public void iniciar(int j){
+
+	public void iniciar(int j) {
 		// iniciar os testes....
 		// Se existir items seleccionados arranca com os testes,
 		if (0 < j) {
@@ -289,8 +293,8 @@ public class EscolheTeste extends Activity {
 
 			// teste, a depender das informações da BD
 			// ****************************************************************************
-			wrap.putString("Aluno", "EI3C-Tiago Fernandes");
-			wrap.putString("Professor", "ESTT-Antonio Manso");
+			wrap.putString("Aluno", "EI3-Tiago Fernandes");
+			wrap.putString("Professor", "ESTT- Pedro Dias");
 
 			// resto dos parametros
 			wrap.putIntArray("ListaID", lstID);
@@ -337,11 +341,11 @@ public class EscolheTeste extends Activity {
 				Toast.makeText(getApplicationContext(), " - Tipo não defenido",
 						Toast.LENGTH_SHORT).show();
 				// retirar o teste errado e continuar
-				
-				int k=0;
-				Teste aux[] = new Teste[lista.length-1]; 
+
+				int k = 0;
+				Teste aux[] = new Teste[lista.length - 1];
 				for (int i = 1; i < lista.length; i++) {
-					aux[k]=lista[i];
+					aux[k] = lista[i];
 					k++;
 				}
 				lista = aux;

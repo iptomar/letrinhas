@@ -42,7 +42,7 @@ public class PaginaInicial extends Activity {
 	 * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
 	 * user interaction before hiding the system UI.
 	 */
-	private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+	private static final int AUTO_HIDE_DELAY_MILLIS = 2000;
 
 	/**
 	 * If set, will toggle the system UI visibility upon interaction. Otherwise,
@@ -137,14 +137,23 @@ public class PaginaInicial extends Activity {
         ibotao = (ImageButton) findViewById(R.id.iBSair);
         link= (ProgressBar) findViewById(R.id.pBarLink);
         
-        //esconder o botão de entrar..
-       // bentrar.setVisibility(View.INVISIBLE);
-       //link.setVisibility(View.VISIBLE);
+       /************** Por fazer, ##############################################################
+        * Verificar se sexiste algum professor "logado", 
+        * se sim, retira as suas credenciais e avança sem que seja necessário fazer a autenticação
+        * se não, executa a escolha da escola, do professor, requer a autenticação do professor,
+        * que posteriormente carrega  turmas / alunos ao seu encargo.
+        * 
+        *  o utilizador (professor) escolhe o aluno que vai executar o teste e o seu modo (Aluno = treino) 
+        *  ou (Professor=avaliação).
+        * 
+        * 
 //#######################################################################################################       
-//###### Iniciar uma classe do tipo thread para detetar a ligação, iniciar a sincronização da BD, desativar
-//###### a barra de progresso e ativar o botão para entrar.
+//###### Iniciar uma classe do tipo thread para detetar a ligação, sincronizar / carregar a BD, desativar
+//###### a barra de progresso e ativar o botão para entrar.~
+ * 
+ */
         coneccaoW con = new coneccaoW(this);
-        con.run();//Método run, pois a DVM é burra!!! e não funciona muito bem com as threads e a tarefa Start()
+        con.run();//Método run, pois a DVM é burra!!! e não funciona muito bem com as threads no método Start()
         escutaBotoes();
 	}
 
@@ -196,7 +205,7 @@ public class PaginaInicial extends Activity {
 		// Trigger the initial hide() shortly after the activity has been
 		// created, to briefly hint to the user that UI controls
 		// are available.
-		delayedHide(1000);
+		delayedHide(2000);
 	}
 
 	/**

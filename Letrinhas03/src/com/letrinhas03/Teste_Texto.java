@@ -13,7 +13,8 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.res.ColorStateList;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -43,8 +44,9 @@ public class Teste_Texto extends Activity {
 	TextView pnt, vcl, frg, slb, rpt, pErr;
 	Chronometer chrono;
 
-	// variaveis contadoras para a avaliação
+	// Objeto controlador para a avaliação
 	Avaliacao avaliador;
+	String avaliacao;
 
 	private MediaRecorder gravador;
 	private MediaPlayer reprodutor = new MediaPlayer();
@@ -61,7 +63,7 @@ public class Teste_Texto extends Activity {
 	 * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
 	 * user interaction before hiding the system UI.
 	 */
-	private static final int AUTO_HIDE_DELAY_MILLIS = 1000;
+	private static final int AUTO_HIDE_DELAY_MILLIS = 2000;
 	/*********************************************************************
 	 * The flags to pass to {@link SystemUiHider#getInstance}.
 	 */
@@ -75,6 +77,14 @@ public class Teste_Texto extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.teste_texto);
+		
+		//new line faz a rotação do ecrãn 180 graus
+		int currentOrientation = getResources().getConfiguration().orientation;
+		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+		}else {
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+		}
 
 		// / esconder o title************************************************+
 		final View contentView = findViewById(R.id.testTexto);
@@ -122,8 +132,9 @@ public class Teste_Texto extends Activity {
 
 		modo = b.getBoolean("Modo");
 
+		/**####################################################################################
 		// **********************************************************************************************
-		// Consultar a BD para preencher o conteúdo....
+		/ Consultar a BD para preencher o conteúdo....*/
 		((TextView) findViewById(R.id.textCabecalho)).setText(lista[0]
 				.getTitulo());
 		((TextView) findViewById(R.id.textRodape))
@@ -151,7 +162,6 @@ public class Teste_Texto extends Activity {
 			((TableLayout) findViewById(R.id.txtControlo))
 					.setVisibility(View.INVISIBLE);
 			chrono.setVisibility(View.INVISIBLE);
-
 		}
 
 		record = (ImageButton) findViewById(R.id.txtRecord);
@@ -171,7 +181,7 @@ public class Teste_Texto extends Activity {
 		// Trigger the initial hide() shortly after the activity has been
 		// created, to briefly hint to the user that UI controls
 		// are available.
-		delayedHide(1000);
+		delayedHide(2000);
 	}
 
 	/**
@@ -463,31 +473,13 @@ public class Teste_Texto extends Activity {
 		if (modo) { // se está em modo de professor
 					// inicia a avaliação
 			File file = new File(endereco);
-			if (file.exists()) { // se já fez uma gravação
+			if (file.exists()) { // Verifica se já fez uma gravação
+				//prepara um ficheiro para guardar o relatório da avaliação
 				file= new File(endereco.substring(0, endereco.length()-5)+"_aval.txt");
 				if(file.exists())file.delete();
 				// usar a classe Avaliação para calcular os resultados.
 				// avançar para o próximo teste caso este exista.;
-				String avaliacao = avaliador.calcula(minuto, segundo);
-				android.app.AlertDialog alerta;
-				// Cria o gerador do AlertDialog
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				// define o titulo
-				builder.setTitle("Relatório de "
-						+((TextView) findViewById(R.id.textRodape))
-						.getText());
-				// define a mensagem
-				builder.setMessage(((TextView) findViewById(R.id.textRodape)).getText()
-						+", conseguiu os seguintes resultados: \n"
-						+avaliacao);
-				// define um botão como positivo
-				builder.setPositiveButton("OK", null);
-				// cria o AlertDialog
-				alerta = builder.create();
-				// Mostra
-				alerta.show();
-				
-				
+				avaliacao = avaliador.calcula(minuto, segundo);
 				try {
 					FileOutputStream out = new FileOutputStream(file);
 					out.write(avaliacao.getBytes());
@@ -495,8 +487,6 @@ public class Teste_Texto extends Activity {
 				} catch (FileNotFoundException e) {
 				} catch (IOException e) {
 				}
-				
-				
 				finaliza();
 			} else {
 				android.app.AlertDialog alerta;
@@ -868,6 +858,23 @@ public class Teste_Texto extends Activity {
 				break;
 			}
 
+		}
+		//se existir resultados de uma avaliação, apresenta o resultado.
+		if(avaliacao!=null){
+			//resultado 
+			Bundle wrap = new Bundle();
+			wrap.putString("Avaliac",avaliacao);
+			//aluno e titulo do teste
+			wrap.putString("teste",((TextView)findViewById(R.id.textRodape)).getText()
+					+"\n"
+					+((TextView)findViewById(R.id.textCabecalho)).getText());
+			
+			// iniciar a pagina de resultado
+			Intent av = new Intent(getApplicationContext(),
+					Resultado.class);
+			av.putExtras(wrap);
+
+			startActivity(av);			
 		}
 		finish();
 	}
