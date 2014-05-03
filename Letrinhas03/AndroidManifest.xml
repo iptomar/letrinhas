@@ -111,12 +111,6 @@
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas03.BaseDados."
-            android:label="@string/title_activity_all__tests"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppTheme" >
-        </activity>
-        <activity
             android:name="com.letrinhas03.Resultado"
             android:label="@string/title_activity_resultado" >
         </activity>

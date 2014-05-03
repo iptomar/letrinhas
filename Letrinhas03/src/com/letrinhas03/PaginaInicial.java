@@ -1,5 +1,6 @@
 package com.letrinhas03;
 
+import com.letrinhas03.BaseDados.LetrinhasDB;
 import com.letrinhas03.BaseDados.MainScreenActivity;
 import com.letrinhas03.util.SystemUiHider;
 import com.letrinhas03.util.coneccaoW;
@@ -17,19 +18,19 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 /**
- * Página Inicial
+ * Pï¿½gina Inicial
  *
  * com um exemplo de uma actividade full-screen, que mostra e esconde o User Interface de sistema
- * (i.e. status bar and navigation/system bar) com a interação do utilizador
+ * (i.e. status bar and navigation/system bar) com a interaï¿½ï¿½o do utilizador
  *
  * @see SystemUiHider
  *
  * @author Thiago
  */
 public class PaginaInicial extends Activity {
-	 Button bentrar, exper;	//botão para aceder ao menu
-	 ImageButton ibotao;//botão para sair da app
-	 ProgressBar link;	//barra de progresso para simbolizar a sincronização caso exista ligação ao servidor.
+	 Button bentrar, exper;	//botï¿½o para aceder ao menu
+	 ImageButton ibotao;//botï¿½o para sair da app
+	 ProgressBar link;	//barra de progresso para simbolizar a sincronizaï¿½ï¿½o caso exista ligaï¿½ï¿½o ao servidor.
 	
 	
 	/**
@@ -68,6 +69,19 @@ public class PaginaInicial extends Activity {
 
 		final View controlsView = findViewById(R.id.fullscreen_content_controls);
 		final View contentView = findViewById(R.id.fullscreen_content);
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////CHAMA EM BAKCGORUND A SINCRO DE TABELAS E INSERE NA BASE DE DADOS///////////////////
+        String ip = "code.dei.estt.ipt.pt";  ////TROCAR ISTO POR VARIAVEIS COM OS ENDEREÃ‡OS IP QUE NAO SEI ONDE TEM/////////
+        String porta = "80";
+        //Forma o endereÃ§o http
+        String   URlString = "http://" + ip + ":" + porta + "/";
+
+
+        String[] myTaskParams = { URlString, URlString, URlString };
+        new SincAllBd(this).execute(myTaskParams);
+        ///////////////PODEM VER EM LOGCAT A INSERIR TODOS OS DADOS NA TABELA /////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
@@ -139,21 +153,21 @@ public class PaginaInicial extends Activity {
         
        /************** Por fazer, ##############################################################
         * Verificar se sexiste algum professor "logado", 
-        * se sim, retira as suas credenciais e avança sem que seja necessário fazer a autenticação
-        * se não, executa a escolha da escola, do professor, requer a autenticação do professor,
+        * se sim, retira as suas credenciais e avanï¿½a sem que seja necessï¿½rio fazer a autenticaï¿½ï¿½o
+        * se nï¿½o, executa a escolha da escola, do professor, requer a autenticaï¿½ï¿½o do professor,
         * que posteriormente carrega  turmas / alunos ao seu encargo.
         * 
         *  o utilizador (professor) escolhe o aluno que vai executar o teste e o seu modo (Aluno = treino) 
-        *  ou (Professor=avaliação).
+        *  ou (Professor=avaliaï¿½ï¿½o).
         * 
         * 
 //#######################################################################################################       
-//###### Iniciar uma classe do tipo thread para detetar a ligação, sincronizar / carregar a BD, desativar
-//###### a barra de progresso e ativar o botão para entrar.~
+//###### Iniciar uma classe do tipo thread para detetar a ligaï¿½ï¿½o, sincronizar / carregar a BD, desativar
+//###### a barra de progresso e ativar o botï¿½o para entrar.~
  * 
  */
         coneccaoW con = new coneccaoW(this);
-        con.run();//Método run, pois a DVM é burra!!! e não funciona muito bem com as threads no método Start()
+        con.run();//Mï¿½todo run, pois a DVM ï¿½ burra!!! e nï¿½o funciona muito bem com as threads no mï¿½todo Start()
         escutaBotoes();
 	}
 
@@ -177,7 +191,7 @@ public class PaginaInicial extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //sair da aplicação
+                        //sair da aplicaï¿½ï¿½o
                         java.lang.System.exit(RESULT_OK);
                     }
                 }
