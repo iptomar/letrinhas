@@ -124,5 +124,7 @@ Desci dela pela janela das traseiras da casa.</string>
     <string name="avancar">Avançar</string>
     <string name="syncro">Sincronizar BD</string>
     <string name="act_BD">Atualizar a Base de Dados</string>
+    <string name="title_activity_escolhe_escola">Escolher Escola</string>
+    <string name="escola">escola</string>
 
 </resources>
