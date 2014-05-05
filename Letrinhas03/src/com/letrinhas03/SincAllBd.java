@@ -28,6 +28,7 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
         lerSynEscolas(strings[0]);
         lerSynEstudante(strings[0]);
         lerSynTestes(strings[0]);
+        lerSynTestesMultimedia(strings[0]);
         return null;
     }
 
@@ -38,7 +39,6 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
     /**
      *  Vai por HTTP buscar toda a informacao sobre os Professor e no final
      *  chama  o metodo para guardar na base dados
-     *
      */
     protected void lerSynProfessores(String URlString) {
 
@@ -174,6 +174,47 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
         }
         }
 
+    /**
+     *  Vai por HTTP buscar toda a informacao sobre os TestesMultimedia e no final
+     *  chama  o metodo para guardar na base de dados
+     */
+    protected void lerSynTestesMultimedia(String URlString) {
+        String url = URlString + "tests?type=1";  //// type 0 -> leitura | 1 -> multimédia | 2 -> lista | 3 -> poema
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        // getting JSON string from URL
+        JSONParser jParser = new JSONParser();
+        JSONArray  tests = jParser.getJSONArray(url, params);
+        try {
+            // For (loop)looping atraves de todos os Testes
+            for (int i = 0; i < tests.length(); i++) {
+                TesteMultimedia testeMultimedia = new TesteMultimedia();
+                JSONObject c = tests.getJSONObject(i);
+                ///////// Preencher um objecto do tipo teste com a informaçao    ///////////////
+                testeMultimedia.setIdTeste(c.getInt("id"));
+                testeMultimedia.setAreaId(c.getInt("areaId"));
+                testeMultimedia.setProfessorId(c.getInt("professorId"));
+                testeMultimedia.setTitulo(c.getString("title"));
+                testeMultimedia.setTexto(c.getString("mainText"));
+                testeMultimedia.setDataInsercaoTeste(c.getLong("creationDate"));
+                testeMultimedia.setGrauEscolar(c.getInt("grade"));
+                testeMultimedia.setTipos(1);
+                ////////////////////
+                testeMultimedia.setConteudoQuestao(c.getString("questionContent"));
+                testeMultimedia.setContentIsUrl(c.getInt("contentIsUrl"));
+                testeMultimedia.setOpcao1(c.getString("option1"));
+                testeMultimedia.setOpcao1IsUrl(c.getInt("option1IsUrl"));
+                testeMultimedia.setOpcao2(c.getString("option2"));
+                testeMultimedia.setOpcao2IsUrl(c.getInt("option2IsUrl"));
+                testeMultimedia.setOpcao3(c.getString("option1"));
+                testeMultimedia.setOpcao3IsUrl(c.getInt("option3IsUrl"));
+                testeMultimedia.setCorrectOption(c.getInt("correctOption"));
+                guardarTestesMultimediaBD(testeMultimedia);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 
@@ -276,7 +317,7 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
         Log.d("DB", "Tudo inserido nas Testes");
         /////PARA EFEITOS DE DEBUG E LOGO  O CODIGO A FRENTE APENAS MOSTRA O CONTEUDO DA TABELA//////////////
         List<Teste> dados = db.getAllTeste();
-        Log.d("BDDADOS: ", "*********Testes********************");
+        Log.d("BDDADOS: ", "*********Testes---- pelo meio de insert Leitura********************");
         for (Teste cn : dados) {
             String logs = "getIdTeste:   " + cn.getIdTeste() +
                     ",getTitulo:   " + cn.getTitulo() +
@@ -289,8 +330,6 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
 
             Log.d("BDDADOS: ", logs);
         }
-
-
         /////PARA EFEITOS DE DEBUG E LOGO  O CODIGO A FRENTE APENAS MOSTRA O CONTEUDO DA TABELA//////////////
         List<TesteLeitura> dados2 = db.getAllTesteLeitura();
         Log.d("BDDADOS: ", "\n*********testesleitura********************");
@@ -302,5 +341,56 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
             Log.d("BDDADOS: ", cenas);
         }
     }
+
+    /**
+     *  Guarda um array de  ObJECTOS testesMultimedia na Base de dados
+     * @param testeMultimedias Array com  testesMultimedia para se guardar
+     */
+    public void guardarTestesMultimediaBD(TesteMultimedia... testeMultimedias) {
+        LetrinhasDB db = new LetrinhasDB(context);
+//       db.deleteAllItemsTests();
+        db.deleteAllItemsTestsMultimedia();
+
+        Log.d("DB", "Inserir Dados na base de dados dos TESTES ..");
+        for (int i = 0; i < testeMultimedias.length; i++) {
+            db.addNewItemTestesMultimedia(testeMultimedias[i]);
+        }
+        db.close();
+        Log.d("DB", "Tudo inserido nas Testes");
+        /////PARA EFEITOS DE DEBUG E LOGO  O CODIGO A FRENTE APENAS MOSTRA O CONTEUDO DA TABELA//////////////
+        List<Teste> dados = db.getAllTeste();
+        Log.d("BDDADOS: ", "*********Testes---- pelo meio de insert multimedia********************");
+        for (Teste cn : dados) {
+            String logs = "getIdTeste:   " + cn.getIdTeste() +
+                    ",getTitulo:   " + cn.getTitulo() +
+                    ",getTexto:    " + cn.getTexto() +
+                    ", getDataInsercaoTeste:    " + cn.getDataInsercaoTeste() +
+                    ", getGrauEscolar:    " + cn.getGrauEscolar() +
+                    ", getTipo:    " + cn.getTipo();
+
+            // Writing Contacts to log
+
+            Log.d("BDDADOS: ", logs);
+        }
+        /////PARA EFEITOS DE DEBUG E LOGO  O CODIGO A FRENTE APENAS MOSTRA O CONTEUDO DA TABELA//////////////
+        List<TesteMultimedia> dados2 = db.getAllTesteMultimedia();
+        Log.d("BDDADOS: ", "\n*********testesMultimeida********************");
+        for (TesteMultimedia cn : dados2) {
+            String cenas = "getIdTeste:" + cn.getIdTeste() +
+                    ", getConteudoQuestao: " + cn.getConteudoQuestao() +
+                    ", getContentIsUrl: " + cn.getContentIsUrl() +
+                    ", ge: " + cn.getConteudoQuestao() +
+                    ", getOpcao1: " + cn.getOpcao1() +
+                    ", getOpcao1IsUrl: " + cn.getOpcao1IsUrl() +
+                    ", getOpcao2: " + cn.getOpcao2() +
+                    ", getOpcao2IsUrl: " + cn.getOpcao2IsUrl() +
+                    ", getOpcao3: " + cn.getOpcao3() +
+                    ", getOpcao3IsUrl: " + cn.getOpcao3IsUrl() +
+                    ", getCorrectOption: " + cn.getCorrectOption();
+            // Writing Contacts to log
+            Log.d("BDDADOS: ", cenas);
+        }
+    }
+
 }
 

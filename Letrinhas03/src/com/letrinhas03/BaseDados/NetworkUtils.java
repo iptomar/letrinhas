@@ -21,7 +21,6 @@ public class NetworkUtils {
 
     /**
      * Le um ficheiro a partir do url especificado.
-     *
      * @param url O url do ficheiro.
      * @return Um array de bytes representando o ficheiro que foi lido, ou null
      * se ocorreu um erro.
@@ -53,10 +52,8 @@ public class NetworkUtils {
 
     /**
      * Envia um resultado do teste para um deterninado URL
-     * <p/>
      * Usa uma biblioteca da Apache:
      * http://james.apache.org/download.cgi#Apache_Mime4J
-     *
      * @param url O url de destino para enviar os resultados
      * @param correcaoTeste Um objecto correcao de teste com os dados carregados que se pretendem enviar
      *

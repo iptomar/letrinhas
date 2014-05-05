@@ -76,9 +76,17 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     private static final String TESTL_TEXTO = "texto";
     private static final String TESTL_SOMPROFESSOR = "somProfessor";
 
-    // Nomes dos campos da tabela TestesMultimedia  *********INCOMPLETO DUVIDAS***
+    // Nomes dos campos da tabela TestesMultimedia
     private static final String TESTM_ID = "idTeste";
     private static final String TESTM_CONTEUDOQUESTAO = "conteudoQuestao";
+    private static final String TESTM_CONTEUDOISURL= "conteudoIsUrl";
+    private static final String TESTM_OPCAO1= "opcao1";
+    private static final String TESTM_OPCAO1ISURL= "opcao1IsUrl";
+    private static final String TESTM_OPCAO2= "opcao2";
+    private static final String TESTM_OPCAO2ISURL= "opcao2IsUrl";
+    private static final String TESTM_OPCAO3= "opcao3";
+    private static final String TESTM_OPCAO3ISURL= "opcao3IsUrl";
+    private static final String TESTM_OPCAOCORRETA= "opcaoCorreta";
 
     public LetrinhasDB(Context context) {
         super(context, NOME_BASEDADOS, null, VERSAO_BASEDADOS);
@@ -86,7 +94,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
     /**
      * Criar Tabela Professores
-     *
      * @db recebe a base de dados onde inserir a tabela
      */
     @Override
@@ -149,6 +156,19 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + TESTL_SOMPROFESSOR + " TEXT)";
         db.execSQL(createTableString);
 
+        //Construir a Tabela TesteMultimedia //////////////////
+        createTableString = "CREATE TABLE " + TABELA_TESTEMULTIMEDIA + "("
+                + TESTM_ID + " INTEGER PRIMARY KEY,"
+                + TESTM_CONTEUDOQUESTAO + " TEXT,"
+                + TESTM_CONTEUDOISURL + " INT,"
+                + TESTM_OPCAO1 + " TEXT,"
+                + TESTM_OPCAO1ISURL + " INT,"
+                + TESTM_OPCAO2 + " TEXT,"
+                + TESTM_OPCAO2ISURL + " INT,"
+                + TESTM_OPCAO3 + " TEXT,"
+                + TESTM_OPCAO3ISURL + " INT,"
+                + TESTM_OPCAOCORRETA + " INT )";
+        db.execSQL(createTableString);
     }
 
     @Override
@@ -164,13 +184,12 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 /////////////////// Operacoes CRUD(Create, Read, Update, Delete) //////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 
-                          //*************************//
-                          //**********INSERIR********//
-                          //*************************//
+                               //*************************//
+                               //**********INSERIR********//
+                               //*************************//
 
     /**
      * Adiciona um novo registo na tabela Professores
-     *
      * @param prof Recebe um objecto do tipo professor onde vai inserir
      *             os dados na base de dados na tabela Professores
      */
@@ -194,7 +213,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
     /**
      * Adiciona um novo registo na tabela Escolas
-     *
      * @param escola Recebe um objecto do tipo Escolas onde vai inserir
      *             os dados na base de dados na tabela Escolas
      */
@@ -213,7 +231,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
     /**
      * Adiciona um novo registo na tabela Estudante
-     *
      * @param estudante Recebe um objecto do tipo Estudante onde vai inserir
      *             os dados na base de dados na tabela Estudante
      */
@@ -250,7 +267,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     /**
      * Adiciona um novo registo na tabela Testes
      * @param teste Recebe um objecto do tipo Testes onde vai inserir
-     *             os dados na base de dados na tabela sistema
+     *             os dados na base de dados na tabela Testes
      */
     public void addNewItemTestes(Teste teste) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -272,7 +289,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     /**
      * Adiciona um novo registo na tabela TestesLeitura
      * @param teste Recebe um objecto do tipo TestesLeitura onde vai inserir
-     *             os dados na base de dados na tabela sistema
+     *             os dados na base de dados na tabela TestesLeitura
      */
     public void addNewItemTestesLeitura(TesteLeitura teste) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -293,6 +310,41 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         valuesTestLeitura.put(TESTL_SOMPROFESSOR, teste.getProfessorAudioUrl());         // Inserir na tabela o campo somProfessor
         // Inserir LINHAS:
         db.insert(TABELA_TESTELEITURA, null, valuesTestLeitura);
+        db.close(); // Fechar a conecao a Base de dados
+    }
+
+
+    /**
+     * Adiciona um novo registo na tabela TestesMultimedia
+     * @param testeM Recebe um objecto do tipo TestesMultimedia onde vai inserir
+     *             os dados na base de dados na tabela TestesMultimedia
+     */
+    public void addNewItemTestesMultimedia (TesteMultimedia testeM) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues valuesTest = new ContentValues();
+        valuesTest.put(TESTL_ID, testeM.getIdTeste());           // Inserir na tabela campo Id
+        valuesTest.put(TEST_AREAID, testeM.getAreaId());        // Inserir na tabela campo Id
+        valuesTest.put(TEST_PROFESSORID, testeM.getProfessorId());   // Inserir na tabela campo Id
+        valuesTest.put(TEST_TITULO, testeM.getTitulo());              // Inserir na tabela campo Titulo
+        valuesTest.put(TEST_TEXTO, testeM.getTexto());                 // Inserir na tabela o campo Texto
+        valuesTest.put(TEST_DATAINSERCAO, testeM.getDataInsercaoTeste());   // Inserir na tabela o campo dataInsercao
+        valuesTest.put(TEST_GRAU, testeM.getGrauEscolar());            // Inserir na tabela o campo Grau
+        valuesTest.put(TEST_TIPO, testeM.getTipo());                 // Inserir na tabela o campo tIPO
+        db.insert(TABELA_TESTE, null, valuesTest);
+        //////////////////////////////////////////////////////
+        ContentValues valuesTestMultimedia = new ContentValues();
+        valuesTestMultimedia.put(TESTM_ID, testeM.getIdTeste());                           // Inserir na tabela o campo ID
+        valuesTestMultimedia.put(TESTM_CONTEUDOQUESTAO, testeM.getConteudoQuestao());     // Inserir na tabela o campo ConteudoQuestao
+        valuesTestMultimedia.put(TESTM_CONTEUDOISURL, testeM.getContentIsUrl());         // Inserir na tabela o campo ContentIsUrl
+        valuesTestMultimedia.put(TESTM_OPCAO1, testeM.getOpcao1());                      // Inserir na tabela o campo Opcao1
+        valuesTestMultimedia.put(TESTM_OPCAO1ISURL, testeM.getOpcao1IsUrl());            // Inserir na tabela o campo Opcao1IsUrl
+        valuesTestMultimedia.put(TESTM_OPCAO2, testeM.getOpcao2());                       // Inserir na tabela o campo Opcao2
+        valuesTestMultimedia.put(TESTM_OPCAO2ISURL, testeM.getOpcao2IsUrl());            // Inserir na tabela o campo Opcao2IsUrl
+        valuesTestMultimedia.put(TESTM_OPCAO3, testeM.getOpcao3());                      // Inserir na tabela o campo Opcao3
+        valuesTestMultimedia.put(TESTM_OPCAO3ISURL, testeM.getOpcao3IsUrl());           // Inserir na tabela o campo Opcao3IsUrl
+        valuesTestMultimedia.put(TESTM_OPCAOCORRETA, testeM.getCorrectOption());        // Inserir na tabela o campo CorrectOption
+        // Inserir LINHAS:
+        db.insert(TABELA_TESTEMULTIMEDIA, null, valuesTestMultimedia);
         db.close(); // Fechar a conecao a Base de dados
     }
 
@@ -532,7 +584,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return listTeste;
     }
 
-
     /**
      * Buscar todos os campos da Tabela TestesLeitura
      * Retorna uma lista com varios objectos do tipo "TestesLeitura"
@@ -557,6 +608,40 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.close();
         // return a lista com todos os items da base de dados
         return listTeste;
+    }
+
+
+    /**
+     * Buscar todos os campos da Tabela TestesMultimedia
+     * Retorna uma lista com varios objectos do tipo "TestesMultimedia"
+     */
+    public List<TesteMultimedia> getAllTesteMultimedia() {
+        List<TesteMultimedia> listTesteMultimedia = new ArrayList<TesteMultimedia>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT  * FROM " + TABELA_TESTEMULTIMEDIA;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atraves de todas as linhas e adicionando Alista
+        if (cursor.moveToFirst()) {
+            do {
+                TesteMultimedia teste = new TesteMultimedia();
+                teste.setIdTeste(cursor.getInt(0));
+                teste.setConteudoQuestao(cursor.getString(1));
+                teste.setContentIsUrl(cursor.getInt(2));
+                teste.setOpcao1(cursor.getString(3));
+                teste.setOpcao1IsUrl(cursor.getInt(4));
+                teste.setOpcao2(cursor.getString(5));
+                teste.setOpcao2IsUrl(cursor.getInt(6));
+                teste.setOpcao3(cursor.getString(7));
+                teste.setOpcao3IsUrl(cursor.getInt(8));
+                teste.setCorrectOption(cursor.getInt(9));
+                // Adicionar os os items da base de dados a lista
+                listTesteMultimedia.add(teste);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listTesteMultimedia;
     }
 
 
@@ -626,6 +711,15 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     public void deleteAllItemsTestsLeitura() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_TESTELEITURA + " WHERE 1");
+        db.close();
+    }
+
+    /**
+     * Apaga todos os dados da tabela testeslEITURA
+     */
+    public void deleteAllItemsTestsMultimedia() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABELA_TESTEMULTIMEDIA + " WHERE 1");
         db.close();
     }
 
