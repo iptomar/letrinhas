@@ -1,17 +1,23 @@
 package com.letrinhas03;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 import com.letrinhas03.BaseDados.JSONParser;
 import com.letrinhas03.BaseDados.LetrinhasDB;
 import com.letrinhas03.BaseDados.NetworkUtils;
 import com.letrinhas03.ClassesObjs.*;
+import com.letrinhas03.util.Utils;
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +52,6 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         // JSONObject json = jParser.getJSONObject(url, params);
         JSONObject json = JSONParser.getJSONObject(url, params);
-
         try {
 
             JSONArray profs = json.getJSONArray("professors");
@@ -67,21 +72,19 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
             }
             guardarProfBD(arrProf);
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+          Log.d("ERRO", "ERRO DE SINC TALVEZ SERVIDOR EM BAIXO");
 
+        }
     }
 
     /**
      *  Vai por HTTP buscar toda a informacao sobre os escolas e no final
      *  chama  o metodo para guardar na base de dados
-     *
      */
     protected void lerSynEscolas(String URlString) {
         String url = URlString + "schools/";
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         JSONObject json = JSONParser.getJSONObject(url, params);
-
         try {
 
             JSONArray escola = json.getJSONArray("schools");
@@ -99,12 +102,11 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
                 );
             }
             guardarEscolaBD(arrEscolas);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.d("ERRO", "ERRO DE SINC TALVEZ SERVIDOR EM BAIXO");
+
         }
-
     }
-
 
     /**
      *  Vai por HTTP buscar toda a informacao sobre os estudantes e no final
@@ -134,8 +136,9 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
                 );
             }
             guardarEstudantesBD(arrEstudantes);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.d("ERRO", "ERRO DE SINC TALVEZ SERVIDOR EM BAIXO");
+
         }
 
     }
@@ -166,11 +169,13 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
                 testeleitura.setTipos(0);
                 ////////////////////
                 testeleitura.setConteudoTexto(c.getString("textContent"));
-                testeleitura.setProfessorAudioUrl(c.getString("professorAudioUrl"));
-                 guardarTestesLeituraBD(testeleitura);
+                testeleitura.setProfessorAudioUrl("SOM"+c.getInt("id")+".mp3");
+                Utils.saveFileSD("ReadingTests", "SOM"+c.getInt("id")+".mp3",  NetworkUtils.getFile(URlString + c.getString("professorAudioUrl")));
+                guardarTestesLeituraBD(testeleitura);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.d("ERRO", "ERRO DE SINC TALVEZ SERVIDOR EM BAIXO");
+
         }
         }
 
@@ -198,25 +203,54 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
                 testeMultimedia.setDataInsercaoTeste(c.getLong("creationDate"));
                 testeMultimedia.setGrauEscolar(c.getInt("grade"));
                 testeMultimedia.setTipos(1);
-                ////////////////////
-                testeMultimedia.setConteudoQuestao(c.getString("questionContent"));
+                ///////////CONJUNTO DE IFS QUE VAI ANALISAR SE VAI GUARDAR FICHEIROS NA SDCARD/////////
+
+                if (c.getInt("contentIsUrl") == 1)
+                {
+                    testeMultimedia.setConteudoQuestao("IMG-CONTENT"+c.getInt("id")+".jpg");
+                    Utils.saveFileSD("MultimediaTest", "IMG-CONTENT"+c.getInt("id")+".jpg",  NetworkUtils.getFile(URlString + c.getString("questionContent")));
+                }
+                else
+                    testeMultimedia.setConteudoQuestao(c.getString("questionContent"));
+
                 testeMultimedia.setContentIsUrl(c.getInt("contentIsUrl"));
-                testeMultimedia.setOpcao1(c.getString("option1"));
+
+
+                if (c.getInt("option1IsUrl") == 1)
+                {
+                    testeMultimedia.setConteudoQuestao("IMG-OPTION1-"+c.getInt("id")+".jpg");
+                    Utils.saveFileSD("MultimediaTest", "IMG-OPTION1-"+c.getInt("id")+".jpg",  NetworkUtils.getFile(URlString + c.getString("option1")));
+                }
+                else
+                    testeMultimedia.setConteudoQuestao(c.getString("option1"));
+
+                if (c.getInt("option2IsUrl") == 1)
+                {
+                    testeMultimedia.setConteudoQuestao("IMG-OPTION2-"+c.getInt("id")+".jpg");
+                    Utils.saveFileSD("MultimediaTest", "IMG-OPTION2-"+c.getInt("id")+".jpg",  NetworkUtils.getFile(URlString + c.getString("option2")));
+                }
+                else
+                    testeMultimedia.setConteudoQuestao(c.getString("option2"));
+
+
+                if (c.getInt("option3IsUrl") == 1)
+                {
+                    testeMultimedia.setConteudoQuestao("IMG-OPTION3-"+c.getInt("id")+".jpg");
+                    Utils.saveFileSD("MultimediaTest", "IMG-OPTION3-"+c.getInt("id")+".jpg",  NetworkUtils.getFile(URlString + c.getString("option3")));
+                }
+                else
+                    testeMultimedia.setConteudoQuestao(c.getString("option3"));
                 testeMultimedia.setOpcao1IsUrl(c.getInt("option1IsUrl"));
-                testeMultimedia.setOpcao2(c.getString("option2"));
-                testeMultimedia.setOpcao2IsUrl(c.getInt("option2IsUrl"));
-                testeMultimedia.setOpcao3(c.getString("option1"));
-                testeMultimedia.setOpcao3IsUrl(c.getInt("option3IsUrl"));
+                testeMultimedia.setOpcao1IsUrl(c.getInt("option2IsUrl"));
+                testeMultimedia.setOpcao1IsUrl(c.getInt("option3IsUrl"));
                 testeMultimedia.setCorrectOption(c.getInt("correctOption"));
                 guardarTestesMultimediaBD(testeMultimedia);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.d("ERRO", "ERRO DE SINC TALVEZ SERVIDOR EM BAIXO");
+
         }
     }
-
-
-
 
     /**
      *  Guarda um array de  ObJECTOS professores na Base de dados
@@ -308,7 +342,6 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
         LetrinhasDB db = new LetrinhasDB(context);
         db.deleteAllItemsTests();
         db.deleteAllItemsTestsLeitura();
-
         Log.d("DB", "Inserir Dados na base de dados dos TESTES ..");
         for (int i = 0; i < testeLeitura.length; i++) {
             db.addNewItemTestesLeitura(testeLeitura[i]);
@@ -350,7 +383,6 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
         LetrinhasDB db = new LetrinhasDB(context);
 //       db.deleteAllItemsTests();
         db.deleteAllItemsTestsMultimedia();
-
         Log.d("DB", "Inserir Dados na base de dados dos TESTES ..");
         for (int i = 0; i < testeMultimedias.length; i++) {
             db.addNewItemTestesMultimedia(testeMultimedias[i]);
@@ -391,6 +423,5 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
             Log.d("BDDADOS: ", cenas);
         }
     }
-
 }
 

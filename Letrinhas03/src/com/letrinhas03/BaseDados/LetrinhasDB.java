@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import com.letrinhas03.ClassesObjs.*;
+import com.letrinhas03.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +110,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + PROF_PASSWORD + " TEXT, "
                 + PROF_TELEFONE + " TEXT, "
                 + PROF_EMAIL + " TEXT, "
-                + PROF_FOTO + " MEDIUMBLOB, "
+                + PROF_FOTO + " TEXT, "
                 + PROF_ESTADO + " INTEGER )";
         db.execSQL(createTableString);
         Log.d("db", "A criar tabela " + TABELA_ESCOLAS);
@@ -118,7 +119,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         createTableString = "CREATE TABLE " + TABELA_ESCOLAS + "("
                 + ESC_IDESCOLA + " INTEGER PRIMARY KEY," + ESC_NOME
                 + " INTEGER," + ESC_MORADA + " TEXT, " + ESC_LOGOTIPO
-                + " MEDIUMBLOB )";
+                + " TEXT )";
         db.execSQL(createTableString);
 
 ////////Construir a Tabela Estudante //////////////////
@@ -126,7 +127,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + EST_ID + " INTEGER PRIMARY KEY,"
                 + EST_IDTURMA + " INTEGER,"
                 + ESC_NOME + " TEXT,"
-                + EST_FOTO + " MEDIUMBLOB,"
+                + EST_FOTO + " TEXT,"
                 + EST_ESTADO + " INTEGER" + ")";
         db.execSQL(createTableString);
 
@@ -195,8 +196,8 @@ public class LetrinhasDB extends SQLiteOpenHelper {
      */
     public  void addNewItemProf(Professor prof) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
+        String UrlimgEscola = "IMG"+prof.getId()+".jpg";
         values.put(PROF_IDPROFS, prof.getId());   // Inserir na tabela campo Nome
         values.put(PROF_NOME, prof.getNome());   // Inserir na tabela campo Nome
         values.put(PROF_IDESCOLA, prof.getIdEscola());   // Inserir na tabela campo idEscola
@@ -204,9 +205,10 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         values.put(PROF_PASSWORD, prof.getPassword());   // Inserir na tabela campo Password
         values.put(PROF_TELEFONE, prof.getTelefone());   // Inserir na tabela campo Telefone
         values.put(PROF_EMAIL, prof.getEmail());   // Inserir na tabela campo email
-        values.put(PROF_FOTO, prof.getFoto());   // Inserir na tabela campo foto
+        values.put(PROF_FOTO, UrlimgEscola);   // Inserir na tabela campo fotoURL
         values.put(PROF_ESTADO, prof.isEstado());   // Inserir na tabela campo isEstado
         // Inserir LINHAS:
+        Utils.saveFileSD("Professors", UrlimgEscola, prof.getFoto());
         db.insert(TABELA_PROFESSORES, null, values);
         //	db.close(); // Fechar a conecao a Base de dados
     }
@@ -218,13 +220,15 @@ public class LetrinhasDB extends SQLiteOpenHelper {
      */
     public void addNewItemEscolas(Escola escola) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
+        String UrlimgEscola = "IMG"+escola.getIdEscola()+".jpg";
         values.put(ESC_IDESCOLA, escola.getIdEscola());   // Inserir na tabela campo IDescola
         values.put(ESC_NOME, escola.getNome());         // Inserir na tabela campo nome
-        values.put(ESC_LOGOTIPO, escola.getLogotipo());  // Inserir na tabela campo logotipo
+        values.put(ESC_LOGOTIPO, UrlimgEscola);  // Inserir na tabela campo logotipo
         values.put(ESC_MORADA, escola.getMorada());     // Inserir na tabela campo morada
         // Inserir LINHAS:
+
+        Utils.saveFileSD("Schools", UrlimgEscola, escola.getLogotipo());
         db.insert(TABELA_ESCOLAS, null, values);
         //	db.close(); // Fechar a conecao a Base de dados
     }
@@ -237,12 +241,14 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     public  void addNewItemEstudante(Estudante estudante) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        String UrlimgEstudante = "IMG" + estudante.getIdEstudante()+".jpg";
         values.put(EST_ID, estudante.getIdEstudante());   // Inserir na tabela campo Id
         values.put(EST_IDTURMA, estudante.getIdTurma());   // Inserir na tabela campo Id turma
         values.put(EST_NOME, estudante.getNome());         // Inserir na tabela nome
-        values.put(EST_FOTO, estudante.getFoto());  // Inserir na tabela campo foto
+        values.put(EST_FOTO, UrlimgEstudante);  // Inserir na tabela campo foto
         values.put(EST_ESTADO, estudante.getEstado());     // Inserir na tabela estado
         // Inserir LINHAS:
+        Utils.saveFileSD("Students", UrlimgEstudante, estudante.getFoto());
         db.insert(TABELA_ESTUDANTE, null, values);
         //	db.close(); // Fechar a conecao a Base de dados
     }
@@ -260,7 +266,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         values.put(SIS_VALOR, sistema.getValor());         // Inserir na tabela o campo valor
         // Inserir LINHAS:
         db.insert(TABELA_SISTEMA, null, values);
-        db.close(); // Fechar a conecao a Base de dados
+      //  db.close(); // Fechar a conecao a Base de dados
     }
 
 
@@ -282,7 +288,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         values.put(TEST_TIPO, teste.getTipo());         // Inserir na tabela o campo Tipo
         // Inserir LINHAS:
         db.insert(TABELA_TESTE, null, values);
-        db.close(); // Fechar a conecao a Base de dados
+       // db.close(); // Fechar a conecao a Base de dados
     }
 
 
@@ -310,7 +316,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         valuesTestLeitura.put(TESTL_SOMPROFESSOR, teste.getProfessorAudioUrl());         // Inserir na tabela o campo somProfessor
         // Inserir LINHAS:
         db.insert(TABELA_TESTELEITURA, null, valuesTestLeitura);
-        db.close(); // Fechar a conecao a Base de dados
+      //  db.close(); // Fechar a conecao a Base de dados
     }
 
 
@@ -345,7 +351,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         valuesTestMultimedia.put(TESTM_OPCAOCORRETA, testeM.getCorrectOption());        // Inserir na tabela o campo CorrectOption
         // Inserir LINHAS:
         db.insert(TABELA_TESTEMULTIMEDIA, null, valuesTestMultimedia);
-        db.close(); // Fechar a conecao a Base de dados
+      //  db.close(); // Fechar a conecao a Base de dados
     }
 
 
@@ -373,12 +379,11 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         Professor prof = new Professor(cursor.getInt(0), cursor.getInt(1),
                 cursor.getString(2), cursor.getString(3),
                 cursor.getString(4), cursor.getString(5), cursor.getString(6),
-                cursor.getBlob(7), cursor.getInt(8));
+                Utils.getFileSD("Professors", cursor.getString(7)), cursor.getInt(8));
         // return o Item ja carregado com os dados
         db.close();
         return prof;
     }
-
 
     /**
      * Buscar Um estudante pelo o ID do ITEM
@@ -399,7 +404,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         Estudante est = new Estudante(cursor.getInt(0),
                 cursor.getInt(1),
                 cursor.getString(2),
-                cursor.getBlob(3),
+                Utils.getFileSD("Students", cursor.getString(3)),
                 cursor.getInt(4));
         // return o Item ja carregado com os dados
         db.close();
@@ -458,7 +463,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 prof.setPassword(cursor.getString(4));
                 prof.setTelefone(cursor.getString(5));
                 prof.setEmail(cursor.getString(6));
-                prof.setFoto(cursor.getBlob(7));
+                prof.setFoto( Utils.getFileSD("Professors", cursor.getString(7)));
                 prof.setEstado(cursor.getInt(8));
                 // Adicionar os os items da base de dados a lista
                 listProfessores.add(prof);
@@ -487,7 +492,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 escola.setIdEscola(cursor.getInt(0));
                 escola.setNome(cursor.getString(1));
                 escola.setMorada(cursor.getString(2));
-                escola.setLogotipo(cursor.getBlob(3));
+                escola.setLogotipo( Utils.getFileSD("Schools", cursor.getString(3)));
                 // Adicionar os os items da base de dados a lista
                 listEscolas.add(escola);
             } while (cursor.moveToNext());
@@ -515,7 +520,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 estudante.setIdEstudante(cursor.getInt(0));
                 estudante.setIdTurma(cursor.getInt(1));
                 estudante.setNome(cursor.getString(2));
-                estudante.setFoto(cursor.getBlob(3));
+                estudante.setFoto( Utils.getFileSD("Students", cursor.getString(3)));
                 estudante.setEstado(cursor.getInt(4));
                 // Adicionar os os items da base de dados a lista
                 listEstudantes.add(estudante);
@@ -676,6 +681,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_PROFESSORES + " WHERE 1");
         db.close();
+        Utils.deleteAllFileFolder("Professors");
     }
 
     /**
@@ -685,6 +691,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_ESCOLAS + " WHERE 1");
         db.close();
+        Utils.deleteAllFileFolder("Schools");
     }
 
     /**
@@ -694,6 +701,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_ESTUDANTE + " WHERE 1");
         db.close();
+        Utils.deleteAllFileFolder("Students");
     }
 
     /**
@@ -712,6 +720,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_TESTELEITURA + " WHERE 1");
         db.close();
+      //  Utils.deleteAllFileFolder("ReadingTests");
     }
 
     /**
@@ -721,6 +730,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_TESTEMULTIMEDIA + " WHERE 1");
         db.close();
+   //     Utils.deleteAllFileFolder("MultimediaTest");
     }
 
 
