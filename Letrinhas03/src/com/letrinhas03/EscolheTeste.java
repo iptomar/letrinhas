@@ -106,14 +106,15 @@ public class EscolheTeste extends Activity {
 		 */
 
 		// teste:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-		try{
-			List<Teste> dados = ldb.getAllTeste();
-		
+			ldb = new LetrinhasDB(this);
+			List<Professor> dados = ldb.getAllProfesors();
+			//List<TesteLeitura> dados = ldb.getAllTesteLeitura();
+		Toast.makeText(getApplicationContext(), "funcou aki", Toast.LENGTH_LONG).show();
 		
 		dados.listIterator();
 		
         Log.d("TESSSSSSSSSSSSSTE: ", dados.toString());
-        for (Teste cn : dados) {
+      /*  for (Professor cn : dados) {
             String logs = "getIdTeste:   " + cn.getIdTeste() +
                     ",getTitulo:   " + cn.getTitulo() +
                     ",getTexto:    " + cn.getTexto() +
@@ -124,10 +125,7 @@ public class EscolheTeste extends Activity {
             // Writing Contacts to log
 
             Log.d("BDDADOS: ", logs);
-        }
-}catch(Exception e){
-			
-		}
+        }*/
 		/*nTestes = 3;
 		teste = new Teste[nTestes];
 
@@ -145,7 +143,6 @@ public class EscolheTeste extends Activity {
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
 		// Botão original que existe por defenição
 		ToggleButton tg1 = (ToggleButton) findViewById(R.id.ToggleButton1);
-
 		// Se existirem testes no repositório correspondentes, cria o nº de
 		// botões referentes ao nº de testes existentes
 		if (0 < nTestes) {

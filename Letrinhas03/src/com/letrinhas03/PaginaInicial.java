@@ -184,7 +184,7 @@ public class PaginaInicial extends Activity {
                         //iniciar a pagina 2 (escolher teste)
                     	
                     	
-                        Intent it= new Intent(PaginaInicial.this, EscolheEscola.class);//Autenticacao.class);
+                        Intent it= new Intent(PaginaInicial.this, EscModo.class);//Autenticacao.class);
                         
                         
                         startActivity(it);
