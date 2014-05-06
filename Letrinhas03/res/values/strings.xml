@@ -126,5 +126,7 @@ Desci dela pela janela das traseiras da casa.</string>
     <string name="act_BD">Atualizar a Base de Dados</string>
     <string name="title_activity_escolhe_escola">Escolher Escola</string>
     <string name="escola">escola</string>
+    <string name="title_activity_escolhe_ano">Escolher Ano</string>
+    <string name="ano">ano</string>
 
 </resources>
