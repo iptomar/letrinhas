@@ -55,6 +55,7 @@ public class Utils {
             while (is.available() > 0) {
                 bos.write(is.read());
             }
+            is.close();
             return bos.toByteArray();
         } catch (IOException e) {
             // TODO Auto-generated catch block

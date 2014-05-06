@@ -546,37 +546,33 @@ public class Teste_Palavras extends Activity{
 				ToggleButton tg = (ToggleButton) findViewById(toggle);
 				tg.setTextColor(Color.DKGRAY);
 				tg.setBackgroundColor(Color.DKGRAY);
+				tg.setTextColor(Color.WHITE);
+				tg.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						 if (((CompoundButton) v).isChecked()) {
+					            v.setBackgroundColor(Color.RED);
+					            plvErradas++;
+					            pErr.setText("" + plvErradas);
+					        } /*else {
+					        	v.setBackgroundColor(Color.DKGRAY);
+					        	plvErradas--;
+					            pErr.setText("" + plvErradas);
+					        }*/
+					}
+				});
+		        tg.setChecked(true);
+		        tg.setText(ar[0]);
+		        tg.setTextOn(ar[0]);
+		        tg.setTextOff(ar[0]);
 				LinearLayout ll = (LinearLayout) findViewById(layout);
-				buttonSetUp(ar,1,ll,tg);
 		        // Resto do títulos
-				for(int i = 0; i<ar.length;i++){
+				for(int i = 1; i<ar.length;i++){
 					buttonSetUp(ar,i,ll,tg);
 				}	
 			}
 			
 			public void buttonSetUp(String[] teste,int i,LinearLayout ll,ToggleButton tg1){
-				if(i==0){
-					//tg1.set;
-					tg1.setTextColor(Color.WHITE);
-					tg1.setOnClickListener(new OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							 if (((CompoundButton) v).isChecked()) {
-						            v.setBackgroundColor(Color.RED);
-						            plvErradas++;
-						            pErr.setText("" + plvErradas);
-						        } else {
-						        	v.setBackgroundColor(Color.DKGRAY);
-						        	plvErradas--;
-						            pErr.setText("" + plvErradas);
-						        }
-						}
-					});
-			        tg1.setChecked(true);
-			        tg1.setText(teste[i]);
-			        tg1.setTextOn(teste[i]);
-			        tg1.setTextOff(teste[i]);
-				}else{
 				ToggleButton tg = new ToggleButton(getBaseContext());
 				tg.setLayoutParams(tg1.getLayoutParams());
 				tg.setBackgroundColor(Color.DKGRAY);
@@ -588,19 +584,18 @@ public class Teste_Palavras extends Activity{
 					            v.setBackgroundColor(Color.RED);
 					            plvErradas++;
 					            pErr.setText("" + plvErradas);
-					        } else {
+					        } /*else {
 					        	v.setBackgroundColor(Color.DKGRAY);
 					        	plvErradas--;
 					        	pErr.setText("" + plvErradas);
-					        }
+					        }*/
 					}
 				});
-		        tg.setChecked(true);
+		      //  tg.setChecked(true);
 		        tg.setText(teste[i]);
 		        tg.setTextOn(teste[i]);
 		        tg.setTextOff(teste[i]);
 				ll.addView(tg);
-				}
 			}
 			
 			public void marcaPalavra(final TextView textozico) {

@@ -1,7 +1,10 @@
 package com.letrinhas03;
 
+import java.util.List;
+
+import com.letrinhas03.BaseDados.LetrinhasDB;
 import com.letrinhas03.util.SystemUiHider;
-import com.letrinhas03.util.Teste;
+//import com.letrinhas03.util.Teste;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -10,12 +13,14 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import com.letrinhas03.ClassesObjs.*;
 
 public class EscolheTeste extends Activity {
 	ImageButton volt, exect;
@@ -23,6 +28,7 @@ public class EscolheTeste extends Activity {
 	boolean modo;
 	Teste[] teste;
 	Teste[] lista;
+	LetrinhasDB ldb;
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -100,7 +106,29 @@ public class EscolheTeste extends Activity {
 		 */
 
 		// teste:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-		nTestes = 3;
+		try{
+			List<Teste> dados = ldb.getAllTeste();
+		
+		
+		dados.listIterator();
+		
+        Log.d("TESSSSSSSSSSSSSTE: ", dados.toString());
+        for (Teste cn : dados) {
+            String logs = "getIdTeste:   " + cn.getIdTeste() +
+                    ",getTitulo:   " + cn.getTitulo() +
+                    ",getTexto:    " + cn.getTexto() +
+                    ", getDataInsercaoTeste:    " + cn.getDataInsercaoTeste() +
+                    ", getGrauEscolar:    " + cn.getGrauEscolar() +
+                    ", getTipo:    " + cn.getTipo();
+
+            // Writing Contacts to log
+
+            Log.d("BDDADOS: ", logs);
+        }
+}catch(Exception e){
+			
+		}
+		/*nTestes = 3;
 		teste = new Teste[nTestes];
 
 		for (int i = 0; i < teste.length; i++) {
@@ -109,7 +137,7 @@ public class EscolheTeste extends Activity {
 		}
 		teste[0] = new Teste(0, 0, "Atirei o Pau ao gato.");
 		teste[1] = new Teste(1, 1, "Palavras soltas.");
-		teste[2] = new Teste(2, 2, "Não sou nada.");
+		teste[2] = new Teste(2, 2, "Não sou nada.");*/
 
 		// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -282,7 +310,7 @@ public class EscolheTeste extends Activity {
 			int[] lstTipo = new int[lista.length];
 			String[] lstTitulo = new String[lista.length];
 			for (int i = 0; i < lista.length; i++) {
-				lstID[i] = lista[i].getID();
+			//	lstID[i] = lista[i].getID();
 				lstTipo[i] = lista[i].getTipo();
 				lstTitulo[i] = lista[i].getTitulo();
 			}

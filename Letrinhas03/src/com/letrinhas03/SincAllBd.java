@@ -1,25 +1,26 @@
 package com.letrinhas03;
 
-import android.app.AlertDialog;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.util.Log;
+
 import com.letrinhas03.BaseDados.JSONParser;
 import com.letrinhas03.BaseDados.LetrinhasDB;
 import com.letrinhas03.BaseDados.NetworkUtils;
-import com.letrinhas03.ClassesObjs.*;
+import com.letrinhas03.ClassesObjs.Escola;
+import com.letrinhas03.ClassesObjs.Estudante;
+import com.letrinhas03.ClassesObjs.Professor;
+import com.letrinhas03.ClassesObjs.Teste;
+import com.letrinhas03.ClassesObjs.TesteLeitura;
+import com.letrinhas03.ClassesObjs.TesteMultimedia;
 import com.letrinhas03.util.Utils;
-import org.apache.http.NameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Alex on 03/05/2014.
