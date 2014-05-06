@@ -114,6 +114,10 @@
             android:name="com.letrinhas03.Resultado"
             android:label="@string/title_activity_resultado" >
         </activity>
+        <activity
+            android:name="com.letrinhas03.EscolheAno"
+            android:label="@string/title_activity_escolhe_ano" >
+        </activity>
     </application>
 
 </manifest>

@@ -33,8 +33,6 @@
         android:clickable="true"
         android:contentDescription="@string/start"
         
-        android:onClick="executarTestes"
-        
         android:src="@drawable/right" />
 
     <TextView

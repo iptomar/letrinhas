@@ -27,7 +27,7 @@ public class EscolheEscola extends Activity {
 	//boolean modo;
 	List<Escola> escolas;
 	//Teste[] lista;
-	LetrinhasDB db;
+	//LetrinhasDB db;
 	Escola escola;
 
 	/**
@@ -57,7 +57,7 @@ public class EscolheEscola extends Activity {
 		
 		
 		//Cria o objecto da base de dados
-		db = new LetrinhasDB(this);
+		//db = new LetrinhasDB(this);
 		
 		
 

@@ -179,7 +179,11 @@ public class PaginaInicial extends Activity {
                     @Override
                     public void onClick(View view) {
                         //iniciar a pagina 2 (escolher teste)
-                        Intent it= new Intent(PaginaInicial.this, EscModo.class);//Autenticacao.class);
+                    	
+                    	
+                        Intent it= new Intent(PaginaInicial.this, EscolheEscola.class);//Autenticacao.class);
+                        
+                        
                         startActivity(it);
                         //finish();
                     }
