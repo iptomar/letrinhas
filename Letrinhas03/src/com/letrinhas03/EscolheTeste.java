@@ -24,10 +24,14 @@ import com.letrinhas03.ClassesObjs.*;
 
 public class EscolheTeste extends Activity {
 	ImageButton volt, exect;
-	public int nTestes;
+	public int nTestes,numero=0;
 	boolean modo;
-	Teste[] teste;
-	Teste[] lista;
+	String[] teste;
+	String[] lista;
+	String[] array;
+	String[] tipo;
+	String[] titulo;
+	String[] texto;
 	LetrinhasDB ldb;
 
 	/**
@@ -106,26 +110,27 @@ public class EscolheTeste extends Activity {
 		 */
 
 		// teste:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-			ldb = new LetrinhasDB(this);
-			List<Professor> dados = ldb.getAllProfesors();
-			//List<TesteLeitura> dados = ldb.getAllTesteLeitura();
-		Toast.makeText(getApplicationContext(), "funcou aki", Toast.LENGTH_LONG).show();
-		
-		dados.listIterator();
-		
-        Log.d("TESSSSSSSSSSSSSTE: ", dados.toString());
-      /*  for (Professor cn : dados) {
-            String logs = "getIdTeste:   " + cn.getIdTeste() +
-                    ",getTitulo:   " + cn.getTitulo() +
-                    ",getTexto:    " + cn.getTexto() +
-                    ", getDataInsercaoTeste:    " + cn.getDataInsercaoTeste() +
-                    ", getGrauEscolar:    " + cn.getGrauEscolar() +
-                    ", getTipo:    " + cn.getTipo();
-
-            // Writing Contacts to log
-
-            Log.d("BDDADOS: ", logs);
-        }*/
+		ldb = new LetrinhasDB(this);
+		List<Teste> dados = ldb.getAllTeste();
+		Log.d("letrinhas", dados.toString()+"int:"+numero);
+		array = new String[dados.size()];
+		tipo = new String[dados.size()];
+		titulo = new String[dados.size()];
+		texto = new String[dados.size()];
+		for (Teste cn : dados) {
+            String storage = cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
+            Log.d("letrinhas-Store", storage.toString());
+            array[numero] = storage.toString();
+            Log.d("letrinhas-Array", array[0].toString());
+            tipo[numero] = cn.getTitulo();
+            Log.d("letrinhas-Tipo", tipo[0].toString());
+            titulo[numero] = cn.getTitulo();
+            Log.d("letrinhas-Titulo", titulo[0].toString());
+            texto[numero] = cn.getTexto();
+            Log.d("letrinhas-Texto", texto[0].toString());
+            numero++;
+        }
+        
 		/*nTestes = 3;
 		teste = new Teste[nTestes];
 
@@ -145,31 +150,32 @@ public class EscolheTeste extends Activity {
 		ToggleButton tg1 = (ToggleButton) findViewById(R.id.ToggleButton1);
 		// Se existirem testes no repositório correspondentes, cria o nº de
 		// botões referentes ao nº de testes existentes
-		if (0 < nTestes) {
+		if (0 < numero) {
 			int i = 0;
+			teste = titulo[i].split("[,]");
 			// Atribuo o primeiro título ao primeiro botão
 			// ********************************+
 			// texto por defeito
-			tg1.setText(teste[i].getTitulo());
+			tg1.setText(teste[i].toString());
 			// texto se não seleccionado = "titulo do teste sem numeração"
-			tg1.setTextOff(teste[i].getTitulo());
+			tg1.setTextOff(teste[i].toString());
 			// texto se seleccionado = "titulo do teste com numeração"
-			tg1.setTextOn((i + 1) + " - " + teste[i].getTitulo());
+			tg1.setTextOn((i + 1) + " - " + teste[i].toString());
 			i++;
 
 			// Resto do títulos
-			while (i < nTestes) {
+			while (i < numero) {
 				// um novo botão
 				ToggleButton tg = new ToggleButton(getBaseContext());
 				// copiar os parametros de layout do 1º botão
 				tg.setLayoutParams(tg1.getLayoutParams());
 				tg.setTextSize(tg1.getTextSize());
 				// texto por defeito
-				tg.setText(teste[i].getTitulo());
+				tg.setText(teste[i].toString());
 				// texto se não seleccionado = "titulo do teste sem numeração"
-				tg.setTextOff(teste[i].getTitulo());
+				tg.setTextOff(teste[i].toString());
 				// texto se seleccionado = "titulo do teste com numeração"
-				tg.setTextOn((i + 1) + " - " + teste[i].getTitulo());
+				tg.setTextOn((i + 1) + " - " + teste[i].toString());
 				// inserir no scroll view
 				ll.addView(tg);
 				i++;
@@ -286,11 +292,11 @@ public class EscolheTeste extends Activity {
 				Toast.LENGTH_SHORT).show();
 
 		// Copiar os testes seleccionados para uma lista auxiliar
-		lista = new Teste[j];
+		lista = new String[j];
 		j = 0;
 		for (int i = 0; i < nElements; i++) {
 			if (((ToggleButton) ll.getChildAt(i)).isChecked()) {
-				lista[j] = teste[i];
+				lista[j] = array[i];
 				j++;
 			}
 		}
@@ -308,8 +314,8 @@ public class EscolheTeste extends Activity {
 			String[] lstTitulo = new String[lista.length];
 			for (int i = 0; i < lista.length; i++) {
 			//	lstID[i] = lista[i].getID();
-				lstTipo[i] = lista[i].getTipo();
-				lstTitulo[i] = lista[i].getTitulo();
+				lstTipo[i] = Integer.parseInt(tipo[i]);
+				lstTitulo[i] = titulo[i];
 			}
 
 			// enviar o parametro de modo
@@ -326,7 +332,7 @@ public class EscolheTeste extends Activity {
 			wrap.putIntArray("ListaTipo", lstTipo);
 			wrap.putStringArray("ListaTitulo", lstTitulo);
 
-			switch (lista[0].getTipo()) {
+			switch (Integer.parseInt(tipo[0])) {
 			case 0: // lançar a nova activity do tipo texto,
 
 				Intent it = new Intent(getApplicationContext(),
@@ -367,14 +373,14 @@ public class EscolheTeste extends Activity {
 						Toast.LENGTH_SHORT).show();
 				// retirar o teste errado e continuar
 
-				int k = 0;
+				/*int k = 0;
 				Teste aux[] = new Teste[lista.length - 1];
 				for (int i = 1; i < lista.length; i++) {
 					aux[k] = lista[i];
 					k++;
 				}
 				lista = aux;
-				iniciar(lista.length);
+				iniciar(lista.length);*/
 				break;
 			}
 
