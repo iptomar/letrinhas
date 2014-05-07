@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/escEscola"
+    android:id="@+id/escProf"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
@@ -11,23 +11,23 @@
     android:paddingRight="40sp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:screenOrientation="landscape"
-    tools:context="com.letrinhas03.EscolheEscola" >
+    tools:context=".EscolheProfessor" >
 
     <TextView
-        android:id="@+id/esTCabecalho_escl"
+        android:id="@+id/esTCabecalho_prof"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/logo2"
-        android:text="@string/title_activity_escolhe_escola"
+        android:text="@string/title_activity_escolhe_professor"
         android:textColor="#5ddfff"
         android:textSize="50sp"
         android:textStyle="bold" />
 
     <ImageButton
-        android:id="@+id/ibComecar_escl"
+        android:id="@+id/ibComecar_prof"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/escTRodape_escl"
+        android:layout_alignBottom="@+id/escTRodape_prof"
         android:layout_alignParentRight="true"
         android:layout_marginRight="40dp"
         android:clickable="true"
@@ -36,11 +36,11 @@
         android:src="@drawable/right" />
 
     <TextView
-        android:id="@+id/escTRodape_escl"
+        android:id="@+id/escTRodape_prof"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/escTVoltar_escl"
-        android:layout_toRightOf="@+id/escTVoltar_escl"
+        android:layout_alignBottom="@+id/escTVoltar_prof"
+        android:layout_toRightOf="@+id/escTVoltar_prof"
         android:layout_marginLeft="10sp"
         android:text="@string/letrinhas"
         android:textColor="#5ddfff"
@@ -48,39 +48,39 @@
         android:textStyle="bold" />
 
     <ImageButton
-        android:id="@+id/escTVoltar_escl"
+        android:id="@+id/escTVoltar_prof"
         android:layout_width="100sp"
         android:layout_height="100sp"
-        android:layout_alignLeft="@+id/esTCabecalho_escl"
+        android:layout_alignLeft="@+id/esTCabecalho_prof"
         android:layout_alignParentBottom="true"
         android:contentDescription="@string/voltar"
         android:onClick="voltar"
         android:src="@drawable/voltar" />
 
     <ScrollView
-        android:id="@+id/svEscolher_escl"
+        android:id="@+id/svEscolher_prof"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/ibComecar_escl"
-        android:layout_alignLeft="@+id/esTCabecalho_escl"
-        android:layout_below="@+id/esTLogo_escl"
+        android:layout_above="@+id/ibComecar_prof"
+        android:layout_alignLeft="@+id/esTCabecalho_prof"
+        android:layout_below="@+id/esTLogo_prof"
         android:layout_marginLeft="40dp"
-        android:layout_toLeftOf="@+id/ibComecar_escl"
+        android:layout_toLeftOf="@+id/ibComecar_prof"
         android:background="@color/black_overlay" >
 
         <LinearLayout
-            android:id="@+id/llescescola"
+            android:id="@+id/llescProf"
             android:layout_width="match_parent"
             android:layout_height="457dp"
             android:orientation="vertical" >
 
             <Button
-                android:id="@+id/Button_escl"
+                android:id="@+id/Button_prof"
                 android:layout_width="match_parent"
                 android:layout_height="83dp"
                 android:layout_marginTop="5sp"
                 
-                android:text="@string/escola"
+                android:text="@string/professor"
                 
                 android:textSize="32sp"
                 android:textStyle="normal" />
@@ -89,21 +89,21 @@
     </ScrollView>
 
     <ImageView
-        android:id="@+id/esTLogo_escl"
+        android:id="@+id/esTLogo_prof"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/esTCabecalho_escl"
-        android:layout_toRightOf="@+id/svEscolher_escl"
-        android:contentDescription="@string/escola"
+        android:layout_alignTop="@+id/esTCabecalho_prof"
+        android:layout_toRightOf="@+id/svEscolher_prof"
+        android:contentDescription="@string/professor"
         android:src="@drawable/index" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/esTLogo_escl"
-        android:layout_alignRight="@+id/esTLogo_escl"
-        android:layout_alignTop="@+id/svEscolher_escl"
+        android:layout_alignLeft="@+id/esTLogo_prof"
+        android:layout_alignRight="@+id/esTLogo_prof"
+        android:layout_alignTop="@+id/svEscolher_prof"
         android:text="@string/act_BD" />
 
 </RelativeLayout>

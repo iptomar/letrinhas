@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.letrinhas03.BaseDados.LetrinhasDB;
 import com.letrinhas03.ClassesObjs.Escola;
+import com.letrinhas03.ClassesObjs.Professor;
 import com.letrinhas03.util.SystemUiHider;
 
 import android.os.Build;
@@ -20,11 +21,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class EscolheEscola extends Activity {
+public class EscolheProfessor extends Activity {
 
 	ImageButton volt, exect;
-	public int nEscolas;
-	List<Escola> escolas;
+	public int nProfessores;
+	List<Professor> professores;
 	LetrinhasDB db;
 	Escola escola;
 
@@ -50,18 +51,18 @@ public class EscolheEscola extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_escolhe_escola);
+		setContentView(R.layout.activity_escolhe_professor);
 		
 		
 		
 		//Cria o objecto da base de dados
 		db = new LetrinhasDB(this);
 		
-		escolas = db.getAllSchools();
-		nEscolas = escolas.size();
+		professores = db.getAllProfesors();
+		nProfessores = professores.size();
 
 		// esconder o title************************************************+
-		final View contentView = findViewById(R.id.escEscola);
+		final View contentView = findViewById(R.id.escProf);
 
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
@@ -91,34 +92,34 @@ public class EscolheEscola extends Activity {
 				});
 
 		/************************************************************************
-		 * Criação de um painel dinâmico para os botões de selecção das escolas
+		 * Criação de um painel dinâmico para os botões de selecção das professores
 		 * existentes.
 		 * 
 		 * 
 		 */
 
 		// Painel dinâmico ****************************************************
-		LinearLayout ll = (LinearLayout) findViewById(R.id.llescescola);
+		LinearLayout ll = (LinearLayout) findViewById(R.id.llescProf);
 		// Botão original que existe por defenição
-		Button bt1 = (Button) findViewById(R.id.Button_escl);
+		Button bt1 = (Button) findViewById(R.id.Button_prof);
 
-		// Cria o nº de botões referentes ao nº de escolas presentes na lista
-		if (0 < nEscolas) {
+		// Cria o nº de botões referentes ao nº de professores presentes na lista
+		if (0 < nProfessores) {
 			int i = 0;
 			// Atribir a primeira escola ao primeiro botão
 			// ********************************+
 			// Nome da Escola
-			bt1.setText(escolas.get(i).getNome());
+			bt1.setText(professores.get(i).getNome());
 			i++;
-			// Resto das escolas
-			while (i <= nEscolas) {
+			// Resto dos professores
+			while (i <= nProfessores) {
 				// um novo botão
 				Button bt = new Button(getBaseContext());
 				// copiar os parametros de layout do 1º botão
 				bt.setLayoutParams(bt1.getLayoutParams());
 				bt.setTextSize(bt1.getTextSize());
-				// Nome da Escola
-				bt.setText(escolas.get(i).getNome());
+				// Nome do prof
+				bt.setText(professores.get(i).getNome());
 				// inserir no scroll view
 				ll.addView(bt);
 				i++;
@@ -134,7 +135,7 @@ public class EscolheEscola extends Activity {
 			// define o titulo
 			builder.setTitle("Letrinhas 03");
 			// define a mensagem
-			builder.setMessage("Não foram encontradas escolas no sistema");
+			builder.setMessage("Não foram encontradas professores no sistema");
 			// define um botão como positivo
 			builder.setPositiveButton("OK", null);
 			// cria o AlertDialog
@@ -144,8 +145,8 @@ public class EscolheEscola extends Activity {
 			
 		}
 
-		volt = (ImageButton) findViewById(R.id.escTVoltar_escl);
-		exect = (ImageButton) findViewById(R.id.ibComecar_escl);
+		volt = (ImageButton) findViewById(R.id.escTVoltar_prof);
+		exect = (ImageButton) findViewById(R.id.ibComecar_prof);
 
 		escutaBotoes();
 	}

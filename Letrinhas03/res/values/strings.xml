@@ -128,5 +128,9 @@ Desci dela pela janela das traseiras da casa.</string>
     <string name="escola">escola</string>
     <string name="title_activity_escolhe_ano">Escolher Ano</string>
     <string name="ano">ano</string>
+    <string name="title_activity_escolhe_aluno">Escolher Aluno</string>
+    <string name="aluno">aluno</string>
+    <string name="title_activity_escolhe_professor">Escolher Professor</string>
+    <string name="professor">professor</string>
 
 </resources>
