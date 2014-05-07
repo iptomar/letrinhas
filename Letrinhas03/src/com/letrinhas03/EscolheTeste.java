@@ -331,6 +331,7 @@ public class EscolheTeste extends Activity {
 			wrap.putIntArray("ListaID", lstID);
 			wrap.putIntArray("ListaTipo", lstTipo);
 			wrap.putStringArray("ListaTitulo", lstTitulo);
+			wrap.putString("Texto", texto[0]);
 
 			switch (tipo[0]) {
 			case 0: // lançar a nova activity do tipo texto,
