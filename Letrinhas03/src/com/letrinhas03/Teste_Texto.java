@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Spannable;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -122,7 +123,8 @@ public class Teste_Texto extends Activity {
 
 		// buscar os parametros
 		Bundle b = getIntent().getExtras();
-
+		String[] ss = b.getStringArray("ListaTexto");
+		Log.d("Texto", b.getStringArray("ListaTexto").toString());
 		// Compor novamente e lista de testes
 		int lstID[] = b.getIntArray("ListaID");
 		int[] lstTipo = b.getIntArray("ListaTipo");
@@ -143,7 +145,9 @@ public class Teste_Texto extends Activity {
 				.getTitulo());
 		((TextView) findViewById(R.id.textRodape))
 				.setText(b.getString("Aluno"));
-		texto = getResources().getText(R.string.exemploTexto).toString();
+		//texto = getResources().getText(R.string.exemploTexto).toString();
+		Log.d("Texto", ss[0]);
+		texto = ss[0];
 		// **********************************************************************************************
 
 		endereco = Environment.getExternalStorageDirectory().getAbsolutePath()

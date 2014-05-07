@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.style.ParagraphStyle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,10 +27,10 @@ public class EscolheTeste extends Activity {
 	ImageButton volt, exect;
 	public int nTestes,numero=0;
 	boolean modo;
-	String[] teste;
+	String teste;
 	String[] lista;
 	String[] array;
-	int[] tipo;
+	int[] tipo,id;
 	String[] titulo;
 	String[] texto;
 	LetrinhasDB ldb;
@@ -112,36 +113,26 @@ public class EscolheTeste extends Activity {
 		// teste:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		ldb = new LetrinhasDB(this);
 		List<Teste> dados = ldb.getAllTeste();
-		Log.d("letrinhas", dados.toString()+"int:"+numero);
 		array = new String[dados.size()];
 		tipo = new int[dados.size()];
 		titulo = new String[dados.size()];
 		texto = new String[dados.size()];
+		id = new int[dados.size()];
 		for (Teste cn : dados) {
             String storage = cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
             Log.d("letrinhas-Store", storage.toString());
             array[numero] = storage.toString();
             Log.d("letrinhas-Array", array[0].toString());
             tipo[numero] = cn.getTipo();
-            Log.d("letrinhas-Tipo", tipo.toString());
+            Log.d("letrinhas-Tipo",String.valueOf(tipo[0]));
             titulo[numero] = cn.getTitulo();
             Log.d("letrinhas-Titulo", titulo[0].toString());
             texto[numero] = cn.getTexto();
             Log.d("letrinhas-Texto", texto[0].toString());
+            id[numero] = cn.getIdTeste();
+            Log.d("letrinhas-ID", String.valueOf(id[0]));
             numero++;
         }
-        
-		/*nTestes = 3;
-		teste = new Teste[nTestes];
-
-		for (int i = 0; i < teste.length; i++) {
-			int tip = i; // tipo texto
-			teste[i] = new Teste(i, 0, "Atirei o Pau ao gato.");
-		}
-		teste[0] = new Teste(0, 0, "Atirei o Pau ao gato.");
-		teste[1] = new Teste(1, 1, "Palavras soltas.");
-		teste[2] = new Teste(2, 2, "Não sou nada.");*/
-
 		// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 		// Painel dinâmico ****************************************************
@@ -152,15 +143,15 @@ public class EscolheTeste extends Activity {
 		// botões referentes ao nº de testes existentes
 		if (0 < numero) {
 			int i = 0;
-			teste = titulo[i].split("[,]");
+			teste = titulo[i].toString();
 			// Atribuo o primeiro título ao primeiro botão
 			// ********************************+
 			// texto por defeito
-			tg1.setText(teste[i].toString());
+			tg1.setText(teste);
 			// texto se não seleccionado = "titulo do teste sem numeração"
-			tg1.setTextOff(teste[i].toString());
+			tg1.setTextOff(teste);
 			// texto se seleccionado = "titulo do teste com numeração"
-			tg1.setTextOn((i + 1) + " - " + teste[i].toString());
+			tg1.setTextOn((i + 1) + " - " + teste);
 			i++;
 
 			// Resto do títulos
@@ -171,11 +162,11 @@ public class EscolheTeste extends Activity {
 				tg.setLayoutParams(tg1.getLayoutParams());
 				tg.setTextSize(tg1.getTextSize());
 				// texto por defeito
-				tg.setText(teste[i].toString());
+				tg.setText(teste);
 				// texto se não seleccionado = "titulo do teste sem numeração"
-				tg.setTextOff(teste[i].toString());
+				tg.setTextOff(teste);
 				// texto se seleccionado = "titulo do teste com numeração"
-				tg.setTextOn((i + 1) + " - " + teste[i].toString());
+				tg.setTextOn((i + 1) + " - " + teste);
 				// inserir no scroll view
 				ll.addView(tg);
 				i++;
@@ -312,10 +303,12 @@ public class EscolheTeste extends Activity {
 			int[] lstID = new int[lista.length];
 			int[] lstTipo = new int[lista.length];
 			String[] lstTitulo = new String[lista.length];
+			String[] lstTexto = new String[lista.length];
 			for (int i = 0; i < lista.length; i++) {
-			//	lstID[i] = lista[i].getID();
+				lstID[i] = id[i];
 				lstTipo[i] = tipo[i];
 				lstTitulo[i] = titulo[i];
+				lstTexto[i] = texto[i];
 			}
 
 			// enviar o parametro de modo
@@ -331,7 +324,7 @@ public class EscolheTeste extends Activity {
 			wrap.putIntArray("ListaID", lstID);
 			wrap.putIntArray("ListaTipo", lstTipo);
 			wrap.putStringArray("ListaTitulo", lstTitulo);
-			wrap.putString("Texto", texto[0]);
+			wrap.putStringArray("ListaTexto", lstTexto);
 
 			switch (tipo[0]) {
 			case 0: // lançar a nova activity do tipo texto,
