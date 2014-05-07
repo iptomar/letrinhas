@@ -155,6 +155,7 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
         JSONParser jParser = new JSONParser();
         JSONArray  tests = jParser.getJSONArray(url, params);
         try {
+            TesteLeitura[] arrTestesLeitura = new TesteLeitura[tests.length()];
             // For (loop)looping atraves de todos os Testes
             for (int i = 0; i < tests.length(); i++) {
                 TesteLeitura testeleitura = new TesteLeitura();
@@ -172,8 +173,9 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
                 testeleitura.setConteudoTexto(c.getString("textContent"));
                 testeleitura.setProfessorAudioUrl("SOM"+c.getInt("id")+".mp3");
                 Utils.saveFileSD("ReadingTests", "SOM"+c.getInt("id")+".mp3",  NetworkUtils.getFile(URlString + c.getString("professorAudioUrl")));
-                guardarTestesLeituraBD(testeleitura);
+                arrTestesLeitura[i] =  testeleitura;
             }
+            guardarTestesLeituraBD(arrTestesLeitura);
         } catch (Exception e) {
             Log.d("ERRO", "ERRO DE SINC TALVEZ SERVIDOR EM BAIXO");
 
@@ -191,6 +193,7 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
         JSONParser jParser = new JSONParser();
         JSONArray  tests = jParser.getJSONArray(url, params);
         try {
+            TesteMultimedia[] arrTestesMultimedia = new TesteMultimedia[tests.length()];
             // For (loop)looping atraves de todos os Testes
             for (int i = 0; i < tests.length(); i++) {
                 TesteMultimedia testeMultimedia = new TesteMultimedia();
@@ -245,8 +248,9 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
                 testeMultimedia.setOpcao1IsUrl(c.getInt("option2IsUrl"));
                 testeMultimedia.setOpcao1IsUrl(c.getInt("option3IsUrl"));
                 testeMultimedia.setCorrectOption(c.getInt("correctOption"));
-                guardarTestesMultimediaBD(testeMultimedia);
+                arrTestesMultimedia[i] = testeMultimedia;
             }
+            guardarTestesMultimediaBD(arrTestesMultimedia);
         } catch (Exception e) {
             Log.d("ERRO", "ERRO DE SINC TALVEZ SERVIDOR EM BAIXO");
 
@@ -351,7 +355,7 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
         Log.d("DB", "Tudo inserido nas Testes");
         /////PARA EFEITOS DE DEBUG E LOGO  O CODIGO A FRENTE APENAS MOSTRA O CONTEUDO DA TABELA//////////////
         List<Teste> dados = db.getAllTeste();
-        Log.d("BDDADOS: ", "*********Testes---- pelo meio de insert Leitura********************");
+        Log.d("BDDADOS: ", "*********Tabela Testes---- + testes Leitura********************");
         for (Teste cn : dados) {
             String logs = "getIdTeste:   " + cn.getIdTeste() +
                     ",getTitulo:   " + cn.getTitulo() +
@@ -392,7 +396,7 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
         Log.d("DB", "Tudo inserido nas Testes");
         /////PARA EFEITOS DE DEBUG E LOGO  O CODIGO A FRENTE APENAS MOSTRA O CONTEUDO DA TABELA//////////////
         List<Teste> dados = db.getAllTeste();
-        Log.d("BDDADOS: ", "*********Testes---- pelo meio de insert multimedia********************");
+        Log.d("BDDADOS: ", "********* Tabela Testes---- + testes multimedia********************");
         for (Teste cn : dados) {
             String logs = "getIdTeste:   " + cn.getIdTeste() +
                     ",getTitulo:   " + cn.getTitulo() +
