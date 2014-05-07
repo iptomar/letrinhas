@@ -2,10 +2,6 @@ package com.letrinhas03;
 
 import java.util.List;
 
-import com.letrinhas03.BaseDados.LetrinhasDB;
-import com.letrinhas03.util.SystemUiHider;
-//import com.letrinhas03.util.Teste;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,7 +9,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.style.ParagraphStyle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,7 +16,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import com.letrinhas03.ClassesObjs.*;
+
+import com.letrinhas03.BaseDados.LetrinhasDB;
+import com.letrinhas03.ClassesObjs.Teste;
+import com.letrinhas03.util.SystemUiHider;
+//import com.letrinhas03.util.Teste;
 
 public class EscolheTeste extends Activity {
 	ImageButton volt, exect;
@@ -119,7 +118,8 @@ public class EscolheTeste extends Activity {
 		texto = new String[dados.size()];
 		id = new int[dados.size()];
 		for (Teste cn : dados) {
-            String storage = cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
+           // String storage = cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
+			String storage = cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo();
             Log.d("letrinhas-Store", storage.toString());
             array[numero] = storage.toString();
             Log.d("letrinhas-Array", array[0].toString());
@@ -328,6 +328,7 @@ public class EscolheTeste extends Activity {
 			wrap.putIntArray("ListaTipo", lstTipo);
 			wrap.putStringArray("ListaTitulo", lstTitulo);
 			wrap.putStringArray("ListaTexto", lstTexto);
+			wrap.putStringArray("Storage", array);
 
 			switch (tipo[0]) {
 			case 0: // lançar a nova activity do tipo texto,

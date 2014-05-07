@@ -5,10 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.letrinhas03.util.Avaliacao;
-import com.letrinhas03.util.SystemUiHider;
-import com.letrinhas03.util.Teste;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -37,8 +33,8 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.letrinhas03.util.Avaliacao;
 import com.letrinhas03.util.SystemUiHider;
-import com.letrinhas03.util.Teste;
 
 public class Teste_Texto extends Activity {
 	// flags para verificar os diversos estados do teste
@@ -57,7 +53,13 @@ public class Teste_Texto extends Activity {
 	private MediaPlayer reprodutor = new MediaPlayer();
 	private String endereco, texto;
 
-	Teste[] lista;
+	//Teste[] lista;
+	String teste;
+	//String[] lista;
+	String[] array;
+	int[] tipo,id;
+	String[] titulo;
+	String[] texto0;
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -123,43 +125,45 @@ public class Teste_Texto extends Activity {
 
 		// buscar os parametros
 		Bundle b = getIntent().getExtras();
-		String[] ss = b.getStringArray("ListaTexto");
+		//String[] ss = 
 	//	Log.d("Texto", b.getStringArray("ListaTexto").toString());
 		// Compor novamente e lista de testes
 		int lstID[] = b.getIntArray("ListaID");
 		int[] lstTipo = b.getIntArray("ListaTipo");
 		String[] lstTitulo = b.getStringArray("ListaTitulo");
-
-		//
-		lista = new Teste[lstID.length];
+		String[] lstTexto = b.getStringArray("ListaTexto");
+		array = b.getStringArray("Storage");
+		id = lstID;
+		tipo = lstTipo;
+		titulo = lstTitulo;
+		texto0 = lstTexto;
+		/*lista = new Teste[lstID.length];
 		for (int i = 0; i < lstTitulo.length; i++) {
 			lista[i] = new Teste(lstID[i], lstTipo[i], lstTitulo[i]);
-		}
+		}*/
 
 		modo = b.getBoolean("Modo");
 
 		/**####################################################################################
 		// **********************************************************************************************
 		/ Consultar a BD para preencher o conteúdo....*/
-		((TextView) findViewById(R.id.textCabecalho)).setText(lista[0]
-				.getTitulo());
-		((TextView) findViewById(R.id.textRodape))
-				.setText(b.getString("Aluno"));
+		((TextView) findViewById(R.id.textCabecalho)).setText(lstTitulo[0]);
+		((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
 		//texto = getResources().getText(R.string.exemploTexto).toString();
-		Log.d("Texto", ss[0]);
-		texto = ss[0];
+		Log.d("Texto", lstTexto[0]);
+		texto = lstTexto[0];
 		// **********************************************************************************************
 
 		endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
 				+ "/" + b.getString("Professor") + "/" + b.getString("Aluno")
-				+ "/" + lista[0].getTitulo() + ".3gpp";
+				+ "/" + lstTitulo[0] + ".3gpp";
 
 		// descontar este teste da lista.
-		Teste[] aux = new Teste[lista.length - 1];
-		for (int i = 1; i < lista.length; i++) {
-			aux[i - 1] = lista[i];
+		String[] aux = new String[array.length-1];
+		for (int i = 1; i < array.length; i++) {
+			aux[i - 1] = array[i];
 		}
-		lista = aux;
+		array = aux;
 
 
 		chrono = (Chronometer) findViewById(R.id.cromTxt);
@@ -740,8 +744,7 @@ public class Teste_Texto extends Activity {
 		textozico.performLongClick();
 		final int startSelection = textozico.getSelectionStart();
 		final int endSelection = textozico.getSelectionEnd();
-		final String selectedText = textozico.getText().toString()
-				.substring(startSelection, endSelection);
+		//final String selectedText = textozico.getText().toString().substring(startSelection, endSelection);
 
 		PopupMenu menu = new PopupMenu(getApplicationContext(), textozico);
 		menu.getMenuInflater().inflate(R.menu.menu, menu.getMenu());
@@ -790,15 +793,17 @@ public class Teste_Texto extends Activity {
 	 * realizar Este método deverá ser usado em todas as paginas de teste.
 	 */
 	private void finaliza() {
-		if (lista.length != 0) {
+		if (array.length != 0) {
 			// Decompor o array de teste, para poder enviar por parametros
-			int[] lstID = new int[lista.length];
-			int[] lstTipo = new int[lista.length];
-			String[] lstTitulo = new String[lista.length];
-			for (int i = 0; i < lista.length; i++) {
-				lstID[i] = lista[i].getID();
-				lstTipo[i] = lista[i].getTipo();
-				lstTitulo[i] = lista[i].getTitulo();
+			int[] lstID = new int[array.length];
+			int[] lstTipo = new int[array.length];
+			String[] lstTitulo = new String[array.length];
+			String[] lstTexto = new String[array.length];
+			for (int i = 0; i < array.length-1; i++) {
+				lstID[i] = id[i];
+				lstTipo[i] = tipo[i];
+				lstTitulo[i] = titulo[i];
+				lstTexto[i] = texto0[i];
 			}
 			// enviar o parametro de modo
 			Bundle wrap = new Bundle();
@@ -808,13 +813,13 @@ public class Teste_Texto extends Activity {
 			// ***********************************************************+
 			wrap.putString("Aluno", "EI3C-Tiago Fernandes");
 			wrap.putString("Professor", "ESTT-Antonio Manso");
-
 			wrap.putIntArray("ListaID", lstID);
 			wrap.putIntArray("ListaTipo", lstTipo);
 			wrap.putStringArray("ListaTitulo", lstTitulo);
+			wrap.putStringArray("ListaTexto", lstTexto);
 
 			// identifico o tipo de teste
-			switch (lista[0].getTipo()) {
+			switch (lstTipo[0]) {
 			case 0:
 				// lançar a nova activity do tipo texto,
 
@@ -858,12 +863,12 @@ public class Teste_Texto extends Activity {
 				// retirar o teste errado e continuar
 
 				int k = 0;
-				Teste aux[] = new Teste[lista.length - 1];
-				for (int i = 1; i < lista.length; i++) {
-					aux[k] = lista[i];
+				String aux[] = new String[array.length - 1];
+				for (int i = 1; i < array.length; i++) {
+					aux[k] = array[i];
 					k++;
 				}
-				lista = aux;
+				array = aux;
 				finaliza();
 				break;
 			}
