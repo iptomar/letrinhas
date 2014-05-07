@@ -29,7 +29,7 @@ public class EscolheTeste extends Activity {
 	String[] teste;
 	String[] lista;
 	String[] array;
-	String[] tipo;
+	int[] tipo;
 	String[] titulo;
 	String[] texto;
 	LetrinhasDB ldb;
@@ -114,7 +114,7 @@ public class EscolheTeste extends Activity {
 		List<Teste> dados = ldb.getAllTeste();
 		Log.d("letrinhas", dados.toString()+"int:"+numero);
 		array = new String[dados.size()];
-		tipo = new String[dados.size()];
+		tipo = new int[dados.size()];
 		titulo = new String[dados.size()];
 		texto = new String[dados.size()];
 		for (Teste cn : dados) {
@@ -122,8 +122,8 @@ public class EscolheTeste extends Activity {
             Log.d("letrinhas-Store", storage.toString());
             array[numero] = storage.toString();
             Log.d("letrinhas-Array", array[0].toString());
-            tipo[numero] = cn.getTitulo();
-            Log.d("letrinhas-Tipo", tipo[0].toString());
+            tipo[numero] = cn.getTipo();
+            Log.d("letrinhas-Tipo", tipo.toString());
             titulo[numero] = cn.getTitulo();
             Log.d("letrinhas-Titulo", titulo[0].toString());
             texto[numero] = cn.getTexto();
@@ -314,7 +314,7 @@ public class EscolheTeste extends Activity {
 			String[] lstTitulo = new String[lista.length];
 			for (int i = 0; i < lista.length; i++) {
 			//	lstID[i] = lista[i].getID();
-				lstTipo[i] = Integer.parseInt(tipo[i]);
+				lstTipo[i] = tipo[i];
 				lstTitulo[i] = titulo[i];
 			}
 
@@ -332,7 +332,7 @@ public class EscolheTeste extends Activity {
 			wrap.putIntArray("ListaTipo", lstTipo);
 			wrap.putStringArray("ListaTitulo", lstTitulo);
 
-			switch (Integer.parseInt(tipo[0])) {
+			switch (tipo[0]) {
 			case 0: // lançar a nova activity do tipo texto,
 
 				Intent it = new Intent(getApplicationContext(),
