@@ -124,7 +124,7 @@ public class Teste_Texto extends Activity {
 		// buscar os parametros
 		Bundle b = getIntent().getExtras();
 		String[] ss = b.getStringArray("ListaTexto");
-		Log.d("Texto", b.getStringArray("ListaTexto").toString());
+	//	Log.d("Texto", b.getStringArray("ListaTexto").toString());
 		// Compor novamente e lista de testes
 		int lstID[] = b.getIntArray("ListaID");
 		int[] lstTipo = b.getIntArray("ListaTipo");

@@ -144,6 +144,7 @@ public class EscolheTeste extends Activity {
 		if (0 < numero) {
 			int i = 0;
 			teste = titulo[i].toString();
+			Log.d("Texto-Apenas", teste+" int:"+numero);
 			// Atribuo o primeiro título ao primeiro botão
 			// ********************************+
 			// texto por defeito
@@ -161,6 +162,8 @@ public class EscolheTeste extends Activity {
 				// copiar os parametros de layout do 1º botão
 				tg.setLayoutParams(tg1.getLayoutParams());
 				tg.setTextSize(tg1.getTextSize());
+				teste = titulo[i].toString();
+				Log.d("Texto-Apenas-part2", teste+" int:"+i);
 				// texto por defeito
 				tg.setText(teste);
 				// texto se não seleccionado = "titulo do teste sem numeração"
