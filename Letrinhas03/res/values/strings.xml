@@ -132,5 +132,6 @@ Desci dela pela janela das traseiras da casa.</string>
     <string name="aluno">aluno</string>
     <string name="title_activity_escolhe_professor">Escolher Professor</string>
     <string name="professor">professor</string>
+    <string name="perguntaImagem">O menino está triste!</string>
 
 </resources>

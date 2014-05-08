@@ -1,0 +1,138 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/testTexto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="clip_vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="30sp"
+    android:paddingRight="30sp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.letrinhas03.Teste_Texto" >
+
+    <TextView
+        android:id="@+id/textCabecalho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:drawableLeft="@drawable/logo2"
+        android:text="@string/title_activity_teste__imagem"
+        android:textColor="#5ddfff"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/txtRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textCabecalho"
+        android:contentDescription="@string/Recording"
+        android:src="@drawable/record" />
+
+    <ImageButton
+        android:id="@+id/txtVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/voltar"
+        android:src="@drawable/voltar" />
+
+    <TextView
+        android:id="@+id/textRodape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtVoltar"
+        android:layout_marginLeft="32dp"
+        android:layout_toRightOf="@+id/txtVoltar"
+        android:text="@string/letrinhas"
+        android:textColor="#5ddfff"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/txtAvaliar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textRodape"
+        android:layout_alignRight="@+id/txtRecord"
+        android:contentDescription="@string/entrar"
+        android:src="@drawable/valido" />
+
+    <ImageButton
+        android:id="@+id/txtPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtRecord"
+        android:layout_toLeftOf="@+id/txtRecord"
+        android:contentDescription="@string/play"
+        android:src="@drawable/palyoff" />
+
+    <ImageButton
+        android:id="@+id/txtCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtPlay"
+        android:layout_alignTop="@+id/txtAvaliar"
+        android:contentDescription="@string/sair"
+        android:src="@drawable/cancelar" />
+
+    <TextView
+        android:id="@+id/txtTexto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textCabecalho"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/perguntaImagem"
+        android:textIsSelectable="true"
+        android:textSize="35sp" />
+
+    <Chronometer
+        android:id="@+id/cromTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textCabecalho"
+        android:layout_alignBottom="@+id/textCabecalho"
+        android:layout_marginRight="19dp"
+        android:layout_toLeftOf="@+id/txtPlay"
+        android:background="#000000"
+        android:gravity="right"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:textColor="#50ff50"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/hipotese3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/hipotese2"
+        android:layout_marginLeft="121dp"
+        android:layout_toRightOf="@+id/textCabecalho"
+        android:src="@drawable/smilechorar" />
+
+    <ImageButton
+        android:id="@+id/hipotese2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textCabecalho"
+        android:layout_below="@+id/txtTexto"
+        android:layout_marginRight="19dp"
+        android:layout_marginTop="117dp"
+        android:src="@drawable/smiletriste" />
+
+    <ImageButton
+        android:id="@+id/hipotese1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtTexto"
+        android:layout_alignTop="@+id/hipotese2"
+        android:layout_marginLeft="21dp"
+        android:src="@drawable/Smile" />
+
+</RelativeLayout>
