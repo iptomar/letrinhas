@@ -33,8 +33,11 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.letrinhas03.BaseDados.NetworkUtils;
+import com.letrinhas03.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas03.util.Avaliacao;
 import com.letrinhas03.util.SystemUiHider;
+import com.letrinhas03.util.Utils;
 
 public class Teste_Texto extends Activity {
 	// flags para verificar os diversos estados do teste
@@ -45,13 +48,13 @@ public class Teste_Texto extends Activity {
 	TextView pnt, vcl, frg, slb, rpt, pErr;
 	Chronometer chrono;
 
-	// Objeto controlador para a avaliação
+	// Objeto controlador para a avaliaï¿½ï¿½o
 	Avaliacao avaliador;
 	String avaliacao;
 
 	private MediaRecorder gravador;
 	private MediaPlayer reprodutor = new MediaPlayer();
-	private String endereco, texto;
+	private String endereco, texto, pastas, fileName;
 
 	//Teste[] lista;
 	String teste;
@@ -85,7 +88,7 @@ public class Teste_Texto extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.teste_texto);
 		
-		//new line faz a rotação do ecrãn 180 graus
+		//new line faz a rotaï¿½ï¿½o do ecrï¿½n 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -146,7 +149,7 @@ public class Teste_Texto extends Activity {
 
 		/**####################################################################################
 		// **********************************************************************************************
-		/ Consultar a BD para preencher o conteúdo....*/
+		/ Consultar a BD para preencher o conteï¿½do....*/
 		((TextView) findViewById(R.id.textCabecalho)).setText(lstTitulo[0]);
 		((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
 		//texto = getResources().getText(R.string.exemploTexto).toString();
@@ -158,6 +161,8 @@ public class Teste_Texto extends Activity {
 				+ "/" + b.getString("Professor") + "/" + b.getString("Aluno")
 				+ "/" + lstTitulo[0] + ".3gpp";
 
+        pastas = "/" + b.getString("Professor") + "/" + b.getString("Aluno")+ "/";
+        fileName = lstTitulo[0] + ".3gpp";
 		// descontar este teste da lista.
 		String[] aux = new String[array.length-1];
 		for (int i = 1; i < array.length; i++) {
@@ -168,9 +173,9 @@ public class Teste_Texto extends Activity {
 
 		chrono = (Chronometer) findViewById(R.id.cromTxt);
 		
-		if (modo) {// está em modo professor
+		if (modo) {// estï¿½ em modo professor
 			setCorreccao();
-		} else { // está em modo aluno
+		} else { // estï¿½ em modo aluno
 			((TableLayout) findViewById(R.id.txtControlo))
 					.setVisibility(View.INVISIBLE);
 			chrono.setVisibility(View.INVISIBLE);
@@ -229,7 +234,7 @@ public class Teste_Texto extends Activity {
 	}
 
 	public void setUp() {
-		if (modo) {// está em modo professor
+		if (modo) {// estï¿½ em modo professor
 			setCorreccao();
 		}
 
@@ -238,7 +243,7 @@ public class Teste_Texto extends Activity {
 		gravador.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 		gravador.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
 
-		// construir as pastas caso necessário
+		// construir as pastas caso necessï¿½rio
 		File file = new File(endereco);
 		if (file.getParent() != null && !file.getParentFile().exists()) {
 			file.getParentFile().mkdirs();
@@ -268,8 +273,8 @@ public class Teste_Texto extends Activity {
 		cancelar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// salta a avaliação e vai para o próximo teste descurando a
-				// gravação gerada
+				// salta a avaliaï¿½ï¿½o e vai para o prï¿½ximo teste descurando a
+				// gravaï¿½ï¿½o gerada
 				File file = new File(endereco);
 				if (file.exists()) {
 					file.delete();
@@ -282,6 +287,8 @@ public class Teste_Texto extends Activity {
 			@Override
 			public void onClick(View view) {
 				// voltar para pag inicial
+
+                sendToServer();
 				startAvalia();
 			}
 
@@ -296,12 +303,25 @@ public class Teste_Texto extends Activity {
 		});
 	}
 
+
+
+    public void sendToServer()
+    {
+     String url_Server = "http://code.dei.estt.ipt.pt/:80/postTestResults";
+    byte[] som =  Utils.getFileSDTest(pastas, fileName);
+    CorrecaoTesteLeitura corrTestLeit = new CorrecaoTesteLeitura(1, 1, "21-12-2014", "MUNDO", 2, 10, 12, 12.0f, 12.0f, 12.0f, 12.0F, som);
+    NetworkUtils.postResultados(url_Server, corrTestLeit);
+    }
+
+
+
+
 	int minuto, segundo;
 
 	/**
-	 * Serve para começar ou parar o recording do audio
+	 * Serve para comeï¿½ar ou parar o recording do audio
 	 * 
-	 * @author Dário Jorge
+	 * @author Dï¿½rio Jorge
 	 */
 	@SuppressLint("HandlerLeak")
 	private void startGrava() {
@@ -319,7 +339,7 @@ public class Teste_Texto extends Activity {
 				gravador.start();
 				Toast.makeText(getApplicationContext(), "A gravar.",
 						Toast.LENGTH_SHORT).show();
-				// O cronometro não funciona assim tão bem no seu modo
+				// O cronometro nï¿½o funciona assim tï¿½o bem no seu modo
 				// original...
 				// handler para controlar a GUI do android e a thread seguinte
 				play_handler = new Handler() {
@@ -373,7 +393,7 @@ public class Teste_Texto extends Activity {
 
 			} catch (Exception e) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na gravação.\n" + e.getMessage(),
+						"Erro na gravaï¿½ï¿½o.\n" + e.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 
@@ -388,7 +408,7 @@ public class Teste_Texto extends Activity {
 				gravador.stop();
 				gravador.release();
 				Toast.makeText(getApplicationContext(),
-						"Gravação efetuada com sucesso!", Toast.LENGTH_SHORT)
+						"Gravaï¿½ï¿½o efetuada com sucesso!", Toast.LENGTH_SHORT)
 						.show();
 				Toast.makeText(getApplicationContext(),
 						"Tempo de leitura: " + minuto + ":" + segundo,
@@ -396,7 +416,7 @@ public class Teste_Texto extends Activity {
 
 			} catch (Exception e) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na gravação.\n" + e.getMessage(),
+						"Erro na gravaï¿½ï¿½o.\n" + e.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -407,9 +427,9 @@ public class Teste_Texto extends Activity {
 	private Handler play_handler;
 
 	/**
-	 * serve para a aplicação reproduzir ou parar o som
+	 * serve para a aplicaï¿½ï¿½o reproduzir ou parar o som
 	 * 
-	 * @author Dário Jorge
+	 * @author Dï¿½rio Jorge
 	 */
 	@SuppressLint("HandlerLeak")
 	private void startPlay() {
@@ -437,7 +457,7 @@ public class Teste_Texto extends Activity {
 								reprodutor.stop();
 								reprodutor.release();
 								Toast.makeText(getApplicationContext(),
-										"Fim da reprodução.",
+										"Fim da reproduï¿½ï¿½o.",
 										Toast.LENGTH_SHORT).show();
 							} catch (Exception ex) {
 							}
@@ -460,7 +480,7 @@ public class Teste_Texto extends Activity {
 
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reprodução.\n" + ex.getMessage(),
+						"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 
@@ -473,10 +493,10 @@ public class Teste_Texto extends Activity {
 				reprodutor.release();
 
 				Toast.makeText(getApplicationContext(),
-						"Reprodução interrompida.", Toast.LENGTH_SHORT).show();
+						"Reproduï¿½ï¿½o interrompida.", Toast.LENGTH_SHORT).show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reprodução.\n" + ex.getMessage(),
+						"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -484,15 +504,15 @@ public class Teste_Texto extends Activity {
 	}
 
 	private void startAvalia() {
-		if (modo) { // se está em modo de professor
-					// inicia a avaliação
+		if (modo) { // se estï¿½ em modo de professor
+					// inicia a avaliaï¿½ï¿½o
 			File file = new File(endereco);
-			if (file.exists()) { // Verifica se já fez uma gravação
-				//prepara um ficheiro para guardar o relatório da avaliação
+			if (file.exists()) { // Verifica se jï¿½ fez uma gravaï¿½ï¿½o
+				//prepara um ficheiro para guardar o relatï¿½rio da avaliaï¿½ï¿½o
 				file= new File(endereco.substring(0, endereco.length()-5)+"_aval.txt");
 				if(file.exists())file.delete();
-				// usar a classe Avaliação para calcular os resultados.
-				// avançar para o próximo teste caso este exista.;
+				// usar a classe Avaliaï¿½ï¿½o para calcular os resultados.
+				// avanï¿½ar para o prï¿½ximo teste caso este exista.;
 				avaliacao = avaliador.calcula(minuto, segundo);
 				try {
 					FileOutputStream out = new FileOutputStream(file);
@@ -509,9 +529,9 @@ public class Teste_Texto extends Activity {
 				// define o titulo
 				builder.setTitle("Letrinhas 03");
 				// define a mensagem
-				builder.setMessage(" Ainda não executou a gravação da leitura!\n"
-						+ " Faça-o antes de avaliar.");
-				// define um botão como positivo
+				builder.setMessage(" Ainda nï¿½o executou a gravaï¿½ï¿½o da leitura!\n"
+						+ " Faï¿½a-o antes de avaliar.");
+				// define um botï¿½o como positivo
 				builder.setPositiveButton("OK", null);
 				// cria o AlertDialog
 				alerta = builder.create();
@@ -523,7 +543,7 @@ public class Teste_Texto extends Activity {
 	}
 
 	/**
-	 * Procedimento para ativar a selecção das palavras erradas no texto e o
+	 * Procedimento para ativar a selecï¿½ï¿½o das palavras erradas no texto e o
 	 * painel de controlo de erros.
 	 */
 	private void setCorreccao() {
@@ -552,9 +572,9 @@ public class Teste_Texto extends Activity {
 		TextView txt = ((TextView) findViewById(R.id.txtTexto));
 		txt.setText(texto);
 		txt.setTextColor(Color.rgb(30, 30, 30));
-		// objeto para avaliação
+		// objeto para avaliaï¿½ï¿½o
 
-		// necessitamos de contar no texto, o nº de palavras e o nº de pontuação
+		// necessitamos de contar no texto, o nï¿½ de palavras e o nï¿½ de pontuaï¿½ï¿½o
 		avaliador = new Avaliacao(contaPalavras(), contaSinais());
 		pnt.setText("" + avaliador.getPontua());
 		vcl.setText("" + avaliador.getVacil());
@@ -564,7 +584,7 @@ public class Teste_Texto extends Activity {
 		pErr.setText("" + avaliador.getPlvErradas());
 
 		// ativar os controlos
-		// violação da pontuação
+		// violaï¿½ï¿½o da pontuaï¿½ï¿½o
 		p1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -579,7 +599,7 @@ public class Teste_Texto extends Activity {
 				pnt.setText("" + avaliador.getPontua());
 			}
 		});
-		// ocorrência de vacilações
+		// ocorrï¿½ncia de vacilaï¿½ï¿½es
 		v1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -594,7 +614,7 @@ public class Teste_Texto extends Activity {
 				vcl.setText("" + avaliador.getVacil());
 			}
 		});
-		// ocorrência de fragmentações
+		// ocorrï¿½ncia de fragmentaï¿½ï¿½es
 		f1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -609,7 +629,7 @@ public class Teste_Texto extends Activity {
 				frg.setText("" + avaliador.getFragment());
 			}
 		});
-		// ocorrência de silabações
+		// ocorrï¿½ncia de silabaï¿½ï¿½es
 		s1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -624,7 +644,7 @@ public class Teste_Texto extends Activity {
 				slb.setText("" + avaliador.getSilabs());
 			}
 		});
-		// ocorrência de repetições
+		// ocorrï¿½ncia de repetiï¿½ï¿½es
 		r1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -653,7 +673,7 @@ public class Teste_Texto extends Activity {
 	private int contaSinais() {
 		boolean flag = false;
 		int sinal = 0;
-		// percorre todo o texto e conta os sinais válidos
+		// percorre todo o texto e conta os sinais vï¿½lidos
 		for (int i = 0; i < texto.length(); i++) {
 			switch (texto.charAt(i)) {// procuro os sinais possiveis
 			// se encontrar um, ativo uma flag
@@ -676,29 +696,29 @@ public class Teste_Texto extends Activity {
 				flag = true;
 				break;
 			default:
-				if (flag) {// se não for um sinal e a flag estiver ativa, é
+				if (flag) {// se nï¿½o for um sinal e a flag estiver ativa, ï¿½
 							// porque passei por uma
-					// secção de pontuação e incremento o nº de sinais e
+					// secï¿½ï¿½o de pontuaï¿½ï¿½o e incremento o nï¿½ de sinais e
 					// desativo a flag
 					sinal++;
 					flag = false;
 				}
 			}
 		}
-		// podendo ser o ultimo caracter do texto um sinal (o que é o mais
-		// provável), verifico novamente
-		// a flag e valido a pontuação, caso esta seja verdade
+		// podendo ser o ultimo caracter do texto um sinal (o que ï¿½ o mais
+		// provï¿½vel), verifico novamente
+		// a flag e valido a pontuaï¿½ï¿½o, caso esta seja verdade
 		if (flag) {
 			sinal++;
 		}
-		return sinal; // devolvo o nº de pontuações existentes no texto
+		return sinal; // devolvo o nï¿½ de pontuaï¿½ï¿½es existentes no texto
 	}
 
 	private int contaPalavras() {
 		boolean flag = false;
 		int palavras = 0;
 		// percorre todo o texto e conta as palavras e outros caracteres
-		// agregados às palavras
+		// agregados ï¿½s palavras
 		for (int i = 0; i < texto.length(); i++) {
 			// procura um caracter que corresponda a uma letra
 			if (('A' <= texto.charAt(i) && texto.charAt(i) <= 'Z')
@@ -707,7 +727,7 @@ public class Teste_Texto extends Activity {
 				flag = true;
 			else {
 				if (flag) {
-					if (texto.charAt(i) != '-') {//aqui elimina-se a hipotese de hífen (-)
+					if (texto.charAt(i) != '-') {//aqui elimina-se a hipotese de hï¿½fen (-)
 						palavras++;
 						flag = false;
 					}
@@ -720,8 +740,8 @@ public class Teste_Texto extends Activity {
 	}
 
 	/******************************************************
-	 * ***************** Marcar a palvra errada no texto *** A melhorar, deverá
-	 * contabilizar correctamente a palavra, e desmarcar se repetir a selecção
+	 * ***************** Marcar a palvra errada no texto *** A melhorar, deverï¿½
+	 * contabilizar correctamente a palavra, e desmarcar se repetir a selecï¿½ï¿½o
 	 * da palavra.
 	 * 
 	 * @author Jorge
@@ -776,7 +796,7 @@ public class Teste_Texto extends Activity {
 						pErr.setText("" + avaliador.getPlvErradas());
 					} else {
 						Toast toast = Toast.makeText(getApplicationContext(),
-								"Não existem palavras erradas",
+								"Nï¿½o existem palavras erradas",
 								Toast.LENGTH_SHORT);
 						toast.show();
 					}
@@ -789,8 +809,8 @@ public class Teste_Texto extends Activity {
 	}
 
 	/**
-	 * Prepara a finalização da activity, descobrindo qual o próximo teste a
-	 * realizar Este método deverá ser usado em todas as paginas de teste.
+	 * Prepara a finalizaï¿½ï¿½o da activity, descobrindo qual o prï¿½ximo teste a
+	 * realizar Este mï¿½todo deverï¿½ ser usado em todas as paginas de teste.
 	 */
 	private void finaliza() {
 		if (array.length != 0) {
@@ -809,7 +829,7 @@ public class Teste_Texto extends Activity {
 			Bundle wrap = new Bundle();
 			wrap.putBoolean("Modo", modo);
 
-			// teste, a depender das informações da BD
+			// teste, a depender das informaï¿½ï¿½es da BD
 			// ***********************************************************+
 			wrap.putString("Aluno", "EI3C-Tiago Fernandes");
 			wrap.putString("Professor", "ESTT-Antonio Manso");
@@ -821,7 +841,7 @@ public class Teste_Texto extends Activity {
 			// identifico o tipo de teste
 			switch (lstTipo[0]) {
 			case 0:
-				// lançar a nova activity do tipo texto,
+				// lanï¿½ar a nova activity do tipo texto,
 
 				// iniciar a pagina 2 (escolher teste)
 				Intent it = new Intent(getApplicationContext(),
@@ -831,7 +851,7 @@ public class Teste_Texto extends Activity {
 				startActivity(it);
 
 				break;
-			case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
+			case 1:// lanï¿½ar a nova activity do tipo Palavras, e o seu conteï¿½do
 					//
 				Intent ip = new Intent(getApplicationContext(),
 						Teste_Palavras.class);
@@ -840,7 +860,7 @@ public class Teste_Texto extends Activity {
 				startActivity(ip);
 
 				break;
-			case 2: // lançar a nova activity do tipo Poema, e o seu conteúdo
+			case 2: // lanï¿½ar a nova activity do tipo Poema, e o seu conteï¿½do
 				//
 				Intent ipm = new Intent(getApplicationContext(),
 						Teste_Poema.class);
@@ -849,7 +869,7 @@ public class Teste_Texto extends Activity {
 				startActivity(ipm);
 
 				break;
-			case 3: // lançar a nova activity do tipo imagem, e o seu conteúdo
+			case 3: // lanï¿½ar a nova activity do tipo imagem, e o seu conteï¿½do
 				//
 				// Intent it = new Intent(getApplicationContext(),
 				// Teste_Texto.class);
@@ -858,7 +878,7 @@ public class Teste_Texto extends Activity {
 				// startActivity(it);
 				break;
 			default:
-				Toast.makeText(getApplicationContext(), " - Tipo não defenido",
+				Toast.makeText(getApplicationContext(), " - Tipo nï¿½o defenido",
 						Toast.LENGTH_SHORT).show();
 				// retirar o teste errado e continuar
 
@@ -874,7 +894,7 @@ public class Teste_Texto extends Activity {
 			}
 
 		}
-		//se existir resultados de uma avaliação, apresenta o resultado.
+		//se existir resultados de uma avaliaï¿½ï¿½o, apresenta o resultado.
 		if(avaliacao!=null){
 			//resultado 
 			Bundle wrap = new Bundle();
