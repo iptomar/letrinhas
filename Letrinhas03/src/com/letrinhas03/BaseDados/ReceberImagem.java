@@ -16,7 +16,7 @@ import com.letrinhas03.ClassesObjs.Professor;
 import org.json.JSONArray;
 
 public class ReceberImagem extends Activity {
-    private static String url_all_tests = "";
+    static String url_all_tests = "";
     byte[] arrayBytesImage;
     String title;
     String textTxtBox;

@@ -133,6 +133,6 @@
         android:layout_alignLeft="@+id/txtTexto"
         android:layout_alignTop="@+id/hipotese2"
         android:layout_marginLeft="21dp"
-        android:src="@drawable/Smile" />
+        android:src="@drawable/smile" />
 
 </RelativeLayout>

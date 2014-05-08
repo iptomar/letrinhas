@@ -1,13 +1,5 @@
 package com.letrinhas03;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.net.Uri;
-import com.letrinhas03.BaseDados.LetrinhasDB;
-import com.letrinhas03.BaseDados.MainScreenActivity;
-import com.letrinhas03.util.SystemUiHider;
-import com.letrinhas03.util.coneccaoW;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +12,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.letrinhas03.BaseDados.MainScreenActivity;
+import com.letrinhas03.util.SystemUiHider;
+import com.letrinhas03.util.coneccaoW;
 /**
  * P�gina Inicial
  *

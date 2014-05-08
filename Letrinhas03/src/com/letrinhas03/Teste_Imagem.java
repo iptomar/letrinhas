@@ -2,9 +2,6 @@ package com.letrinhas03;
 
 import java.io.File;
 
-import com.letrinhas03.util.SystemUiHider;
-import com.letrinhas03.util.Teste;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -12,7 +9,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
@@ -20,19 +16,16 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Spannable;
-import android.text.style.ForegroundColorSpan;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
+
+import com.letrinhas03.util.SystemUiHider;
+import com.letrinhas03.util.Teste;
 
 public class Teste_Imagem extends Activity {
 

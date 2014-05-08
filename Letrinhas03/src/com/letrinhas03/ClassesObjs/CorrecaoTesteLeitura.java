@@ -1,6 +1,5 @@
 package com.letrinhas03.ClassesObjs;
 
-import java.util.SimpleTimeZone;
 
 /**
  * Created by Alex on 23/04/2014.

@@ -1,9 +1,10 @@
 package com.letrinhas03.BaseDados;
 
-import android.net.http.AndroidHttpClient;
-import android.util.Log;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -13,15 +14,10 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
+import android.net.http.AndroidHttpClient;
+import android.util.Log;
 
 public class JSONParser {
 
@@ -198,7 +194,8 @@ public class JSONParser {
      */
     public void Post(String url, JSONObject json) {        // Método utf-8
         try {
-        	InputStream is;
+        	@SuppressWarnings("unused")
+			InputStream is;
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);

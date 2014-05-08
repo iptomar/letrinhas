@@ -46,7 +46,6 @@ public class Utils {
      * @return returna o ficheiro em Byte[]
      */
     public static byte[] getFileSD(String pasta, String nome) {
-        FileInputStream fos = null;
         try {
             final File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/" + pasta + "/");
             final File myFile = new File(dir, nome);
@@ -73,7 +72,6 @@ public class Utils {
      * @return returna o ficheiro em Byte[]
      */
     public static byte[] getFileSDTest(String caminho, String nome) {
-        FileInputStream fos = null;
         try {
             final File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + caminho);
             final File myFile = new File(dir, nome);
@@ -97,7 +95,6 @@ public class Utils {
      * @param pasta pasta ao qual se pretende apagar toda a informacao (exmp: Students)
      */
     public static void deleteAllFileFolder(String pasta) {
-        FileInputStream fos = null;
         try {
             final File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/" + pasta + "/");
             if (dir.isDirectory()) {

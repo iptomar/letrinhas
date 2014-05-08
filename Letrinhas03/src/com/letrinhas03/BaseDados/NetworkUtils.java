@@ -17,7 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class NetworkUtils {
-    private static final String TAG_NET_UTILS = "net-utils";
+    @SuppressWarnings("unused")
+	private static final String TAG_NET_UTILS = "net-utils";
 
     /**
      * Le um ficheiro a partir do url especificado.

@@ -1,10 +1,7 @@
 package com.letrinhas03.BaseDados;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -25,7 +22,6 @@ import com.letrinhas03.R;
 import com.letrinhas03.ClassesObjs.Escola;
 import com.letrinhas03.ClassesObjs.Estudante;
 import com.letrinhas03.ClassesObjs.Professor;
-import com.letrinhas03.ClassesObjs.Sistema;
 
 public class MainBD extends Activity {
 

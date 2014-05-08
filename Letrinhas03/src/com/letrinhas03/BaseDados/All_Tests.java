@@ -26,7 +26,8 @@ public class All_Tests extends Activity {
 
     ////////////////////////////////////////////////////////////////////////////////
     // JSON Nome dos campos
-    private static final String TAG_CABECALHO= "tests";
+    @SuppressWarnings("unused")
+	private static final String TAG_CABECALHO= "tests";
     private static final String TAG_ID = "id";
     private static final String TAG_AREAID = "areaId";
     private static final String TAG_PROFESSORID = "professorId";
@@ -34,7 +35,8 @@ public class All_Tests extends Activity {
     private static final String TAG_TEXT = "mainText";
     private static final String TAG_CREATING_DATE = "creationDate";
     private static final String TAG_GRADE = "grade";
-    private static final String TAG_TYPE= "type";
+    @SuppressWarnings("unused")
+	private static final String TAG_TYPE= "type";
     private static final String TAG_TEXTCONTENT = "textContent";
     private static final String TAG_PROFAUDIOURL = "professorAudioUrl";
 
@@ -77,7 +79,8 @@ public class All_Tests extends Activity {
     }
 
 
-    public void inserirNaBd()
+    @SuppressWarnings("static-access")
+	public void inserirNaBd()
     {
         LetrinhasDB db = new LetrinhasDB(this);
         db.deleteAllItemsTests();

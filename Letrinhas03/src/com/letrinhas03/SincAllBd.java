@@ -148,7 +148,8 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
      *  Vai por HTTP buscar toda a informacao sobre os TestesLeitura e no final
      *  chama  o metodo para guardar na base de dados
      */
-    protected void lerSynTestes(String URlString) {
+    @SuppressWarnings("static-access")
+	protected void lerSynTestes(String URlString) {
         String url = URlString + "tests?type=0";  //// type 0 -> leitura | 1 -> multimédia | 2 -> lista | 3 -> poema
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         // getting JSON string from URL
@@ -186,7 +187,8 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
      *  Vai por HTTP buscar toda a informacao sobre os TestesMultimedia e no final
      *  chama  o metodo para guardar na base de dados
      */
-    protected void lerSynTestesMultimedia(String URlString) {
+    @SuppressWarnings("static-access")
+	protected void lerSynTestesMultimedia(String URlString) {
         String url = URlString + "tests?type=1";  //// type 0 -> leitura | 1 -> multimédia | 2 -> lista | 3 -> poema
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         // getting JSON string from URL
