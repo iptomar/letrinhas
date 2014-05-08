@@ -18,7 +18,7 @@
     <string name="action_settings">Settings</string>
     <string name="sair">sair</string>
     <string name="voltar">voltar</string>
-    <string name="teste">teste</string>
+    <string name="teste">Teste</string>
     <string name="title_activity_esc_modo">Escolher Modo do teste</string>
     <string name="escolhe_Modo">Escolher o Modo do teste a realizar</string>
     <string name="porAluno">Por Aluno</string>
@@ -129,9 +129,13 @@ Desci dela pela janela das traseiras da casa.</string>
     <string name="title_activity_escolhe_ano">Escolher Ano</string>
     <string name="ano">ano</string>
     <string name="title_activity_escolhe_aluno">Escolher Aluno</string>
-    <string name="aluno">aluno</string>
+    <string name="aluno">Aluno</string>
     <string name="title_activity_escolhe_professor">Escolher Professor</string>
-    <string name="professor">professor</string>
-    <string name="perguntaImagem">O menino está triste!</string>
+    <string name="professor">Professor</string>
+    <string name="nomeTeste">Nome do teste</string>
+    <string name="tempoLeitura">Tempo de leitura</string>
+    <string name="expressividade">Expressividade</string>
+    <string name="ritmo">Ritmo</string>
+    <string name="nota">Nota</string>
 
 </resources>
