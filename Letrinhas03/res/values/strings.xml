@@ -138,5 +138,6 @@ Desci dela pela janela das traseiras da casa.</string>
     <string name="ritmo">Ritmo</string>
     <string name="nota">Nota</string>
     <string name="perguntaImagem">perguntaImagem</string>
+    <string name="title_activity_custom">Custom</string>
 
 </resources>

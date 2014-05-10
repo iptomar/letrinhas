@@ -130,6 +130,10 @@
             android:name="com.letrinhas03.EscolheProfessor"
             android:label="@string/title_activity_escolhe_professor" >
         </activity>
+        <activity
+            android:name="com.letrinhas03.Custom"
+            android:label="@string/title_activity_custom" >
+        </activity>
     </application>
 
 </manifest>

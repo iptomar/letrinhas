@@ -4,15 +4,15 @@ import java.util.List;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.letrinhas03.BaseDados.LetrinhasDB;
@@ -22,10 +22,17 @@ import com.letrinhas03.util.SystemUiHider;
 public class EscolheEscola extends Activity {
 
 	ImageButton volt, exect;
-	public int nEscolas;
+	public int nEscolas,numero=0; 
 	List<Escola> escolas;
 	LetrinhasDB db;
-	Escola escola;
+	int[] id;
+	String[] morada;
+	String[] img;
+	String[] nome;
+	byte[] logotipo;
+	ListView list;
+	Integer[] image;
+	//Escola escola;
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -55,9 +62,27 @@ public class EscolheEscola extends Activity {
 		
 		//Cria o objecto da base de dados
 		db = new LetrinhasDB(this);
-		
 		escolas = db.getAllSchools();
+		morada = new String[escolas.size()];
+		nome = new String[escolas.size()];
+		img = new String[escolas.size()];
+		id = new int[escolas.size()];
 		nEscolas = escolas.size();
+		for (Escola cn : escolas) {
+	           // String storage = cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
+				String storage = cn.getMorada()+","+cn.getIdEscola()+","+cn.getNome()+","+cn.getLogotipoNome();
+	            Log.d("letrinhas-Escola", storage.toString());
+	            morada[numero] = cn.getMorada();
+	            Log.d("letrinhas-Tipo",String.valueOf(morada[0]));
+	            nome[numero] = cn.getNome();
+	            Log.d("letrinhas-Titulo", nome[0].toString());
+	            id[numero] = cn.getIdEscola();
+	            Log.d("letrinhas-ID", String.valueOf(id[0]));
+	            img[numero] = cn.getLogotipoNome();
+	            Log.d("letrinhas-IMG", img[0]);
+	            setUp(nome, img);
+	            numero++;
+	     }
 
 		// esconder o title************************************************+
 		final View contentView = findViewById(R.id.escEscola);
@@ -89,64 +114,24 @@ public class EscolheEscola extends Activity {
 					}
 				});
 
-		/************************************************************************
-		 * Criação de um painel dinâmico para os botões de selecção das escolas
-		 * existentes.
-		 * 
-		 * 
-		 */
-
-		// Painel dinâmico ****************************************************
-		LinearLayout ll = (LinearLayout) findViewById(R.id.llescescola);
-		// Botão original que existe por defenição
-		Button bt1 = (Button) findViewById(R.id.Button_escl);
-
-		// Cria o nº de botões referentes ao nº de escolas presentes na lista
-		if (0 < nEscolas) {
-			int i = 0;
-			// Atribir a primeira escola ao primeiro botão
-			// ********************************+
-			// Nome da Escola
-			bt1.setText(escolas.get(i).getNome());
-			i++;
-			// Resto das escolas
-			while (i <= nEscolas) {
-				// um novo botão
-				Button bt = new Button(getBaseContext());
-				// copiar os parametros de layout do 1º botão
-				bt.setLayoutParams(bt1.getLayoutParams());
-				bt.setTextSize(bt1.getTextSize());
-				// Nome da Escola
-				bt.setText(escolas.get(i).getNome());
-				// inserir no scroll view
-				ll.addView(bt);
-				i++;
-			}
-		} else {
-			// esconder os botões
-			bt1.setVisibility(View.INVISIBLE);
-			exect.setVisibility(View.INVISIBLE);
-
-			android.app.AlertDialog alerta;
-			// Cria o gerador do AlertDialog
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			// define o titulo
-			builder.setTitle("Letrinhas 03");
-			// define a mensagem
-			builder.setMessage("Não foram encontradas escolas no sistema");
-			// define um botão como positivo
-			builder.setPositiveButton("OK", null);
-			// cria o AlertDialog
-			alerta = builder.create();
-			// Mostra
-			alerta.show();
-			
-		}
+	
 
 		volt = (ImageButton) findViewById(R.id.escTVoltar_escl);
 		exect = (ImageButton) findViewById(R.id.ibComecar_escl);
 
 		escutaBotoes();
+	}
+	
+	public void setUp(final String[] nome, String[] imgNome){
+		Custom adapter = new Custom(EscolheEscola.this, nome, imgNome);
+		list=(ListView)findViewById(R.id.list);
+				list.setAdapter(adapter);
+				list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		            @Override
+		            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+		                Toast.makeText(EscolheEscola.this, "You Clicked at " +nome[+ position], Toast.LENGTH_SHORT).show();
+		          }
+		 });
 	}
 
 	@Override
