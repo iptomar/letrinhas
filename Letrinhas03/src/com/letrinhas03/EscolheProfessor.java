@@ -1,9 +1,11 @@
 package com.letrinhas03;
 
+import java.io.ObjectOutputStream.PutField;
 import java.util.List;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -87,7 +89,7 @@ public class EscolheProfessor extends Activity {
 	            Log.d("letrinhas-ID", String.valueOf(idProf[0]));
 	            fotoNome[numero] = cn.getFotoNome();
 	            Log.d("letrinhas-IMG", fotoNome[0]);
-	            setUp(username, fotoNome, idProf);
+	            setUp(username, fotoNome, idProf,username,password);
 	            numero++;
 	     }
 
@@ -125,7 +127,7 @@ public class EscolheProfessor extends Activity {
 		exect = (ImageButton) findViewById(R.id.ibComecar_escl);
 		//escutaBotoes();
 	}
-		public void setUp(final String[] nome, String[] imgNome, final int[] id){
+		public void setUp(final String[] nome, String[] imgNome, final int[] id, final String[] userName, final String[] pass){
 			Custom adapter = new Custom(EscolheProfessor.this, nome, imgNome,"professores");
 			list=(ListView)findViewById(R.id.lista);
 					list.setAdapter(adapter);
@@ -133,11 +135,13 @@ public class EscolheProfessor extends Activity {
 			            @Override
 			            public void onItemClick(AdapterView<?> parent, View view,int position, long idd) {
 			                Toast.makeText(EscolheProfessor.this, "You Clicked at " +nome[+ position], Toast.LENGTH_SHORT).show();
-			               /* Bundle wrap = new Bundle();
-			    			wrap.putInt("IdEscola", id[position]);
-			    			Intent it = new Intent(getApplicationContext(),EscolheProfessor.class);
-							it.putExtras(wrap);
-							startActivity(it);*/
+			              /*  Bundle wrap = new Bundle();
+			    			wrap.putInt("IdProf", id[position]);
+			    			wrap.putString("pass", pass[position]);
+			    			wrap.putString("user", userName[position]);
+			    			Intent itp = new Intent(getApplicationContext(), Autenticacao.class);
+							itp.putExtras(wrap);
+							startActivity(itp);*/
 			          }
 			 });
 		}
