@@ -476,6 +476,44 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
 
     /**
+     * Buscar todos os Professores de uma determinada escola
+     * Retorna uma lista com varios objectos do tipo "Professores"
+     */
+    public List<Professor> getAllProfesorsBySchool(int idescola) {
+        List<Professor> listProfessores = new ArrayList<Professor>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT  * FROM " + TABELA_PROFESSORES + " WHERE "+PROF_IDESCOLA + " = "+idescola;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atraves de todas as linhas e adicionando � lista
+        if (cursor.moveToFirst()) {
+            do {
+                Professor prof = new Professor();
+                prof.setId(cursor.getInt(0));
+                prof.setIdEscola(cursor.getInt(1));
+                prof.setNome(cursor.getString(2));
+                prof.setUsername(cursor.getString(3));
+                prof.setPassword(cursor.getString(4));
+                prof.setTelefone(cursor.getString(5));
+                prof.setEmail(cursor.getString(6));
+                prof.setFotoNome( cursor.getString(7));
+                prof.setEstado(cursor.getInt(8));
+                // Adicionar os os items da base de dados a lista
+                listProfessores.add(prof);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listProfessores;
+    }
+
+
+
+
+
+
+
+    /**
      * Buscar todos os campos da Tabela Escola
      * Retorna uma lista com varios objectos do tipo "Escola"
      */
