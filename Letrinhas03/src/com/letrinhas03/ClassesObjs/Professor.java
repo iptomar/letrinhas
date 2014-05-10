@@ -2,15 +2,16 @@ package com.letrinhas03.ClassesObjs;
 
 public class Professor {
     // private variables
-    private int id;
-    private int idEscola;
-    private String nome;
-    private String username;
-    private String password;
-    private String telefone;
-    private String email;
-    private byte[] foto;
-    private int estado;
+    protected int id;
+    protected int idEscola;
+    protected String nome;
+    protected String username;
+    protected String password;
+    protected String telefone;
+    protected String email;
+    protected byte[] foto;
+    protected String fotoNome;
+    protected int estado;
 
     // Empty constructor
     public Professor() {
@@ -28,6 +29,21 @@ public class Professor {
         this.email = email;
         this.telefone = telefone;
         this.foto = foto;
+        this.estado = estado;
+    }
+
+
+    // constructor 2
+    public Professor(int id, int idEscola, String nome, String username,
+                     String password, String email, String telefone, String fotoNome, int estado) {
+        this.id = id;
+        this.idEscola = idEscola;
+        this.nome = nome;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.telefone = telefone;
+        this.fotoNome = fotoNome;
         this.estado = estado;
 
 
@@ -105,4 +121,11 @@ public class Professor {
         this.id = id;
     }
 
+    public String getFotoNome() {
+        return fotoNome;
+    }
+
+    public void setFotoNome(String fotoNome) {
+        this.fotoNome = fotoNome;
+    }
 }

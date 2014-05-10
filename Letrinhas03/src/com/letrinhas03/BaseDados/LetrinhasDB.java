@@ -463,7 +463,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 prof.setPassword(cursor.getString(4));
                 prof.setTelefone(cursor.getString(5));
                 prof.setEmail(cursor.getString(6));
-                prof.setFoto( Utils.getFileSD("Professors", cursor.getString(7)));
+                prof.setFotoNome( cursor.getString(7));
                 prof.setEstado(cursor.getInt(8));
                 // Adicionar os os items da base de dados a lista
                 listProfessores.add(prof);
@@ -520,7 +520,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 estudante.setIdEstudante(cursor.getInt(0));
                 estudante.setIdTurma(cursor.getInt(1));
                 estudante.setNome(cursor.getString(2));
-                estudante.setFoto( Utils.getFileSD("Students", cursor.getString(3)));
+                estudante.setNomefoto(cursor.getString(3));
                 estudante.setEstado(cursor.getInt(4));
                 // Adicionar os os items da base de dados a lista
                 listEstudantes.add(estudante);
