@@ -4,30 +4,38 @@ import java.util.List;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.letrinhas03.BaseDados.LetrinhasDB;
-import com.letrinhas03.ClassesObjs.Escola;
 import com.letrinhas03.ClassesObjs.Professor;
 import com.letrinhas03.util.SystemUiHider;
 
 public class EscolheProfessor extends Activity {
 
 	ImageButton volt, exect;
-	public int nProfessores;
-	List<Professor> professores;
+	public int nProfs,numero=0; 
+	List<Professor> profs;
 	LetrinhasDB db;
-	Escola escola;
-
+	ListView list;
+	Integer[] image;
+	int[] idProf;
+    String[] username;
+    String[] password;
+    String[] telefone;
+    String[] email;
+    String[] fotoNome;
+    int[] estado;
+    
+	//Escola escola;
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -56,9 +64,33 @@ public class EscolheProfessor extends Activity {
 		
 		//Cria o objecto da base de dados
 		db = new LetrinhasDB(this);
-		
-		professores = db.getAllProfesors();
-		nProfessores = professores.size();
+		Bundle b = getIntent().getExtras();
+		int idEscola = b.getInt("IdEscola");
+		profs = db.getAllProfesorsBySchool(idEscola);
+		nProfs = profs.size();
+		username = new String[profs.size()];
+		password = new String[profs.size()];
+		telefone = new String[profs.size()];
+		email = new String[profs.size()];
+		fotoNome = new String[profs.size()];;
+		estado = new int[profs.size()];
+		idProf = new int[profs.size()];
+		for (Professor cn : profs) {
+	           // String storage = cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
+				String storage = cn.getEmail()+","+cn.getFotoNome()+","+cn.getId()+","+cn.getNome()+","+cn.getPassword()+","+cn.getTelefone()+","+cn.getUsername();
+	            Log.d("letrinhas-Escola", storage.toString());
+	            password[numero] = cn.getPassword();
+	            Log.d("letrinhas-Tipo",String.valueOf(password[0]));
+	            username[numero] = cn.getNome();
+	            Log.d("letrinhas-Titulo", username[0].toString());
+	            idProf[numero] = cn.getId();
+	            Log.d("letrinhas-ID", String.valueOf(idProf[0]));
+	            fotoNome[numero] = cn.getFotoNome();
+	            Log.d("letrinhas-IMG", fotoNome[0]);
+	            setUp(username, fotoNome, idProf);
+	            numero++;
+	     }
+
 
 		// esconder o title************************************************+
 		final View contentView = findViewById(R.id.escProf);
@@ -89,66 +121,26 @@ public class EscolheProfessor extends Activity {
 						}
 					}
 				});
-
-		/************************************************************************
-		 * Criação de um painel dinâmico para os botões de selecção das professores
-		 * existentes.
-		 * 
-		 * 
-		 */
-
-		// Painel dinâmico ****************************************************
-		LinearLayout ll = (LinearLayout) findViewById(R.id.llescProf);
-		// Botão original que existe por defenição
-		Button bt1 = (Button) findViewById(R.id.Button_prof);
-
-		// Cria o nº de botões referentes ao nº de professores presentes na lista
-		if (0 < nProfessores) {
-			int i = 0;
-			// Atribir a primeira escola ao primeiro botão
-			// ********************************+
-			// Nome da Escola
-			bt1.setText(professores.get(i).getNome());
-			i++;
-			// Resto dos professores
-			while (i <= nProfessores) {
-				// um novo botão
-				Button bt = new Button(getBaseContext());
-				// copiar os parametros de layout do 1º botão
-				bt.setLayoutParams(bt1.getLayoutParams());
-				bt.setTextSize(bt1.getTextSize());
-				// Nome do prof
-				bt.setText(professores.get(i).getNome());
-				// inserir no scroll view
-				ll.addView(bt);
-				i++;
-			}
-		} else {
-			// esconder os botões
-			bt1.setVisibility(View.INVISIBLE);
-			exect.setVisibility(View.INVISIBLE);
-
-			android.app.AlertDialog alerta;
-			// Cria o gerador do AlertDialog
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			// define o titulo
-			builder.setTitle("Letrinhas 03");
-			// define a mensagem
-			builder.setMessage("Não foram encontradas professores no sistema");
-			// define um botão como positivo
-			builder.setPositiveButton("OK", null);
-			// cria o AlertDialog
-			alerta = builder.create();
-			// Mostra
-			alerta.show();
-			
-		}
-
-		volt = (ImageButton) findViewById(R.id.escTVoltar_prof);
-		exect = (ImageButton) findViewById(R.id.ibComecar_prof);
-
-		escutaBotoes();
+		volt = (ImageButton) findViewById(R.id.escTVoltar_escl);
+		exect = (ImageButton) findViewById(R.id.ibComecar_escl);
+		//escutaBotoes();
 	}
+		public void setUp(final String[] nome, String[] imgNome, final int[] id){
+			Custom adapter = new Custom(EscolheProfessor.this, nome, imgNome,"professores");
+			list=(ListView)findViewById(R.id.lista);
+					list.setAdapter(adapter);
+					list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			            @Override
+			            public void onItemClick(AdapterView<?> parent, View view,int position, long idd) {
+			                Toast.makeText(EscolheProfessor.this, "You Clicked at " +nome[+ position], Toast.LENGTH_SHORT).show();
+			               /* Bundle wrap = new Bundle();
+			    			wrap.putInt("IdEscola", id[position]);
+			    			Intent it = new Intent(getApplicationContext(),EscolheProfessor.class);
+							it.putExtras(wrap);
+							startActivity(it);*/
+			          }
+			 });
+		}
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {

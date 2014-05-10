@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -80,7 +81,7 @@ public class EscolheEscola extends Activity {
 	            Log.d("letrinhas-ID", String.valueOf(id[0]));
 	            img[numero] = cn.getLogotipoNome();
 	            Log.d("letrinhas-IMG", img[0]);
-	            setUp(nome, img);
+	            setUp(nome, img, id);
 	            numero++;
 	     }
 
@@ -122,14 +123,20 @@ public class EscolheEscola extends Activity {
 		escutaBotoes();
 	}
 	
-	public void setUp(final String[] nome, String[] imgNome){
-		Custom adapter = new Custom(EscolheEscola.this, nome, imgNome);
+	public void setUp(final String[] nome, String[] imgNome, final int[] id){
+		Custom adapter = new Custom(EscolheEscola.this, nome, imgNome,"escola");
 		list=(ListView)findViewById(R.id.list);
 				list.setAdapter(adapter);
 				list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 		            @Override
-		            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-		                Toast.makeText(EscolheEscola.this, "You Clicked at " +nome[+ position], Toast.LENGTH_SHORT).show();
+		            public void onItemClick(AdapterView<?> parent, View view,int position, long idd) {
+		                //Toast.makeText(EscolheEscola.this, "You Clicked at " +nome[+ position], Toast.LENGTH_SHORT).show();
+		                Bundle wrap = new Bundle();
+		    			wrap.putInt("IdEscola", id[position]);
+		    			Intent it = new Intent(getApplicationContext(),EscolheProfessor.class);
+						it.putExtras(wrap);
+						finish();
+						startActivity(it);
 		          }
 		 });
 	}

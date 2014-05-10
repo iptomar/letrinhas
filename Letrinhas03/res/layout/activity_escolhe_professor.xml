@@ -56,9 +56,9 @@
         android:contentDescription="@string/voltar"
         android:onClick="voltar"
         android:src="@drawable/voltar" />
-
-    <ScrollView
-        android:id="@+id/svEscolher_prof"
+    
+    <ListView
+       android:id="@+id/lista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ibComecar_prof"
@@ -67,27 +67,9 @@
         android:layout_marginLeft="40dp"
         android:layout_toLeftOf="@+id/ibComecar_prof"
         android:background="@color/black_overlay" >
-
-        <LinearLayout
-            android:id="@+id/llescProf"
-            android:layout_width="match_parent"
-            android:layout_height="457dp"
-            android:orientation="vertical" >
-
-            <Button
-                android:id="@+id/Button_prof"
-                android:layout_width="match_parent"
-                android:layout_height="83dp"
-                android:layout_marginTop="5sp"
-                
-                android:text="@string/professor"
-                
-                android:textSize="32sp"
-                android:textStyle="normal" />
-
-        </LinearLayout>
-    </ScrollView>
-
+        
+        
+    </ListView>
     <ImageView
         android:id="@+id/esTLogo_prof"
         android:layout_width="wrap_content"
