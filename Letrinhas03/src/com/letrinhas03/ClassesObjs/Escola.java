@@ -2,10 +2,11 @@ package com.letrinhas03.ClassesObjs;
 
 public class Escola {
     // private variables
-    private int idEscola;
-    private String nome;
-    private byte[] logotipo;
-    private String morada;
+    protected int idEscola;
+    protected String nome;
+    protected byte[] logotipo;
+    protected String logotipoNome;
+    protected String morada;
 
     // Empty constructor
     public Escola() {
@@ -19,6 +20,18 @@ public class Escola {
         this.idEscola = idEscola;
         this.nome = nome;
         this.logotipo = logotipo;
+        this.morada = morada;
+    }
+
+
+
+    // constructor 2 -usado para os get da informacao da bd
+    public Escola(int idEscola, String nome, String logotipoNome,
+                  String morada) {
+
+        this.idEscola = idEscola;
+        this.nome = nome;
+        this.setLogotipoNome(logotipoNome);
         this.morada = morada;
     }
 
@@ -54,4 +67,11 @@ public class Escola {
         this.morada = morada;
     }
 
+    public String getLogotipoNome() {
+        return logotipoNome;
+    }
+
+    public void setLogotipoNome(String logotipoNome) {
+        this.logotipoNome = logotipoNome;
+    }
 }

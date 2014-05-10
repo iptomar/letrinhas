@@ -492,7 +492,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 escola.setIdEscola(cursor.getInt(0));
                 escola.setNome(cursor.getString(1));
                 escola.setMorada(cursor.getString(2));
-                escola.setLogotipo( Utils.getFileSD("Schools", cursor.getString(3)));
+                escola.setLogotipoNome(cursor.getString(3));
                 // Adicionar os os items da base de dados a lista
                 listEscolas.add(escola);
             } while (cursor.moveToNext());
