@@ -87,13 +87,6 @@
             android:background="@drawable/exit"
             android:contentDescription="@string/sair" />
 
-        <Button
-            android:id="@+id/experiment"
-            android:layout_width="138dp"
-            android:layout_height="128dp"
-            android:layout_gravity="right"
-            android:text="@string/syncro" />
-
     </FrameLayout>
 
 </FrameLayout>

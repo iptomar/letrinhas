@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.letrinhas03.R;
-import com.letrinhas04.BaseDados.MainScreenActivity;
+import com.letrinhas04.R;
+import com.letrinhas04.BaseDados.SincAllBd;
+import com.letrinhas04.escolhe.EscolheEscola;
 import com.letrinhas04.util.SystemUiHider;
 import com.letrinhas04.util.coneccaoW;
 /**
@@ -145,8 +145,6 @@ public class PaginaInicial extends Activity {
 		// while interacting with the UI.
 		findViewById(R.id.bEntrar1).setOnTouchListener(mDelayHideTouchListener);
 		
-		exper = (Button) findViewById(R.id.experiment);
-		
 		bentrar = (Button) findViewById(R.id.bEntrar1);
         ibotao = (ImageButton) findViewById(R.id.iBSair);
         link= (ProgressBar) findViewById(R.id.pBarLink);
@@ -199,21 +197,6 @@ public class PaginaInicial extends Activity {
                         java.lang.System.exit(RESULT_OK);
                     }
                 }
-        );
-        
-        exper.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //iniciar a pagina 
-                        Intent it= new Intent(PaginaInicial.this,MainScreenActivity.class);//Autenticacao.class);
-                        startActivity(it);
-                        //finish();
-                    	Toast.makeText(getApplicationContext(), "Nenhuma Pagina associada!",
-        						Toast.LENGTH_LONG).show();
-                    }
-                }
-
         );
 	}
 	@Override

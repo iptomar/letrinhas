@@ -34,7 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.letrinhas03.R;
+import com.letrinhas04.R;
 import com.letrinhas04.util.SystemUiHider;
 import com.letrinhas04.util.Teste;
 
@@ -536,9 +536,9 @@ public class Teste_Palavras extends Activity{
 				for(int i = 0; i<ar.length;i++){
 					buttonSetUp(ar2,i,ll2,tg3);
 				}	*/
-				initSetup(getResources(),R.string.listaPalavras1,R.id.ToggleButton,R.id.llescteste);
-				initSetup(getResources(),R.string.listaPalavras2,R.id.ToggleButton1,R.id.llescteste1);
-				initSetup(getResources(),R.string.listaPalavras3,R.id.ToggleButton2,R.id.llescteste2);
+			//	initSetup(getResources(),R.string.listaPalavras1,R.id.ToggleButton,R.id.llescteste);
+			//	initSetup(getResources(),R.string.listaPalavras2,R.id.ToggleButton1,R.id.llescteste1);
+			//	initSetup(getResources(),R.string.listaPalavras3,R.id.ToggleButton2,R.id.llescteste2);
 			}
 			
 			public void initSetup(Resources res,int list, int toggle, int layout){

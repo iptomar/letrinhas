@@ -55,10 +55,10 @@
         android:contentDescription="@string/voltar"
         android:onClick="voltar"
         android:src="@drawable/voltar" />
-
-    <ScrollView
-        android:id="@+id/svEscolher_aluno"
-        android:layout_width="wrap_content"
+    
+     <ListView
+       android:id="@+id/list"
+       android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ibComecar_aluno"
         android:layout_alignLeft="@+id/esTCabecalho_aluno"
@@ -66,33 +66,16 @@
         android:layout_marginLeft="40dp"
         android:layout_toLeftOf="@+id/ibComecar_aluno"
         android:background="@color/black_overlay" >
-
-        <LinearLayout
-            android:id="@+id/llescAluno"
-            android:layout_width="match_parent"
-            android:layout_height="457dp"
-            android:orientation="vertical" >
-
-            <Button
-                android:id="@+id/Button_aluno"
-                android:layout_width="match_parent"
-                android:layout_height="83dp"
-                android:layout_marginTop="5sp"
-                android:text="@string/aluno"
-                android:textOff="@string/aluno"
-                android:textOn="@string/aluno"
-                android:textSize="32sp"
-                android:textStyle="normal" />
-
-        </LinearLayout>
-    </ScrollView>
+        
+        
+    </ListView>
 
     <ImageView
         android:id="@+id/esTLogo_aluno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/esTCabecalho_aluno"
-        android:layout_toRightOf="@+id/svEscolher_aluno"
+        android:layout_toRightOf="@+id/list"
         android:contentDescription="@string/aluno"
         android:src="@drawable/index" />
 
@@ -102,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/esTLogo_aluno"
         android:layout_alignRight="@+id/esTLogo_aluno"
-        android:layout_alignTop="@+id/svEscolher_aluno"
+        android:layout_alignTop="@+id/list"
         android:text="@string/act_BD" />
 
 </RelativeLayout>

@@ -24,7 +24,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.letrinhas03.R;
+import com.letrinhas04.R;
 import com.letrinhas04.util.SystemUiHider;
 import com.letrinhas04.util.Teste;
 

@@ -1,13 +1,10 @@
-package com.letrinhas04;
-
-import java.util.List;
+package com.letrinhas04.escolhe;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,28 +12,22 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.letrinhas03.R;
+import com.letrinhas04.R;
 import com.letrinhas04.BaseDados.LetrinhasDB;
+import com.letrinhas04.ClassesObjs.Escola;
 import com.letrinhas04.ClassesObjs.Professor;
+import com.letrinhas04.util.Custom;
 import com.letrinhas04.util.SystemUiHider;
 
-public class EscolheProfessor extends Activity {
+public class EscolheAluno extends Activity {
 
 	ImageButton volt, exect;
-	public int nProfs,numero=0; 
-	List<Professor> profs;
-	LetrinhasDB db;
+	public int nAlunos;
 	ListView list;
-	Integer[] image;
-	int[] idProf;
-    String[] username;
-    String[] password;
-    String[] telefone;
-    String[] email;
-    String[] fotoNome;
-    int[] estado;
-    
-	//Escola escola;
+	LetrinhasDB db;
+	Escola escola;
+	Professor prof;
+
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -59,42 +50,43 @@ public class EscolheProfessor extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_escolhe_professor);
+		setContentView(R.layout.activity_escolhe_aluno);
 		
 		
 		
 		//Cria o objecto da base de dados
-		db = new LetrinhasDB(this);
-		Bundle b = getIntent().getExtras();
-		int idEscola = b.getInt("IdEscola");
-		profs = db.getAllProfesorsBySchool(idEscola);
-		nProfs = profs.size();
-		username = new String[profs.size()];
-		password = new String[profs.size()];
-		telefone = new String[profs.size()];
-		email = new String[profs.size()];
-		fotoNome = new String[profs.size()];;
-		estado = new int[profs.size()];
-		idProf = new int[profs.size()];
-		for (Professor cn : profs) {
-	           // String storage = cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
-				String storage = cn.getEmail()+","+cn.getFotoNome()+","+cn.getId()+","+cn.getNome()+","+cn.getPassword()+","+cn.getTelefone()+","+cn.getUsername();
-	            Log.d("letrinhas-Escola", storage.toString());
-	            password[numero] = cn.getPassword();
-	            Log.d("letrinhas-Tipo",String.valueOf(password[0]));
-	            username[numero] = cn.getNome();
-	            Log.d("letrinhas-Titulo", username[0].toString());
-	            idProf[numero] = cn.getId();
-	            Log.d("letrinhas-ID", String.valueOf(idProf[0]));
-	            fotoNome[numero] = cn.getFotoNome();
-	            Log.d("letrinhas-IMG", fotoNome[0]);
-	            setUp(username, fotoNome, idProf,username,password);
-	            numero++;
-	     }
-
+		/*db = new LetrinhasDB(this);
+		estudantes = db.getAllStudents();
+		nAlunos = estudantes.size();
+		//Bundle b = getIntent().getExtras();
+		//int idEscola = b.getInt("IdEscola");
+		//Para ser adapatado\\
+				profs = db.getAllProfesorsBySchool(idEscola);
+				nProfs = profs.size();
+				username = new String[profs.size()];
+				password = new String[profs.size()];
+				telefone = new String[profs.size()];
+				email = new String[profs.size()];
+				fotoNome = new String[profs.size()];;
+				estado = new int[profs.size()];
+				idProf = new int[profs.size()];
+				for (Professor cn : profs) {
+						String storage = cn.getEmail()+","+cn.getFotoNome()+","+cn.getId()+","+cn.getNome()+","+cn.getPassword()+","+cn.getTelefone()+","+cn.getUsername();
+			            Log.d("letrinhas-Escola", storage.toString());
+			            password[numero] = cn.getPassword();
+			            Log.d("letrinhas-Tipo",String.valueOf(password[0]));
+			            username[numero] = cn.getNome();
+			            Log.d("letrinhas-Titulo", username[0].toString());
+			            idProf[numero] = cn.getId();
+			            Log.d("letrinhas-ID", String.valueOf(idProf[0]));
+			            fotoNome[numero] = cn.getFotoNome();
+			            Log.d("letrinhas-IMG", fotoNome[0]);
+			            setUp(username, fotoNome, idProf,username,password);
+			            numero++;
+		}*/
 
 		// esconder o title************************************************+
-		final View contentView = findViewById(R.id.escProf);
+		final View contentView = findViewById(R.id.escAluno);
 
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
@@ -122,28 +114,31 @@ public class EscolheProfessor extends Activity {
 						}
 					}
 				});
-		volt = (ImageButton) findViewById(R.id.escTVoltar_escl);
-		exect = (ImageButton) findViewById(R.id.ibComecar_escl);
-		//escutaBotoes();
+
+		volt = (ImageButton) findViewById(R.id.escTVoltar_aluno);
+		exect = (ImageButton) findViewById(R.id.ibComecar_aluno);
+
+		escutaBotoes();
 	}
-		public void setUp(final String[] nome, String[] imgNome, final int[] id, final String[] userName, final String[] pass){
-			Custom adapter = new Custom(EscolheProfessor.this, nome, imgNome,"professores");
-			list=(ListView)findViewById(R.id.lista);
-					list.setAdapter(adapter);
-					list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			            @Override
-			            public void onItemClick(AdapterView<?> parent, View view,int position, long idd) {
-			                Toast.makeText(EscolheProfessor.this, "You Clicked at " +nome[+ position], Toast.LENGTH_SHORT).show();
-			              /*  Bundle wrap = new Bundle();
-			    			wrap.putInt("IdProf", id[position]);
-			    			wrap.putString("pass", pass[position]);
-			    			wrap.putString("user", userName[position]);
-			    			Intent itp = new Intent(getApplicationContext(), Autenticacao.class);
-							itp.putExtras(wrap);
-							startActivity(itp);*/
-			          }
-			 });
-		}
+	
+	public void setUp(final String[] nome, String[] imgNome, final int[] id, final String[] userName, final String[] pass){
+		Custom adapter = new Custom(EscolheAluno.this, nome, imgNome,"professores");
+		list=(ListView)findViewById(R.id.lista);
+				list.setAdapter(adapter);
+				list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		            @Override
+		            public void onItemClick(AdapterView<?> parent, View view,int position, long idd) {
+		                Toast.makeText(EscolheAluno.this, "You Clicked at " +nome[+ position], Toast.LENGTH_SHORT).show();
+		              /*  Bundle wrap = new Bundle();
+		    			wrap.putInt("IdProf", id[position]);
+		    			wrap.putString("pass", pass[position]);
+		    			wrap.putString("user", userName[position]);
+		    			Intent itp = new Intent(getApplicationContext(), Autenticacao.class);
+						itp.putExtras(wrap);
+						startActivity(itp);*/
+		          }
+		 });
+	}
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
@@ -209,5 +204,4 @@ public class EscolheProfessor extends Activity {
 			}
 		});
 	}
-
 }

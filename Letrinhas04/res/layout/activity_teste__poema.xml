@@ -361,7 +361,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="fill"
-                android:text="@string/Texto_Poema"
                 android:textIsSelectable="true"
                 android:textSize="35sp" />
 

@@ -1,4 +1,4 @@
-package com.letrinhas04;
+package com.letrinhas04.escolhe;
 
 import java.util.List;
 
@@ -17,7 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.letrinhas03.R;
+import com.letrinhas04.R;
+import com.letrinhas04.Teste_Palavras;
+import com.letrinhas04.Teste_Poema;
+import com.letrinhas04.Teste_Texto;
 import com.letrinhas04.BaseDados.LetrinhasDB;
 import com.letrinhas04.ClassesObjs.Teste;
 import com.letrinhas04.util.SystemUiHider;

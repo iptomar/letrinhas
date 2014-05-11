@@ -1,4 +1,4 @@
-package com.letrinhas04;
+package com.letrinhas04.BaseDados;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +12,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.letrinhas04.BaseDados.JSONParser;
-import com.letrinhas04.BaseDados.LetrinhasDB;
-import com.letrinhas04.BaseDados.NetworkUtils;
 import com.letrinhas04.util.Utils;
 
 /**

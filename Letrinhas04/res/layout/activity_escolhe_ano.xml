@@ -55,10 +55,10 @@
         android:contentDescription="@string/voltar"
         android:onClick="voltar"
         android:src="@drawable/voltar" />
-
-    <ScrollView
-        android:id="@+id/svEscolher_ano"
-        android:layout_width="wrap_content"
+    
+    <ListView
+       android:id="@+id/list"
+       android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ibComecar_ano"
         android:layout_alignLeft="@+id/esTCabecalho_ano"
@@ -66,33 +66,16 @@
         android:layout_marginLeft="40dp"
         android:layout_toLeftOf="@+id/ibComecar_ano"
         android:background="@color/black_overlay" >
-
-        <LinearLayout
-            android:id="@+id/llescAno"
-            android:layout_width="match_parent"
-            android:layout_height="457dp"
-            android:orientation="vertical" >
-
-            <Button
-                android:id="@+id/Button2"
-                android:layout_width="match_parent"
-                android:layout_height="83dp"
-                android:layout_marginTop="5sp"
-                android:text="@string/ano"
-                android:textOff="@string/ano"
-                android:textOn="@string/ano"
-                android:textSize="32sp"
-                android:textStyle="normal" />
-
-        </LinearLayout>
-    </ScrollView>
-
+        
+        
+    </ListView>
+  
     <ImageView
         android:id="@+id/esTLogo_ano"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/esTCabecalho_ano"
-        android:layout_toRightOf="@+id/svEscolher_ano"
+        android:layout_toRightOf="@+id/list"
         android:contentDescription="@string/ano"
         android:src="@drawable/index" />
 
@@ -102,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/esTLogo_ano"
         android:layout_alignRight="@+id/esTLogo_ano"
-        android:layout_alignTop="@+id/svEscolher_ano"
+        android:layout_alignTop="@+id/list"
         android:text="@string/act_BD" />
 
 </RelativeLayout>

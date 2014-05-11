@@ -1,4 +1,4 @@
-package com.letrinhas04;
+package com.letrinhas04.escolhe;
 
 import java.util.List;
 
@@ -16,9 +16,10 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.letrinhas03.R;
+import com.letrinhas04.R;
 import com.letrinhas04.BaseDados.LetrinhasDB;
 import com.letrinhas04.ClassesObjs.Escola;
+import com.letrinhas04.util.Custom;
 import com.letrinhas04.util.SystemUiHider;
 
 public class EscolheEscola extends Activity {
@@ -34,7 +35,6 @@ public class EscolheEscola extends Activity {
 	byte[] logotipo;
 	ListView list;
 	Integer[] image;
-	//Escola escola;
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -71,7 +71,6 @@ public class EscolheEscola extends Activity {
 		id = new int[escolas.size()];
 		nEscolas = escolas.size();
 		for (Escola cn : escolas) {
-	           // String storage = cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
 				String storage = cn.getMorada()+","+cn.getIdEscola()+","+cn.getNome()+","+cn.getLogotipoNome();
 	            Log.d("letrinhas-Escola", storage.toString());
 	            morada[numero] = cn.getMorada();
@@ -131,7 +130,6 @@ public class EscolheEscola extends Activity {
 				list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 		            @Override
 		            public void onItemClick(AdapterView<?> parent, View view,int position, long idd) {
-		                //Toast.makeText(EscolheEscola.this, "You Clicked at " +nome[+ position], Toast.LENGTH_SHORT).show();
 		                Bundle wrap = new Bundle();
 		    			wrap.putInt("IdEscola", id[position]);
 		    			Intent it = new Intent(getApplicationContext(),EscolheProfessor.class);

@@ -1,6 +1,6 @@
-package com.letrinhas04;
+package com.letrinhas04.util;
 
-import com.letrinhas03.R;
+import com.letrinhas04.R;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
