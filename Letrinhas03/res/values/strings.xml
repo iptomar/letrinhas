@@ -139,5 +139,9 @@ Desci dela pela janela das traseiras da casa.</string>
     <string name="nota">Nota</string>
     <string name="perguntaImagem">perguntaImagem</string>
     <string name="title_activity_custom">Custom</string>
-
+	<string name="portugues">Português</string>
+	<string name="ingles">Inglês</string>
+	<string name="estMeio">Estudo do meio</string>
+	<string name="matematica">Matemática</string>
+	<string name="escolheDisciplina">Selecione a disciplina</string>
 </resources>
