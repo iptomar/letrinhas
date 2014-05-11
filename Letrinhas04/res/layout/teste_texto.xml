@@ -8,7 +8,7 @@
     android:paddingLeft="30sp"
     android:paddingRight="30sp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.letrinhas03.Teste_Texto" >
+    tools:context="com.letrinhas04.Teste_Texto" >
 
     <TextView
         android:id="@+id/textCabecalho"

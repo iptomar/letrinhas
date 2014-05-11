@@ -5,7 +5,7 @@
     android:background="#0099cc"
     android:screenOrientation="landscape"
     android:configChanges="orientation|keyboardHidden|screenSize"
-    tools:context="com.letrinhas03.PaginaInicial" >
+    tools:context="com.letrinhas04.PaginaInicial" >
 
     <!--
          The primary full-screen view. This can be replaced with whatever view

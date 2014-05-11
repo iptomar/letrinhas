@@ -22,7 +22,7 @@
         android:screenOrientation="landscape"
         android:theme="@android:style/Theme.Holo.Dialog.NoActionBar" >
         <activity
-            android:name="com.letrinhas03.PaginaInicial"
+            android:name="com.letrinhas04.PaginaInicial"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
@@ -34,104 +34,104 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.letrinhas03.EscModo"
+            android:name="com.letrinhas04.EscModo"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_esc_modo"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas03.EscolheTeste"
+            android:name="com.letrinhas04.EscolheTeste"
             android:label="@string/title_activity_escolhe_teste"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas03.Autenticacao"
+            android:name="com.letrinhas04.Autenticacao"
             android:label="@string/title_activity_autenticacao" >
         </activity>
         <activity
-            android:name="com.letrinhas03.Teste_Texto"
+            android:name="com.letrinhas04.Teste_Texto"
             android:label="@string/title_activity_teste_texto"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas03.Teste_Palavras"
+            android:name="com.letrinhas04.Teste_Palavras"
             android:label="@string/title_activity_teste__palavras"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas03.Teste_Poema"
+            android:name="com.letrinhas04.Teste_Poema"
             android:label="@string/title_activity_teste__poema"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas03.BaseDados.MainScreenActivity"
+            android:name="com.letrinhas04.BaseDados.MainScreenActivity"
             android:label="@string/title_activity_main_bd"
             android:screenOrientation="landscape"
             android:theme="@style/ButtonBarButton" >
         </activity>
         <activity
-            android:name="com.letrinhas03.BaseDados.All_Tests"
+            android:name="com.letrinhas04.BaseDados.All_Tests"
             android:label="@string/title_activity_all__tests"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas03.BaseDados.MainBD"
+            android:name="com.letrinhas04.BaseDados.MainBD"
             android:label="@string/title_activity_main_bd"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas03.BaseDados.ReceberImagem"
+            android:name="com.letrinhas04.BaseDados.ReceberImagem"
             android:label="@string/title_activity_receber_imagem"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas03.BaseDados.ReprodAudio"
+            android:name="com.letrinhas04.BaseDados.ReprodAudio"
             android:label="@string/title_activity_reprod_audio"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas03.BaseDados.Send_ResultTest"
+            android:name="com.letrinhas04.BaseDados.Send_ResultTest"
             android:label="@string/title_activity_send__result_test"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas03.BaseDados.ViewMoreInfo"
+            android:name="com.letrinhas04.BaseDados.ViewMoreInfo"
             android:label="@string/title_activity_view_more_info"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas03.Resultado"
+            android:name="com.letrinhas04.Resultado"
             android:label="@string/title_activity_resultado" >
         </activity>
         <activity
-            android:name="com.letrinhas03.EscolheAno"
+            android:name="com.letrinhas04.EscolheAno"
             android:label="@string/title_activity_escolhe_ano" >
         </activity>
         <activity
-            android:name="com.letrinhas03.EscolheAluno"
+            android:name="com.letrinhas04.EscolheAluno"
             android:label="@string/title_activity_escolhe_aluno" >
         </activity>
         <activity
-            android:name="com.letrinhas03.EscolheEscola"
+            android:name="com.letrinhas04.EscolheEscola"
             android:label="@string/title_activity_escolhe_escola" >
         </activity>
         <activity
-            android:name="com.letrinhas03.EscolheProfessor"
+            android:name="com.letrinhas04.EscolheProfessor"
             android:label="@string/title_activity_escolhe_professor" >
         </activity>
         <activity
-            android:name="com.letrinhas03.Custom"
+            android:name="com.letrinhas04.Custom"
             android:label="@string/title_activity_custom" >
         </activity>
     </application>
