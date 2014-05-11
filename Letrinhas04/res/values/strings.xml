@@ -145,5 +145,8 @@ Desci dela pela janela das traseiras da casa.</string>
 	<string name="estMeio">Estudo do meio</string>
 	<string name="matematica">Matemática</string>
 	<string name="escolheDisciplina">Selecione a disciplina</string>
-
+	<string name="escolheTipoTeste">Selecione o tipo de teste</string>
+	<string name="leituraPalavras">Leitura\nde palavras</string>
+	<string name="leituraTextos">Leitura\nde textos</string>
+	<string name="interpretaçãoImagens">Interpretação\natravés de imagens</string>
 </resources>
