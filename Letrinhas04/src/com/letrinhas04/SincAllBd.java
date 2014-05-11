@@ -3,6 +3,7 @@ package com.letrinhas04;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.letrinhas04.ClassesObjs.*;
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,12 +15,6 @@ import android.util.Log;
 import com.letrinhas04.BaseDados.JSONParser;
 import com.letrinhas04.BaseDados.LetrinhasDB;
 import com.letrinhas04.BaseDados.NetworkUtils;
-import com.letrinhas04.ClassesObjs.Escola;
-import com.letrinhas04.ClassesObjs.Estudante;
-import com.letrinhas04.ClassesObjs.Professor;
-import com.letrinhas04.ClassesObjs.Teste;
-import com.letrinhas04.ClassesObjs.TesteLeitura;
-import com.letrinhas04.ClassesObjs.TesteMultimedia;
 import com.letrinhas04.util.Utils;
 
 /**
@@ -31,11 +26,13 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
     public Context context;
     @Override
     protected String doInBackground(String[] strings) {
-        lerSynProfessores(strings[0]);
-        lerSynEscolas(strings[0]);
-        lerSynEstudante(strings[0]);
-        lerSynTestes(strings[0]);
-        lerSynTestesMultimedia(strings[0]);
+       lerSynProfessores(strings[0]);
+       lerSynEscolas(strings[0]);
+       lerSynEstudante(strings[0]);
+       lerSynTurmas(strings[0]);
+       lerSynTestes(strings[0]);
+       lerSynTestesMultimedia(strings[0]);
+
         return null;
     }
 
@@ -73,7 +70,7 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
             }
             guardarProfBD(arrProf);
         } catch (Exception e) {
-          Log.d("ERRO", "ERRO DE SINC TALVEZ SERVIDOR EM BAIXO");
+          Log.d("ERRO", "ERRO DE SINC PROFS TALVEZ SERVIDOR EM BAIXO");
 
         }
     }
@@ -104,7 +101,7 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
             }
             guardarEscolaBD(arrEscolas);
         } catch (Exception e) {
-            Log.d("ERRO", "ERRO DE SINC TALVEZ SERVIDOR EM BAIXO");
+            Log.d("ERRO", "ERRO DE SINC ESCOLAS TALVEZ SERVIDOR EM BAIXO");
 
         }
     }
@@ -138,11 +135,46 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
             }
             guardarEstudantesBD(arrEstudantes);
         } catch (Exception e) {
-            Log.d("ERRO", "ERRO DE SINC TALVEZ SERVIDOR EM BAIXO");
+            Log.d("ERRO", "ERRO DE SINC ESTUDANTES TALVEZ SERVIDOR EM BAIXO");
 
         }
 
     }
+
+
+    /**
+     *  Vai por HTTP buscar toda a informacao sobre os estudantes e no final
+     *  chama  o metodo para guardar na base de dados
+     *
+     */
+    protected void lerSynTurmas(String URlString) {
+        String url = URlString + "classes/";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        JSONObject json = JSONParser.getJSONObject(url, params);
+        try {
+
+            JSONArray turma = json.getJSONArray("classes");
+            Turma[] arrTurmas = new Turma[turma.length()];
+            // For (loop)looping
+            for (int i = 0; i < turma.length(); i++) {
+                JSONObject c = turma.getJSONObject(i);
+                // Armazenar cada item json nas variaveis
+                arrTurmas[i] = new Turma(
+                        c.getInt("id"),
+                        c.getInt("schoolId"),
+                        c.getInt("classLevel"),
+                        c.getString("className"),
+                        c.getString("classYear")
+                );
+            }
+            guardarTurmasBD(arrTurmas);
+        } catch (Exception e) {
+            Log.d("ERRO", "ERRO DE SINC TURMAS TALVEZ SERVIDOR EM BAIXO");
+
+        }
+
+    }
+
 
     /**
      *  Vai por HTTP buscar toda a informacao sobre os TestesLeitura e no final
@@ -178,7 +210,7 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
             }
             guardarTestesLeituraBD(arrTestesLeitura);
         } catch (Exception e) {
-            Log.d("ERRO", "ERRO DE SINC TALVEZ SERVIDOR EM BAIXO");
+            Log.d("ERRO", "ERRO DE SINC TESTESLEITURA TALVEZ SERVIDOR EM BAIXO");
 
         }
         }
@@ -254,7 +286,8 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
             }
             guardarTestesMultimediaBD(arrTestesMultimedia);
         } catch (Exception e) {
-            Log.d("ERRO", "ERRO DE SINC TALVEZ SERVIDOR EM BAIXO");
+            Log.d("ERRO", e.getMessage());
+            Log.d("ERRO", "ERRO DE SINC TESTESMULTIMEDIA TALVEZ SERVIDOR EM BAIXO");
 
         }
     }
@@ -314,6 +347,36 @@ public class SincAllBd  extends AsyncTask<String,String,String> {
             Log.d("BDDADOS: ", logs);
         }
     }
+
+
+    /**
+     *  Guarda um array de  ObJECTOS escola na Base de dados
+     * @param turmas Array com  escolas para se guardar
+     */
+    public void guardarTurmasBD(Turma... turmas) {
+        LetrinhasDB db = new LetrinhasDB(context);
+        db.deleteAllItemsTurmas();
+        Log.d("DB", "Inserir Dados na base de dados das Turmas ..");
+        for (int i = 0; i < turmas.length; i++) {
+            db.addNewItemTurmas(turmas[i]);
+        }
+        db.close();
+        Log.d("DB", "Tudo inserido nas Turmas");
+        /////PARA EFEITOS DE DEBUG E LOGO  O CODIGO A FRENTE APENAS MOSTRA O CONTEUDO DA TABELA//////////////
+        List<Turma> dadosImg = db.getAllTurmas();
+        Log.d("BDDADOS: ", "********TURMAS********************");
+        for (Turma cn : dadosImg) {
+            String logs = "Id: " + cn.getId() +
+                    ", getIdEscola: " + cn.getIdEscola() +
+                    ", getAnoEscolar: " + cn.getAnoEscolar() +
+                    ", getNome: " + cn.getNome() +
+                    ", getNome: " + cn.getAnoLetivo() ;
+            // Writing Contacts to log
+            Log.d("BDDADOS: ", logs);
+        }
+    }
+
+
 
     /**
      *  Guarda um array de  ObJECTOS estudantes na Base de dados

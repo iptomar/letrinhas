@@ -11,7 +11,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import com.letrinhas04.ClassesObjs.*;
 import com.letrinhas04.util.Utils;
 
@@ -29,6 +28,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     private static final String TABELA_PROFESSORES = "tblProfessores";
     private static final String TABELA_ESCOLAS = "tblEscolas";
     private static final String TABELA_ESTUDANTE = "tblEstudantes";
+    private static final String TABELA_TURMAS = "tblTurmas";
     private static final String TABELA_SISTEMA = "tblSistema";
     private static final String TABELA_TESTE = "tblTeste";
     private static final String TABELA_TESTELEITURA = "tblTesteLeitura";
@@ -50,6 +50,13 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     private static final String ESC_NOME = "nome";
     private static final String ESC_LOGOTIPO = "logotipo";
     private static final String ESC_MORADA = "morada";
+
+    // Nomes dos campos da tabela Turmas
+    private static final String TUR_ID = "id";
+    private static final String TUR_IDESCOLA = "idEscola";
+    private static final String TUR_ANO = "ano";
+    private static final String TUR_NOME = "nome";
+    private static final String TUR_ANOLETIVO = "anoLetivo";
 
     // Nomes dos campos da tabela Estudantes
     private static final String EST_ID = "id";
@@ -89,6 +96,10 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     private static final String TESTM_OPCAO3= "opcao3";
     private static final String TESTM_OPCAO3ISURL= "opcao3IsUrl";
     private static final String TESTM_OPCAOCORRETA= "opcaoCorreta";
+
+
+
+
 
     public LetrinhasDB(Context context) {
         super(context, NOME_BASEDADOS, null, VERSAO_BASEDADOS);
@@ -130,6 +141,15 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + ESC_NOME + " TEXT,"
                 + EST_FOTO + " TEXT,"
                 + EST_ESTADO + " INTEGER" + ")";
+        db.execSQL(createTableString);
+
+        ////////Construir a Tabela Turmas //////////////////
+        createTableString = "CREATE TABLE " + TABELA_TURMAS + "("
+                + TUR_ID + " INTEGER PRIMARY KEY,"
+                + TUR_IDESCOLA + " INTEGER,"
+                + TUR_ANO + " INTEGER,"
+                + TUR_NOME + " TEXT,"
+                + TUR_ANOLETIVO + " TEXT" + ")";
         db.execSQL(createTableString);
 
         //Construir a Tabela Sistema //////////////////
@@ -253,6 +273,26 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.insert(TABELA_ESTUDANTE, null, values);
         //	db.close(); // Fechar a conecao a Base de dados
     }
+
+
+    /**
+     * Adiciona um novo registo na tabela Turmas
+     * @param turma Recebe um objecto do tipo Turma onde vai inserir
+     *             os dados na base de dados na tabela Turmas
+     */
+    public void addNewItemTurmas(Turma turma) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(TUR_ID, turma.getId());   // Inserir na tabela campo Id
+        values.put(TUR_IDESCOLA, turma.getIdEscola());   // Inserir na tabela campo Id Escola
+        values.put(TUR_ANO, turma.getAnoEscolar());         // Inserir na tabela ano escolar
+        values.put(TUR_NOME, turma.getNome());  // Inserir na tabela campo nome
+        values.put(TUR_ANOLETIVO, turma.getAnoLetivo());     // Inserir na tabela ano letivo
+        // Inserir LINHAS
+        db.insert(TABELA_TURMAS, null, values);
+        //	db.close(); // Fechar a conecao a Base de dados
+    }
+
 
     /**
      * Adiciona um novo registo na tabela Sistema
@@ -542,6 +582,39 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     }
 
 
+
+    /**
+     * Buscar todos os campos da Tabela Escola
+     * Retorna uma lista com varios objectos do tipo "Escola"
+     */
+    public List<Turma> getAllTurmas() {
+        List<Turma> listTurmas = new ArrayList<Turma>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT  * FROM " + TABELA_TURMAS;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atraves de todas as linhas e adicionando � lista
+        if (cursor.moveToFirst()) {
+            do {
+                Turma turma = new Turma();
+                turma.setId(cursor.getInt(0));
+                turma.setIdEscola(cursor.getInt(1));
+                turma.setAnoEscolar(cursor.getInt(2));
+                turma.setNome(cursor.getString(3));
+                turma.setAnoLetivo(cursor.getString(4));
+                // Adicionar os os items da base de dados a lista
+                listTurmas.add(turma);
+            } while (cursor.moveToNext());
+        }
+        // return a lista com todos os items da base de dados
+        db.close();
+        return listTurmas;
+    }
+
+
+
+
+
     /**
      * Buscar todos os campos da Tabela Estudante
      * Retorna uma lista com varios objectos do tipo "Estudante"
@@ -751,6 +824,16 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABELA_TESTE + " WHERE 1");
         db.close();
     }
+
+    /**
+     * Apaga todos os dados da tabela testes
+     */
+    public void deleteAllItemsTurmas() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABELA_TURMAS + " WHERE 1");
+        db.close();
+    }
+
 
     /**
      * Apaga todos os dados da tabela testeslEITURA
