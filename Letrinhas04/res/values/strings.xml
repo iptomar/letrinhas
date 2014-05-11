@@ -140,5 +140,10 @@ Desci dela pela janela das traseiras da casa.</string>
     <string name="perguntaImagem">perguntaImagem</string>
     <string name="agrupamento">Agrupamento Artur Gonçalves</string>
     <string name="escProfessor">Escolher Professor</string>
+    <string name="portugues">Português</string>
+	<string name="ingles">Inglês</string>
+	<string name="estMeio">Estudo do meio</string>
+	<string name="matematica">Matemática</string>
+	<string name="escolheDisciplina">Selecione a disciplina</string>
 
 </resources>
