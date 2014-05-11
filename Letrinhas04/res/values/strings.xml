@@ -140,6 +140,7 @@ Desci dela pela janela das traseiras da casa.</string>
     <string name="perguntaImagem">perguntaImagem</string>
     <string name="agrupamento">Agrupamento Artur Gonçalves</string>
     <string name="escProfessor">Escolher Professor</string>
+<<<<<<< HEAD
     <string name="title_activity_escolhe__turma">Escolher Turma</string>
     <string name="escolherTurma">Escolher Turma</string>
     <string name="title_activity_escolhe__aluno">Escolher Aluno</string>
@@ -154,4 +155,15 @@ Desci dela pela janela das traseiras da casa.</string>
     <string name="iniciar">iniciar</string>
     <string name="demo">ouvir demo</string>
 
+=======
+    <string name="portugues">Português</string>
+	<string name="ingles">Inglês</string>
+	<string name="estMeio">Estudo do meio</string>
+	<string name="matematica">Matemática</string>
+	<string name="escolheDisciplina">Selecione a disciplina</string>
+	<string name="escolheTipoTeste">Selecione o tipo de teste</string>
+	<string name="leituraPalavras">Leitura\nde palavras</string>
+	<string name="leituraTextos">Leitura\nde textos</string>
+	<string name="interpretaçãoImagens">Interpretação\natravés de imagens</string>
+>>>>>>> refs/remotes/origin/master
 </resources>

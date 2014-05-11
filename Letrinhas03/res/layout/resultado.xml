@@ -35,15 +35,7 @@
             android:textSize="25sp"
             android:textStyle="bold" 
             android:layout_gravity="fill_vertical"/>
-        <TextView
-            android:id="@+id/tvResultado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="@string/teste"
-            android:textSize="25sp"
-            android:textStyle="bold" 
-            android:layout_gravity="fill_vertical"/>
+        
 	
 	<!-- nome do teste -->
 
@@ -141,7 +133,7 @@
         android:textColor="#ff2020"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:paddingRight="30dip"
+        android:paddingRight="80dip"
         android:paddingLeft="15dip" />
 		
 	    <TextView
@@ -294,7 +286,8 @@
          android:contentDescription="@string/nota"
          android:text="@string/nota"
          android:textSize="55sp"
-         android:textStyle="bold" />
+         android:textStyle="bold"
+         android:gravity="center" />
 	    <TextView
         android:id="@+id/TextView26"
         android:layout_width="wrap_content"
@@ -309,16 +302,18 @@
 </TableLayout>
 <ImageButton
         android:id="@+id/txtVoltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+    	android:layout_height="100dp"
+    	android:scaleType="fitCenter"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:contentDescription="@string/voltar"
         android:src="@drawable/voltar" />
 <ImageButton
         android:id="@+id/resAvancar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+    	android:layout_height="100dp"
+    	android:scaleType="fitCenter"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:contentDescription="@string/avancar"
