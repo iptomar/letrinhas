@@ -156,5 +156,5 @@ Desci dela pela janela das traseiras da casa.</string>
 	<string name="escolheTipoTeste">Selecione o tipo de teste</string>
 	<string name="leituraPalavras">Leitura\nde palavras</string>
 	<string name="leituraTextos">Leitura\nde textos</string>
-	<string name="interpretaçãoImagens">Interpretação\natravés de imagens</string>
+	<string name="interpretacaoImagens">Interpretação\natravés de imagens</string>
 </resources>

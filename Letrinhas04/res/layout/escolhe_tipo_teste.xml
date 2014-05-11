@@ -61,7 +61,7 @@
     		android:layout_height="200dp"
     		android:scaleType="fitCenter"
             android:background="#FFFFFF"
-            android:contentDescription="@string/interpretaçãoImagens"
+            android:contentDescription="@string/interpretacaoImagens"
             android:src="@drawable/imags"
             android:layout_marginTop="100dp"
             android:layout_marginRight="50dp"
@@ -94,7 +94,7 @@
 		        android:layout_marginLeft="45dp"
 		        android:layout_marginRight="5dp"
 		        android:gravity="center"
-		        android:text="@string/interpretaçãoImagens"
+		        android:text="@string/interpretacaoImagens"
 		        android:textColor="#22CC22"
 		        android:textSize="50sp"
 		        android:textStyle="bold" />
