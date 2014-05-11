@@ -10,8 +10,6 @@
         android:layout_x="157dp"
         android:layout_y="394dp"
         android:adjustViewBounds="true"
-        android:background="white"
-        android:contentDescription="@string/pt"
         android:src="@drawable/pt" />
     
 </AbsoluteLayout>
