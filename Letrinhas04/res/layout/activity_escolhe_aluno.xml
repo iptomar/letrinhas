@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/escAluno"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    android:configChanges="orientation|keyboardHidden|screenSize"
+    android:gravity="center_horizontal"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="40sp"
+    android:paddingRight="40sp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:screenOrientation="landscape"
+    tools:context=".EscolheAluno" >
+
+    <TextView
+        android:id="@+id/esTCabecalho_aluno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/logo2"
+        android:text="@string/title_activity_escolhe_aluno"
+        android:textColor="#5ddfff"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/ibComecar_aluno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/escTRodape_aluno"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"
+        android:clickable="true"
+        android:contentDescription="@string/start"
+        android:src="@drawable/right" />
+
+    <TextView
+        android:id="@+id/escTRodape_aluno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/escTVoltar_aluno"
+        android:layout_toRightOf="@+id/escTVoltar_aluno"
+        android:layout_marginLeft="10sp"
+        android:text="@string/letrinhas"
+        android:textColor="#5ddfff"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/escTVoltar_aluno"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:layout_alignLeft="@+id/esTCabecalho_aluno"
+        android:layout_alignParentBottom="true"
+        android:contentDescription="@string/voltar"
+        android:onClick="voltar"
+        android:src="@drawable/voltar" />
+
+    <ScrollView
+        android:id="@+id/svEscolher_aluno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ibComecar_aluno"
+        android:layout_alignLeft="@+id/esTCabecalho_aluno"
+        android:layout_below="@+id/esTLogo_aluno"
+        android:layout_marginLeft="40dp"
+        android:layout_toLeftOf="@+id/ibComecar_aluno"
+        android:background="@color/black_overlay" >
+
+        <LinearLayout
+            android:id="@+id/llescAluno"
+            android:layout_width="match_parent"
+            android:layout_height="457dp"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/Button_aluno"
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:layout_marginTop="5sp"
+                android:text="@string/aluno"
+                android:textOff="@string/aluno"
+                android:textOn="@string/aluno"
+                android:textSize="32sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/esTLogo_aluno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/esTCabecalho_aluno"
+        android:layout_toRightOf="@+id/svEscolher_aluno"
+        android:contentDescription="@string/aluno"
+        android:src="@drawable/index" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/esTLogo_aluno"
+        android:layout_alignRight="@+id/esTLogo_aluno"
+        android:layout_alignTop="@+id/svEscolher_aluno"
+        android:text="@string/act_BD" />
+
+</RelativeLayout>
