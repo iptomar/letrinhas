@@ -89,7 +89,6 @@
 Nunca serei nada.\n
 Não posso querer ser nada.\n
 À parte isso, tenho em mim todos os sonhos do mundo.\n\n
-
 Janelas do meu quarto,\n
 Do meu quarto de um dos milhões do mundo.\n
 que ninguém sabe quem é\n
@@ -101,7 +100,6 @@ Com o mistério das coisas por baixo das pedras e dos seres,\n
 Com a morte a por umidade nas paredes\n
 e cabelos brancos nos homens,\n
 Com o Destino a conduzir a carroça de tudo pela estrada de nada.\n\n
-
 Estou hoje vencido, como se soubesse a verdade.\n
 Estou hoje lúcido, como se estivesse para morrer,\n
 E não tivesse mais irmandade com as coisas\n
@@ -109,12 +107,10 @@ Senão uma despedida, tornando-se esta casa e este lado da rua\n
 A fileira de carruagens de um comboio, e uma partida apitada\n
 De dentro da minha cabeça,\n
 E uma sacudidela dos meus nervos e um ranger de ossos na ida.\n\n
-
 Estou hoje perplexo, como quem pensou e achou e esqueceu.\n
 Estou hoje dividido entre a lealdade que devo\n
 À Tabacaria do outro lado da rua, como coisa real por fora,\n
 E à sensação de que tudo é sonho, como coisa real por dentro.\n\n
-
 Falhei em tudo.\n
 Como não fiz propósito nenhum, talvez tudo fosse nada.\n
 A aprendizagem que me deram,\n
@@ -140,7 +136,6 @@ Desci dela pela janela das traseiras da casa.</string>
     <string name="perguntaImagem">perguntaImagem</string>
     <string name="agrupamento">Agrupamento Artur Gonçalves</string>
     <string name="escProfessor">Escolher Professor</string>
-<<<<<<< HEAD
     <string name="title_activity_escolhe__turma">Escolher Turma</string>
     <string name="escolherTurma">Escolher Turma</string>
     <string name="title_activity_escolhe__aluno">Escolher Aluno</string>
@@ -153,10 +148,7 @@ Desci dela pela janela das traseiras da casa.</string>
     <string name="title_activity_teste__texto">Teste de texto</string>
     <string name="cancel">cancelar</string>
     <string name="iniciar">iniciar</string>
-    <string name="demo">ouvir demo</string>
-
-=======
-    <string name="portugues">Português</string>
+    <string name="demo">ouvir demo</string>    <string name="portugues">Português</string>
 	<string name="ingles">Inglês</string>
 	<string name="estMeio">Estudo do meio</string>
 	<string name="matematica">Matemática</string>
@@ -165,5 +157,4 @@ Desci dela pela janela das traseiras da casa.</string>
 	<string name="leituraPalavras">Leitura\nde palavras</string>
 	<string name="leituraTextos">Leitura\nde textos</string>
 	<string name="interpretaçãoImagens">Interpretação\natravés de imagens</string>
->>>>>>> refs/remotes/origin/master
 </resources>
