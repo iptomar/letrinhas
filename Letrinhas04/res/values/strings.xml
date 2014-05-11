@@ -140,5 +140,18 @@ Desci dela pela janela das traseiras da casa.</string>
     <string name="perguntaImagem">perguntaImagem</string>
     <string name="agrupamento">Agrupamento Artur Gonçalves</string>
     <string name="escProfessor">Escolher Professor</string>
+    <string name="title_activity_escolhe__turma">Escolher Turma</string>
+    <string name="escolherTurma">Escolher Turma</string>
+    <string name="title_activity_escolhe__aluno">Escolher Aluno</string>
+    <string name="escolherAluno">Escolher Aluno</string>
+    <string name="title_activity_escolhe_modo">Escolher Modo</string>
+    <string name="escolherModo">Escolher Modo</string>
+    <string name="title_activity_escolhe__modo">Escolher Modo</string>
+    <string name="realizarTeste">Realizar teste</string>
+    <string name="corrigirTeste">Corrigir teste</string>
+    <string name="title_activity_teste__texto">Teste de texto</string>
+    <string name="cancel">cancelar</string>
+    <string name="iniciar">iniciar</string>
+    <string name="demo">ouvir demo</string>
 
 </resources>

@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/escProfessor"
+    android:id="@+id/escEscola"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
@@ -14,42 +14,42 @@
     tools:context="com.letrinhas04.EscolheEscola" >
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/letrinhas"
         android:src="@drawable/letrinhas" />
 
     <TextView
-        android:id="@+id/escTRodape_escl"
+        android:id="@+id/Rodape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/escTVoltar_escl"
+        android:layout_alignBottom="@+id/btnVoltar"
         android:layout_marginLeft="10sp"
-        android:layout_toRightOf="@+id/escTVoltar_escl"
+        android:layout_toRightOf="@+id/btnVoltar"
         android:text="@string/letrinhas"
         android:textColor="#5ddfff"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <ScrollView
-        android:id="@+id/svEscolher_escl"
+        android:id="@+id/svEscolher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/escTRodape_escl"
+        android:layout_above="@+id/Rodape"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/esTCabecalho_escl"
-        android:layout_toRightOf="@+id/escTVoltar_escl"
+        android:layout_below="@+id/Cabecalho"
+        android:layout_toRightOf="@+id/btnVoltar"
         android:background="#0099cc"
         android:contentDescription="@string/escola" >
 
         <TableLayout
-            android:id="@+id/tblEscolhe_escola"
+            android:id="@+id/tblEscolhe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <TableRow
-                android:id="@+id/escesclinha01"
+                android:id="@+id/linha01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -66,7 +66,7 @@
                     android:textSize="25sp" />
 
                 <Button
-                    android:id="@+id/Button03"
+                    android:id="@+id/btRecord"
                      style="@style/ButtonBarButton"
                     android:layout_width="250sp"
                     android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
                     android:textSize="25sp" />
 
                 <Button
-                    android:id="@+id/Button02"
+                    android:id="@+id/btPlay"
                      style="@style/ButtonBarButton"
                     android:layout_width="250sp"
                     android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
                     android:textSize="25sp" />
 
                 <Button
-                    android:id="@+id/Button01"
+                    android:id="@+id/btSubmeter"
                      style="@style/ButtonBarButton"
                     android:layout_width="250sp"
                     android:layout_height="wrap_content"
@@ -127,24 +127,25 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/esTCabecalho_escl"
+        android:id="@+id/Cabecalho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageView1"
-        android:layout_toRightOf="@+id/imageView1"
+        android:layout_alignTop="@+id/logo"
+        android:layout_toRightOf="@+id/logo"
         android:text="@string/title_activity_escolhe_escola"
         android:textColor="#5ddfff"
         android:textSize="50sp"
         android:textStyle="bold" />
 
-    <ImageButton
-        android:id="@+id/escTVoltar_escl"
+    <Button
+        android:id="@+id/btnVoltar"
         android:layout_width="100sp"
         android:layout_height="100sp"
-        android:layout_alignLeft="@+id/imageView1"
+        android:layout_alignLeft="@+id/logo"
         android:layout_alignParentBottom="true"
         android:contentDescription="@string/voltar"
+        android:drawableTop="@drawable/voltar"
         android:onClick="voltar"
-        android:src="@drawable/voltar" />
+        android:text="@string/voltar" />
 
 </RelativeLayout>

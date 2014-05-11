@@ -53,7 +53,7 @@ public class EscolheEscola extends Activity {
 		}
 
 		// / esconder o title************************************************+
-		final View contentView = findViewById(R.id.escProfessor);
+		final View contentView = findViewById(R.id.escEscola);
 
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.

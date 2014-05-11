@@ -35,17 +35,49 @@
         </activity>
         <activity
             android:name="com.letrinhas04.EscolheEscola"
-            android:label="@string/title_activity_escolhe_escola"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_escolhe_escola"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
             android:name="com.letrinhas04.EscolheProfessor"
-            android:label="@string/title_activity_escolhe_professor" 
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_escolhe_professor"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name="com.letrinhas04.Escolhe_Turma"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_escolhe__turma"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name="com.letrinhas04.Escolhe_Aluno"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_escolhe__aluno"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name="com.letrinhas04.Escolhe_Modo"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_escolhe__modo"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name="com.letrinhas04.Escolhe_teste"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_escolhe_teste"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name="com.letrinhas.testes.Teste_Texto"
+            android:label="@string/title_activity_teste__texto" >
         </activity>
     </application>
 

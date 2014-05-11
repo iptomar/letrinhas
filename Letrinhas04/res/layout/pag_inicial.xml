@@ -102,7 +102,7 @@
             android:id="@+id/experiment"
             android:layout_width="138dp"
             android:layout_height="128dp"
-            android:text="@string/syncro" />
+            android:text="@string/exepriment" />
 
     </FrameLayout>
 
