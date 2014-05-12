@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -45,7 +47,6 @@ public class EscolheProfessor extends Activity {
 	String[] fotoNome;
 	int[] estado;
 
-	// Escola escola;
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -75,6 +76,15 @@ public class EscolheProfessor extends Activity {
 		idEscola = b.getInt("Escola_ID");
 		Escola = b.getString("Escola");
 		((TextView) findViewById(R.id.escPEscola)).setText(Escola);
+		
+		
+		// new line faz a rotação do ecrãn em 180 graus
+				int currentOrientation = getResources().getConfiguration().orientation;
+				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+				} else {
+					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+				}
 
 		// esconder o title************************************************+
 		final View contentView = findViewById(R.id.escProf);

@@ -5,6 +5,8 @@ import java.util.List;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -73,6 +75,14 @@ public class PaginaInicial extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.pagina_inicial);
+		
+		// new line faz a rotação do ecrãn em 180 graus
+				int currentOrientation = getResources().getConfiguration().orientation;
+				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+				} else {
+					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+				}
 
 		final View controlsView = findViewById(R.id.fullscreen_content_controls);
 		final View contentView = findViewById(R.id.fullscreen_content);

@@ -87,5 +87,6 @@
     <string name="escProfessor">Escolher professor</string>
     <string name="title_activity_escolhe_turma">Escolher Turma</string>
     <string name="hello_world">Hello world!</string>
+    <string name="escolherTurma">Escolher Turma</string>
 
 </resources>
