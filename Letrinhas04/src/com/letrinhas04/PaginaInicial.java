@@ -72,14 +72,14 @@ public class PaginaInicial extends Activity {
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////CHAMA EM BAKCGORUND A SINCRO DE TABELAS E INSERE NA BASE DE DADOS///////////////////
-        String ip = "code.dei.estt.ipt.pt";  ////TROCAR ISTO POR VARIAVEIS COM OS ENDEREÇOS IP QUE NAO SEI ONDE TEM/////////
-        String porta = "80";
+        //String ip = "code.dei.estt.ipt.pt";  ////TROCAR ISTO POR VARIAVEIS COM OS ENDEREÇOS IP QUE NAO SEI ONDE TEM/////////
+        //String porta = "80";
         //Forma o endereço http
-        String   URlString = "http://" + ip + ":" + porta + "/";
+        //String   URlString = "http://" + ip + ":" + porta + "/";
 
 
-        String[] myTaskParams = { URlString, URlString, URlString };
-        new SincAllBd(this).execute(myTaskParams);
+        //String[] myTaskParams = { URlString, URlString, URlString };
+        //new SincAllBd(this).execute(myTaskParams);
         ///////////////PODEM VER EM LOGCAT A INSERIR TODOS OS DADOS NA TABELA /////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -164,8 +164,8 @@ public class PaginaInicial extends Activity {
 //###### a barra de progresso e ativar o bot�o para entrar.~
  * 
  */
-        coneccaoW con = new coneccaoW(this);
-        con.run();//M�todo run, pois a DVM � burra!!! e n�o funciona muito bem com as threads no m�todo Start()
+       // coneccaoW con = new coneccaoW(this);
+       // con.run();//M�todo run, pois a DVM � burra!!! e n�o funciona muito bem com as threads no m�todo Start()
         escutaBotoes();
 	}
 

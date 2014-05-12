@@ -43,6 +43,7 @@
         <activity
             android:name="com.letrinhas04.escolhe.EscolheTeste"
             android:label="@string/title_activity_escolhe_teste"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
         </activity>
@@ -92,19 +93,31 @@
         </activity>
         <activity
             android:name="com.letrinhas04.escolhe.EscolheAno"
-            android:label="@string/title_activity_escolhe_ano" >
+            android:label="@string/title_activity_escolhe_ano" 
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name="com.letrinhas04.escolhe.EscolheAluno"
-            android:label="@string/title_activity_escolhe_aluno" >
+            android:label="@string/title_activity_escolhe_aluno" 
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name="com.letrinhas04.escolhe.EscolheEscola"
-            android:label="@string/title_activity_escolhe_escola" >
+            android:label="@string/title_activity_escolhe_escola"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name="com.letrinhas04.escolhe.EscolheProfessor"
-            android:label="@string/title_activity_escolhe_professor" >
+            android:label="@string/title_activity_escolhe_professor"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name="com.letrinhas04.util.Custom"

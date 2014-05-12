@@ -116,8 +116,7 @@ public class EscolheAno extends Activity {
 					}
 				});
 
-		volt = (ImageButton) findViewById(R.id.escTVoltar_escl);
-		exect = (ImageButton) findViewById(R.id.ibComecar_escl);
+		volt = (ImageButton) findViewById(R.id.btnVoltar);
 
 		escutaBotoes();
 	}
