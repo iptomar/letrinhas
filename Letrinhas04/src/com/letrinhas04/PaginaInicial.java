@@ -1,5 +1,7 @@
 package com.letrinhas04;
 
+import java.util.List;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -11,28 +13,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.letrinhas04.R;
+import com.letrinhas04.BaseDados.LetrinhasDB;
 import com.letrinhas04.BaseDados.SincAllBd;
+import com.letrinhas04.ClassesObjs.Escola;
 import com.letrinhas04.escolhe.EscolheEscola;
 import com.letrinhas04.util.SystemUiHider;
 import com.letrinhas04.util.coneccaoW;
+
 /**
  * Pï¿½gina Inicial
- *
- * com um exemplo de uma actividade full-screen, que mostra e esconde o User Interface de sistema
- * (i.e. status bar and navigation/system bar) com a interaï¿½ï¿½o do utilizador
- *
+ * 
+ * com um exemplo de uma actividade full-screen, que mostra e esconde o User
+ * Interface de sistema (i.e. status bar and navigation/system bar) com a
+ * interaï¿½ï¿½o do utilizador
+ * 
  * @see SystemUiHider
- *
+ * 
  * @author Thiago
  */
 public class PaginaInicial extends Activity {
-	 Button bentrar, exper;	//botï¿½o para aceder ao menu
-	 ImageButton ibotao;//botï¿½o para sair da app
-	 ProgressBar link;	//barra de progresso para simbolizar a sincronizaï¿½ï¿½o caso exista ligaï¿½ï¿½o ao servidor.
-	
-	
+	Button bentrar, exper; // botï¿½o para aceder ao menu
+	ImageButton ibotao;// botï¿½o para sair da app
+	ProgressBar link; // barra de progresso para simbolizar a sincronizaï¿½ï¿½o
+						// caso exista ligaï¿½ï¿½o ao servidor.
+
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -69,19 +76,6 @@ public class PaginaInicial extends Activity {
 
 		final View controlsView = findViewById(R.id.fullscreen_content_controls);
 		final View contentView = findViewById(R.id.fullscreen_content);
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////
-        ///////////CHAMA EM BAKCGORUND A SINCRO DE TABELAS E INSERE NA BASE DE DADOS///////////////////
-        //String ip = "code.dei.estt.ipt.pt";  ////TROCAR ISTO POR VARIAVEIS COM OS ENDEREÃ‡OS IP QUE NAO SEI ONDE TEM/////////
-        //String porta = "80";
-        //Forma o endereÃ§o http
-        //String   URlString = "http://" + ip + ":" + porta + "/";
-
-
-        //String[] myTaskParams = { URlString, URlString, URlString };
-        //new SincAllBd(this).execute(myTaskParams);
-        ///////////////PODEM VER EM LOGCAT A INSERIR TODOS OS DADOS NA TABELA /////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
@@ -144,61 +138,105 @@ public class PaginaInicial extends Activity {
 		// operations to prevent the jarring behavior of controls going away
 		// while interacting with the UI.
 		findViewById(R.id.bEntrar1).setOnTouchListener(mDelayHideTouchListener);
-		
+
 		bentrar = (Button) findViewById(R.id.bEntrar1);
-        ibotao = (ImageButton) findViewById(R.id.iBSair);
-        link= (ProgressBar) findViewById(R.id.pBarLink);
-        
-       /************** Por fazer, ##############################################################
-        * Verificar se sexiste algum professor "logado", 
-        * se sim, retira as suas credenciais e avanï¿½a sem que seja necessï¿½rio fazer a autenticaï¿½ï¿½o
-        * se nï¿½o, executa a escolha da escola, do professor, requer a autenticaï¿½ï¿½o do professor,
-        * que posteriormente carrega  turmas / alunos ao seu encargo.
-        * 
-        *  o utilizador (professor) escolhe o aluno que vai executar o teste e o seu modo (Aluno = treino) 
-        *  ou (Professor=avaliaï¿½ï¿½o).
-        * 
-        * 
-//#######################################################################################################       
-//###### Iniciar uma classe do tipo thread para detetar a ligaï¿½ï¿½o, sincronizar / carregar a BD, desativar
-//###### a barra de progresso e ativar o botï¿½o para entrar.~
- * 
- */
-       // coneccaoW con = new coneccaoW(this);
-       // con.run();//Mï¿½todo run, pois a DVM ï¿½ burra!!! e nï¿½o funciona muito bem com as threads no mï¿½todo Start()
-        escutaBotoes();
-	}
+		ibotao = (ImageButton) findViewById(R.id.iBSair);
+		link = (ProgressBar) findViewById(R.id.pBarLink);
 
-	private void escutaBotoes(){
+		/**************
+		 * Por fazer,
+		 * ##############################################################
+		 * Verificar se sexiste algum professor "logado", se sim, retira as suas
+		 * credenciais e avanï¿½a sem que seja necessï¿½rio fazer a
+		 * autenticaï¿½ï¿½o se nï¿½o, executa a escolha da escola, do professor,
+		 * requer a autenticaï¿½ï¿½o do professor, que posteriormente carrega
+		 * turmas / alunos ao seu encargo.
+		 * 
+		 * o utilizador (professor) escolhe o aluno que vai executar o teste e o
+		 * seu modo (Aluno = treino) ou (Professor=avaliaï¿½ï¿½o).
+		 * 
+		 * 
+		 * //###################################################################
+		 * #################################### //###### Iniciar uma classe do
+		 * tipo thread para detetar a ligaï¿½ï¿½o, sincronizar / carregar a BD,
+		 * desativar //###### a barra de progresso e ativar o botï¿½o para
+		 * entrar.~
+		 * 
+		 */
+		// DE acordo com a ultima aula ficou decidido que não vamos ligar o
+		// WI.fi
+		// coneccaoW con = new coneccaoW(this);
+		// con.run();//Mï¿½todo run, pois a DVM ï¿½ burra!!! e nï¿½o funciona
+		// muito bem com as threads no mï¿½todo Start()
 		
 		
-        bentrar.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //iniciar a pagina 2 (escolher teste)
-                    	
-                    	
-                        Intent it= new Intent(PaginaInicial.this, EscolheEscola.class);//Autenticacao.class);
-                        
-                        
-                        startActivity(it);
-                        //finish();
-                    }
-                }
+		//bloqueiar o botão Entrar
+		bentrar.setEnabled(false);
+		
+		try {
+			//verifica se existe alguma coisa na BD local
+			LetrinhasDB db = new LetrinhasDB(this);
+			List<Escola> escolas = db.getAllSchools();
+			
+			//desbloqueia  botão de entrar
+			bentrar.setEnabled(true);
+			
+		}
+		//Se não existir, vai dar um erro do tipo nullpointer ou outro e tentamos aqui ligar ao servidor 
+		catch (Exception ex) {
+			try {
+				Toast.makeText(	this,"Sem informação na Base de dados!\n"
+								+ "Vou tentar descarregar a Base de Dados do servidor!\n"
+								+ "Debug: " + ex, Toast.LENGTH_LONG);
+				///////////////////////////////////////////////////////////////////////////////////////////
+				////////////CHAMA EM BAKCGORUND A SINCRO DE TABELAS E INSERE NA
+				// BASE DE DADOS /////////////
+				String ip = "code.dei.estt.ipt.pt"; // //TROCAR ISTO POR
+													// VARIAVEIS
+				// COM OS ENDEREÇOS IP QUE NAO SEI ONDE TEM/////////
+				String porta = "80";
+				// Forma o endereço http
+				String URlString = "http://" + ip + ":" + porta + "/";
 
-        );
+				String[] myTaskParams = { URlString, URlString, URlString };
+				new SincAllBd(this, bentrar).execute(myTaskParams);
+				////////////////PODEM VER EM LOGCAT A INSERIR TODOS OS DADOS NA
+				// TABELA ////////////////////
+				///////////////////////////////////////////////////////////////////////////////////////////
+			} catch (Exception e2) {
+				Toast.makeText(this, "Não foi possivel aceder ao servidor!\n"
+						+ "Debug: " + e2, Toast.LENGTH_LONG);
 
-        ibotao.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //sair da aplicaï¿½ï¿½o
-                        java.lang.System.exit(RESULT_OK);
-                    }
-                }
-        );
+			}
+		}
+
+		escutaBotoes();
 	}
+
+	private void escutaBotoes() {
+
+		bentrar.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				//*****************************************************************************
+				//*****************************************************************************
+				//*****************************************************************************
+				// iniciar a pagina 2 (escolher escola ou então passar logo para a pagina escolher turma(brevemente))
+				Intent it = new Intent(PaginaInicial.this, EscolheEscola.class);// Autenticacao.class);
+				startActivity(it);
+			}
+		}
+		);
+
+		ibotao.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				// sair da aplicação
+				java.lang.System.exit(RESULT_OK);
+			}
+		});
+	}
+
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
