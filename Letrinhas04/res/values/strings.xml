@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Letrinhas04</string>
-  	<string name="entrar">Entrar</string>
+    <string name="entrar">Entrar</string>
     <string name="letrinhas">Letrinhas 0.4 </string>
     <string name="Recording">A gravar</string>
     <string name="start">Começar</string>
@@ -32,7 +32,7 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="title_activity_autenticacao">Autenticacao</string>
-  	<string name="min"></string>
+    <string name="min"></string>
     <string name="sec"></string>
     <string name="vacilar">Vacilações</string>
     <string name="fragment">Fragmentações</string>
@@ -44,7 +44,7 @@
     <string name="espaco">"                        "</string>
     <string name="numer">20</string>
     <string name="pErrada">P. Erradas:</string>
-  	<string name="btnback">Voltar</string>
+    <string name="btnback">Voltar</string>
     <string name="title_activity_all__tests">Todos os Testes</string>
     <string name="btnMainAllTest">Todos os Testes</string>
     <string name="btnMainSendResult">Criar e enviar Resultado de Teste</string>
@@ -78,10 +78,14 @@
     <string name="nota">Nota</string>
     <string name="perguntaImagem">perguntaImagem</string>
     <string name="title_activity_custom">Custom</string>
-	<string name="portugues">Português</string>
-	<string name="ingles">Inglês</string>
-	<string name="estMeio">Estudo do meio</string>
-	<string name="matematica">Matemática</string>
-	<string name="escolheDisciplina">Selecione a disciplina</string>
-	<string name="agrupamento">Agrupamento Artur Gonçalves</string>
+    <string name="portugues">Português</string>
+    <string name="ingles">Inglês</string>
+    <string name="estMeio">Estudo do meio</string>
+    <string name="matematica">Matemática</string>
+    <string name="escolheDisciplina">Selecione a disciplina</string>
+    <string name="agrupamento">Agrupamento Artur Gonçalves</string>
+    <string name="escProfessor">Escolher professor</string>
+    <string name="title_activity_escolhe_turma">Escolher Turma</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>

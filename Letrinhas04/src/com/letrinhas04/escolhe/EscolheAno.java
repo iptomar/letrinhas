@@ -121,7 +121,7 @@ public class EscolheAno extends Activity {
 		escutaBotoes();
 	}
 	
-	public void setUp(final String[] nome, String[] imgNome, final int[] id, final String[] userName, final String[] pass){
+	/*public void setUp(final String[] nome, String[] imgNome, final int[] id, final String[] userName, final String[] pass){
 		Custom adapter = new Custom(EscolheAno.this, nome, imgNome,"professores");
 		list=(ListView)findViewById(R.id.lista);
 				list.setAdapter(adapter);
@@ -135,10 +135,10 @@ public class EscolheAno extends Activity {
 		    			wrap.putString("user", userName[position]);
 		    			Intent itp = new Intent(getApplicationContext(), Autenticacao.class);
 						itp.putExtras(wrap);
-						startActivity(itp);*/
+						startActivity(itp);
 		          }
 		 });
-	}
+	}*/
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {

@@ -6,8 +6,11 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -142,30 +146,34 @@ public class EscolheEscola extends Activity {
 		// Cria o objecto da base de dados
 		db = new LetrinhasDB(this);
 		escolas = db.getAllSchools();
-		// morada = new String[escolas.size()];
 		nome = new String[escolas.size()];
-		 for (int i = 0; i < escolas.size(); i++) {
-		 nome[i]=escolas.get(i).getNome();
-		 }
+		id = new int[escolas.size()];
+		img = new String[escolas.size()];
+
+		for (int i = 0; i < escolas.size(); i++) {
+			nome[i] = escolas.get(i).getNome();
+			id[i] = escolas.get(i).getIdEscola();
+			img[i] = escolas.get(i).getLogotipoNome();
+		}
 
 		// img = new String[escolas.size()];
-		// id = new int[escolas.size()];
+		// morada = new String[escolas.size()];
 		// nEscolas = escolas.size();
 
 		for (Escola cn : escolas) {
 			String storage = cn.getMorada() + "," + cn.getIdEscola() + ","
 					+ cn.getNome() + "," + cn.getLogotipoNome();
 			Log.d("letrinhas-Escola", storage.toString());
-			//morada[numero] = cn.getMorada();
-			//Log.d("letrinhas-Tipo", String.valueOf(morada[0]));
-			//nome[numero] = cn.getNome();
-			//Log.d("letrinhas-Titulo", nome[0].toString());
-			//id[numero] = cn.getIdEscola();
-			//Log.d("letrinhas-ID", String.valueOf(id[0]));
-			//img[numero] = cn.getLogotipoNome();
-			//Log.d("letrinhas-IMG", img[0]);
-			//setUp(nome, img, id);
-			//numero++;
+			// morada[numero] = cn.getMorada();
+			// Log.d("letrinhas-Tipo", String.valueOf(morada[0]));
+			// nome[numero] = cn.getNome();
+			// Log.d("letrinhas-Titulo", nome[0].toString());
+			// id[numero] = cn.getIdEscola();
+			// Log.d("letrinhas-ID", String.valueOf(id[0]));
+			// img[numero] = cn.getLogotipoNome();
+			// Log.d("letrinhas-IMG", img[0]);
+			// setUp(nome, img, id);
+			// numero++;
 		}
 
 		/**
@@ -194,18 +202,36 @@ public class EscolheEscola extends Activity {
 			for (int j = 0; j < 4; j++) {
 
 				// **********************************
-				// Nome da escola, 
+				// Nome da escola,
 
 				final String school = nome[cont];
+				final int idEs = id[cont];
 				// ***********************************
 
 				// novo botão
 				Button bt1 = new Button(bt.getContext());
 				// copiar os parametros do botão original
 				bt1.setLayoutParams(bt.getLayoutParams());
-				// copiar a imagem do botão inicial
-				bt1.setCompoundDrawables(null,
-						bt.getCompoundDrawablesRelative()[1], null, null);
+
+				// se a escola já tiver logotipo, vou busca-lo
+				if (img[cont] != null) {
+					String imageInSD = Environment
+							.getExternalStorageDirectory().getAbsolutePath()
+							+ "/School-Data/Schools/"+ img[cont];
+					Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
+					ImageView imageView = new ImageView(this);
+
+					//ajustar o tamanho da imagem
+					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 250, 250, false));
+					//enviar para o botão
+					bt1.setCompoundDrawablesWithIntrinsicBounds(null, imageView.getDrawable(),
+							null, null);
+				} else {
+					// senão copia a imagem do botão original
+					bt1.setCompoundDrawables(null,
+							bt.getCompoundDrawablesRelative()[1], null, null);
+				}
+
 				// addicionar o nome
 				bt1.setText(nome[cont]);
 				// Defenir o que faz o botão ao clicar, neste caso muda o texto
@@ -216,6 +242,7 @@ public class EscolheEscola extends Activity {
 						// Entrar na activity
 						Bundle wrap = new Bundle();
 						wrap.putString("Escola", school);
+						wrap.putInt("Escola_ID", idEs);
 						Intent it = new Intent(getApplicationContext(),
 								EscolheProfessor.class);
 						it.putExtras(wrap);
@@ -238,12 +265,32 @@ public class EscolheEscola extends Activity {
 			linha1.setLayoutParams(linha.getLayoutParams());
 			for (int j = 0; j < nome.length % 4; j++) {
 
-				final String school =  nome[cont];
+				final String school = nome[cont];
+				final int idEs = id[cont];
 
 				Button bt1 = new Button(bt.getContext());
 				bt1.setLayoutParams(bt.getLayoutParams());
-				bt1.setCompoundDrawables(null,
-						bt.getCompoundDrawablesRelative()[1], null, null);
+
+				// se a escola já tiver logotipo, vou busca-lo
+				if (img[cont] != null) {
+					String imageInSD = Environment
+							.getExternalStorageDirectory().getAbsolutePath()
+							+ "/School-Data/Schools/"+ img[cont];
+					Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
+					ImageView imageView = new ImageView(this);
+
+					//ajustar o tamanho da imagem
+					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 250, 250, false));
+					//enviar para o botão
+					bt1.setCompoundDrawablesWithIntrinsicBounds(null, imageView.getDrawable(),
+							null, null);
+
+				} else {
+					// senão copia a imagem do botão original
+					bt1.setCompoundDrawables(null,
+							bt.getCompoundDrawablesRelative()[1], null, null);
+				}
+				
 				bt1.setText(nome[cont]);
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -251,6 +298,8 @@ public class EscolheEscola extends Activity {
 						// Entrar na activity
 						Bundle wrap = new Bundle();
 						wrap.putString("Escola", school);
+						wrap.putInt("Escola_ID", idEs);
+
 						Intent it = new Intent(getApplicationContext(),
 								EscolheProfessor.class);
 						it.putExtras(wrap);
@@ -269,10 +318,8 @@ public class EscolheEscola extends Activity {
 
 		// por fim escondo a 1ª linha
 		tabela.removeView(linha);
-
 	}
 
-	
 	public void setUp(final String[] nome, String[] imgNome, final int[] id) {
 		Custom adapter = new Custom(EscolheEscola.this, nome, imgNome, "escola");
 		list = (ListView) findViewById(R.id.list);

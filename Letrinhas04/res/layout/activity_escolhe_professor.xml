@@ -11,81 +11,95 @@
     android:paddingRight="40sp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:screenOrientation="landscape"
-    tools:context=".EscolheProfessor" >
+    tools:context="com.letrinhas04.escolhe.EscolheProfessor" >
+
+    <ImageView
+        android:id="@+id/escPlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/letrinhas"
+        android:src="@drawable/letrinhas" />
 
     <TextView
-        android:id="@+id/esTCabecalho_prof"
+        android:id="@+id/escPRodape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/logo2"
-        android:text="@string/title_activity_escolhe_professor"
-        android:textColor="#5ddfff"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
-    <ImageButton
-        android:id="@+id/ibComecar_prof"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/escTRodape_prof"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="40dp"
-        android:clickable="true"
-        android:contentDescription="@string/start"
-        
-        android:src="@drawable/right" />
-
-    <TextView
-        android:id="@+id/escTRodape_prof"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/escTVoltar_prof"
-        android:layout_toRightOf="@+id/escTVoltar_prof"
+        android:layout_alignBottom="@+id/btnVoltarProf"
         android:layout_marginLeft="10sp"
+        android:layout_toRightOf="@+id/btnVoltarProf"
         android:text="@string/letrinhas"
         android:textColor="#5ddfff"
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <ImageButton
-        android:id="@+id/escTVoltar_prof"
-        android:layout_width="100sp"
-        android:layout_height="100sp"
-        android:layout_alignLeft="@+id/esTCabecalho_prof"
-        android:layout_alignParentBottom="true"
-        android:contentDescription="@string/voltar"
-        android:onClick="voltar"
-        android:src="@drawable/voltar" />
-    
-    <ListView
-       android:id="@+id/lista"
+    <ScrollView
+        android:id="@+id/svProfEscolher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/ibComecar_prof"
-        android:layout_alignLeft="@+id/esTCabecalho_prof"
-        android:layout_below="@+id/esTLogo_prof"
-        android:layout_marginLeft="40dp"
-        android:layout_toLeftOf="@+id/ibComecar_prof"
-        android:background="@color/black_overlay" >
-        
-        
-    </ListView>
-    <ImageView
-        android:id="@+id/esTLogo_prof"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/esTCabecalho_prof"
-        android:layout_toRightOf="@+id/svEscolher_prof"
-        android:contentDescription="@string/professor"
-        android:src="@drawable/index" />
+        android:layout_above="@+id/escPRodape"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/escPlogo"
+        android:layout_toRightOf="@+id/btnVoltarProf"
+        android:background="#0099cc"
+        android:contentDescription="@string/escola" >
+
+        <TableLayout
+            android:id="@+id/tblEscolheProf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TableRow
+                android:id="@+id/Proflinha01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/PrfBtOriginal"
+                    style="@style/ButtonBarButton"
+                    android:layout_width="250sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20sp"
+                    android:layout_marginRight="30sp"
+                    android:contentDescription="@string/professor"
+                    android:drawableTop="@drawable/professor1"
+                    android:text="Professor Roberto Leal"
+                    android:textSize="25sp" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btnVoltarProf"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:layout_alignLeft="@+id/escPlogo"
+        android:layout_alignParentBottom="true"
+        android:contentDescription="@string/voltar"
+        android:drawableTop="@drawable/voltar"
+        android:onClick="voltar"
+        android:text="@string/voltar" />
+
+    <TextView
+        android:id="@+id/escPCabecalho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/esTLogo_prof"
-        android:layout_alignRight="@+id/esTLogo_prof"
-        android:layout_alignTop="@+id/svEscolher_prof"
-        android:text="@string/act_BD" />
+        android:layout_alignTop="@+id/escPlogo"
+        android:layout_toRightOf="@+id/escPlogo"
+        android:text="@string/escProfessor"
+        android:textColor="#5ddfff"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/escPEscola"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/escPCabecalho"
+        android:layout_below="@+id/escPCabecalho"
+        android:text="Escola escolhida"
+        android:textSize="30sp" />
 
 </RelativeLayout>

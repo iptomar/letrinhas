@@ -42,8 +42,8 @@
         </activity>
         <activity
             android:name="com.letrinhas04.escolhe.EscolheTeste"
-            android:label="@string/title_activity_escolhe_teste"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_escolhe_teste"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
         </activity>
@@ -93,35 +93,42 @@
         </activity>
         <activity
             android:name="com.letrinhas04.escolhe.EscolheAno"
-            android:label="@string/title_activity_escolhe_ano" 
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_escolhe_ano"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name="com.letrinhas04.escolhe.EscolheAluno"
-            android:label="@string/title_activity_escolhe_aluno" 
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_escolhe_aluno"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name="com.letrinhas04.escolhe.EscolheEscola"
-            android:label="@string/title_activity_escolhe_escola"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_escolhe_escola"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name="com.letrinhas04.escolhe.EscolheProfessor"
-            android:label="@string/title_activity_escolhe_professor"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_escolhe_professor"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name="com.letrinhas04.util.Custom"
             android:label="@string/title_activity_custom" >
+        </activity>
+        <activity
+            android:name="com.letrinhas04.escolhe.EscolheTurma"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_escolhe_turma" 
+            android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme" >
         </activity>
     </application>
 
