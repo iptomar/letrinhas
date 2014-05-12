@@ -144,9 +144,9 @@ public class EscolheEscola extends Activity {
 		escolas = db.getAllSchools();
 		// morada = new String[escolas.size()];
 		nome = new String[escolas.size()];
-		// for (int i = 0; i < escolas.size(); i++) {
-		// nome[i]=escolas.get(i).getNome();
-		// }
+		 for (int i = 0; i < escolas.size(); i++) {
+		 nome[i]=escolas.get(i).getNome();
+		 }
 
 		// img = new String[escolas.size()];
 		// id = new int[escolas.size()];
@@ -158,7 +158,7 @@ public class EscolheEscola extends Activity {
 			Log.d("letrinhas-Escola", storage.toString());
 			//morada[numero] = cn.getMorada();
 			//Log.d("letrinhas-Tipo", String.valueOf(morada[0]));
-			nome[numero] = cn.getNome();
+			//nome[numero] = cn.getNome();
 			//Log.d("letrinhas-Titulo", nome[0].toString());
 			//id[numero] = cn.getIdEscola();
 			//Log.d("letrinhas-ID", String.valueOf(id[0]));
@@ -194,11 +194,7 @@ public class EscolheEscola extends Activity {
 			for (int j = 0; j < 4; j++) {
 
 				// **********************************
-				// Nome da escola, a retirar da BD
-				// **********************************
-				// Nome da escola, a retirar da BD
-				// s[cont]=cont+" - Escola";
-				// ***********************************
+				// Nome da escola, 
 
 				final String school = nome[cont];
 				// ***********************************
@@ -233,7 +229,7 @@ public class EscolheEscola extends Activity {
 				cont++;
 			}
 			// inserir a linha criada
-			tabela.addView(linha1);// .addView(linha1, tabela.getChildCount());
+			tabela.addView(linha1);
 		}
 
 		// resto
@@ -242,7 +238,6 @@ public class EscolheEscola extends Activity {
 			linha1.setLayoutParams(linha.getLayoutParams());
 			for (int j = 0; j < nome.length % 4; j++) {
 
-				//s[cont] = cont + " - Escola";
 				final String school =  nome[cont];
 
 				Button bt1 = new Button(bt.getContext());
@@ -269,14 +264,15 @@ public class EscolheEscola extends Activity {
 
 			}
 			// inserir a linha criada com o resto dos botões
-			tabela.addView(linha1);// .addView(linha1, tabela.getChildCount());
+			tabela.addView(linha1);
 		}
 
 		// por fim escondo a 1ª linha
-		tabela.removeView(linha);// .setVisibility(View.INVISIBLE);
+		tabela.removeView(linha);
 
 	}
 
+	
 	public void setUp(final String[] nome, String[] imgNome, final int[] id) {
 		Custom adapter = new Custom(EscolheEscola.this, nome, imgNome, "escola");
 		list = (ListView) findViewById(R.id.list);

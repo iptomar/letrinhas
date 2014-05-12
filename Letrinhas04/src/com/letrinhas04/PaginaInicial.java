@@ -168,28 +168,23 @@ public class PaginaInicial extends Activity {
 		// coneccaoW con = new coneccaoW(this);
 		// con.run();//Mï¿½todo run, pois a DVM ï¿½ burra!!! e nï¿½o funciona
 		// muito bem com as threads no mï¿½todo Start()
-		
-		
-		//bloqueiar o botão Entrar
+
+		// bloqueiar o botão Entrar
 		bentrar.setEnabled(false);
-		
-		try {
-			//verifica se existe alguma coisa na BD local
-			LetrinhasDB db = new LetrinhasDB(this);
-			List<Escola> escolas = db.getAllSchools();
-			
-			//desbloqueia  botão de entrar
-			bentrar.setEnabled(true);
-			
-		}
-		//Se não existir, vai dar um erro do tipo nullpointer ou outro e tentamos aqui ligar ao servidor 
-		catch (Exception ex) {
+
+		// verifica se existe alguma coisa na BD local, vou à primeira tabela
+		// necessária
+		LetrinhasDB db = new LetrinhasDB(this);
+		List<Escola> escolas = db.getAllSchools();
+
+		// Se não existir, tentamos aqui ligar ao servidor
+		if (escolas.size() == 0) {
 			try {
-				Toast.makeText(	this,"Sem informação na Base de dados!\n"
-								+ "Vou tentar descarregar a Base de Dados do servidor!\n"
-								+ "Debug: " + ex, Toast.LENGTH_LONG);
-				///////////////////////////////////////////////////////////////////////////////////////////
-				////////////CHAMA EM BAKCGORUND A SINCRO DE TABELAS E INSERE NA
+				Toast.makeText(this,"Sem informação na Base de dados local!\n"
+								+ "Vou tentar descarregar a Base de Dados do servidor!\n",
+						Toast.LENGTH_LONG).show();
+				// /////////////////////////////////////////////////////////////////////////////////////////
+				// //////////CHAMA EM BAKCGORUND A SINCRO DE TABELAS E INSERE NA
 				// BASE DE DADOS /////////////
 				String ip = "code.dei.estt.ipt.pt"; // //TROCAR ISTO POR
 													// VARIAVEIS
@@ -199,15 +194,21 @@ public class PaginaInicial extends Activity {
 				String URlString = "http://" + ip + ":" + porta + "/";
 
 				String[] myTaskParams = { URlString, URlString, URlString };
-				new SincAllBd(this, bentrar).execute(myTaskParams);
-				////////////////PODEM VER EM LOGCAT A INSERIR TODOS OS DADOS NA
+				
+				Toast tst = Toast.makeText(this, "Não foi possivel aceder ao servidor!\n", Toast.LENGTH_SHORT);
+				new SincAllBd(this, bentrar, link, tst).execute(myTaskParams);
+				// //////////////PODEM VER EM LOGCAT A INSERIR TODOS OS DADOS NA
 				// TABELA ////////////////////
-				///////////////////////////////////////////////////////////////////////////////////////////
+				// /////////////////////////////////////////////////////////////////////////////////////////
 			} catch (Exception e2) {
 				Toast.makeText(this, "Não foi possivel aceder ao servidor!\n"
-						+ "Debug: " + e2, Toast.LENGTH_LONG);
+						+ "Debug: " + e2, Toast.LENGTH_LONG).show();
 
 			}
+		} else {
+			// desbloqueia botão de entrar
+			link.setVisibility(View.INVISIBLE);
+			bentrar.setEnabled(true);
 		}
 
 		escutaBotoes();
@@ -218,15 +219,15 @@ public class PaginaInicial extends Activity {
 		bentrar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				//*****************************************************************************
-				//*****************************************************************************
-				//*****************************************************************************
-				// iniciar a pagina 2 (escolher escola ou então passar logo para a pagina escolher turma(brevemente))
+				// *****************************************************************************
+				// *****************************************************************************
+				// *****************************************************************************
+				// iniciar a pagina 2 (escolher escola ou então passar logo para
+				// a pagina escolher turma(brevemente))
 				Intent it = new Intent(PaginaInicial.this, EscolheEscola.class);// Autenticacao.class);
 				startActivity(it);
 			}
-		}
-		);
+		});
 
 		ibotao.setOnClickListener(new View.OnClickListener() {
 			@Override

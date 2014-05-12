@@ -2,19 +2,19 @@ package com.letrinhas04.BaseDados;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.letrinhas04.ClassesObjs.*;
-
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
-
+import android.widget.ProgressBar;
+import android.widget.Toast;
 import com.letrinhas04.util.Utils;
 
 /**
@@ -25,31 +25,48 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 
 	public Context context;
 	public Button bent;
+	public ProgressBar link;
+	public Toast tst;
+	boolean carregado = false;
 
 	@Override
 	protected String doInBackground(String[] strings) {
 
-		
 		lerSynProfessores(strings[0]);
 		lerSynEscolas(strings[0]);
 		lerSynEstudante(strings[0]);
 		lerSynTurmas(strings[0]);
 		lerSynTestes(strings[0]);
 		lerSynTestesMultimedia(strings[0]);
-		bent.setEnabled(true);
+
+		if (carregado) {
+			bent.setEnabled(true);
+			tst.setText("Sincronização realizada com sucesso!!");
+			tst.show();
+		} else {
+			tst.setText("Não foi possivel aceder ao servidor!");
+			tst.show();
+		}
+		try {
+			link.setVisibility(View.INVISIBLE);
+		} catch (Exception e) {	}
+
 		return null;
 	}
 
-	public SincAllBd(Context context, Button bent) {
+	public SincAllBd(Context context, Button bent, ProgressBar link, Toast tst) {
 		this.context = context;
 		this.bent = bent;
-		
+		this.link = link;
+		this.tst = tst;
+
 	}
 
 	/**
 	 * Vai por HTTP buscar toda a informacao sobre os Professor e no final chama
 	 * o metodo para guardar na base dados
 	 */
+	@SuppressLint("ShowToast")
 	protected void lerSynProfessores(String URlString) {
 
 		String url = URlString + "professors/";
@@ -75,9 +92,12 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 						c.getInt("isActive"));
 			}
 			guardarProfBD(arrProf);
+			carregado = true;
 		} catch (Exception e) {
 			Log.d("ERRO", "ERRO DE SINC PROFS TALVEZ SERVIDOR EM BAIXO");
-
+			tst.setText("Erro a carregar os professores.");
+			tst.show();
+			carregado = false;
 		}
 	}
 
@@ -105,9 +125,12 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 						c.getString("schoolAddress"));
 			}
 			guardarEscolaBD(arrEscolas);
+			carregado = true;
 		} catch (Exception e) {
 			Log.d("ERRO", "ERRO DE SINC ESCOLAS TALVEZ SERVIDOR EM BAIXO");
-
+			tst.setText("Erro a carregar as Escolas.");
+			tst.show();
+			carregado = false;
 		}
 	}
 
@@ -137,9 +160,12 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 						c.getInt("isActive"));
 			}
 			guardarEstudantesBD(arrEstudantes);
+			carregado = true;
 		} catch (Exception e) {
 			Log.d("ERRO", "ERRO DE SINC ESTUDANTES TALVEZ SERVIDOR EM BAIXO");
-
+			tst.setText("Erro a carregar os Alunos.");
+			tst.show();
+			carregado = false;
 		}
 
 	}
@@ -166,9 +192,12 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 						c.getString("classYear"));
 			}
 			guardarTurmasBD(arrTurmas);
+			carregado = true;
 		} catch (Exception e) {
 			Log.d("ERRO", "ERRO DE SINC TURMAS TALVEZ SERVIDOR EM BAIXO");
-
+			tst.setText("Erro a carregar as turmas.");
+			tst.show();
+			carregado = false;
 		}
 
 	}
@@ -214,9 +243,13 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 				arrTestesLeitura[i] = testeleitura;
 			}
 			guardarTestesLeituraBD(arrTestesLeitura);
+			carregado = true;
 		} catch (Exception e) {
-			Log.d("ERRO", "ERRO DE SINC TESTESLEITURA TALVEZ SERVIDOR EM BAIXO");
-
+			Log.d("ERRO",
+					"ERRO DE SINC TESTES LEITURA TALVEZ SERVIDOR EM BAIXO");
+			tst.setText("Erro a carregar os testes de leitura.");
+			tst.show();
+			carregado = false;
 		}
 	}
 
@@ -306,11 +339,13 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 				arrTestesMultimedia[i] = testeMultimedia;
 			}
 			guardarTestesMultimediaBD(arrTestesMultimedia);
+			carregado = true;
 		} catch (Exception e) {
-			Log.d("ERRO", e.getMessage());
 			Log.d("ERRO",
 					"ERRO DE SINC TESTESMULTIMEDIA TALVEZ SERVIDOR EM BAIXO");
-
+			tst.setText("Erro a carregar os testes de multimedia");
+			tst.show();
+			carregado = false;
 		}
 	}
 
