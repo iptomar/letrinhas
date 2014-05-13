@@ -616,7 +616,7 @@ public class Teste_Poema extends Activity {
 				case 0:
 					// lançar a nova activity do tipo texto,
 					// iniciar a pagina 2 (escolher teste)
-					Intent it = new Intent(getApplicationContext(),Teste_Texto.class);
+					Intent it = new Intent(getApplicationContext(),Teste_Texto_Aluno.class);
 					it.putExtras(wrap);
 					startActivity(it);
 					break;

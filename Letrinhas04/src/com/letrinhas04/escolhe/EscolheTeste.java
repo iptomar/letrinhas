@@ -20,7 +20,7 @@ import android.widget.ToggleButton;
 import com.letrinhas04.R;
 import com.letrinhas04.Teste_Palavras;
 import com.letrinhas04.Teste_Poema;
-import com.letrinhas04.Teste_Texto;
+import com.letrinhas04.Teste_Texto_Aluno;
 import com.letrinhas04.BaseDados.LetrinhasDB;
 import com.letrinhas04.ClassesObjs.Teste;
 import com.letrinhas04.util.SystemUiHider;
@@ -337,7 +337,7 @@ public class EscolheTeste extends Activity {
 			case 0: // lançar a nova activity do tipo texto,
 
 				Intent it = new Intent(getApplicationContext(),
-						Teste_Texto.class);
+						Teste_Texto_Aluno.class);
 				it.putExtras(wrap);
 
 				startActivity(it);
