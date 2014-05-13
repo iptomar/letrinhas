@@ -38,7 +38,7 @@ import com.letrinhas04.R;
 import com.letrinhas04.util.SystemUiHider;
 import com.letrinhas04.util.Teste;
 
-public class Teste_Palavras extends Activity{
+public class Teste_Palavras_Prof extends Activity{
 	// flags para verificar os diversos estados do teste
 			boolean modo, gravado, recording, playing;
 			// objetos
@@ -74,7 +74,7 @@ public class Teste_Palavras extends Activity{
 			@Override
 			protected void onCreate(Bundle savedInstanceState) {
 				super.onCreate(savedInstanceState);
-				setContentView(R.layout.teste_palavras);
+				setContentView(R.layout.teste_palavras_prof);
 				//new line faz a rotação do ecrãn 180 graus
 				int currentOrientation = getResources().getConfiguration().orientation;
 				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -686,7 +686,7 @@ public class Teste_Palavras extends Activity{
 						break;
 					case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
 							//
-						Intent ip = new Intent(getApplicationContext(),Teste_Palavras.class);
+						Intent ip = new Intent(getApplicationContext(),Teste_Palavras_Prof.class);
 						ip.putExtras(wrap);
 						startActivity(ip);
 						break;
