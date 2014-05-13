@@ -430,7 +430,7 @@ public class Teste_Palavras_Aluno extends Activity{
 				if (tudo.length != 0) {
 					// Decompor o array de teste, para poder enviar por parametros
 					for (int i = 0; i < tudo.length; i++) {
-						tudo[i].split("[]"); 
+					/*	String[] bach = tudo[i].split("[,]"); 
 						texto[i] = ;
 						tipo[i] = ;
 						titulo[i] = ;
@@ -477,12 +477,12 @@ public class Teste_Palavras_Aluno extends Activity{
 						Toast.makeText(getApplicationContext(), " - Tipo não defenido",Toast.LENGTH_SHORT).show();
 						// retirar o teste errado e continuar
 						int k = 0;
-						Teste aux[] = new Teste[lista.length - 1];
+						/*Teste aux[] = new Teste[lista.length - 1];
 						for (int i = 1; i < lista.length; i++) {
 							aux[k] = lista[i];
 							k++;
 						}
-						lista = aux;
+						lista = aux;*/
 						finaliza();
 						break;
 					}
