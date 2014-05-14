@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/escTRodape"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/escTlogo"
+        android:layout_below="@+id/ivTProfessor"
         android:layout_toRightOf="@+id/btnVoltarTurm"
         android:background="#0099cc"
         android:contentDescription="@string/escola" >
@@ -108,12 +108,11 @@
         android:id="@+id/ivTProfessor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/svTurmEscolher"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
         android:contentDescription="@string/professor"
-        android:src="@drawable/professora" />
+        android:src="@drawable/docentes" />
 
     <TextView
         android:id="@+id/tvTProf"

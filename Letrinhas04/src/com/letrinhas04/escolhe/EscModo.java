@@ -6,17 +6,27 @@ import com.letrinhas04.util.SystemUiHider;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class EscModo extends Activity {
-	ImageButton aluno, prof, volt;
+	Button aluno, prof, volt;
+	int idEscola, idProfessor, idTurma, idAluno, iDs[];
+	String Escola, Professor, Turma, Aluno, Nomes[];
+	String FotoProf, FotoAluno;
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -42,7 +52,76 @@ public class EscModo extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.esc_modo);
 
-		// / esconder o title************************************************+
+		// Retirar os Extras
+		Bundle b = getIntent().getExtras();
+		// escola
+		idEscola = b.getInt("Escola_ID");
+		Escola = b.getString("Escola");
+		((TextView) findViewById(R.id.escMEscola)).setText(Escola);
+
+		// professor
+		idProfessor = b.getInt("Professor_ID");
+		Professor = b.getString("Professor");
+		FotoProf = b.getString("Foto_Professor");
+		((TextView) findViewById(R.id.tvMProf)).setText(Professor);
+
+		// se professor tem uma foto, usa-se
+		if (FotoProf != null) {
+			ImageView imageView = ((ImageView) findViewById(R.id.ivMProfessor));
+			String imageInSD = Environment.getExternalStorageDirectory()
+					.getAbsolutePath() + "/School-Data/Professors/" + FotoProf;
+			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
+					100, false));
+		}
+
+		// Turma
+		Turma = b.getString("Turma");
+		((TextView) findViewById(R.id.tvMTurma)).setText(Turma);
+		idTurma = b.getInt("Turma_ID");
+
+		// aluno
+		Aluno = b.getString("Aluno");
+		((TextView) findViewById(R.id.tvMAluno)).setText(Aluno);
+		idAluno = b.getInt("Aluno_ID");
+		FotoAluno = b.getString("Foto_Aluno");
+
+		// se o aluno tem uma foto, usa-se
+		if (FotoAluno != null) {
+			ImageView imageView = ((ImageView) findViewById(R.id.ivMAluno));
+			String imageInSD = Environment.getExternalStorageDirectory()
+					.getAbsolutePath() + "/School-Data/Students/" + FotoAluno;
+			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
+					100, false));
+		}
+
+		// juntar tudo num array, para simplificar o código
+		// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
+		Nomes = new String[6];
+		Nomes[0] = Escola;
+		Nomes[1] = Professor;
+		Nomes[2] = FotoProf;
+		Nomes[3] = Turma;
+		Nomes[4] = Aluno;
+		Nomes[5] = FotoAluno;
+
+		// int's - idEscola, idProfessor, idTurma, idAluno
+		iDs = new int[4];
+		iDs[0] = idEscola;
+		iDs[1] = idProfessor;
+		iDs[2] = idTurma;
+		iDs[3] = idAluno;
+
+		// new line faz a rotação do ecrãn em 180 graus
+		int currentOrientation = getResources().getConfiguration().orientation;
+		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+		} else {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+		}
+
+		// esconder o title************************************************+
 		final View contentView = findViewById(R.id.escModo);
 
 		// Set up an instance of SystemUiHider to control the system UI for
@@ -73,9 +152,9 @@ public class EscModo extends Activity {
 				});
 
 		// inicializar os botões
-		aluno = (ImageButton) findViewById(R.id.ecmAluno);
-		prof = (ImageButton) findViewById(R.id.esmProf);
-		volt = (ImageButton) findViewById(R.id.escmVoltar);
+		aluno = (Button) findViewById(R.id.btModoAluno);
+		prof = (Button) findViewById(R.id.btModoProf);
+		volt = (Button) findViewById(R.id.escMbtnVoltar);
 
 		escutaBotoes();
 	}
@@ -147,33 +226,37 @@ public class EscModo extends Activity {
 	}
 
 	public void modAluno() {
-		((TextView) findViewById(R.id.tvmoAluno)).setTextColor(Color.GREEN);
-		((TextView) findViewById(R.id.tvmoProf)).setTextColor(Color.rgb(0x5d,
+		((Button) findViewById(R.id.btModoAluno)).setTextColor(Color.GREEN);
+		((Button) findViewById(R.id.btModoProf)).setTextColor(Color.rgb(0x5d,
 				0xdf, 0xff));
-		// enviar o parametro de modo
+		// enviar os parametros necessários
 		Bundle wrap = new Bundle();
-		wrap.putBoolean("Modo", false);
+		wrap.putStringArray("Nomes", Nomes);
+		wrap.putIntArray("IDs", iDs);
 
-		// iniciar a pagina 2 (escolher teste)
-		Intent it = new Intent(EscModo.this, EscolheTeste.class);
+		// iniciar a pagina 2 (escolher Dsiciplina)
+		Intent it = new Intent(EscModo.this, EscolheDisciplina.class);
 		it.putExtras(wrap);
 		startActivity(it);
 
 	}
 
 	public void modProf() {
-		// declarar de como o teste será apresentado!
-		((TextView) findViewById(R.id.tvmoProf)).setTextColor(Color.GREEN);
-		((TextView) findViewById(R.id.tvmoAluno)).setTextColor(Color.rgb(0x5d,
+
+		((Button) findViewById(R.id.btModoProf)).setTextColor(Color.GREEN);
+		((Button) findViewById(R.id.btModoAluno)).setTextColor(Color.rgb(0x5d,
 				0xdf, 0xff));
 
-		// enviar o parametro de modo
+		// enviar os parametros necessários
 		Bundle wrap = new Bundle();
-		wrap.putBoolean("Modo", true);
-		// iniciar a pagina 2 (escolher teste)
-		Intent it = new Intent(EscModo.this, EscolheTeste.class);
-		it.putExtras(wrap);
-		startActivity(it);
+		wrap.putStringArray("Nomes", Nomes);
+		wrap.putIntArray("IDs", iDs);
+		
+		
+		// iniciar a pagina 2 (escolher teste a corrigir)
+			//Intent it = new Intent(EscModo.this, EscolheTeste.class);
+		//it.putExtras(wrap);
+		//startActivity(it);
 
 	}
 

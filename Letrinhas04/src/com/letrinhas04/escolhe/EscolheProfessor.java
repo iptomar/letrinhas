@@ -130,8 +130,7 @@ public class EscolheProfessor extends Activity {
 	}
 
 	/**
-	 * Novo método para criar o painel dinâmico para os botões de selecção da
-	 * escola
+	 * Novo método para criar o painel dinâmico para os botões de selecção do professor
 	 * 
 	 * @author Thiago
 	 */
@@ -319,24 +318,7 @@ public class EscolheProfessor extends Activity {
 		tabela.removeView(linha);
 	}
 
-	/*
-	 * public void setUp(final String[] nome, String[] imgNome, final int[] id,
-	 * final String[] userName, final String[] pass) { Custom adapter = new
-	 * Custom(EscolheProfessor.this, nome, imgNome, "professores"); list =
-	 * (ListView) findViewById(R.id.lista); list.setAdapter(adapter);
-	 * list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	 * 
-	 * @Override public void onItemClick(AdapterView<?> parent, View view, int
-	 * position, long idd) { Toast.makeText(EscolheProfessor.this,
-	 * "You Clicked at " + nome[+position], Toast.LENGTH_SHORT) .show(); /*
-	 * Bundle wrap = new Bundle(); wrap.putInt("IdProf", id[position]);
-	 * wrap.putString("pass", pass[position]); wrap.putString("user",
-	 * userName[position]); Intent itp = new Intent(getApplicationContext(),
-	 * Autenticacao.class); itp.putExtras(wrap); startActivity(itp);
-	 * 
-	 * } }); }
-	 */
-
+	
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
@@ -378,24 +360,5 @@ public class EscolheProfessor extends Activity {
 		mHideHandler.removeCallbacks(mHideRunnable);
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
-
-	/**
-	 * Procedimento para veirficar os botões
-	 * 
-	 * @author Thiago
-	 */
-	/*
-	 * private void escutaBotoes() { exect.setOnClickListener(new
-	 * View.OnClickListener() {
-	 * 
-	 * @Override public void onClick(View view) { //executarTestes();
-	 * Toast.makeText(getApplicationContext(), " - Tipo não defenido",
-	 * Toast.LENGTH_SHORT).show(); } });
-	 * 
-	 * volt.setOnClickListener(new View.OnClickListener() {
-	 * 
-	 * @Override public void onClick(View view) {// sair da aplicação finish();
-	 * } }); }
-	 */
 
 }

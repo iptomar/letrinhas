@@ -330,25 +330,7 @@ public class EscolheEscola extends Activity {
 		tabela.removeView(linha);
 	}
 
-	public void setUp(final String[] nome, String[] imgNome, final int[] id) {
-		Custom adapter = new Custom(EscolheEscola.this, nome, imgNome, "escola");
-		list = (ListView) findViewById(R.id.list);
-		list.setAdapter(adapter);
-		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long idd) {
-				Bundle wrap = new Bundle();
-				wrap.putInt("IdEscola", id[position]);
-				Intent it = new Intent(getApplicationContext(),
-						EscolheProfessor.class);
-				it.putExtras(wrap);
-				finish();
-				startActivity(it);
-			}
-		});
-	}
-
+	
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);

@@ -7,95 +7,136 @@
     android:configChanges="orientation|keyboardHidden|screenSize"
     android:gravity="center_horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="40sp"
+    android:paddingRight="40sp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:screenOrientation="landscape"
-    tools:context="com.letrinhas04.EscModo$PlaceholderFragment" >
+    tools:context="com.letrinhas04.escolhe.EscModo" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/escMlogo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/esmCabecalho"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/escmVoltar"
-        android:orientation="vertical" >
+        android:contentDescription="@string/letrinhas"
+        android:src="@drawable/letrinhas" />
 
-        <TextView
-            android:id="@+id/textRodape"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/letrinhas"
-            android:textColor="#5ddfff"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/escMRodape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/escMbtnVoltar"
+        android:layout_marginLeft="10sp"
+        android:layout_toRightOf="@+id/escMbtnVoltar"
+        android:text="@string/letrinhas"
+        android:textColor="#5ddfff"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
-    <ImageButton
-        android:id="@+id/escmVoltar"
+    <Button
+        android:id="@+id/escMbtnVoltar"
         android:layout_width="100sp"
         android:layout_height="100sp"
+        android:layout_alignLeft="@+id/escMlogo"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:contentDescription="@string/voltar"
-        android:src="@drawable/voltar" />
-
-    <ImageButton
-        android:id="@+id/ecmAluno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/esmCabecalho"
-        android:layout_below="@+id/esmCabecalho"
-        android:layout_marginLeft="162dp"
-        android:layout_marginTop="128dp"
-        android:contentDescription="@string/porAluno"
-        android:src="@drawable/boy" />
+        android:drawableTop="@drawable/voltar"
+        android:text="@string/voltar" />
 
     <TextView
-        android:id="@+id/tvmoAluno"
+        android:id="@+id/escMCabecalho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/esmCabecalho"
-        android:layout_below="@+id/ecmAluno"
-        android:layout_marginLeft="162dp"
-        android:text="@string/porAluno"
-        android:textColor="#5ddfff"
-        android:textSize="40sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvmoProf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/esmProf"
-        android:layout_below="@+id/esmProf"
-        android:text="@string/porProf"
-        android:textColor="#5ddfff"
-        android:textSize="40sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/esmCabecalho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="50dp"
-        android:drawableLeft="@drawable/logo2"
-        android:drawablePadding="31dp"
-        android:text="@string/escolhe_Modo"
+        android:layout_alignTop="@+id/escMlogo"
+        android:layout_toRightOf="@+id/escMlogo"
+        android:text="@string/escolherModo"
         android:textColor="#5ddfff"
         android:textSize="50sp"
         android:textStyle="bold" />
 
-    <ImageButton
-        android:id="@+id/esmProf"
-        android:layout_width="215dp"
-        android:layout_height="205dp"
-        android:layout_alignRight="@+id/linearLayout1"
-        android:layout_alignTop="@+id/ecmAluno"
-        android:layout_marginRight="103dp"
-        android:contentDescription="@string/porProf"
-        android:src="@drawable/docentes" />
+    <TextView
+        android:id="@+id/escMEscola"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/escMCabecalho"
+        android:layout_below="@+id/escMCabecalho"
+        android:text="Escola escolhida"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tvMProf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivMProfessor"
+        android:layout_toLeftOf="@+id/ivMProfessor"
+        android:text="Professor escolhido"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/ivMProfessor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/escMCabecalho"
+        android:contentDescription="@string/professor"
+        android:src="@drawable/professora" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btModoAluno"
+            style="@style/ButtonBarButton"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="100sp"
+            android:drawableTop="@drawable/boy"
+            android:text="@string/realizarTeste"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btModoProf"
+            style="@style/ButtonBarButton"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100sp"
+            android:drawableTop="@drawable/docentes"
+            android:text="@string/corrigirTeste"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvMAluno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="40sp"
+        android:text="Aluno Escolhido"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tvMTurma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvMAluno"
+        android:layout_alignBottom="@+id/tvMAluno"
+        android:layout_toLeftOf="@+id/tvMAluno"
+        android:text="Turma Escolhida"
+        android:textSize="25sp" />
+
+    <ImageView
+        android:id="@+id/ivMAluno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvMAluno"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/aluno"        
+        android:src="@drawable/boy1" />
 
 </RelativeLayout>

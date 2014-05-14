@@ -1,23 +1,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/testTexto"
+    android:id="@+id/escDisciplina"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#80bb00"
     android:gravity="clip_vertical"
-
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="30sp"
     android:paddingRight="30sp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.letrinhas04.Teste_Texto"
-    android:screenOrientation="landscape">
+    android:screenOrientation="landscape"
+    tools:context="com.letrinhas04.escolhe.EscolheDisciplina" >
 
-<TableLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:textAlignment="textEnd" >
     <TextView
-        android:id="@+id/textCabecalho"
+        android:id="@+id/escDCabecalho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/logo2"
@@ -26,108 +22,68 @@
         android:textSize="50sp"
         android:textStyle="bold" />
 
-    <TableRow>
-
-        <ImageButton
-            android:id="@+id/pt"
-            android:layout_width="200dp"
-    		android:layout_height="200dp"
-    		android:scaleType="fitCenter"
-            
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="0dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/pt"
- 										/>
-
-        <ImageButton
-            android:id="@+id/escTVoltar"
-            android:layout_width="200dp"
-    		android:layout_height="200dp"
-    		android:scaleType="fitCenter"
-            android:src="@drawable/mat"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginBottom="0dp" />
-
-        <ImageButton
-            android:id="@+id/esTLogo"
-            android:layout_width="200dp"
-    		android:layout_height="200dp"
-    		android:scaleType="fitCenter"
-            android:src="@drawable/estmeio"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginBottom="0dp" />
-
-        <ImageButton
-            android:id="@+id/img"
-           android:layout_width="200dp"
-    		android:layout_height="200dp"
-    		android:scaleType="fitCenter"
-            android:src="@drawable/en"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginBottom="0dp" />
-	    </TableRow>
-		<TableRow >
-
-		    <TextView
-		        android:layout_marginRight="35dp"
-		        android:gravity="center"
-		        android:text="@string/portugues"
-		        android:textColor="#CC2222"
-		        android:textSize="50sp"
-		        android:textStyle="bold" />
-
-		    <TextView
-		        android:layout_marginRight="35dp"
-		        android:gravity="center"
-		        android:text="@string/matematica"
-		        android:textColor="#AA22AA"
-		        android:textSize="50sp"
-		        android:textStyle="bold" />
-
-		    <TextView
-		        android:layout_marginRight="5dp"
-		        android:gravity="center"
-		        android:text="@string/estMeio"
-		        android:textColor="#22CC22"
-		        android:textSize="50sp"
-		        android:textStyle="bold" />
-
-		    <TextView
-		        android:layout_marginRight="5dp"
-		        android:gravity="center"
-		        android:text="@string/ingles"
-		        android:textColor="#2222CC"
-		        android:textSize="50sp"
-		        android:textStyle="bold" />
-
-		</TableRow>
-</TableLayout>
-<ImageButton
-        android:id="@+id/txtVoltar"
+    <Button
+        android:id="@+id/btnDVoltar"
         android:layout_width="100dp"
-    	android:layout_height="100dp"
-    	android:scaleType="fitCenter"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:contentDescription="@string/voltar"
-        android:src="@drawable/voltar" />
-<ImageButton
-        android:id="@+id/resAvancar"
-		android:layout_width="100dp"
-    	android:layout_height="100dp"
-    	android:scaleType="fitCenter"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:contentDescription="@string/avancar"
-        android:src="@drawable/right" />
+        android:drawableTop="@drawable/voltar"
+        android:scaleType="fitCenter"
+        android:text="@string/voltar" />
+
+    <Button
+        android:id="@+id/estMeio"
+        android:layout_width="200sp"
+        android:layout_height="200sp"
+        android:layout_alignTop="@+id/mat"
+        android:layout_toRightOf="@+id/mat"
+        android:drawableTop="@drawable/estmeio"
+        android:scaleType="fitCenter"
+        android:text="@string/estMeio"
+        android:textColor="#30aa30"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/english"
+        android:layout_width="200sp"
+        android:layout_height="200sp"
+        android:layout_alignTop="@+id/estMeio"
+        android:layout_toRightOf="@+id/estMeio"
+        android:drawableTop="@drawable/en"
+        android:scaleType="fitCenter"
+        android:text="@string/ingles"
+        android:textColor="#5050dd"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/mat"
+        android:layout_width="200sp"
+        android:layout_height="200sp"
+        android:layout_alignTop="@+id/pt"
+        android:layout_toRightOf="@+id/pt"
+        android:drawableTop="@drawable/mat"
+        android:scaleType="fitCenter"
+        android:text="@string/matematica"
+        android:textColor="#0000aa"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/pt"
+        android:layout_width="200sp"
+        android:layout_height="200sp"
+        android:layout_below="@+id/escDCabecalho"
+        android:layout_marginTop="133dp"
+        android:layout_toRightOf="@+id/btnDVoltar"
+        android:drawableTop="@drawable/pt"
+        android:scaleType="fitCenter"
+        android:text="@string/portugues"
+        android:textColor="#aa0000"
+        android:textSize="35sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

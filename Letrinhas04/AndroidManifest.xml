@@ -92,9 +92,9 @@
             android:label="@string/title_activity_resultado" >
         </activity>
         <activity
-            android:name="com.letrinhas04.escolhe.EscolheAno"
+            android:name="com.letrinhas04.escolhe.EscolheDisciplina"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_escolhe_ano"
+            android:label="@string/title_activity_escolhe_disciplina"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
         </activity>

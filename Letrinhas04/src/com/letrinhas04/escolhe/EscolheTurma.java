@@ -78,7 +78,7 @@ public class EscolheTurma extends Activity {
 		// professor
 		idProfessor = b.getInt("Professor_ID");
 		Professor = b.getString("Professor");
-		FotoProf =null;// b.getString("foto_Professor");
+		FotoProf = b.getString("foto_Professor");
 		((TextView) findViewById(R.id.tvTProf)).setText(Professor);
 		
 		ImageView imageView =((ImageView) findViewById(R.id.ivTProfessor));
@@ -87,22 +87,10 @@ public class EscolheTurma extends Activity {
 					.getExternalStorageDirectory().getAbsolutePath()
 					+ "/School-Data/Professors/" + FotoProf;
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-			//imageView.setImageBitmap(bitmap);
-
-			// ajustar o tamanho da imagem
 			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
-					80, 80, false));
-			// enviar para o botão
-			//bt1.setCompoundDrawablesWithIntrinsicBounds(null,
-				//	imageView.getDrawable(), null, null);
-		} else {
-			// senão copia a imagem do botão original
-			///bt1.setCompoundDrawables(null,
-			//		bt.getCompoundDrawablesRelative()[1], null, null);
+					100, 100, false));
 		}
 		
-		
-
 		// new line faz a rotação do ecrãn em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -156,8 +144,7 @@ public class EscolheTurma extends Activity {
 	}
 
 	/**
-	 * Novo método para criar o painel dinâmico para os botões de selecção da
-	 * escola
+	 * Novo método para criar o painel dinâmico para os botões de selecção da turma
 	 * 
 	 * @author Thiago
 	 */
@@ -236,8 +223,9 @@ public class EscolheTurma extends Activity {
 						wrap.putInt("Escola_ID", idEscola);
 						wrap.putString("Professor", Professor);
 						wrap.putInt("Professor_ID", idProfessor);
+						wrap.putString("foto_Professor", FotoProf);
 						wrap.putString("Turma", turm);
-						wrap.putInt("Professor_ID", idturm);
+						wrap.putInt("turma_ID", idturm);
 
 						Intent it = new Intent(getApplicationContext(),
 								EscolheAluno.class);
@@ -290,7 +278,7 @@ public class EscolheTurma extends Activity {
 						wrap.putString("Professor", Professor);
 						wrap.putInt("Professor_ID", idProfessor);
 						wrap.putString("Turma", turm);
-						wrap.putInt("Professor_ID", idturm);
+						wrap.putInt("turma_ID", idturm);
 
 						Intent it = new Intent(getApplicationContext(),
 								EscolheAluno.class);

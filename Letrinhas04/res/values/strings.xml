@@ -65,7 +65,7 @@
     <string name="act_BD">Atualizar a Base de Dados</string>
     <string name="title_activity_escolhe_escola">Escolher Escola</string>
     <string name="escola">escola</string>
-    <string name="title_activity_escolhe_ano">Escolher Ano</string>
+    <string name="title_activity_escolhe_disciplina">Escolher disciplina</string>
     <string name="ano">ano</string>
     <string name="title_activity_escolhe_aluno">Escolher Aluno</string>
     <string name="aluno">Aluno</string>
@@ -82,11 +82,15 @@
     <string name="ingles">Inglês</string>
     <string name="estMeio">Estudo do meio</string>
     <string name="matematica">Matemática</string>
-    <string name="escolheDisciplina">Selecione a disciplina</string>
+    <string name="escolheDisciplina">Escolhe a disciplina</string>
     <string name="agrupamento">Agrupamento Artur Gonçalves</string>
     <string name="escProfessor">Escolher professor</string>
     <string name="title_activity_escolhe_turma">Escolher Turma</string>
     <string name="hello_world">Hello world!</string>
     <string name="escolherTurma">Escolher Turma</string>
+    <string name="escolherAluno">Escolher Aluno</string>
+    <string name="escolherModo">Escolher modo</string>
+    <string name="realizarTeste">Realizar teste(s)</string>
+    <string name="corrigirTeste">Corrigir teste(s)</string>
 
 </resources>
