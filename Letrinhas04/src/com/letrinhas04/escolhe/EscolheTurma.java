@@ -1,19 +1,30 @@
 package com.letrinhas04.escolhe;
 
+import java.util.List;
+
 import com.letrinhas04.R;
+import com.letrinhas04.BaseDados.LetrinhasDB;
+import com.letrinhas04.ClassesObjs.Professor;
+import com.letrinhas04.ClassesObjs.Turma;
 import com.letrinhas04.R.id;
 import com.letrinhas04.R.layout;
 import com.letrinhas04.R.menu;
 import com.letrinhas04.util.SystemUiHider;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,12 +32,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.os.Build;
 
 public class EscolheTurma extends Activity {
 	Button volt;
-	String Escola,Professor;
+	String Escola, Professor, FotoProf;
 	int idEscola, idProfessor, nTurmas;
 
 	/**
@@ -52,19 +66,40 @@ public class EscolheTurma extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.escolhe_turma);
-		
-		//Retirar os Extras
+
+		// Retirar os Extras
 
 		Bundle b = getIntent().getExtras();
-		//escola
+		// escola
 		idEscola = b.getInt("Escola_ID");
 		Escola = b.getString("Escola");
 		((TextView) findViewById(R.id.escTEscola)).setText(Escola);
-		
-		//professor
+
+		// professor
 		idProfessor = b.getInt("Professor_ID");
 		Professor = b.getString("Professor");
-		((TextView)findViewById(R.id.tvTProf)).setText(Professor);
+		FotoProf =null;// b.getString("foto_Professor");
+		((TextView) findViewById(R.id.tvTProf)).setText(Professor);
+		
+		ImageView imageView =((ImageView) findViewById(R.id.ivTProfessor));
+		if (FotoProf != null) {
+			String imageInSD = Environment
+					.getExternalStorageDirectory().getAbsolutePath()
+					+ "/School-Data/Professors/" + FotoProf;
+			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
+			//imageView.setImageBitmap(bitmap);
+
+			// ajustar o tamanho da imagem
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
+					80, 80, false));
+			// enviar para o botão
+			//bt1.setCompoundDrawablesWithIntrinsicBounds(null,
+				//	imageView.getDrawable(), null, null);
+		} else {
+			// senão copia a imagem do botão original
+			///bt1.setCompoundDrawables(null,
+			//		bt.getCompoundDrawablesRelative()[1], null, null);
+		}
 		
 		
 
@@ -116,8 +151,165 @@ public class EscolheTurma extends Activity {
 			}
 		});
 
-		
-		
+		makeTabela();
+
+	}
+
+	/**
+	 * Novo método para criar o painel dinâmico para os botões de selecção da
+	 * escola
+	 * 
+	 * @author Thiago
+	 */
+	@SuppressLint("NewApi")
+	private void makeTabela() {
+
+		// Cria o objecto da base de dados
+		LetrinhasDB db = new LetrinhasDB(this);
+		//************* Mudar este select de all para por ID de professor (ALEXANDRE!!)
+		List<Turma> turmas = db.getAllTurmas();
+		//*******************************************************************************
+		nTurmas = turmas.size();
+		int[] idTurmas = new int[turmas.size()];
+		String nomeTurma[] = new String[turmas.size()];
+
+		// preenche os arrays com a informação necessária
+		for (int i = 0; i < nTurmas; i++) {
+			idTurmas[i] = turmas.get(i).getId();
+			nomeTurma[i] = turmas.get(i).getNome();
+		}
+
+		for (Turma cn : turmas) {
+			String storage = cn.getAnoLetivo() + "," + cn.getAnoEscolar() + ","
+					+ cn.getId() + "," + cn.getNome() + "," + cn.getIdEscola();
+			Log.d("letrinhas-Turmas", storage.toString());
+
+		}
+
+		/**
+		 * Scroll view com uma tabela de 4 colunas(max)
+		 */
+		// tabela a editar
+		TableLayout tabela = (TableLayout) findViewById(R.id.tblEscolheTurm);
+		// linha da tabela a editar
+		TableRow linha = (TableRow) findViewById(R.id.Turmlinha01);
+		// 1º botão
+		Button bt = (Button) findViewById(R.id.TurmBtOriginal);
+		bt.setText("teste turmas");
+
+		// Contador de controlo
+		int cont = 0;
+		// criar o nº de linhas a dividir por 4 colunas
+		for (int i = 0; i < nTurmas / 4; i++) {
+			// nova linha da tabela
+			TableRow linha1 = new TableRow(getBaseContext());
+			// Copiar os parametros da 1ª linha
+			linha1.setLayoutParams(linha.getLayoutParams());
+			// criar os 4 botões da linha
+			for (int j = 0; j < 4; j++) {
+				
+				// **********************************
+				// Nome da turma
+
+				final String turm = nomeTurma[cont];
+				final int idturm = idTurmas[cont];
+				// ***********************************
+
+				// novo botão
+				Button bt1 = new Button(bt.getContext());
+				// copiar os parametros do botão original
+				bt1.setLayoutParams(bt.getLayoutParams());
+
+				// copia a imagem do botão original
+				bt1.setCompoundDrawables(null,
+						bt.getCompoundDrawablesRelative()[1], null, null);
+
+				// addicionar o nome
+				bt1.setText(nomeTurma[cont]);
+				// Defenir o que faz o botão ao clicar
+				bt1.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						// Entrar na activity
+						Bundle wrap = new Bundle();
+						wrap.putString("Escola", Escola);
+						wrap.putInt("Escola_ID", idEscola);
+						wrap.putString("Professor", Professor);
+						wrap.putInt("Professor_ID", idProfessor);
+						wrap.putString("Turma", turm);
+						wrap.putInt("Professor_ID", idturm);
+
+						Intent it = new Intent(getApplicationContext(),
+								EscolheAluno.class);
+						it.putExtras(wrap);
+
+						startActivity(it);
+					}
+				});
+				// inserir o botão na linha
+				linha1.addView(bt1);
+				// incrementar o contador de controlo
+				cont++;
+			}
+			// inserir a linha criada
+			tabela.addView(linha1);
+		}
+
+		// resto
+		if (nTurmas % 4 != 0) {
+			TableRow linha1 = new TableRow(getBaseContext());
+			linha1.setLayoutParams(linha.getLayoutParams());
+			for (int j = 0; j < nTurmas % 4; j++) {
+
+				// **********************************
+				// Nome da turma
+
+				final String turm = nomeTurma[cont];
+				final int idturm = idTurmas[cont];
+				// ***********************************
+
+				// novo botão
+				Button bt1 = new Button(bt.getContext());
+				// copiar os parametros do botão original
+				bt1.setLayoutParams(bt.getLayoutParams());
+
+				// copia a imagem do botão original
+				bt1.setCompoundDrawables(null,
+						bt.getCompoundDrawablesRelative()[1], null, null);
+
+				// addicionar o nome
+				bt1.setText(nomeTurma[cont]);
+				// Defenir o que faz o botão ao clicar
+				bt1.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						// Entrar na activity
+						Bundle wrap = new Bundle();
+						wrap.putString("Escola", Escola);
+						wrap.putInt("Escola_ID", idEscola);
+						wrap.putString("Professor", Professor);
+						wrap.putInt("Professor_ID", idProfessor);
+						wrap.putString("Turma", turm);
+						wrap.putInt("Professor_ID", idturm);
+
+						Intent it = new Intent(getApplicationContext(),
+								EscolheAluno.class);
+						it.putExtras(wrap);
+
+						startActivity(it);
+					}
+				});
+				// inserir o botão na linha
+				linha1.addView(bt1);
+				// incrementar o contador de controlo
+				cont++;
+			}
+			// inserir a linha criada
+			tabela.addView(linha1); 
+		}
+
+		// por fim escondo a 1ª linha
+		tabela.removeView(linha);
 	}
 
 	@Override

@@ -161,17 +161,7 @@ public class EscolheProfessor extends Activity {
 			String storage = cn.getEmail() + "," + cn.getFotoNome() + ","
 					+ cn.getId() + "," + cn.getNome() + "," + cn.getPassword()
 					+ "," + cn.getTelefone() + "," + cn.getUsername();
-			Log.d("letrinhas-Escola", storage.toString());
-			// password[numero] = cn.getPassword();
-			// Log.d("letrinhas-Tipo", String.valueOf(password[0]));
-			// username[numero] = cn.getNome();
-			// Log.d("letrinhas-Titulo", username[0].toString());
-			// idProf[numero] = cn.getId();
-			// Log.d("letrinhas-ID", String.valueOf(idProf[0]));
-			// fotoNome[numero] = cn.getFotoNome();
-			// Log.d("letrinhas-IMG", fotoNome[0]);
-			// setUp(username, fotoNome, idProf, username, password);
-			// numero++;
+			Log.d("letrinhas-Professores da "+Escola+" ", storage.toString());
 		}
 
 		/**
@@ -198,6 +188,7 @@ public class EscolheProfessor extends Activity {
 				// Nome do professor
 
 				final String proff = username[cont];
+				final String fotoprof = fotoNome[cont];
 				final int idPrf = idProf[cont];
 				// ***********************************
 
@@ -206,7 +197,7 @@ public class EscolheProfessor extends Activity {
 				// copiar os parametros do botão original
 				bt1.setLayoutParams(bt.getLayoutParams());
 
-				// se a escola já tiver logotipo, vou busca-lo
+				// se a professor tiver foto, vou busca-la
 				if (fotoNome[cont] != null) {
 					String imageInSD = Environment
 							.getExternalStorageDirectory().getAbsolutePath()
@@ -216,7 +207,7 @@ public class EscolheProfessor extends Activity {
 
 					// ajustar o tamanho da imagem
 					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
-							250, 250, false));
+							240, 240, false));
 					// enviar para o botão
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null,
 							imageView.getDrawable(), null, null);
@@ -228,8 +219,7 @@ public class EscolheProfessor extends Activity {
 
 				// addicionar o nome
 				bt1.setText(username[cont]);
-				// Defenir o que faz o botão ao clicar, neste caso muda o texto
-				// do cabeçalho
+				// Defenir o que faz o botão ao clicar
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -238,6 +228,7 @@ public class EscolheProfessor extends Activity {
 						wrap.putString("Escola", Escola);
 						wrap.putInt("Escola_ID", idEscola);
 						wrap.putString("Professor", proff);
+						wrap.putString("foto_Professor", fotoprof);
 						wrap.putInt("Professor_ID", idPrf);
 
 						Intent it = new Intent(getApplicationContext(),
@@ -265,6 +256,7 @@ public class EscolheProfessor extends Activity {
 				// Nome do professor
 
 				final String proff = username[cont];
+				final String fotoprof = fotoNome[cont];
 				final int idPrf = idProf[cont];
 				// ***********************************
 
@@ -273,7 +265,7 @@ public class EscolheProfessor extends Activity {
 				// copiar os parametros do botão original
 				bt1.setLayoutParams(bt.getLayoutParams());
 
-				// se a escola já tiver logotipo, vou busca-lo
+				// se a professor tiver foto, vou busca-la
 				if (fotoNome[cont] != null) {
 					String imageInSD = Environment
 							.getExternalStorageDirectory().getAbsolutePath()
@@ -283,7 +275,7 @@ public class EscolheProfessor extends Activity {
 
 					// ajustar o tamanho da imagem
 					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
-							250, 250, false));
+							240, 240, false));
 					// enviar para o botão
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null,
 							imageView.getDrawable(), null, null);
@@ -295,8 +287,7 @@ public class EscolheProfessor extends Activity {
 
 				// addicionar o nome
 				bt1.setText(username[cont]);
-				// Defenir o que faz o botão ao clicar, neste caso muda o texto
-				// do cabeçalho
+				// Defenir o que faz o botão ao clicar
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -305,6 +296,7 @@ public class EscolheProfessor extends Activity {
 						wrap.putString("Escola", Escola);
 						wrap.putInt("Escola_ID", idEscola);
 						wrap.putString("Professor", proff);
+						wrap.putString("foto_Professor", fotoprof);
 						wrap.putInt("Professor_ID", idPrf);
 
 						Intent it = new Intent(getApplicationContext(),

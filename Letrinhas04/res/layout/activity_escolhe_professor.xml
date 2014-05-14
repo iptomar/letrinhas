@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/escPRodape"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/escPlogo"
+        android:layout_below="@+id/escPEscola"
         android:layout_toRightOf="@+id/btnVoltarProf"
         android:background="#0099cc"
         android:contentDescription="@string/escola" >
@@ -90,15 +90,15 @@
         android:layout_toRightOf="@+id/escPlogo"
         android:text="@string/escProfessor"
         android:textColor="#5ddfff"
-        android:textSize="50sp"
+        android:textSize="50dp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/escPEscola"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/escPCabecalho"
         android:layout_below="@+id/escPCabecalho"
+        android:layout_alignLeft="@+id/escPCabecalho"
         android:text="Escola escolhida"
         android:textSize="30sp" />
 

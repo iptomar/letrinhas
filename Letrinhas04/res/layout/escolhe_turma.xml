@@ -17,6 +17,7 @@
         android:id="@+id/escTlogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/letrinhas"
         android:src="@drawable/letrinhas" />
 
@@ -104,13 +105,14 @@
         android:textSize="30sp" />
 
     <ImageView
-        android:contentDescription="@string/professor"
         android:id="@+id/ivTProfessor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/svTurmEscolher"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/professor"
         android:src="@drawable/professora" />
 
     <TextView

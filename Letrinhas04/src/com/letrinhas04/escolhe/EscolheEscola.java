@@ -232,7 +232,7 @@ public class EscolheEscola extends Activity {
 					ImageView imageView = new ImageView(this);
 
 					//ajustar o tamanho da imagem
-					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 250, 250, false));
+					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 240, 240, false));
 					//enviar para o botão
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null, imageView.getDrawable(),
 							null, null);
@@ -290,7 +290,7 @@ public class EscolheEscola extends Activity {
 					ImageView imageView = new ImageView(this);
 
 					//ajustar o tamanho da imagem
-					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 250, 250, false));
+					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 240, 240, false));
 					//enviar para o botão
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null, imageView.getDrawable(),
 							null, null);
