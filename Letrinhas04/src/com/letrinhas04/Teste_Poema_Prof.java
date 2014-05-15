@@ -33,18 +33,19 @@ import com.letrinhas04.R;
 import com.letrinhas04.util.SystemUiHider;
 import com.letrinhas04.util.Teste;
 
-public class Teste_Poema extends Activity {
+public class Teste_Poema_Prof extends Activity {
 		// flags para verificar os diversos estados do teste
 		boolean modo, gravado, recording, playing;
 		// objetos
 		ImageButton record, play, voltar, cancelar, avancar;
 		TextView pnt, vcl, frg, slb, rpt, pErr;
 		Chronometer chrono;
+		
 		// variaveis contadoras para a avaliação
 		int plvErradas, pontua, vacil, fragment, silabs, repeti;
 		private MediaRecorder gravador;
 		private MediaPlayer reprodutor = new MediaPlayer();
-		private String endereco;
+		private String endereco, texto, pastas, fileName;
 		Teste[] lista;
 		/**
 		 * Whether or not the system UI should be auto-hidden after
@@ -68,7 +69,7 @@ public class Teste_Poema extends Activity {
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-			setContentView(R.layout.activity_teste__poema);
+			setContentView(R.layout.teste_poema_prof);
 			//new line faz a rotação do ecrãn 180 graus
 			int currentOrientation = getResources().getConfiguration().orientation;
 			if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -212,7 +213,7 @@ public class Teste_Poema extends Activity {
 					if (file.exists()) {
 						file.delete();
 					}
-					finaliza();
+				//	finaliza();
 				}
 			});
 			avancar.setOnClickListener(new View.OnClickListener() {
@@ -231,11 +232,7 @@ public class Teste_Poema extends Activity {
 			});
 		}
 		int minuto, segundo;
-		/**
-		 * Serve para começar ou parar o recording do audio
-		 * 
-		 * @author Dário Jorge
-		 */
+	
 		@SuppressLint("HandlerLeak")
 		private void startGrava() {
 			if (!recording) {
@@ -396,7 +393,7 @@ public class Teste_Poema extends Activity {
 					// exprecividade da leitura
 					// usar a classe Avaliação para calcular os resultados.
 					// avançar para o próximo teste caso este exista.
-					finaliza();
+				//	finaliza();
 				} else {
 					android.app.AlertDialog alerta;
 					// Cria o gerador do AlertDialog
@@ -590,7 +587,7 @@ public class Teste_Poema extends Activity {
 		 * Prepara a finalização da activity, descobrindo qual o próximo teste a
 		 * realizar Este método deverá ser usado em todas as paginas de teste.
 		 */
-		private void finaliza() {
+		/*private void finaliza() {
 			if (lista.length != 0) {
 				// Decompor o array de teste, para poder enviar por parametros
 				int[] lstID = new int[lista.length];
@@ -622,13 +619,17 @@ public class Teste_Poema extends Activity {
 					break;
 				case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
 						//
+<<<<<<< Updated upstream
 					Intent ip = new Intent(getApplicationContext(),Teste_Imagem.class);
+=======
+					Intent ip = new Intent(getApplicationContext(),Teste_Palavras_Prof.class);
+>>>>>>> Stashed changes
 					ip.putExtras(wrap);
 					startActivity(ip);
 					break;
 				case 2: // lançar a nova activity do tipo Poema, e o seu conteúdo
 					//
-					Intent ipm = new Intent(getApplicationContext(),Teste_Poema.class);
+					Intent ipm = new Intent(getApplicationContext(),Teste_Poema_Prof.class);
 					ipm.putExtras(wrap);
 					startActivity(ipm);
 					break;
@@ -654,5 +655,5 @@ public class Teste_Poema extends Activity {
 				}
 			}
 			finish();
-		}
+		}*/
 	}
