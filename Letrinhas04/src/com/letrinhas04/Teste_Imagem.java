@@ -454,7 +454,7 @@ public class Teste_Imagem extends Activity {
 							break;
 						case 2: // lançar a nova activity do tipo Poema, e o seu conteúdo
 							//
-							Intent ipm = new Intent(getApplicationContext(),Teste_Poema.class);
+							Intent ipm = new Intent(getApplicationContext(),Teste_Poema_Aluno.class);
 							ipm.putExtras(wrap);
 							startActivity(ipm);
 							break;

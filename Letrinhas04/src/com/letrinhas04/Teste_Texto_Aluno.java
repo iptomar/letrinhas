@@ -864,7 +864,7 @@ public class Teste_Texto_Aluno extends Activity {
 			case 2: // lan�ar a nova activity do tipo Poema, e o seu conte�do
 				//
 				Intent ipm = new Intent(getApplicationContext(),
-						Teste_Poema.class);
+						Teste_Poema_Aluno.class);
 				ipm.putExtras(wrap);
 
 				startActivity(ipm);

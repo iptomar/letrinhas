@@ -19,7 +19,7 @@ import android.widget.ToggleButton;
 
 import com.letrinhas04.R;
 import com.letrinhas04.Teste_Palavras_Aluno;
-import com.letrinhas04.Teste_Poema;
+import com.letrinhas04.Teste_Poema_Aluno;
 import com.letrinhas04.Teste_Texto_Aluno;
 import com.letrinhas04.BaseDados.LetrinhasDB;
 import com.letrinhas04.ClassesObjs.Teste;
@@ -355,7 +355,7 @@ public class EscolheTeste extends Activity {
 			case 2: // lançar a nova activity do tipo Poema, e o seu conteúdo
 				//
 				Intent ipm = new Intent(getApplicationContext(),
-						Teste_Poema.class);
+						Teste_Poema_Aluno.class);
 				ipm.putExtras(wrap);
 
 				startActivity(ipm);
