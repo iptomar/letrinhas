@@ -18,7 +18,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.letrinhas04.R;
-import com.letrinhas04.Teste_Palavras;
+import com.letrinhas04.Teste_Palavras_Aluno;
 import com.letrinhas04.Teste_Poema;
 import com.letrinhas04.Teste_Texto_Aluno;
 import com.letrinhas04.BaseDados.LetrinhasDB;
@@ -346,7 +346,7 @@ public class EscolheTeste extends Activity {
 			case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
 					//
 				Intent ip = new Intent(getApplicationContext(),
-						Teste_Palavras.class);
+						Teste_Palavras_Aluno.class);
 				ip.putExtras(wrap);
 
 				startActivity(ip);

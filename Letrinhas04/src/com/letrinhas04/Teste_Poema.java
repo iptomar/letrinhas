@@ -622,7 +622,7 @@ public class Teste_Poema extends Activity {
 					break;
 				case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
 						//
-					Intent ip = new Intent(getApplicationContext(),Teste_Palavras.class);
+					Intent ip = new Intent(getApplicationContext(),Teste_Imagem.class);
 					ip.putExtras(wrap);
 					startActivity(ip);
 					break;
@@ -633,11 +633,11 @@ public class Teste_Poema extends Activity {
 					startActivity(ipm);
 					break;
 				case 3: // lançar a nova activity do tipo imagem, e o seu conteúdo
-					//
-					// Intent it = new Intent(getApplicationContext(),
-					// Teste_Texto.class);
-					// it.putExtras(wrap);
-					// startActivity(it);
+					
+					 Intent itv = new Intent(getApplicationContext(),
+					 Teste_Palavras_Aluno.class);
+					 itv.putExtras(wrap);
+					 startActivity(itv);
 					break;
 				default:
 					Toast.makeText(getApplicationContext(), " - Tipo não defenido",Toast.LENGTH_SHORT).show();

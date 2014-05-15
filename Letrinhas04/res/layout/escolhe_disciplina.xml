@@ -12,16 +12,6 @@
     android:screenOrientation="landscape"
     tools:context="com.letrinhas04.escolhe.EscolheDisciplina" >
 
-    <TextView
-        android:id="@+id/escDCabecalho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/logo2"
-        android:text="@string/escolheDisciplina"
-        android:textColor="#5ddfff"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
     <Button
         android:id="@+id/btnDVoltar"
         android:layout_width="100dp"
@@ -38,11 +28,13 @@
         android:layout_width="200sp"
         android:layout_height="200sp"
         android:layout_alignTop="@+id/mat"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
         android:layout_toRightOf="@+id/mat"
         android:drawableTop="@drawable/estmeio"
         android:scaleType="fitCenter"
         android:text="@string/estMeio"
-        android:textColor="#30aa30"
+        android:textColor="#208020"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -52,6 +44,8 @@
         android:layout_height="200sp"
         android:layout_alignTop="@+id/estMeio"
         android:layout_toRightOf="@+id/estMeio"
+        android:layout_marginRight="20sp"
+        android:layout_marginLeft="20sp"
         android:drawableTop="@drawable/en"
         android:scaleType="fitCenter"
         android:text="@string/ingles"
@@ -66,6 +60,8 @@
         android:layout_alignTop="@+id/pt"
         android:layout_toRightOf="@+id/pt"
         android:drawableTop="@drawable/mat"
+        android:layout_marginRight="20sp"
+        android:layout_marginLeft="20sp"
         android:scaleType="fitCenter"
         android:text="@string/matematica"
         android:textColor="#0000aa"
@@ -76,14 +72,102 @@
         android:id="@+id/pt"
         android:layout_width="200sp"
         android:layout_height="200sp"
-        android:layout_below="@+id/escDCabecalho"
-        android:layout_marginTop="133dp"
-        android:layout_toRightOf="@+id/btnDVoltar"
+        android:layout_alignLeft="@+id/escDCabecalho"
+        android:layout_below="@+id/escDEscola"
+        android:layout_marginLeft="60sp"
+        android:layout_marginRight="20sp"
+        android:layout_marginTop="150sp"
         android:drawableTop="@drawable/pt"
         android:scaleType="fitCenter"
         android:text="@string/portugues"
         android:textColor="#aa0000"
         android:textSize="35sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/escDlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/letrinhas" />
+
+    <TextView
+        android:id="@+id/escDCabecalho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/escDlogo"
+        android:layout_toRightOf="@+id/escDlogo"
+        android:text="@string/escolheDisciplina"
+        android:textColor="#5ddfff"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+    
+    <TextView 
+        android:id="@+id/escDEscola" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_alignLeft="@+id/escDCabecalho" 
+        android:layout_below="@+id/escDCabecalho"
+        android:text="Escola escolhida" 
+        android:textSize="30sp"/>
+    
+    <ImageView 
+        android:id="@+id/ivDProfessor" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_alignParentRight="true" 
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/professor" 
+        android:src="@drawable/professora"/>
+    
+    <ImageView 
+        android:id="@+id/ivDAluno" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_alignParentRight="true" 
+        android:layout_alignParentBottom="true" 
+        android:contentDescription="@string/aluno" 
+        android:src="@drawable/boy1"/>
+
+    <TextView
+        android:id="@+id/tvDProf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivDProfessor"
+        android:layout_toLeftOf="@+id/ivDProfessor"
+        android:text="Professor escolhido"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tvDAluno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvDTurma"
+        android:layout_alignBottom="@+id/tvDTurma"
+        android:layout_toLeftOf="@+id/ivDProfessor"
+        android:text="Aluno Escolhido"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tvDTurma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="30sp"
+        android:layout_toLeftOf="@+id/tvDAluno"
+        android:text="Turma Escolhida"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/escDRodape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnDVoltar"
+        android:text="@string/letrinhas"
+        android:textColor="#5ddfff"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
 </RelativeLayout>

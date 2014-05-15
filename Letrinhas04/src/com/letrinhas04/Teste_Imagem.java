@@ -62,7 +62,7 @@ public class Teste_Imagem extends Activity {
 				@Override
 				protected void onCreate(Bundle savedInstanceState) {
 					super.onCreate(savedInstanceState);
-					setContentView(R.layout.teste_palavras);
+					setContentView(R.layout.teste_imagem);
 					//new line faz a rotação do ecrãn 180 graus
 					int currentOrientation = getResources().getConfiguration().orientation;
 					if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -448,7 +448,7 @@ public class Teste_Imagem extends Activity {
 							break;
 						case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
 								//
-							Intent ip = new Intent(getApplicationContext(),Teste_Palavras.class);
+							Intent ip = new Intent(getApplicationContext(),Teste_Imagem.class);
 							ip.putExtras(wrap);
 							startActivity(ip);
 							break;
@@ -460,7 +460,7 @@ public class Teste_Imagem extends Activity {
 							break;
 						case 3: // lançar a nova activity do tipo imagem, e o seu conteúdo
 							//
-							Intent im = new Intent(getApplicationContext(),Teste_Imagem.class);
+							Intent im = new Intent(getApplicationContext(),Teste_Palavras_Aluno.class);
 							im.putExtras(wrap);
 							 startActivity(im);
 							break;

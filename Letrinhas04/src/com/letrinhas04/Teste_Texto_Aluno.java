@@ -855,7 +855,7 @@ public class Teste_Texto_Aluno extends Activity {
 			case 1:// lanï¿½ar a nova activity do tipo Palavras, e o seu conteï¿½do
 					//
 				Intent ip = new Intent(getApplicationContext(),
-						Teste_Palavras.class);
+						Teste_Imagem.class);
 				ip.putExtras(wrap);
 
 				startActivity(ip);
@@ -870,13 +870,13 @@ public class Teste_Texto_Aluno extends Activity {
 				startActivity(ipm);
 
 				break;
-			case 3: // lanï¿½ar a nova activity do tipo imagem, e o seu conteï¿½do
-				//
-				// Intent it = new Intent(getApplicationContext(),
-				// Teste_Texto.class);
-				// it.putExtras(wrap);
+			case 3: // lançar a nova activity do tipo imagem, e o seu conteï¿½do
+				
+				 Intent itv = new Intent(getApplicationContext(),
+				 Teste_Palavras_Aluno.class);
+				 itv.putExtras(wrap);
 
-				// startActivity(it);
+				 startActivity(itv);
 				break;
 			default:
 				Toast.makeText(getApplicationContext(), " - Tipo nï¿½o defenido",

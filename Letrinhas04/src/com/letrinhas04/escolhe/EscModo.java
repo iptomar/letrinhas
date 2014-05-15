@@ -253,7 +253,7 @@ public class EscModo extends Activity {
 		wrap.putIntArray("IDs", iDs);
 		
 		
-		// iniciar a pagina 2 (escolher teste a corrigir)
+		// iniciar a pagina 2 (escolher testes a corrigir)
 			//Intent it = new Intent(EscModo.this, EscolheTeste.class);
 		//it.putExtras(wrap);
 		//startActivity(it);
