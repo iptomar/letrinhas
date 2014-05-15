@@ -52,7 +52,7 @@
             android:label="@string/title_activity_autenticacao" >
         </activity>
         <activity
-            android:name="com.letrinhas04.Teste_Texto"
+            android:name="com.letrinhas04.Teste_Texto_Aluno"
             android:label="@string/title_activity_teste_texto"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >

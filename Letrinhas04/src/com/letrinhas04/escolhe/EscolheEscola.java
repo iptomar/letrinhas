@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.letrinhas04.R;
-import com.letrinhas04.Teste_Texto;
+import com.letrinhas04.Teste_Texto_Aluno;
 import com.letrinhas04.BaseDados.LetrinhasDB;
 import com.letrinhas04.ClassesObjs.Escola;
 import com.letrinhas04.util.Custom;

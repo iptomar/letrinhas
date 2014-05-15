@@ -40,7 +40,7 @@ import com.letrinhas04.util.Avaliacao;
 import com.letrinhas04.util.SystemUiHider;
 import com.letrinhas04.util.Utils;
 
-public class Teste_Texto extends Activity {
+public class Teste_Texto_Aluno extends Activity {
 	// flags para verificar os diversos estados do teste
 	boolean modo, gravado, recording, playing;
 
@@ -87,7 +87,7 @@ public class Teste_Texto extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.teste_texto);
+		setContentView(R.layout.teste_texto_aluno);
 		
 		//new line faz a rota��o do ecr�n 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
@@ -846,7 +846,7 @@ public class Teste_Texto extends Activity {
 
 				// iniciar a pagina 2 (escolher teste)
 				Intent it = new Intent(getApplicationContext(),
-						Teste_Texto.class);
+						Teste_Texto_Aluno.class);
 				it.putExtras(wrap);
 
 				startActivity(it);
