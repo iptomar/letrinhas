@@ -36,15 +36,17 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 		lerSynEscolas(strings[0]);
 		lerSynEstudante(strings[0]);
 		lerSynTurmas(strings[0]);
+        lerSynTurmasProfessor(strings[0]);
 		lerSynTestes(strings[0]);
 		lerSynTestesMultimedia(strings[0]);
 
+
 		if (carregado) {
 			bent.setEnabled(true);
-			tst.setText("Sincronização realizada com sucesso!!");
+			tst.setText("Sincronizaï¿½ï¿½o realizada com sucesso!!");
 			tst.show();
 		} else {
-			tst.setText("Não foi possivel aceder ao servidor!");
+			tst.setText("Nï¿½o foi possivel aceder ao servidor!");
 			tst.show();
 		}
 		try {
@@ -177,30 +179,67 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 	 */
 	protected void lerSynTurmas(String URlString) {
 		String url = URlString + "classes/";
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		JSONObject json = JSONParser.getJSONObject(url, params);
-		try {
-
-			JSONArray turma = json.getJSONArray("classes");
-			Turma[] arrTurmas = new Turma[turma.length()];
-			// For (loop)looping
-			for (int i = 0; i < turma.length(); i++) {
-				JSONObject c = turma.getJSONObject(i);
-				// Armazenar cada item json nas variaveis
-				arrTurmas[i] = new Turma(c.getInt("id"), c.getInt("schoolId"),
-						c.getInt("classLevel"), c.getString("className"),
-						c.getString("classYear"));
-			}
-			guardarTurmasBD(arrTurmas);
-			carregado = true;
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        // getting JSON string from URL
+        JSONParser jParser = new JSONParser();
+        JSONArray turmas = jParser.getJSONArray(url, params);
+        try {
+            Turma[] arrTurmas = new Turma[turmas.length()];
+            // For (loop)looping atraves de todos os Testes
+            for (int i = 0; i < turmas.length(); i++) {
+                JSONObject c = turmas.getJSONObject(i);
+                // Armazenar cada item json nas variaveis
+                arrTurmas[i] = new Turma(c.getInt("id"), c.getInt("schoolId"),
+                        c.getInt("classLevel"), c.getString("className"),
+                        c.getString("classYear"));
+            }
+            guardarTurmasBD(arrTurmas);
+            carregado = true;
 		} catch (Exception e) {
 			Log.d("ERRO", "ERRO DE SINC TURMAS TALVEZ SERVIDOR EM BAIXO");
 			tst.setText("Erro a carregar as turmas.");
 			tst.show();
 			carregado = false;
 		}
-
 	}
+
+
+    /**
+     * Vai por HTTP buscar toda a informacao sobre os estudantes e no final
+     * chama o metodo para guardar na base de dados
+     *
+     */
+    protected void lerSynTurmasProfessor(String URlString) {
+        String url = URlString + "Classes/Relationships";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        // getting JSON string from URL
+        JSONParser jParser = new JSONParser();
+        JSONArray turmaProf = jParser.getJSONArray(url, params);
+        try {
+            TurmaProfessor[] arrTurmaProfs = new TurmaProfessor[turmaProf.length()];
+            // For (loop)looping atraves de todos os Testes
+            for (int i = 0; i < turmaProf.length(); i++) {
+                TurmaProfessor turmaProfess = new TurmaProfessor();
+                JSONObject c = turmaProf.getJSONObject(i);
+                // /////// Preencher um objecto do tipo teste com a informaÃ§ao
+                turmaProfess.setIdTurma(c.getInt("classId"));
+                turmaProfess.setIdProfessor(c.getInt("professorId"));
+                arrTurmaProfs[i] = turmaProfess;
+            }
+            guardarTurmasProfessoresBD(arrTurmaProfs);
+            carregado = true;
+        } catch (Exception e) {
+            Log.d("ERRO",
+                    "ERRO DE SINC TESTES LEITURA TALVEZ SERVIDOR EM BAIXO");
+            tst.setText("Erro a carregar os TurmasProfessores.");
+            tst.show();
+            carregado = false;
+        }
+
+    }
+
+
+
 
 	/**
 	 * Vai por HTTP buscar toda a informacao sobre os TestesLeitura e no final
@@ -509,6 +548,57 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 			Log.d("BDDADOS: ", cenas);
 		}
 	}
+
+
+
+
+    /**
+     * Guarda um array de ObJECTOS TurmasProfessores na Base de dados
+     *
+     * @param turmaProfessors
+     *            Array com testesLeitura para se guardar
+     */
+    public void guardarTurmasProfessoresBD(TurmaProfessor... turmaProfessors) {
+        LetrinhasDB db = new LetrinhasDB(context);
+        db.deleteAllItemsTurmasProfessor();
+        Log.d("DB", "Inserir Dados na base de dados dos TESTES ..");
+        for (int i = 0; i < turmaProfessors.length; i++) {
+            db.addNewItemTurmasProfessor(turmaProfessors[i]);
+        }
+        db.close();
+        Log.d("DB", "Tudo inserido nas TurmasProfessores");
+        // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
+        // CONTEUDO DA TABELA//////////////
+        List<TurmaProfessor> dados = db.getAllTurmasProfessores();
+        Log.d("BDDADOS: ",
+                "*********TURMAS-PROFESSORES********************");
+        for (TurmaProfessor cn : dados) {
+            String logs = "getIdTurma:   " + cn.getIdTurma() + ",getIdProfessor:   "
+                    + cn.getIdProfessor();
+            // Writing Contacts to log
+            Log.d("BDDADOS: ", logs);
+        }
+
+
+
+
+//        // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
+//        // CONTEUDO DA TABELA//////////////
+//        List<Turma> dados2 = db.getAllTurmasByProfid(1);
+//        Log.d("BDDADOS: ",
+//                "*********TURMASBYIUD********************");
+//        for (Turma cn : dados2) {
+//            String logs = "getNome:   " + cn.getNome() + ",getAnoEscolar:   "
+//                    + cn.getAnoEscolar();
+//            // Writing Contacts to log
+//            Log.d("BDDADOS: ", logs);
+//        }
+
+
+
+    }
+
+
 
 	/**
 	 * Guarda um array de ObJECTOS testesMultimedia na Base de dados

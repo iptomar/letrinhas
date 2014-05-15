@@ -33,6 +33,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     private static final String TABELA_TESTE = "tblTeste";
     private static final String TABELA_TESTELEITURA = "tblTesteLeitura";
     private static final String TABELA_TESTEMULTIMEDIA = "tblTesteMultimedia";
+    private static final String TABELA_TURMAPROFESSOR = "tblTurmaProfessor";
 
     // Nomes dos campos da tabela Professores
     private static final String PROF_IDPROFS = "idProfessor";
@@ -98,7 +99,8 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     private static final String TESTM_OPCAOCORRETA= "opcaoCorreta";
 
 
-
+    private static final String TURPROF_IDTURMA = "idTeste";
+    private static final String TURPROF_IDPROFESSOR = "idProfessor";
 
 
     public LetrinhasDB(Context context) {
@@ -177,6 +179,15 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + TESTL_TEXTO + " TEXT,"
                 + TESTL_SOMPROFESSOR + " TEXT)";
         db.execSQL(createTableString);
+
+
+        //Construir a Tabela TesteLeitura //////////////////
+        createTableString = "CREATE TABLE " + TABELA_TURMAPROFESSOR + "("
+                + TURPROF_IDTURMA + " INTEGER NOT NULL,"
+                + TURPROF_IDPROFESSOR + " INTEGER NOT NULL," +
+                "PRIMARY KEY ("+ TURPROF_IDTURMA +", "+ TURPROF_IDPROFESSOR +"))";
+        db.execSQL(createTableString);
+
 
         //Construir a Tabela TesteMultimedia //////////////////
         createTableString = "CREATE TABLE " + TABELA_TESTEMULTIMEDIA + "("
@@ -292,6 +303,23 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.insert(TABELA_TURMAS, null, values);
         //	db.close(); // Fechar a conecao a Base de dados
     }
+
+
+    /**
+     * Adiciona um novo registo na tabela TurmasProfessor
+     * @param turmaProfessor Recebe um objecto do tipo Turma onde vai inserir
+     *             os dados na base de dados na tabela Turmas
+     */
+    public void addNewItemTurmasProfessor(TurmaProfessor turmaProfessor) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(TURPROF_IDTURMA, turmaProfessor.getIdTurma());   // Inserir na tabela campo IdTurma
+        values.put(TURPROF_IDPROFESSOR, turmaProfessor.getIdProfessor());   // Inserir na tabela campo IdProfessor
+        // Inserir LINHAS
+        db.insert(TABELA_TURMAPROFESSOR, null, values);
+        //	db.close(); // Fechar a conecao a Base de dados
+    }
+
 
 
     /**
@@ -611,6 +639,63 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return listTurmas;
     }
 
+    /**
+     * Buscar todos os campos da Tabela TurmasProfessores
+     * Retorna uma lista com varios objectos do tipo "TurmasProfessores"
+     */
+    public List<TurmaProfessor> getAllTurmasProfessores() {
+        List<TurmaProfessor> listTurmasProf = new ArrayList<TurmaProfessor>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT  * FROM " + TABELA_TURMAPROFESSOR;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atraves de todas as linhas e adicionando � lista
+        if (cursor.moveToFirst()) {
+            do {
+                TurmaProfessor turma = new TurmaProfessor();
+                turma.setIdTurma(cursor.getInt(0));
+                turma.setIdProfessor(cursor.getInt(1));
+                // Adicionar os os items da base de dados a lista
+                listTurmasProf.add(turma);
+            } while (cursor.moveToNext());
+        }
+        // return a lista com todos os items da base de dados
+        db.close();
+        return listTurmasProf;
+    }
+
+
+    /**
+     * Buscar todos os campos da Tabela Turmas referentes ao ID Professor
+     * @param Prof Recebe um Id do Professor
+     * Retorna uma lista com varios objectos do tipo "Turmas"
+     */
+    public List<Turma> getAllTurmasByProfid(int Prof) {
+        List<Turma> listTurmas = new ArrayList<Turma>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT "+ TUR_ID +", "+ TUR_IDESCOLA +",  "+ TUR_ANO +", "+ TUR_NOME +", "+ TUR_ANOLETIVO +" "+
+        "FROM " + TABELA_TURMAS + " , " + TABELA_TURMAPROFESSOR +
+                " WHERE " + TUR_ID + " = "+ TURPROF_IDTURMA +" AND "+ TURPROF_IDPROFESSOR +" = "+ Prof;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atraves de todas as linhas e adicionando � lista
+        if (cursor.moveToFirst()) {
+            do {
+                Turma turma = new Turma();
+                turma.setId(cursor.getInt(0));
+                turma.setIdEscola(cursor.getInt(1));
+                turma.setAnoEscolar(cursor.getInt(2));
+                turma.setNome(cursor.getString(3));
+                turma.setAnoLetivo(cursor.getString(4));
+                // Adicionar os os items da base de dados a lista
+                listTurmas.add(turma);
+            } while (cursor.moveToNext());
+        }
+        // return a lista com todos os items da base de dados
+        db.close();
+        return listTurmas;
+    }
+
 
 
 
@@ -826,11 +911,21 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     }
 
     /**
-     * Apaga todos os dados da tabela testes
+     * Apaga todos os dados da tabela turmas
      */
     public void deleteAllItemsTurmas() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_TURMAS + " WHERE 1");
+        db.close();
+    }
+
+
+    /**
+     * Apaga todos os dados da tabela turmas
+     */
+    public void deleteAllItemsTurmasProfessor() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABELA_TURMAPROFESSOR + " WHERE 1");
         db.close();
     }
 
