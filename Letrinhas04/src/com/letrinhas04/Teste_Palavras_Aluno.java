@@ -6,7 +6,6 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -14,32 +13,33 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.letrinhas04.ClassesObjs.Teste;
+
 import com.letrinhas04.BaseDados.LetrinhasDB;
+import com.letrinhas04.ClassesObjs.Teste;
 import com.letrinhas04.util.SystemUiHider;
 
 public class Teste_Palavras_Aluno extends Activity{
 	// flags para verificar os diversos estados do teste
 			boolean modo, gravado, recording, playing;
 			// objetos
-			ImageButton record, play, voltar, cancelar, avancar;
+			ImageButton record, play, voltar, cancelar, avancar,voicePlay;
 			TextView pnt, vcl, frg, slb, rpt, pErr;
 			Chronometer chrono;
 			// variaveis contadoras para a avaliação
 			int plvErradas, pontua, vacil, fragment, silabs, repeti,tipoDeTextView, numero=0,nTestes;
 			private MediaRecorder gravador;
 			private MediaPlayer reprodutor = new MediaPlayer();
-			private String endereco;
+			String endereco,yo;
 			LetrinhasDB db;
 			List<Teste> testePalavras;
 			String[] texto;
@@ -103,9 +103,10 @@ public class Teste_Palavras_Aluno extends Activity{
 				// buscar os parametros
 				Bundle b = getIntent().getExtras();
 				// Compor novamnete e lista de testes
-				//int lstID[] = b.getIntArray("ListaID");
+				//int lstId[] = b.getIntArray("ListaId");
 				//int[] lstTipo = b.getIntArray("ListaTipo");
 				//String[] lstTitulo = b.getStringArray("ListaTitulo");
+				//String[] lstTexto = b.getStringArray("ListaTexto");
 				
 				db = new LetrinhasDB(this);
 				testePalavras = db.getAllTeste();
@@ -113,29 +114,40 @@ public class Teste_Palavras_Aluno extends Activity{
 				texto = new String[nTestes];
 				titulo = new String[nTestes];
 				tipo = new int[nTestes];
+				tudo = new String[nTestes];
 				for(Teste cn: testePalavras){
 					tudo[numero] = cn.getTexto()+","+cn.getTipo()+","+cn.getTitulo();
+					Log.d("debug-Palavras", tudo[numero]);
 					texto[numero] = cn.getTexto();
 					tipo[numero] = cn.getTipo();
 					titulo[numero] = cn.getTitulo();
 					numero++;
 				}
 				// Consultar a BD para preencher o conteúdo....
-				((TextView) findViewById(R.id.textCabecalho)).setText(titulo[0]);
-				((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
-				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + b.getString("Professor") + "/" + b.getString("Aluno") + "/" + titulo[0] + ".3gpp";
+				String[] var;
+				for(int i = 0; i<texto.length; i++){
+					var = texto[i].split("[ ]");
+					for(int j = 1; j< var.length; j++){
+						yo += var[j]+"\n";
+						Log.d("debug-EXtrs", yo);
+					} 
+					Log.d("debug-EndText", yo);
+					((TextView) findViewById(R.id.tvTexto1)).setText(yo);
+				}
+				((TextView) findViewById(R.id.tvTexto2)).setText(yo);
+				((TextView) findViewById(R.id.tvTexto)).setText(yo);
+				//endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + b.getString("Professor") + "/" + b.getString("Aluno") + "/" + titulo[0] + ".3gpp";
 				// descontar este teste da lista.
 				tudo = new String[nTestes - 1];
 				String[] aux = tudo;
 				for (int i = 1; i < nTestes; i++) {
-					aux[i - 1] = tudo[i];
+					//aux[i - 1] = tudo[i];
 				}
-				tudo = aux;
-				
-				((TableLayout) findViewById(R.id.txtControlo)).setVisibility(View.INVISIBLE);
+				//tudo = aux;
 				record = (ImageButton) findViewById(R.id.txtRecord);
 				play = (ImageButton) findViewById(R.id.txtPlay);
 				play.setVisibility(View.INVISIBLE);
+				voicePlay = (ImageButton) findViewById(R.id.voicePlay);
 				voltar = (ImageButton) findViewById(R.id.txtVoltar);
 				cancelar = (ImageButton) findViewById(R.id.txtCancel);
 				avancar = (ImageButton) findViewById(R.id.txtAvaliar);
@@ -210,15 +222,21 @@ public class Teste_Palavras_Aluno extends Activity{
 						startPlay();
 					}
 				});
+				voicePlay.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						//startPlay();
+					}
+				});
 				cancelar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
 						// salta a avaliação e vai para o próximo teste descurando a
 						// gravação gerada
-						File file = new File(endereco);
+						/*File file = new File(endereco);
 						if (file.exists()) {
 							file.delete();
-						}
+						}*/
 						finaliza();
 					}
 				});
@@ -394,33 +412,6 @@ public class Teste_Palavras_Aluno extends Activity{
 					}
 				}
 			}
-		/*	private void startAvalia() {
-				if (modo) { // se está em modo de professor
-							// inicia a avaliação
-					File file = new File(endereco);
-					if (file.exists()) { // se já fez uma gravação
-						// uma pop-up ou activity para determinar o valor de
-						// exprecividade da leitura
-						// usar a classe Avaliação para calcular os resultados.
-						// avançar para o próximo teste caso este exista.
-						finaliza();
-					} else {
-						android.app.AlertDialog alerta;
-						// Cria o gerador do AlertDialog
-						AlertDialog.Builder builder = new AlertDialog.Builder(this);
-						// define o titulo
-						builder.setTitle("Letrinhas 03");
-						// define a mensagem
-						builder.setMessage(" Ainda não executou a gravação da leitura!\n"+ " Faça-o antes de avaliar.");
-						// define um botão como positivo
-						builder.setPositiveButton("OK", null);
-						// cria o AlertDialog
-						alerta = builder.create();
-						// Mostra
-						alerta.show();
-					}
-				}
-			}*/
 
 			/**
 			 * Prepara a finalização da activity, descobrindo qual o próximo teste a
@@ -429,62 +420,59 @@ public class Teste_Palavras_Aluno extends Activity{
 			private void finaliza() {
 				if (tudo.length != 0) {
 					// Decompor o array de teste, para poder enviar por parametros
+					Log.d("debug-SetBack", tudo.toString());
 					for (int i = 0; i < tudo.length; i++) {
-					/*	String[] bach = tudo[i].split("[,]"); 
-						texto[i] = ;
-						tipo[i] = ;
-						titulo[i] = ;
+						String[] bach = tudo[i].split("[,]"); 
+						
+						texto[i] = bach[0];
+						tipo[i] = Integer.parseInt(bach[1]);
+						titulo[i] = bach[2];
 					}
-					// enviar o parametro de modo
 					Bundle wrap = new Bundle();
-					wrap.putBoolean("Modo", modo);
 					// teste, a depender das informações da BD
 					// ***********************************************************+
-					wrap.putString("Aluno", "EI3C-Tiago Fernandes");
-					wrap.putString("Professor", "ESTT-Antonio Manso");
-					wrap.putIntArray("ListaID", lstID);
-					wrap.putIntArray("ListaTipo", lstTipo);
-					wrap.putStringArray("ListaTitulo", lstTitulo);
+					//wrap.putStringArray("ListaID", texto);
+					//wrap.putIntArray("ListaTipo", tipo);
+					//wrap.putStringArray("ListaTitulo", titulo);
 					// identifico o tipo de teste
-					switch (lista[0].getTipo()) {
-					case 0:
-						// lançar a nova activity do tipo texto,
-						// iniciar a pagina 2 (escolher teste)
-						Intent it = new Intent(getApplicationContext(),Teste_Texto.class);
-						it.putExtras(wrap);
-						startActivity(it);
-						break;
-					case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
+					switch (tipo[0]) {
+						case 0:
+							// lançar a nova activity do tipo texto,
+							// iniciar a pagina 2 (escolher teste)
+							Intent it = new Intent(getApplicationContext(),Teste_Texto_Aluno.class);
+							it.putExtras(wrap);
+							startActivity(it);
+							break;
+						case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
+							Intent ip = new Intent(getApplicationContext(),Teste_Palavras_Aluno.class);
+							ip.putExtras(wrap);
+							startActivity(ip);
+							break;
+						case 2: // lançar a nova activity do tipo Poema, e o seu conteúdo
 							//
-						Intent ip = new Intent(getApplicationContext(),Teste_Palavras_Aluno.class);
-						ip.putExtras(wrap);
-						startActivity(ip);
-						break;
-					case 2: // lançar a nova activity do tipo Poema, e o seu conteúdo
-						//
-						Intent ipm = new Intent(getApplicationContext(),Teste_Poema.class);
-						ipm.putExtras(wrap);
-						startActivity(ipm);
-						break;
-					case 3: // lançar a nova activity do tipo imagem, e o seu conteúdo
-						//
-						// Intent it = new Intent(getApplicationContext(),
-						// Teste_Texto.class);
-						// it.putExtras(wrap);
-						// startActivity(it);
-						break;
-					default:
-						Toast.makeText(getApplicationContext(), " - Tipo não defenido",Toast.LENGTH_SHORT).show();
-						// retirar o teste errado e continuar
-						int k = 0;
-						/*Teste aux[] = new Teste[lista.length - 1];
-						for (int i = 1; i < lista.length; i++) {
-							aux[k] = lista[i];
-							k++;
-						}
-						lista = aux;*/
-						finaliza();
-						break;
+							Intent ipm = new Intent(getApplicationContext(),Teste_Poema_Aluno.class);
+							ipm.putExtras(wrap);
+							startActivity(ipm);
+							break;
+						case 3: // lançar a nova activity do tipo imagem, e o seu conteúdo
+							//
+							// Intent it = new Intent(getApplicationContext(),
+							// Teste_Texto.class);
+							// it.putExtras(wrap);
+							// startActivity(it);
+							break;
+						default:
+							Toast.makeText(getApplicationContext(), " - Tipo não defenido",Toast.LENGTH_SHORT).show();
+							// retirar o teste errado e continuar
+							int k = 0;
+							/*Teste aux[] = new Teste[lista.length - 1];
+							for (int i = 1; i < lista.length; i++) {
+								aux[k] = lista[i];
+								k++;
+							}
+							lista = aux;*/
+							finaliza();
+							break;
 					}
 				}
 				finish();
