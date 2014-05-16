@@ -34,9 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="300sp"
-        android:layout_marginTop="390sp"
         android:text="@string/agrupamento"
-        android:textSize="50sp" />
+        android:textSize="50sp" android:layout_marginBottom="210sp" android:layout_gravity="bottom"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -103,14 +102,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/progressBarLoad" android:layout_gravity="center_horizontal|bottom"
                 android:indeterminate="false"
-                android:background="@color/black_overlay" android:layout_marginBottom="190dp"/>
+                android:background="@color/black_overlay" android:layout_marginBottom="165dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text=" "
                 android:id="@+id/txtMsg" android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="90dp" android:textSize="30dp"/>
+                android:layout_marginBottom="50dp" android:textSize="30dp"/>
 
     </FrameLayout>
 

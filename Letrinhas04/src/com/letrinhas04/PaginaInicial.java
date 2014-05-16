@@ -188,8 +188,8 @@ public class PaginaInicial extends Activity {
 		// Se n�o existir, tentamos aqui ligar ao servidor
 		if (escolas.size() == 0) {
 			try {
-				Toast.makeText(this,"Sem informa��o na Base de dados local!\n"
-								+ "Vou tentar descarregar a Base de Dados do servidor!\n",
+				Toast.makeText(this,"Sem informacao na Base de dados local!\n"
+								+ "A descarregar BASE DADOS do servidor!\n",
 						Toast.LENGTH_LONG).show();
                 prog.setVisibility(View.VISIBLE);
                 txtViewMSG.setVisibility(View.VISIBLE);
