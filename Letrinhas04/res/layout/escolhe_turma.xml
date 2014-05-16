@@ -63,7 +63,7 @@
                     android:layout_marginRight="30sp"
                     android:background="#0099cc"
                     android:drawableTop="@drawable/turma"
-                    android:text="Turma 3º B"
+                    android:text="Turma associada ao professor"
                     android:textSize="25sp" />
 
             </TableRow>

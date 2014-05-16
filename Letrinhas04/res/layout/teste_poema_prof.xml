@@ -47,8 +47,10 @@
                 android:layout_width="501dp"
                 android:layout_height="978dp"
                 android:layout_gravity="fill"
+                android:text="@string/ExemploPoema"
                 android:textIsSelectable="true"
                 android:textSize="35sp" />
+
         </LinearLayout>
     </ScrollView>
 

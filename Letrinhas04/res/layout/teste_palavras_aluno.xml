@@ -14,9 +14,9 @@
         android:id="@+id/txtTela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/txtPlay"
         android:layout_marginLeft="21dp"
         android:background="#ccccff"
         android:paddingBottom="10dp"
@@ -24,13 +24,21 @@
         android:paddingRight="10dp"
         android:paddingTop="10dp" >
 
-        <TextView
-        	android:id="@+id/tvTexto"
-        	android:layout_width="240dp"
-            android:layout_height="1221dp"
-           	android:orientation="vertical"
-            android:textSize="32sp"
-            android:textStyle="normal"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="240dp"
+                android:layout_height="1221dp"
+                android:orientation="vertical"
+                android:text="Palavra"
+                android:textSize="32sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
 
     </ScrollView>
      <ScrollView
@@ -47,13 +55,20 @@
         android:paddingRight="10dp"
         android:paddingTop="10dp" >
 
-        <TextView
-            android:id="@+id/tvTexto1"
-            android:layout_width="240dp"
-            android:layout_height="1221dp"
-            android:orientation="vertical"
-            android:textSize="32sp"
-            android:textStyle="normal" />
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical" >
+
+             <TextView
+                 android:id="@+id/TextView02"
+                 android:layout_width="240dp"
+                 android:layout_height="1221dp"
+                 android:orientation="vertical"
+                 android:text="Palavra"
+                 android:textSize="32sp"
+                 android:textStyle="normal" />
+         </LinearLayout>
 
     </ScrollView>
      <ScrollView
@@ -70,13 +85,21 @@
         android:paddingRight="10dp"
         android:paddingTop="10dp" >
 
-        <TextView
-          	android:id="@+id/tvTexto2"
-          	android:layout_width="240dp"
-            android:layout_height="1221dp"
-            android:orientation="vertical"
-          	android:textSize="32sp"
-          	android:textStyle="normal" />
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical" >
+
+             <TextView
+                 android:id="@+id/TextView03"
+                 android:layout_width="240dp"
+                 android:layout_height="1221dp"
+                 android:orientation="vertical"
+                 android:text="Palavra"
+                 android:textSize="32sp"
+                 android:textStyle="normal" />
+         </LinearLayout>
+
     </ScrollView>
      
     <ImageButton
@@ -99,36 +122,6 @@
         android:src="@drawable/palyoff" />
 
     <ImageButton
-        android:id="@+id/txtCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/txtAvaliar"
-        android:layout_alignLeft="@+id/txtAvaliar"
-        android:layout_marginBottom="14dp"
-        android:contentDescription="@string/sair"
-        android:src="@drawable/cancelar" />
-
-    <ImageButton
-        android:id="@+id/txtAvaliar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtTela2"
-        android:layout_alignLeft="@+id/txtVoltar"
-        android:layout_marginBottom="20dp"
-        android:contentDescription="@string/entrar"
-        android:src="@drawable/valido" />
-
-    <ImageButton
-        android:id="@+id/txtVoltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/txtCancel"
-        android:layout_alignRight="@+id/txtPlay"
-        android:layout_marginBottom="84dp"
-        android:contentDescription="@string/voltar"
-        android:src="@drawable/voltar" />
-
-    <ImageButton
         android:id="@+id/voicePlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -136,6 +129,35 @@
         android:layout_below="@+id/txtPlay"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/play"
-        android:src="@drawable/palyoff" />
+        android:src="@drawable/play" />
+
+    <ImageButton
+        android:id="@+id/txtVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/voltar"
+        android:src="@drawable/voltar" />
+
+    <ImageButton
+        android:id="@+id/txtCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtVoltar"
+        android:layout_alignRight="@+id/txtVoltar"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@string/sair"
+        android:src="@drawable/cancelar" />
+
+    <ImageButton
+        android:id="@+id/txtAvaliar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtCancel"
+        android:layout_alignRight="@+id/txtCancel"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="@string/entrar"
+        android:src="@drawable/valido" />
 
 </RelativeLayout>

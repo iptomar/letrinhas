@@ -62,7 +62,7 @@
                     android:layout_marginRight="30sp"
                     android:background="#0099cc"
                     android:drawableTop="@drawable/boy"
-                    android:text="1. Alberto Marques"
+                    android:text="1. Aluno referente à turma escolhda"
                     android:textSize="25sp" />
 
             </TableRow>

@@ -92,5 +92,27 @@
     <string name="escolherModo">Escolher modo</string>
     <string name="realizarTeste">Realizar teste(s)</string>
     <string name="corrigirTeste">Corrigir teste(s)</string>
+    <string name="demo">Demo</string>
+    <string name="iniciar">Iniciar</string>
+    <string name="ExemploTexto">Alfabetização\n
+        A alfabetização consiste no aprendizado do alfabeto e de sua utilização como código de comunicação. De um modo mais abrangente, a alfabetização é definida como um processo no qual o indivíduo constrói a gramática e em suas variações. Esse processo não se resume apenas na aquisição dessas habilidades mecânicas (codificação e decodificação) do acto de ler, mas na capacidade de interpretar, compreender, criticar, resignificar e produzir conhecimento.1 Todas essas capacidades citadas anteriormente só serão concretizadas se os alunos tiverem acesso a todos os tipos de portadores de textos. O aluno precisa encontrar os usos sociais da leitura e da escrita.2 A alfabetização envolve também o desenvolvimento de novas formas de compreensão e uso da linguagem de uma maneira geral.\n
+        A alfabetização de um indivíduo promove sua socialização, já que possibilita o estabelecimento de novos tipos de trocas simbólicas com outros indivíduos, acesso a bens culturais e a facilidades oferecidas pelas instituições sociais. A alfabetização é um fator propulsor do exercício consciente da cidadania e do desenvolvimento da sociedade como um todo.\n
+        A incapacidade de ler e escrever é denominada analfabetismo, enquanto que a incapacidade de interpretar textos simples é chamada analfabetismo funcional ou semianalfabetismo.</string>
+    <string name="ExemploPoema">    Ó lua que vais tão alta,\n
+Redonda como um tamanco!\n
+Ó Maria, traz cá a escada,\n
+Que eu não chego lá com um banco.\n
+\n
+A minha mãe fez um bolo de alfazema.\n
+Pedi-lhe uma fatia, e ela deu-ma!\n
+\n
+Da minha casa à tua\n
+vai uma grande distância,\n
+Cuidado pelo caminho, \n
+não vás escorregar numa casaca de melância!\n
+\n
+ o meu nome é dionísio\n
+pediram-me para fazer um poema, e fízi-o.\n
+</string>
 
 </resources>

@@ -82,20 +82,6 @@
         android:contentDescription="@string/sair"
         android:src="@drawable/cancelar" />
 
-    <Chronometer
-        android:id="@+id/cromTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtPlay"
-        android:layout_alignTop="@+id/txtPlay"
-        android:background="#000000"
-        android:gravity="right"
-        android:paddingLeft="10sp"
-        android:paddingRight="10sp"
-        android:textColor="#50ff50"
-        android:textSize="40sp"
-        android:textStyle="bold" />
-
     <ImageButton
         android:id="@+id/txtVoltar"
         android:layout_width="wrap_content"
