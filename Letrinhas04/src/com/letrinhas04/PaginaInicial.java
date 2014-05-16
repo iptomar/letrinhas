@@ -12,10 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.*;
 
 import com.letrinhas04.R;
 import com.letrinhas04.BaseDados.LetrinhasDB;
@@ -37,11 +34,10 @@ import com.letrinhas04.util.coneccaoW;
  * @author Thiago
  */
 public class PaginaInicial extends Activity {
-	Button bentrar, exper; // botï¿½o para aceder ao menu
+	public Button bentrar, exper; // botï¿½o para aceder ao menu
 	ImageButton ibotao;// botï¿½o para sair da app
-	ProgressBar link; // barra de progresso para simbolizar a sincronizaï¿½ï¿½o
-						// caso exista ligaï¿½ï¿½o ao servidor.
-
+    public ProgressBar prog;
+    public TextView txtViewMSG;
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -75,17 +71,26 @@ public class PaginaInicial extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.pagina_inicial);
-		
-		// new line faz a rotação do ecrãn em 180 graus
+
+        //Declaracao de objectos da janela
+        prog = (ProgressBar) findViewById(R.id.progressBarLoad);
+        prog.setVisibility(View.INVISIBLE);
+        txtViewMSG = (TextView) findViewById(R.id.txtMsg);
+        txtViewMSG.setVisibility(View.INVISIBLE);
+        findViewById(R.id.bEntrar1).setOnTouchListener(mDelayHideTouchListener);
+        bentrar = (Button) findViewById(R.id.bEntrar1);
+        ibotao = (ImageButton) findViewById(R.id.iBSair);
+        final View controlsView = findViewById(R.id.fullscreen_content_controls);
+        final View contentView = findViewById(R.id.fullscreen_content);
+
+
+		        // new line faz a rotaï¿½ï¿½o do ecrï¿½n em 180 graus
 				int currentOrientation = getResources().getConfiguration().orientation;
 				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 				} else {
 					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 				}
-
-		final View controlsView = findViewById(R.id.fullscreen_content_controls);
-		final View contentView = findViewById(R.id.fullscreen_content);
 
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
@@ -144,14 +149,7 @@ public class PaginaInicial extends Activity {
 			}
 		});
 
-		// Upon interacting with UI controls, delay any scheduled hide()
-		// operations to prevent the jarring behavior of controls going away
-		// while interacting with the UI.
-		findViewById(R.id.bEntrar1).setOnTouchListener(mDelayHideTouchListener);
 
-		bentrar = (Button) findViewById(R.id.bEntrar1);
-		ibotao = (ImageButton) findViewById(R.id.iBSair);
-		link = (ProgressBar) findViewById(R.id.pBarLink);
 
 		/**************
 		 * Por fazer,
@@ -173,51 +171,52 @@ public class PaginaInicial extends Activity {
 		 * entrar.~
 		 * 
 		 */
-		// DE acordo com a ultima aula ficou decidido que não vamos ligar o
+		// DE acordo com a ultima aula ficou decidido que nï¿½o vamos ligar o
 		// WI.fi
 		// coneccaoW con = new coneccaoW(this);
 		// con.run();//Mï¿½todo run, pois a DVM ï¿½ burra!!! e nï¿½o funciona
 		// muito bem com as threads no mï¿½todo Start()
 
-		// bloqueiar o botão Entrar
+		// bloqueiar o botï¿½o Entrar
 		bentrar.setEnabled(false);
 
-		// verifica se existe alguma coisa na BD local, vou à primeira tabela
-		// necessária
+		// verifica se existe alguma coisa na BD local, vou ï¿½ primeira tabela
+		// necessï¿½ria
 		LetrinhasDB db = new LetrinhasDB(this);
 		List<Escola> escolas = db.getAllSchools();
 
-		// Se não existir, tentamos aqui ligar ao servidor
+		// Se nï¿½o existir, tentamos aqui ligar ao servidor
 		if (escolas.size() == 0) {
 			try {
-				Toast.makeText(this,"Sem informação na Base de dados local!\n"
+				Toast.makeText(this,"Sem informaï¿½ï¿½o na Base de dados local!\n"
 								+ "Vou tentar descarregar a Base de Dados do servidor!\n",
 						Toast.LENGTH_LONG).show();
+                prog.setVisibility(View.VISIBLE);
+                txtViewMSG.setVisibility(View.VISIBLE);
 				// /////////////////////////////////////////////////////////////////////////////////////////
 				// //////////CHAMA EM BAKCGORUND A SINCRO DE TABELAS E INSERE NA
 				// BASE DE DADOS /////////////
 				String ip = "code.dei.estt.ipt.pt"; // //TROCAR ISTO POR
 													// VARIAVEIS
-				// COM OS ENDEREÇOS IP QUE NAO SEI ONDE TEM/////////
+				// COM OS ENDEREï¿½OS IP QUE NAO SEI ONDE TEM/////////
 				String porta = "80";
-				// Forma o endereço http
+				// Forma o endereï¿½o http
 				String URlString = "http://" + ip + ":" + porta + "/";
 
 				String[] myTaskParams = { URlString, URlString, URlString };
-				
-				Toast tst = Toast.makeText(this, "Não foi possivel aceder ao servidor!\n", Toast.LENGTH_SHORT);
-				new SincAllBd(this, bentrar, link, tst).execute(myTaskParams);
+				new SincAllBd(this, this).execute(myTaskParams);
+
 				// //////////////PODEM VER EM LOGCAT A INSERIR TODOS OS DADOS NA
-				// TABELA ////////////////////
 				// /////////////////////////////////////////////////////////////////////////////////////////
 			} catch (Exception e2) {
-				Toast.makeText(this, "Não foi possivel aceder ao servidor!\n"
+				Toast.makeText(this, "Nao foi possivel aceder ao servidor!\n"
 						+ "Debug: " + e2, Toast.LENGTH_LONG).show();
 
 			}
 		} else {
-			// desbloqueia botão de entrar
-			link.setVisibility(View.INVISIBLE);
+			// desbloqueia botao de entrar
+            prog.setVisibility(View.INVISIBLE);
+            txtViewMSG.setVisibility(View.INVISIBLE);
 			bentrar.setEnabled(true);
 		}
 
@@ -232,7 +231,7 @@ public class PaginaInicial extends Activity {
 				// *****************************************************************************
 				// *****************************************************************************
 				// *****************************************************************************
-				// iniciar a pagina 2 (escolher escola ou então passar logo para
+				// iniciar a pagina 2 (escolher escola ou entï¿½o passar logo para
 				// a pagina escolher turma(brevemente))
 				Intent it = new Intent(PaginaInicial.this, EscolheEscola.class);// Autenticacao.class);
 				startActivity(it);
@@ -242,7 +241,7 @@ public class PaginaInicial extends Activity {
 		ibotao.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// sair da aplicação
+				// sair da aplicaï¿½ï¿½o
 				java.lang.System.exit(RESULT_OK);
 			}
 		});
