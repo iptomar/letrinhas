@@ -1,4 +1,4 @@
-package com.letrinhas04;
+package com.letrinhas05;
 
 import java.util.List;
 
@@ -14,13 +14,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.*;
 
-import com.letrinhas04.R;
-import com.letrinhas04.BaseDados.LetrinhasDB;
-import com.letrinhas04.BaseDados.SincAllBd;
-import com.letrinhas04.ClassesObjs.Escola;
-import com.letrinhas04.escolhe.EscolheEscola;
-import com.letrinhas04.util.SystemUiHider;
-import com.letrinhas04.util.coneccaoW;
+import com.letrinhas05.R;
+import com.letrinhas05.BaseDados.LetrinhasDB;
+import com.letrinhas05.BaseDados.SincAllBd;
+import com.letrinhas05.ClassesObjs.Escola;
+import com.letrinhas05.escolhe.EscolheEscola;
+import com.letrinhas05.util.SystemUiHider;
 
 /**
  * P�gina Inicial

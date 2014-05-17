@@ -1,4 +1,4 @@
-package com.letrinhas04.ClassesObjs;
+package com.letrinhas05.ClassesObjs;
 
 public class Professor {
     // private variables

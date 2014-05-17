@@ -1,4 +1,4 @@
-package com.letrinhas04.escolhe;
+package com.letrinhas05.escolhe;
 
 import java.util.List;
 
@@ -27,12 +27,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.letrinhas04.R;
-import com.letrinhas04.Teste_Texto_Aluno;
-import com.letrinhas04.BaseDados.LetrinhasDB;
-import com.letrinhas04.ClassesObjs.Escola;
-import com.letrinhas04.util.Custom;
-import com.letrinhas04.util.SystemUiHider;
+import com.letrinhas05.R;
+import com.letrinhas05.Teste_Texto_Aluno;
+import com.letrinhas05.BaseDados.LetrinhasDB;
+import com.letrinhas05.ClassesObjs.Escola;
+import com.letrinhas05.util.Custom;
+import com.letrinhas05.util.SystemUiHider;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class EscolheEscola extends Activity {

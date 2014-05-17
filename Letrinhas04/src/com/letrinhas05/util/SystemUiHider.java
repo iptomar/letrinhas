@@ -1,4 +1,4 @@
-package com.letrinhas04.util;
+package com.letrinhas05.util;
 
 import android.app.Activity;
 import android.os.Build;

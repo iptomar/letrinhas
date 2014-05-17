@@ -1,15 +1,16 @@
-package com.letrinhas04;
+package com.letrinhas05;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.letrinhas04.BaseDados.NetworkUtils;
-import com.letrinhas04.ClassesObjs.CorrecaoTesteLeitura;
-import com.letrinhas04.util.Avaliacao;
-import com.letrinhas04.util.SystemUiHider;
-import com.letrinhas04.util.Utils;
+import com.letrinhas05.R;
+import com.letrinhas05.BaseDados.NetworkUtils;
+import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
+import com.letrinhas05.util.Avaliacao;
+import com.letrinhas05.util.SystemUiHider;
+import com.letrinhas05.util.Utils;
 
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;

@@ -10,7 +10,7 @@
     android:paddingRight="30sp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:screenOrientation="landscape"
-    tools:context="com.letrinhas04.escolhe.EscolheDisciplina" >
+    tools:context="com.letrinhas05.escolhe.EscolheDisciplina" >
 
     <Button
         android:id="@+id/btnDVoltar"

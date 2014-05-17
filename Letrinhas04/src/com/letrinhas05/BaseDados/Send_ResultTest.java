@@ -1,4 +1,4 @@
-package com.letrinhas04.BaseDados;
+package com.letrinhas05.BaseDados;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -8,8 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import com.letrinhas04.R;
-import com.letrinhas04.ClassesObjs.CorrecaoTesteLeitura;
+
+import com.letrinhas05.R;
+import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 
 public class Send_ResultTest extends Activity {
     // url DO servidor, preenchido em baixo

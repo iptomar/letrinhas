@@ -1,7 +1,7 @@
-package com.letrinhas04.escolhe;
+package com.letrinhas05.escolhe;
 
-import com.letrinhas04.R;
-import com.letrinhas04.util.SystemUiHider;
+import com.letrinhas05.R;
+import com.letrinhas05.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

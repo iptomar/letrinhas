@@ -1,4 +1,4 @@
-package com.letrinhas04;
+package com.letrinhas05;
 
 import java.io.File;
 
@@ -24,9 +24,9 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.letrinhas04.R;
-import com.letrinhas04.util.SystemUiHider;
-import com.letrinhas04.util.Teste;
+import com.letrinhas05.R;
+import com.letrinhas05.util.SystemUiHider;
+import com.letrinhas05.util.Teste;
 
 public class Teste_Imagem extends Activity {
 

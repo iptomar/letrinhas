@@ -1,4 +1,4 @@
-package com.letrinhas04.escolhe;
+package com.letrinhas05.escolhe;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -19,10 +19,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.letrinhas04.R;
-import com.letrinhas04.ClassesObjs.Escola;
-import com.letrinhas04.util.Custom;
-import com.letrinhas04.util.SystemUiHider;
+import com.letrinhas05.R;
+import com.letrinhas05.ClassesObjs.Escola;
+import com.letrinhas05.util.Custom;
+import com.letrinhas05.util.SystemUiHider;
 
 public class EscolheDisciplina extends Activity {
 

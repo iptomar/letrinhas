@@ -11,7 +11,7 @@
     android:paddingRight="40sp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:screenOrientation="landscape"
-    tools:context="com.letrinhas04.escolhe.EscolheProfessor" >
+    tools:context="com.letrinhas05.escolhe.EscolheProfessor" >
 
     <ImageView
         android:id="@+id/escPlogo"

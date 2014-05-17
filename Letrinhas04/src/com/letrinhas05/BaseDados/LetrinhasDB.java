@@ -4,15 +4,16 @@
 //////////////////////////////////////////////////////////////////////
 
 
-package com.letrinhas04.BaseDados;
+package com.letrinhas05.BaseDados;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import com.letrinhas04.ClassesObjs.*;
-import com.letrinhas04.util.Utils;
+
+import com.letrinhas05.ClassesObjs.*;
+import com.letrinhas05.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

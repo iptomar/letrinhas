@@ -1,10 +1,10 @@
-package com.letrinhas04.BaseDados;
+package com.letrinhas05.BaseDados;
 
 import android.net.http.AndroidHttpClient;
 import android.util.Log;
 
-import com.letrinhas04.ClassesObjs.CorrecaoTeste;
-import com.letrinhas04.ClassesObjs.CorrecaoTesteLeitura;
+import com.letrinhas05.ClassesObjs.CorrecaoTeste;
+import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

@@ -1,14 +1,15 @@
-package com.letrinhas04;
+package com.letrinhas05;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import com.letrinhas04.BaseDados.LetrinhasDB;
-import com.letrinhas04.ClassesObjs.Estudante;
-import com.letrinhas04.ClassesObjs.Teste;
-import com.letrinhas04.escolhe.EscolheEscola;
-import com.letrinhas04.util.SystemUiHider;
+import com.letrinhas05.R;
+import com.letrinhas05.BaseDados.LetrinhasDB;
+import com.letrinhas05.ClassesObjs.Estudante;
+import com.letrinhas05.ClassesObjs.Teste;
+import com.letrinhas05.escolhe.EscolheEscola;
+import com.letrinhas05.util.SystemUiHider;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

@@ -1,4 +1,4 @@
-package com.letrinhas04.escolhe;
+package com.letrinhas05.escolhe;
 
 import java.util.List;
 
@@ -17,13 +17,13 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.letrinhas04.R;
-import com.letrinhas04.Teste_Palavras_Aluno;
-import com.letrinhas04.Teste_Poema_Aluno;
-import com.letrinhas04.Teste_Texto_Aluno;
-import com.letrinhas04.BaseDados.LetrinhasDB;
-import com.letrinhas04.ClassesObjs.Teste;
-import com.letrinhas04.util.SystemUiHider;
+import com.letrinhas05.R;
+import com.letrinhas05.Teste_Palavras_Aluno;
+import com.letrinhas05.Teste_Poema_Aluno;
+import com.letrinhas05.Teste_Texto_Aluno;
+import com.letrinhas05.BaseDados.LetrinhasDB;
+import com.letrinhas05.ClassesObjs.Teste;
+import com.letrinhas05.util.SystemUiHider;
 
 public class EscolheTeste extends Activity {
 	ImageButton volt, exect;

@@ -3,7 +3,7 @@
  * @author Dário
  */
 
-package com.letrinhas04.util;
+package com.letrinhas05.util;
 
 public class Avaliacao {
 	private int totalDePalavras, TotalDeSinaisPontuacao;

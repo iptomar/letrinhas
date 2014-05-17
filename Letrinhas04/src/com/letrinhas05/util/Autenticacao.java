@@ -1,6 +1,6 @@
-package com.letrinhas04.util;
+package com.letrinhas05.util;
 
-import com.letrinhas04.R;
+import com.letrinhas05.R;
 
 import android.app.Activity;
 import android.os.Bundle;

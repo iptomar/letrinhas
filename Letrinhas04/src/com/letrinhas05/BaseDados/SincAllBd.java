@@ -1,14 +1,14 @@
-package com.letrinhas04.BaseDados;
+package com.letrinhas05.BaseDados;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import android.widget.TextView;
-import com.letrinhas04.ClassesObjs.*;
-import com.letrinhas04.PaginaInicial;
+
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -18,7 +18,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import com.letrinhas04.util.Utils;
+
+import com.letrinhas05.PaginaInicial;
+import com.letrinhas05.ClassesObjs.*;
+import com.letrinhas05.util.Utils;
 
 /**
  * Created by Alex on 03/05/2014. ESTA CLASSE VAI FAZER A SINCRON DAS TABELAS EM

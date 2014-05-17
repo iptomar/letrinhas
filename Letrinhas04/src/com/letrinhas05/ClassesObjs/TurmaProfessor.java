@@ -1,4 +1,4 @@
-package com.letrinhas04.ClassesObjs;
+package com.letrinhas05.ClassesObjs;
 
 /**
  * Created by Alex on 15/05/2014.
