@@ -69,7 +69,7 @@
         android:layout_alignBottom="@+id/ivMProfessor"
         android:layout_toLeftOf="@+id/ivMProfessor"
         android:text="Professor escolhido"
-        android:textSize="30sp" />
+        android:textSize="30sp" android:layout_marginRight="20dp"/>
 
     <ImageView
         android:id="@+id/ivMProfessor"

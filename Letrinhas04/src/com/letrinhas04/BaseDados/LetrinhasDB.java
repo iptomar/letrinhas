@@ -576,12 +576,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return listProfessores;
     }
 
-
-
-
-
-
-
     /**
      * Buscar todos os campos da Tabela Escola
      * Retorna uma lista com varios objectos do tipo "Escola"
@@ -696,10 +690,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return listTurmas;
     }
 
-
-
-
-
     /**
      * Buscar todos os campos da Tabela Estudante
      * Retorna uma lista com varios objectos do tipo "Estudante"
@@ -727,6 +717,38 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         // return a lista com todos os items da base de dados
         return listEstudantes;
     }
+
+
+    /**
+     * Buscar todos os campos da Tabela Estudante pelo Id DE TURMA
+     * @param idTurma Recebe um Id da turma
+     * Retorna uma lista com varios objectos do tipo "estudante"
+     */
+    public List<Estudante> getAllStudentsByTurmaId(int idTurma) {
+        List<Estudante> listEstudantes = new ArrayList<Estudante>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT * FROM " + TABELA_ESTUDANTE +" WHERE "+EST_IDTURMA+" = " + idTurma;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atraves de todas as linhas e adicionando  lista
+        if (cursor.moveToFirst()) {
+            do {
+                Estudante estudante = new Estudante();
+                estudante.setIdEstudante(cursor.getInt(0));
+                estudante.setIdTurma(cursor.getInt(1));
+                estudante.setNome(cursor.getString(2));
+                estudante.setNomefoto(cursor.getString(3));
+                estudante.setEstado(cursor.getInt(4));
+                // Adicionar os os items da base de dados a lista
+                listEstudantes.add(estudante);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listEstudantes;
+    }
+
+
 
 
     /**
