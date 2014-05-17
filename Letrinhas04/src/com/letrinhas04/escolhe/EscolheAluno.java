@@ -91,9 +91,12 @@ public class EscolheAluno extends Activity {
 		//Turma
 		idTurma = b.getInt("turma_ID");
 		Turma = b.getString("Turma");
+        Turma = b.getString("Turma");
+
+
 		((TextView) findViewById(R.id.escAlTurma)).setText(Turma);
 
-		// new line faz a rotação do ecrãn em 180 graus
+		// new line faz a rotaï¿½ï¿½o do ecrï¿½n em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -133,7 +136,7 @@ public class EscolheAluno extends Activity {
 		volt = (Button) findViewById(R.id.escAlbtnVoltar);
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {// sair da aplicação
+			public void onClick(View view) {// sair da aplicaï¿½ï¿½o
 				finish();
 			}
 		});
@@ -142,7 +145,7 @@ public class EscolheAluno extends Activity {
 	}
 
 	/**
-	 * Novo método para criar o painel dinâmico para os botões de selecção da
+	 * Novo mï¿½todo para criar o painel dinï¿½mico para os botï¿½es de selecï¿½ï¿½o da
 	 * turma
 	 * 
 	 * @author Thiago
@@ -154,14 +157,14 @@ public class EscolheAluno extends Activity {
 		LetrinhasDB db = new LetrinhasDB(this);
 		// ************* Mudar este select de all para por ID de turma
 		// (ALEXANDRE!!)
-		List<Estudante> alunos = db.getAllStudents();
+		List<Estudante> alunos = db.getAllStudentsByTurmaId(idTurma);
 		// *******************************************************************************
 		int nAlunos = alunos.size();
 		int[] idAluno = new int[nAlunos];
 		String nomeAluno[] = new String[nAlunos];
 		String fotoAluno[] = new String[nAlunos];
 		
-		// preenche os arrays só com a informação necessária
+		// preenche os arrays sï¿½ com a informaï¿½ï¿½o necessï¿½ria
 		for (int i = 0; i < nAlunos; i++) {
 			idAluno[i] = alunos.get(i).getIdEstudante();
 			nomeAluno[i] = alunos.get(i).getNome();
@@ -182,19 +185,19 @@ public class EscolheAluno extends Activity {
 		TableLayout tabela = (TableLayout) findViewById(R.id.tblEscolheAl);
 		// linha da tabela a editar
 		TableRow linha = (TableRow) findViewById(R.id.escAllinha01);
-		// 1º botão
+		// 1ï¿½ botï¿½o
 		Button bt = (Button) findViewById(R.id.AlBtOriginal);
 		bt.setText("teste alunos");
 
 		// Contador de controlo
 		int cont = 0;
-		// criar o nº de linhas a dividir por 4 colunas
+		// criar o nï¿½ de linhas a dividir por 4 colunas
 		for (int i = 0; i < nAlunos / 4; i++) {
 			// nova linha da tabela
 			TableRow linha1 = new TableRow(getBaseContext());
-			// Copiar os parametros da 1ª linha
+			// Copiar os parametros da 1ï¿½ linha
 			linha1.setLayoutParams(linha.getLayoutParams());
-			// criar os 4 botões da linha
+			// criar os 4 botï¿½es da linha
 			for (int j = 0; j < 4; j++) {
 
 				// **********************************
@@ -205,9 +208,9 @@ public class EscolheAluno extends Activity {
 				final String alunFot = fotoAluno[cont];
 				// ***********************************
 
-				// novo botão
+				// novo botï¿½o
 				Button bt1 = new Button(bt.getContext());
-				// copiar os parametros do botão original
+				// copiar os parametros do botï¿½o original
 				bt1.setLayoutParams(bt.getLayoutParams());
 
 				// se o aluno tiver foto, vou busca-la
@@ -220,19 +223,19 @@ public class EscolheAluno extends Activity {
 
 					// ajustar o tamanho da imagem
 					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
-							240, 240, false));
-					// enviar para o botão
+							210, 200, false));
+					// enviar para o botï¿½o
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null,
 							imageView.getDrawable(), null, null);
 				} else {
-					// senão copia a imagem do botão original
+					// senï¿½o copia a imagem do botï¿½o original
 					bt1.setCompoundDrawables(null,
 							bt.getCompoundDrawablesRelative()[1], null, null);
 				}
 
 				// addicionar o nome
 				bt1.setText(nomeAluno[cont]);
-				// Defenir o que faz o botão ao clicar
+				// Defenir o que faz o botï¿½o ao clicar
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -255,7 +258,7 @@ public class EscolheAluno extends Activity {
 						startActivity(it);
 					}
 				});
-				// inserir o botão na linha
+				// inserir o botï¿½o na linha
 				linha1.addView(bt1);
 				// incrementar o contador de controlo
 				cont++;
@@ -278,9 +281,9 @@ public class EscolheAluno extends Activity {
 				final String alunFot = fotoAluno[cont];
 				// ***********************************
 
-				// novo botão
+				// novo botï¿½o
 				Button bt1 = new Button(bt.getContext());
-				// copiar os parametros do botão original
+				// copiar os parametros do botï¿½o original
 				bt1.setLayoutParams(bt.getLayoutParams());
 
 				// se o aluno tiver foto, vou busca-la
@@ -294,18 +297,18 @@ public class EscolheAluno extends Activity {
 					// ajustar o tamanho da imagem
 					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
 							240, 240, false));
-					// enviar para o botão
+					// enviar para o botï¿½o
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null,
 							imageView.getDrawable(), null, null);
 				} else {
-					// senão copia a imagem do botão original
+					// senï¿½o copia a imagem do botï¿½o original
 					bt1.setCompoundDrawables(null,
 							bt.getCompoundDrawablesRelative()[1], null, null);
 				}
 
 				// addicionar o nome
 				bt1.setText(nomeAluno[cont]);
-				// Defenir o que faz o botão ao clicar
+				// Defenir o que faz o botï¿½o ao clicar
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -329,7 +332,7 @@ public class EscolheAluno extends Activity {
 						startActivity(it);
 					}
 				});
-				// inserir o botão na linha
+				// inserir o botï¿½o na linha
 				linha1.addView(bt1);
 				// incrementar o contador de controlo
 				cont++;
@@ -338,7 +341,7 @@ public class EscolheAluno extends Activity {
 			tabela.addView(linha1);
 		}
 
-		// por fim escondo a 1ª linha
+		// por fim escondo a 1ï¿½ linha
 		tabela.removeView(linha);
 	}
 

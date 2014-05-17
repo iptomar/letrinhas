@@ -6,9 +6,6 @@ import com.letrinhas04.R;
 import com.letrinhas04.BaseDados.LetrinhasDB;
 import com.letrinhas04.ClassesObjs.Professor;
 import com.letrinhas04.ClassesObjs.Turma;
-import com.letrinhas04.R.id;
-import com.letrinhas04.R.layout;
-import com.letrinhas04.R.menu;
 import com.letrinhas04.util.SystemUiHider;
 
 import android.annotation.SuppressLint;
@@ -91,7 +88,7 @@ public class EscolheTurma extends Activity {
 					100, 100, false));
 		}
 		
-		// new line faz a rotação do ecrãn em 180 graus
+		// new line faz a rotaï¿½ï¿½o do ecrï¿½n em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -129,7 +126,7 @@ public class EscolheTurma extends Activity {
 					}
 				});
 
-		// Botão de voltar
+		// Botï¿½o de voltar
 		volt = (Button) findViewById(R.id.btnVoltarTurm);
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -144,7 +141,7 @@ public class EscolheTurma extends Activity {
 	}
 
 	/**
-	 * Novo método para criar o painel dinâmico para os botões de selecção da turma
+	 * Novo mï¿½todo para criar o painel dinï¿½mico para os botï¿½es de selecï¿½ï¿½o da turma
 	 * 
 	 * @author Thiago
 	 */
@@ -153,17 +150,19 @@ public class EscolheTurma extends Activity {
 
 		// Cria o objecto da base de dados
 		LetrinhasDB db = new LetrinhasDB(this);
-		//************* Mudar este select de all para por ID de professor (ALEXANDRE!!)
-		List<Turma> turmas = db.getAllTurmas();
+		//************* Mudar este select de all para por ID de professor
+		List<Turma> turmas = db.getAllTurmasByProfid(idProfessor);
 		//*******************************************************************************
 		nTurmas = turmas.size();
 		int[] idTurmas = new int[turmas.size()];
 		String nomeTurma[] = new String[turmas.size()];
+        int anoEscolarTurmas[] = new int[turmas.size()];
 
-		// preenche os arrays com a informação necessária
+		// preenche os arrays com a informaï¿½ï¿½o necessï¿½ria
 		for (int i = 0; i < nTurmas; i++) {
 			idTurmas[i] = turmas.get(i).getId();
 			nomeTurma[i] = turmas.get(i).getNome();
+            anoEscolarTurmas[i] = turmas.get(i).getAnoEscolar();
 		}
 
 		for (Turma cn : turmas) {
@@ -180,19 +179,19 @@ public class EscolheTurma extends Activity {
 		TableLayout tabela = (TableLayout) findViewById(R.id.tblEscolheTurm);
 		// linha da tabela a editar
 		TableRow linha = (TableRow) findViewById(R.id.Turmlinha01);
-		// 1º botão
+		// 1ï¿½ botï¿½o
 		Button bt = (Button) findViewById(R.id.TurmBtOriginal);
 		bt.setText("teste turmas");
 
 		// Contador de controlo
 		int cont = 0;
-		// criar o nº de linhas a dividir por 4 colunas
+		// criar o nï¿½ de linhas a dividir por 4 colunas
 		for (int i = 0; i < nTurmas / 4; i++) {
 			// nova linha da tabela
 			TableRow linha1 = new TableRow(getBaseContext());
-			// Copiar os parametros da 1ª linha
+			// Copiar os parametros da 1ï¿½ linha
 			linha1.setLayoutParams(linha.getLayoutParams());
-			// criar os 4 botões da linha
+			// criar os 4 botï¿½es da linha
 			for (int j = 0; j < 4; j++) {
 				
 				// **********************************
@@ -202,18 +201,19 @@ public class EscolheTurma extends Activity {
 				final int idturm = idTurmas[cont];
 				// ***********************************
 
-				// novo botão
+				// novo botï¿½o
 				Button bt1 = new Button(bt.getContext());
-				// copiar os parametros do botão original
+				// copiar os parametros do botï¿½o original
 				bt1.setLayoutParams(bt.getLayoutParams());
 
-				// copia a imagem do botão original
+				// copia a imagem do botï¿½o original
 				bt1.setCompoundDrawables(null,
 						bt.getCompoundDrawablesRelative()[1], null, null);
 
+             final   String aux = anoEscolarTurmas[cont] + " Âº - "+ nomeTurma[cont];
 				// addicionar o nome
-				bt1.setText(nomeTurma[cont]);
-				// Defenir o que faz o botão ao clicar
+				bt1.setText(aux);
+				// Defenir o que faz o botï¿½o ao clicar
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -224,7 +224,7 @@ public class EscolheTurma extends Activity {
 						wrap.putString("Professor", Professor);
 						wrap.putInt("Professor_ID", idProfessor);
 						wrap.putString("foto_Professor", FotoProf);
-						wrap.putString("Turma", turm);
+						wrap.putString("Turma", aux);
 						wrap.putInt("turma_ID", idturm);
 
 						Intent it = new Intent(getApplicationContext(),
@@ -234,7 +234,7 @@ public class EscolheTurma extends Activity {
 						startActivity(it);
 					}
 				});
-				// inserir o botão na linha
+				// inserir o botï¿½o na linha
 				linha1.addView(bt1);
 				// incrementar o contador de controlo
 				cont++;
@@ -256,18 +256,19 @@ public class EscolheTurma extends Activity {
 				final int idturm = idTurmas[cont];
 				// ***********************************
 
-				// novo botão
+				// novo botï¿½o
 				Button bt1 = new Button(bt.getContext());
-				// copiar os parametros do botão original
+				// copiar os parametros do botï¿½o original
 				bt1.setLayoutParams(bt.getLayoutParams());
 
-				// copia a imagem do botão original
+				// copia a imagem do botï¿½o original
 				bt1.setCompoundDrawables(null,
 						bt.getCompoundDrawablesRelative()[1], null, null);
 
 				// addicionar o nome
-				bt1.setText(nomeTurma[cont]);
-				// Defenir o que faz o botão ao clicar
+                final   String aux = anoEscolarTurmas[cont] + " Âº - "+ nomeTurma[cont];
+				bt1.setText(aux);
+				// Defenir o que faz o botï¿½o ao clicar
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -277,7 +278,7 @@ public class EscolheTurma extends Activity {
 						wrap.putInt("Escola_ID", idEscola);
 						wrap.putString("Professor", Professor);
 						wrap.putInt("Professor_ID", idProfessor);
-						wrap.putString("Turma", turm);
+						wrap.putString("Turma", aux);
 						wrap.putInt("turma_ID", idturm);
 
 						Intent it = new Intent(getApplicationContext(),
@@ -287,7 +288,7 @@ public class EscolheTurma extends Activity {
 						startActivity(it);
 					}
 				});
-				// inserir o botão na linha
+				// inserir o botï¿½o na linha
 				linha1.addView(bt1);
 				// incrementar o contador de controlo
 				cont++;
@@ -296,7 +297,7 @@ public class EscolheTurma extends Activity {
 			tabela.addView(linha1); 
 		}
 
-		// por fim escondo a 1ª linha
+		// por fim escondo a 1ï¿½ linha
 		tabela.removeView(linha);
 	}
 

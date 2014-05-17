@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,9 +42,11 @@ public class Teste_Palavras_Aluno extends Activity{
 			LetrinhasDB db;
 			List<Teste> testePalavras;
 			String[] texto;
+			String[] texto2;
 			String[] titulo;
-			String[] tudo;
+			String[] titulo2;
 			int[] tipo;
+			int[] tipo2;
 			TextView auxiliar;
 			/**
 			 * Whether or not the system UI should be auto-hidden after
@@ -101,9 +102,9 @@ public class Teste_Palavras_Aluno extends Activity{
 							}
 						});
 				// buscar os parametros
-				Bundle b = getIntent().getExtras();
+				//Bundle b = getIntent().getExtras();
 				// Compor novamnete e lista de testes
-				//int lstId[] = b.getIntArray("ListaId");
+				//int lstId[] = b.getIntArray("ListaID");
 				//int[] lstTipo = b.getIntArray("ListaTipo");
 				//String[] lstTitulo = b.getStringArray("ListaTitulo");
 				//String[] lstTexto = b.getStringArray("ListaTexto");
@@ -112,12 +113,15 @@ public class Teste_Palavras_Aluno extends Activity{
 				testePalavras = db.getAllTeste();
 				nTestes = testePalavras.size();
 				texto = new String[nTestes];
+				texto2 = new String[nTestes];
 				titulo = new String[nTestes];
+				titulo2 = new String[nTestes];
 				tipo = new int[nTestes];
-				tudo = new String[nTestes];
+				tipo2 = new int[nTestes];
+				//tudo = new String[nTestes];
 				for(Teste cn: testePalavras){
-					tudo[numero] = cn.getTexto()+","+cn.getTipo()+","+cn.getTitulo();
-					Log.d("debug-Palavras", tudo[numero]);
+					//tudo[numero] = cn.getTexto()+","+cn.getTipo()+","+cn.getTitulo();
+					//Log.d("debug-Palavras", tudo[numero]);
 					texto[numero] = cn.getTexto();
 					tipo[numero] = cn.getTipo();
 					titulo[numero] = cn.getTitulo();
@@ -125,21 +129,23 @@ public class Teste_Palavras_Aluno extends Activity{
 				}
 				// Consultar a BD para preencher o conteúdo....
 				String[] var;
-				for(int i = 0; i<texto.length; i++){
+				for(int i = 0; i<tipo.length; i++){
 					var = texto[i].split("[ ]");
 					for(int j = 1; j< var.length; j++){
 						yo += var[j]+"\n";
-						Log.d("debug-EXtrs", yo);
+						//Log.d("debug-EXtrs", yo);
 					} 
-					Log.d("debug-EndText", yo);
-					((TextView) findViewById(R.id.tvTexto1)).setText(yo);
+					//Log.d("debug-EndText", yo);
 				}
-				((TextView) findViewById(R.id.tvTexto2)).setText(yo);
-				((TextView) findViewById(R.id.tvTexto)).setText(yo);
+				Log.d("debug-EndText", yo);
+				((TextView) findViewById(R.id.TextView01)).setText(yo);
+				((TextView) findViewById(R.id.TextView02)).setText(yo);
+				((TextView) findViewById(R.id.TextView03)).setText(yo);
+				//endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + b.getString("Professor") + "/" + b.getString("Aluno") + "/" + titulo[0] + ".3gpp";
 				//endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + b.getString("Professor") + "/" + b.getString("Aluno") + "/" + titulo[0] + ".3gpp";
 				// descontar este teste da lista.
-				tudo = new String[nTestes - 1];
-				String[] aux = tudo;
+				//tudo = new String[nTestes - 1];
+				//String[] aux = tudo;
 				for (int i = 1; i < nTestes; i++) {
 					//aux[i - 1] = tudo[i];
 				}
@@ -418,15 +424,17 @@ public class Teste_Palavras_Aluno extends Activity{
 			 * realizar Este método deverá ser usado em todas as paginas de teste.
 			 */
 			private void finaliza() {
-				if (tudo.length != 0) {
+				if (tipo.length != 0) {
 					// Decompor o array de teste, para poder enviar por parametros
-					Log.d("debug-SetBack", tudo.toString());
-					for (int i = 0; i < tudo.length; i++) {
-						String[] bach = tudo[i].split("[,]"); 
-						
-						texto[i] = bach[0];
-						tipo[i] = Integer.parseInt(bach[1]);
-						titulo[i] = bach[2];
+					//Log.d("debug-SetBack", tipo[0]);
+					for (int i = 0; i < tipo.length; i++) {
+						String[] bach = texto; 
+						for(int j=0;j<bach.length;j++){
+							Log.d("debug-CheckType", j+":"+bach[j]);
+						}
+						texto2[i] = texto[i];
+						tipo2[i] = tipo[i];
+						titulo2[i] = titulo[i];
 					}
 					Bundle wrap = new Bundle();
 					// teste, a depender das informações da BD
@@ -441,7 +449,7 @@ public class Teste_Palavras_Aluno extends Activity{
 							// iniciar a pagina 2 (escolher teste)
 							Intent it = new Intent(getApplicationContext(),Teste_Texto_Aluno.class);
 							it.putExtras(wrap);
-							startActivity(it);
+							//startActivity(it);
 							break;
 						case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
 							Intent ip = new Intent(getApplicationContext(),Teste_Palavras_Aluno.class);
@@ -452,7 +460,7 @@ public class Teste_Palavras_Aluno extends Activity{
 							//
 							Intent ipm = new Intent(getApplicationContext(),Teste_Poema_Aluno.class);
 							ipm.putExtras(wrap);
-							startActivity(ipm);
+							//startActivity(ipm);
 							break;
 						case 3: // lançar a nova activity do tipo imagem, e o seu conteúdo
 							//
@@ -464,8 +472,8 @@ public class Teste_Palavras_Aluno extends Activity{
 						default:
 							Toast.makeText(getApplicationContext(), " - Tipo não defenido",Toast.LENGTH_SHORT).show();
 							// retirar o teste errado e continuar
-							int k = 0;
-							/*Teste aux[] = new Teste[lista.length - 1];
+							/*int k = 0;
+							Teste aux[] = new Teste[lista.length - 1];
 							for (int i = 1; i < lista.length; i++) {
 								aux[k] = lista[i];
 								k++;

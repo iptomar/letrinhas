@@ -137,7 +137,7 @@
         android:layout_alignBottom="@+id/ivDProfessor"
         android:layout_toLeftOf="@+id/ivDProfessor"
         android:text="Professor escolhido"
-        android:textSize="30sp" />
+        android:textSize="30sp" android:layout_marginRight="20dp"/>
 
     <TextView
         android:id="@+id/tvDAluno"

@@ -80,7 +80,7 @@
         android:contentDescription="@string/voltar"
         android:drawableTop="@drawable/voltar"
         android:onClick="voltar"
-        android:text="@string/voltar" />
+        android:text="@string/voltar"/>
 
     <TextView
         android:id="@+id/escAlCabecalho"
@@ -119,7 +119,7 @@
         android:layout_alignBottom="@+id/ivAlProfessor"
         android:layout_toLeftOf="@+id/ivAlProfessor"
         android:text="Professor escolhido"
-        android:textSize="30sp" />
+        android:textSize="30sp" android:layout_marginRight="30dp"/>
 
     <TextView
         android:id="@+id/escAlTurma"

@@ -63,8 +63,14 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
         </activity>
+         <activity
+            android:name="com.letrinhas04.Teste_Palavras_Prof"
+            android:label="@string/title_activity_teste__palavras"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme" >
+        </activity>
         <activity
-            android:name="com.letrinhas04.Teste_Poema"
+            android:name="com.letrinhas04.Teste_Poema_Aluno"
             android:label="@string/title_activity_teste__poema"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
