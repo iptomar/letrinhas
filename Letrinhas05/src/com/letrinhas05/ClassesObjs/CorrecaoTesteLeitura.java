@@ -23,7 +23,7 @@ public class CorrecaoTesteLeitura extends CorrecaoTeste {
     	
     }
 
-    public CorrecaoTesteLeitura(int idCorrrecao, int testId, int idEstudante, long dataExecucao, int tipo ,int estado,String audiourl, int numPalavCorretas, String observacoes, float numPalavrasMin, float precisao, float velocidade, int numPalavIncorretas, float expressividade, float ritmo, String detalhes) {
+    public CorrecaoTesteLeitura(long idCorrrecao, int testId, int idEstudante, long dataExecucao, int tipo ,int estado,String audiourl, int numPalavCorretas, String observacoes, float numPalavrasMin, float precisao, float velocidade, int numPalavIncorretas, float expressividade, float ritmo, String detalhes) {
         super(idCorrrecao, testId, idEstudante, dataExecucao, tipo, estado);
         this.setAudiourl(audiourl);
         this.setNumPalavCorretas(numPalavCorretas);

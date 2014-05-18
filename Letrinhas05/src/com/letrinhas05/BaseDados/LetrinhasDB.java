@@ -221,7 +221,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
         //Construir a Tabela TesteMultimedia //////////////////
         createTableString = "CREATE TABLE " + TABELA_TESTEMULTIMEDIA + "("
-                + TESTM_ID + " INTEGER PRIMARY KEY,"
+                + TESTM_ID + " INTEGER PRIMARY KEY ,"
                 + TESTM_CONTEUDOQUESTAO + " TEXT,"
                 + TESTM_CONTEUDOISURL + " INT,"
                 + TESTM_OPCAO1 + " TEXT,"
@@ -235,7 +235,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
         //Construir a Tabela CorrecaoTeste //////////////////
         createTableString = "CREATE TABLE " + TABELA_CORRECAOTESTE + "("
-                + CORRT_ID + " INTEGER PRIMARY KEY,"
+                + CORRT_ID + " LONG PRIMARY KEY,"
                 + CORRT_IDTESTE + " INT,"
                 + CORRT_IDALUNO + " INT,"
                 + CORRT_DATAEXEC + " LONG,"
@@ -245,7 +245,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
         //Construir a Tabela CorrecaoTeste //////////////////
         createTableString = "CREATE TABLE " + TABELA_CORRECAOTESTELEITURA + "("
-                + CORRTLEIT_IDCORRECAO + " INTEGER PRIMARY KEY,"
+                + CORRTLEIT_IDCORRECAO + " LONG PRIMARY KEY,"
                 + CORRTLEIT_AUDIOURL + " TEXT,"
                 + CORRTLEIT_OBSERVACOES + " TEXT,"
                 + CORRTLEIT_NUMPALAVRASPORMIN + " REAL,"
@@ -260,7 +260,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
         //Construir a Tabela CorrecaoTesteMultimedia //////////////////
         createTableString = "CREATE TABLE " + TABELA_CORRECAOMULTIMEDIA + "("
-                + CORRTMULTIMEDIA_ID + " INTEGER PRIMARY KEY,"
+                + CORRTMULTIMEDIA_ID + " LONG PRIMARY KEY,"
                 + CORRTMULTIMEDIA_OPCAOESCOL + " INT,"
                 + CORRTMULTIMEDIA_CERTA + " INT)";
         db.execSQL(createTableString);
@@ -497,16 +497,18 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     public void addNewItemCorrecaoTesteLeitura (CorrecaoTesteLeitura correcaoTesteLeitura) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues valuesCorrecaoTeste = new ContentValues();
-        valuesCorrecaoTeste.put(CORRT_ID, correcaoTesteLeitura.getTestId());           // Inserir na tabela campo Id
+        valuesCorrecaoTeste.put(CORRT_ID, correcaoTesteLeitura.getIdCorrrecao());           // Inserir na tabela campo Id
         valuesCorrecaoTeste.put(CORRT_IDTESTE, correcaoTesteLeitura.getTestId());        // Inserir na tabela campo teste id
         valuesCorrecaoTeste.put(CORRT_IDALUNO, correcaoTesteLeitura.getIdEstudante());   // Inserir na tabela campo Id estudante
         valuesCorrecaoTeste.put(CORRT_DATAEXEC, correcaoTesteLeitura.getDataExecucao());              // Inserir na tabela data execucao
         valuesCorrecaoTeste.put(CORRT_TIPO, correcaoTesteLeitura.getTipo());
         valuesCorrecaoTeste.put(CORRT_ESTADO, correcaoTesteLeitura.getEstado());                 // Inserir na tabela estado
                db.insert(TABELA_CORRECAOTESTE, null, valuesCorrecaoTeste);
+
+
         //////////////////////////////////////////////////////
         ContentValues valuesCorrecaoTestesLeitura = new ContentValues();
-        valuesCorrecaoTestesLeitura.put(CORRTLEIT_IDCORRECAO, correcaoTesteLeitura.getTestId());                           // Inserir na tabela o campo ID
+        valuesCorrecaoTestesLeitura.put(CORRTLEIT_IDCORRECAO, correcaoTesteLeitura.getIdCorrrecao());                           // Inserir na tabela o campo ID
         valuesCorrecaoTestesLeitura.put(CORRTLEIT_AUDIOURL, correcaoTesteLeitura.getAudiourl());                          // Inserir na tabela o campo audio URL
         valuesCorrecaoTestesLeitura.put(CORRTLEIT_OBSERVACOES, correcaoTesteLeitura.getObservacoes());                     // Inserir na tabela o campo OBSERVACOES
         valuesCorrecaoTestesLeitura.put(CORRTLEIT_NUMPALAVRASPORMIN, correcaoTesteLeitura.getNumPalavrasMin());             // Inserir na tabela palavras por minuto
@@ -531,7 +533,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     public void addNewItemCorrecaoTesteMultimedia (CorrecaoTesteMultimedia correcaoTesteMultimedia) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues valuesCorrecaoTeste = new ContentValues();
-        valuesCorrecaoTeste.put(CORRT_ID, correcaoTesteMultimedia.getTestId());           // Inserir na tabela campo Id
+        valuesCorrecaoTeste.put(CORRT_ID, correcaoTesteMultimedia.getIdCorrrecao());           // Inserir na tabela campo Id
         valuesCorrecaoTeste.put(CORRT_IDTESTE, correcaoTesteMultimedia.getTestId());        // Inserir na tabela campo teste id
         valuesCorrecaoTeste.put(CORRT_IDALUNO, correcaoTesteMultimedia.getIdEstudante());   // Inserir na tabela campo Id estudante
         valuesCorrecaoTeste.put(CORRT_DATAEXEC, correcaoTesteMultimedia.getDataExecucao());              // Inserir na tabela data execucao
@@ -540,7 +542,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.insert(TABELA_CORRECAOTESTE, null, valuesCorrecaoTeste);
         //////////////////////////////////////////////////////
         ContentValues valuesCorrecaoTestesMultimedia = new ContentValues();
-        valuesCorrecaoTestesMultimedia.put(CORRTMULTIMEDIA_ID, correcaoTesteMultimedia.getTestId());                     // Inserir na tabela o campo ID
+        valuesCorrecaoTestesMultimedia.put(CORRTMULTIMEDIA_ID, correcaoTesteMultimedia.getIdCorrrecao());                     // Inserir na tabela o campo ID
         valuesCorrecaoTestesMultimedia.put(CORRTMULTIMEDIA_OPCAOESCOL, correcaoTesteMultimedia.getOpcaoEscolhida());     // Inserir na tabela o campo OPCAOEscolhida
         valuesCorrecaoTestesMultimedia.put(CORRTMULTIMEDIA_CERTA, correcaoTesteMultimedia.getCerta());                  // Inserir na tabela o campo certa?
         // Inserir LINHAS:
@@ -981,7 +983,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 CorrecaoTeste corrteste = new CorrecaoTeste();
-                corrteste.setIdCorrrecao(cursor.getInt(0));
+                corrteste.setIdCorrrecao(cursor.getLong(0));
                 corrteste.setTestId(cursor.getInt(1));
                 corrteste.setIdEstudante(cursor.getInt(2));
                 corrteste.setDataExecucao(cursor.getLong(3));
@@ -996,7 +998,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return listcorrecaoTestes;
     }
 
-
     /**
      *  /**
      * Buscar todos os campos da Tabela CorrecaoTest pelo ID DO PROFESSOR
@@ -1007,18 +1008,26 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     public List<CorrecaoTeste> getAllCorrecaoTesteByProfID(int idProf) {
         List<CorrecaoTeste> listcorrecaoTestes = new ArrayList<CorrecaoTeste>();
         // Select TODOS OS DADOS
-        String selectQuery = "SELECT  * FROM " + TABELA_CORRECAOTESTE +" , "+
-                TABELA_ESTUDANTE + ", "+ TABELA_TURMAPROFESSOR + " WHERE "+
-                CORRT_IDALUNO + " = " + EST_ID + " AND "+
-                EST_IDTURMA + " = "+ TURPROF_IDTURMA + " AND "+
+        String selectQuery = "SELECT  "+
+        TABELA_CORRECAOTESTE +"."+ CORRT_ID +", "+
+        TABELA_CORRECAOTESTE +"."+ CORRT_IDTESTE +", "+
+        TABELA_CORRECAOTESTE +"."+ CORRT_IDALUNO +", "+
+        TABELA_CORRECAOTESTE +"."+ CORRT_DATAEXEC +", "+
+        TABELA_CORRECAOTESTE +"."+ CORRT_TIPO +", "+
+        TABELA_CORRECAOTESTE +"."+ CORRT_ESTADO +
+                " FROM " + TABELA_CORRECAOTESTE +", "+
+                TABELA_ESTUDANTE + ", "+ TABELA_TURMAPROFESSOR + " WHERE "+ TABELA_CORRECAOTESTE +"."+
+                CORRT_IDALUNO + " = " +TABELA_ESTUDANTE+ "." + EST_ID + " AND "+ TABELA_ESTUDANTE +"."+
+                EST_IDTURMA + " = "+ TABELA_TURMAPROFESSOR +"."+TURPROF_IDTURMA + " AND "+ TABELA_TURMAPROFESSOR + "."+
                 TURPROF_IDPROFESSOR + " = " +idProf;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         // loop atravEs de todas as linhas e adicionando Alista
         if (cursor.moveToFirst()) {
             do {
+
                 CorrecaoTeste corrteste = new CorrecaoTeste();
-                corrteste.setIdCorrrecao(cursor.getInt(0));
+                corrteste.setIdCorrrecao(cursor.getLong(0));
                 corrteste.setTestId(cursor.getInt(1));
                 corrteste.setIdEstudante(cursor.getInt(2));
                 corrteste.setDataExecucao(cursor.getLong(3));

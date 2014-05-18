@@ -11,9 +11,6 @@ import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.Estudante;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.ClassesObjs.Turma;
-import com.letrinhas05.R.id;
-import com.letrinhas05.R.layout;
-import com.letrinhas05.R.menu;
 import com.letrinhas05.Teste_Palavras_Prof;
 import com.letrinhas05.Teste_Poema_Prof;
 import com.letrinhas05.Teste_Texto_Prof;
@@ -50,7 +47,7 @@ import android.widget.TextView;
 import android.os.Build;
 
 /**
- * Activity para listar as submissões a corrigir
+ * Activity para listar as submissï¿½es a corrigir
  * 
  * 
  * @author Thiago
@@ -106,7 +103,7 @@ public class ListarSubmissoes extends Activity {
 					100, false));
 		}
 
-		// new line faz a rotação do ecrãn em 180 graus
+		// new line faz a rotaï¿½ï¿½o do ecrï¿½n em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -160,14 +157,14 @@ public class ListarSubmissoes extends Activity {
 	public void makeLista() {
 
 		LetrinhasDB bd = new LetrinhasDB(this);
-		// vou buscar todas as submissões de teste não corrigidas existentes..
+		// vou buscar todas as submissï¿½es de teste nï¿½o corrigidas existentes..
 		// ... dos alunos, das turmas, do professor selecionado.
 		List<CorrecaoTeste> ct = bd.getAllCorrecaoTesteByProfID(iDs[1]);
 
-		// verifico se estas submissões não estão corrigidas
+		// verifico se estas submissï¿½es nï¿½o estï¿½o corrigidas
 		int cont = 0;
 		for (int i = 0; i < ct.size(); i++) {
-			// se não está corrigido, conta-o
+			// se nï¿½o estï¿½ corrigido, conta-o
 			if (ct.get(i).getEstado() == 0) {
 				cont++;
 			}
@@ -175,24 +172,24 @@ public class ListarSubmissoes extends Activity {
 		// objetos do XML
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llListSub);
 		Button btOriginal = (Button) findViewById(R.id.btnLsCorrecao_Original);
-		//remove o botão original do layerlayout
+		//remove o botï¿½o original do layerlayout
 		ll.removeView(btOriginal);
-		// se existirem submissões a corrigir
+		// se existirem submissï¿½es a corrigir
 		if (cont != 0) {
 			// crio um array de correcoes auxiliar
 			CorrecaoTeste ctAux[] = new CorrecaoTeste[cont];
 			cont = 0;
 			for (int i = 0; i < ct.size(); i++) {
-				// se não está corrigido, acrescenta-o
+				// se nï¿½o estï¿½ corrigido, acrescenta-o
 				if (ct.get(i).getEstado() == 0) {
 					ctAux[cont] = ct.get(i);
 					cont++;
 				}
 			}
 
-			// Agora vou construir os botões com a informação necessária:
+			// Agora vou construir os botï¿½es com a informaï¿½ï¿½o necessï¿½ria:
 			for (int i = 0; i < ctAux.length; i++) {
-				//criar o botão
+				//criar o botï¿½o
 				Button btIn = new Button(this);
 				//copiar os parametros de layout
 				btIn.setLayoutParams(btOriginal.getLayoutParams());
@@ -203,14 +200,14 @@ public class ListarSubmissoes extends Activity {
 				// titulo do teste
 				Teste tst = bd.getTesteById(ctAux[i].getTestId());
 				title += tst.getTitulo() + " - ";
-				// timeStamp ***** Não sei bem se esta funciona ****************************+
+				// timeStamp ***** Nï¿½o sei bem se esta funciona ****************************+
 				title += ""
 						+ DateUtils.formatSameDayTime(
 								ctAux[i].getDataExecucao(),
 								System.currentTimeMillis(), 3, 1);// 3=short; 1=long
 				//********************************************************************
 				
-				// colocar toda a string no botão
+				// colocar toda a string no botï¿½o
 				btIn.setText(title);
 
 				// buscar a imagem do tipo
@@ -241,7 +238,7 @@ public class ListarSubmissoes extends Activity {
 					imgAl.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 120,
 							120, false));
 
-					// enviar para o botão
+					// enviar para o botï¿½o
 					btIn.setCompoundDrawablesWithIntrinsicBounds(
 							imgAl.getDrawable(), null, imgTip.getDrawable(),
 							null);
@@ -263,7 +260,7 @@ public class ListarSubmissoes extends Activity {
 				Nomes[3]=bd.getTurmaByID(aluno.getIdTurma()).getNome();
 				Nomes[5]= aluno.getNomefoto();
 				
-				// Defenir o que faz o botão ao clicar
+				// Defenir o que faz o botï¿½o ao clicar
 				btIn.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -280,7 +277,7 @@ public class ListarSubmissoes extends Activity {
 							it.putExtras(wrap);
 							startActivity(it);
 							break;
-						case 1://multimédia (imagens)
+						case 1://multimï¿½dia (imagens)
 							it= new Intent(getApplicationContext(),Teste_Imagem.class);
 							it.putExtras(wrap);
 							startActivity(it);
@@ -304,7 +301,7 @@ public class ListarSubmissoes extends Activity {
 				ll.addView(btIn);
 			}
 
-			// Senão lança um alerta... de sem submissões de momento
+			// Senï¿½o lanï¿½a um alerta... de sem submissï¿½es de momento
 		} else {
 			
 

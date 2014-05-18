@@ -6,7 +6,7 @@ package com.letrinhas05.ClassesObjs;
 public class CorrecaoTeste {
 
     // private variables
-    protected int idCorrrecao;
+    protected long idCorrrecao;
     protected int testId;
     protected int idEstudante;
     protected long DataExecucao;
@@ -16,8 +16,8 @@ public class CorrecaoTeste {
     public CorrecaoTeste() {
     }
 
-    public CorrecaoTeste( int idCorrrecao, int testId, int idEstudante, long dataExecucao, int tipo,int estado) {
-       this.setIdCorrrecao(idCorrrecao);
+    public CorrecaoTeste( long idCorrrecao, int testId, int idEstudante, long dataExecucao, int tipo,int estado) {
+       this.idCorrrecao = idCorrrecao ;
         this.testId = testId;
         this.idEstudante = idEstudante;
         this.DataExecucao = dataExecucao;
@@ -49,11 +49,11 @@ public class CorrecaoTeste {
         this.DataExecucao = dataExecucao;
     }
 
-    public int getIdCorrrecao() {
+    public long getIdCorrrecao() {
         return idCorrrecao;
     }
 
-    public void setIdCorrrecao(int idCorrrecao) {
+    public void setIdCorrrecao(long idCorrrecao) {
         this.idCorrrecao = idCorrrecao;
     }
 
