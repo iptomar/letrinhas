@@ -997,6 +997,43 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     }
 
 
+    /**
+     *  /**
+     * Buscar todos os campos da Tabela CorrecaoTest pelo ID DO PROFESSOR
+     * Retorna uma lista com varios objectos do tipo "CorrecaoTest"
+     * @param idProf id Professor
+     * @return Conjunto de testesCorrecao
+     */
+    public List<CorrecaoTeste> getAllCorrecaoTesteByProfID(int idProf) {
+        List<CorrecaoTeste> listcorrecaoTestes = new ArrayList<CorrecaoTeste>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT  * FROM " + TABELA_CORRECAOTESTE +" , "+
+                TABELA_ESTUDANTE + ", "+ TABELA_TURMAPROFESSOR + " WHERE "+
+                CORRT_IDALUNO + " = " + EST_ID + " AND "+
+                EST_IDTURMA + " = "+ TURPROF_IDTURMA + " AND "+
+                TURPROF_IDPROFESSOR + " = " +idProf;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atravEs de todas as linhas e adicionando Alista
+        if (cursor.moveToFirst()) {
+            do {
+                CorrecaoTeste corrteste = new CorrecaoTeste();
+                corrteste.setIdCorrrecao(cursor.getInt(0));
+                corrteste.setTestId(cursor.getInt(1));
+                corrteste.setIdEstudante(cursor.getInt(2));
+                corrteste.setDataExecucao(cursor.getLong(3));
+                corrteste.setTipo(cursor.getInt(4));
+                corrteste.setEstado(cursor.getInt(5));
+                // Adicionar os os items da base de dados a lista
+                listcorrecaoTestes.add(corrteste);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listcorrecaoTestes;
+    }
+
+
 
 
 
