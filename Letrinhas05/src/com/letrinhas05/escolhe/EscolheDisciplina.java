@@ -62,7 +62,7 @@ public class EscolheDisciplina extends Activity {
 		// int's - idEscola, idProfessor, idTurma, idAluno
 		iDs = b.getIntArray("IDs");
 
-		// preencher informação na activity
+		// preencher informaï¿½ï¿½o na activity
 		((TextView) findViewById(R.id.escDEscola)).setText(strings[0]);
 		((TextView) findViewById(R.id.tvDProf)).setText(strings[1]);
 		// se professor tem uma foto, usa-se
@@ -170,7 +170,7 @@ public class EscolheDisciplina extends Activity {
 	}
 
 	/**
-	 * Procedimento para veirficar os botões
+	 * Procedimento para veirficar os botï¿½es
 	 * 
 	 * @author Thiago
 	 */
@@ -186,43 +186,43 @@ public class EscolheDisciplina extends Activity {
 		pt.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				// enviar os parametros necessários
+				// enviar os parametros necessï¿½rios
 				Bundle wrap = new Bundle();
 				wrap.putStringArray("Nomes", strings);
 				wrap.putIntArray("IDs", iDs);
 				wrap.putInt("idDisciplina", 0);
-				wrap.putString("Disciplina", "Português");
+				wrap.putString("Disciplina", "Portugues");
 
 				// iniciar a pagina 2 (escolher testes a executar)
-				Intent ipt = new Intent(EscolheDisciplina.this, EscolheTeste.class);
+				Intent ipt = new Intent(getApplicationContext(), EscTipoTeste.class);
 				ipt.putExtras(wrap);
 				startActivity(ipt);
-				finish();
+			//	finish();
 			}
 		});
 		
 		mat.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				// enviar os parametros necessários
+				// enviar os parametros necessï¿½rios
 				Bundle wrap = new Bundle();
 				wrap.putStringArray("Nomes", strings);
 				wrap.putIntArray("IDs", iDs);
 				wrap.putInt("idDisciplina", 1);
-				wrap.putString("Disciplina", "Matemática");
+				wrap.putString("Disciplina", "Matematica");
 
 				// iniciar a pagina 2 (escolher testes a executar)
-				Intent ipt = new Intent(EscolheDisciplina.this, EscolheTeste.class);
+				Intent ipt = new Intent(getApplicationContext(), EscTipoTeste.class);
 				ipt.putExtras(wrap);
 				startActivity(ipt);
-				finish();
+			//	finish();
 			}
 		});
 
 		estMeio.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				// enviar os parametros necessários
+				// enviar os parametros necessï¿½rios
 				Bundle wrap = new Bundle();
 				wrap.putStringArray("Nomes", strings);
 				wrap.putIntArray("IDs", iDs);
@@ -230,28 +230,28 @@ public class EscolheDisciplina extends Activity {
 				wrap.putString("Disciplina", "Estudo do Meio");
 
 				// iniciar a pagina 2 (escolher testes a executar)
-				Intent ipt = new Intent(EscolheDisciplina.this, EscolheTeste.class);
+				Intent ipt = new Intent(getApplicationContext(), EscTipoTeste.class);
 				ipt.putExtras(wrap);
 				startActivity(ipt);
-				finish();
+				//finish();
 			}
 		});
 
 		ingl.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				// enviar os parametros necessários
+				// enviar os parametros necessï¿½rios
 				Bundle wrap = new Bundle();
 				wrap.putStringArray("Nomes", strings);
 				wrap.putIntArray("IDs", iDs);
 				wrap.putInt("idDisciplina", 3);
-				wrap.putString("Disciplina", "English");
+				wrap.putString("Disciplina", "InglÃªs");
 
 				// iniciar a pagina 2 (escolher testes a executar)
-				Intent ipt = new Intent(EscolheDisciplina.this, EscolheTeste.class);
+				Intent ipt = new Intent(getApplicationContext(), EscTipoTeste.class);
 				ipt.putExtras(wrap);
 				startActivity(ipt);
-				finish();
+			//	finish();
 			}
 		});
 

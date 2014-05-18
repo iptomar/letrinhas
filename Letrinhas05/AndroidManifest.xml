@@ -108,8 +108,11 @@
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas05.util.Custom"
-            android:label="@string/title_activity_custom" >
+                android:name="com.letrinhas05.escolhe.EscTipoTeste"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:label="@string/title_activity_escolhe_tipo_teste"
+                android:screenOrientation="landscape"
+                android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name="com.letrinhas05.escolhe.EscolheTurma"

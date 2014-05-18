@@ -92,6 +92,8 @@
     <string name="escolherModo">Escolher modo</string>
     <string name="realizarTeste">Realizar teste(s)</string>
     <string name="corrigirTeste">Corrigir teste(s)</string>
+    <string name="title_activity_escolhe_tipo_teste">Escolher Tipo de Teste</string>
+    <string name="escolheTipoTeste">Escolher Tipo de Teste</string>
     <string name="demo">Demo</string>
     <string name="iniciar">Iniciar</string>
     <string name="ExemploTexto">Alfabetização\n
