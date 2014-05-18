@@ -45,15 +45,18 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         mActivity.prog.setProgress(20);
 
 		lerSynEstudante(strings[0]);
-        mActivity.prog.setProgress(40);
+        mActivity.prog.setProgress(30);
 
 		lerSynTurmas(strings[0]);
-        mActivity.prog.setProgress(50);
+        mActivity.prog.setProgress(40);
 
         lerSynTurmasProfessor(strings[0]);
-        mActivity.prog.setProgress(60);
+        mActivity.prog.setProgress(50);
 
 		lerSynTestes(strings[0]);
+        mActivity.prog.setProgress(65);
+
+        lerSynTestesLista(strings[0]);
         mActivity.prog.setProgress(75);
 
 		lerSynTestesMultimedia(strings[0]);
@@ -290,8 +293,58 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 		} catch (Exception e) {
 			Log.d("ERRO",
 					"ERRO DE SINC TESTES LEITURA TALVEZ SERVIDOR EM BAIXO");
+            msg +=" TestesLeitura ||";
 		}
 	}
+
+
+    protected void lerSynTestesLista(String URlString) {
+        String url = URlString + "tests?type=2"; // // type 0 -> leitura | 1 ->
+        // multimédia | 2 -> lista
+        // | 3 -> poema
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        // getting JSON string from URL
+        JSONParser jParser = new JSONParser();
+        JSONArray tests = jParser.getJSONArray(url, params);
+        try {
+            TesteLeitura[] arrTestesLeitura = new TesteLeitura[tests.length()];
+            // For (loop)looping atraves de todos os Testes
+            for (int i = 0; i < tests.length(); i++) {
+                TesteLeitura testeleitura = new TesteLeitura();
+                JSONObject c = tests.getJSONObject(i);
+                // /////// Preencher um objecto do tipo teste com a informaçao
+                // ///////////////
+                testeleitura.setIdTeste(c.getInt("id"));
+                testeleitura.setAreaId(c.getInt("areaId"));
+                testeleitura.setProfessorId(c.getInt("professorId"));
+                testeleitura.setTitulo(c.getString("title"));
+                testeleitura.setTexto(c.getString("mainText"));
+                testeleitura.setDataInsercaoTeste(c.getLong("creationDate"));
+                testeleitura.setGrauEscolar(c.getInt("grade"));
+                testeleitura.setTipos(2);
+                // //////////////////
+                testeleitura.setConteudoTexto(c.getString("textContent"));
+                testeleitura.setProfessorAudioUrl("SOM" + c.getInt("id")
+                        + ".mp3");
+                Utils.saveFileSD(
+                        "ReadingTests",
+                        "SOM" + c.getInt("id") + ".mp3",
+                        NetworkUtils.getFile(URlString
+                                + c.getString("professorAudioUrl")));
+                arrTestesLeitura[i] = testeleitura;
+            }
+            guardarTestesLeituraBD(arrTestesLeitura);
+        } catch (Exception e) {
+            Log.d("ERRO",
+                    "ERRO DE SINC TESTES LEITURATesteLista TALVEZ SERVIDOR EM BAIXO");
+            msg +=" TestesLista ||";
+        }
+    }
+
+
+
+
+
 
 	/**
 	 * Vai por HTTP buscar toda a informacao sobre os TestesMultimedia e no
