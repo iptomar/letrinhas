@@ -3,6 +3,8 @@ package com.letrinhas05.escolhe;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -24,6 +26,11 @@ import com.letrinhas05.ClassesObjs.Escola;
 import com.letrinhas05.util.Custom;
 import com.letrinhas05.util.SystemUiHider;
 
+/**
+ * 
+ * @author Thiago
+ * 
+ */
 public class EscolheDisciplina extends Activity {
 
 	Button volt, pt, mat, estMeio, ingl;
@@ -62,7 +69,7 @@ public class EscolheDisciplina extends Activity {
 		// int's - idEscola, idProfessor, idTurma, idAluno
 		iDs = b.getIntArray("IDs");
 
-		// preencher informaï¿½ï¿½o na activity
+		// preencher informação na activity
 		((TextView) findViewById(R.id.escDEscola)).setText(strings[0]);
 		((TextView) findViewById(R.id.tvDProf)).setText(strings[1]);
 		// se professor tem uma foto, usa-se
@@ -86,6 +93,14 @@ public class EscolheDisciplina extends Activity {
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
 			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
 					100, false));
+		}
+
+		// new line faz a rotação do ecrãn em 180 graus
+		int currentOrientation = getResources().getConfiguration().orientation;
+		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+		} else {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 		}
 
 		// esconder o title************************************************+
@@ -194,13 +209,13 @@ public class EscolheDisciplina extends Activity {
 				wrap.putString("Disciplina", "Portugues");
 
 				// iniciar a pagina 2 (escolher testes a executar)
-				Intent ipt = new Intent(getApplicationContext(), EscTipoTeste.class);
+				Intent ipt = new Intent(getApplicationContext(),
+						EscTipoTeste.class);
 				ipt.putExtras(wrap);
 				startActivity(ipt);
-			//	finish();
 			}
 		});
-		
+
 		mat.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
@@ -212,10 +227,10 @@ public class EscolheDisciplina extends Activity {
 				wrap.putString("Disciplina", "Matematica");
 
 				// iniciar a pagina 2 (escolher testes a executar)
-				Intent ipt = new Intent(getApplicationContext(), EscTipoTeste.class);
+				Intent ipt = new Intent(getApplicationContext(),
+						EscTipoTeste.class);
 				ipt.putExtras(wrap);
 				startActivity(ipt);
-			//	finish();
 			}
 		});
 
@@ -230,10 +245,10 @@ public class EscolheDisciplina extends Activity {
 				wrap.putString("Disciplina", "Estudo do Meio");
 
 				// iniciar a pagina 2 (escolher testes a executar)
-				Intent ipt = new Intent(getApplicationContext(), EscTipoTeste.class);
+				Intent ipt = new Intent(getApplicationContext(),
+						EscTipoTeste.class);
 				ipt.putExtras(wrap);
 				startActivity(ipt);
-				//finish();
 			}
 		});
 
@@ -245,16 +260,15 @@ public class EscolheDisciplina extends Activity {
 				wrap.putStringArray("Nomes", strings);
 				wrap.putIntArray("IDs", iDs);
 				wrap.putInt("idDisciplina", 4);
-				wrap.putString("Disciplina", "InglÃªs");
+				wrap.putString("Disciplina", "English");
 
 				// iniciar a pagina 2 (escolher testes a executar)
-				Intent ipt = new Intent(getApplicationContext(), EscTipoTeste.class);
+				Intent ipt = new Intent(getApplicationContext(),
+						EscTipoTeste.class);
 				ipt.putExtras(wrap);
 				startActivity(ipt);
-			//	finish();
 			}
 		});
-
 
 	}
 

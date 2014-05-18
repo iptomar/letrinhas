@@ -14,28 +14,6 @@
     tools:context="com.letrinhas05.EscolheTeste$PlaceholderFragment" >
 
     <TextView
-        android:id="@+id/esTCabecalho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/logo2"
-        android:text="@string/title_activity_escolhe_teste"
-        android:textColor="#5ddfff"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
-    <ImageButton
-        android:id="@+id/ibComecar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/escTRodape"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="40dp"
-        android:clickable="true"
-        android:contentDescription="@string/start"
-        android:onClick="executarTestes"
-        android:src="@drawable/right" />
-
-    <TextView
         android:id="@+id/escTRodape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,9 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/escTVoltar"
-        android:layout_alignLeft="@+id/esTCabecalho"
-        android:layout_below="@+id/esTLogo"
-        android:layout_marginLeft="40dp"
+        android:layout_alignLeft="@+id/escTVoltar"
+        android:layout_below="@+id/esTCabecalho"
         android:layout_toLeftOf="@+id/ibComecar"
         android:background="@color/black_overlay" >
 
@@ -65,7 +42,7 @@
             android:orientation="vertical" >
 
             <ToggleButton
-                android:id="@+id/ToggleButton1"
+                android:id="@+id/escTtbtn"
                 android:layout_width="match_parent"
                 android:layout_height="83dp"
                 android:layout_marginTop="5sp"
@@ -78,32 +55,57 @@
         </LinearLayout>
     </ScrollView>
 
-    <ImageView
-        android:id="@+id/esTLogo"
+    <TextView
+        android:id="@+id/esTCabecalho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/esTCabecalho"
-        android:layout_toRightOf="@+id/svEscolher"
-        android:contentDescription="@string/teste"
-        android:src="@drawable/index" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:drawableLeft="@drawable/letrinhas"
+        android:text="@string/title_activity_escolhe_teste"
+        android:textColor="#5ddfff"
+        android:textSize="50sp"
+        android:textStyle="bold" />
 
     <Button
-        android:id="@+id/btnLsCorrecao_Original"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/esTLogo"
-        android:layout_alignRight="@+id/esTLogo"
-        android:layout_alignTop="@+id/svEscolher"
-        android:text="@string/act_BD" />
-
-    <ImageButton
         android:id="@+id/escTVoltar"
         android:layout_width="100sp"
         android:layout_height="100sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:contentDescription="@string/voltar"
+        android:drawableTop="@drawable/voltar"
         android:onClick="voltar"
-        android:src="@drawable/voltar" />
+        android:text="@string/voltar" />
+
+    <Button
+        android:id="@+id/ibComecar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:contentDescription="@string/start"
+        android:drawableTop="@drawable/right"
+        android:onClick="executarTestes"
+        android:text="@string/iniciar" />
+
+    <TextView
+        android:id="@+id/escTDisciplina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:drawableRight="@drawable/pt"
+        android:text="Disciplina Escolhida"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/escTivTipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/escTDisciplina"
+        android:layout_alignTop="@+id/svEscolher"
+        android:src="@drawable/textos" />
 
 </RelativeLayout>

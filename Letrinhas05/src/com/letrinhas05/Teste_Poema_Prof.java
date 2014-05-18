@@ -429,7 +429,7 @@ public class Teste_Poema_Prof extends Activity {
 			r1 = (ImageButton) findViewById(R.id.txtRepMen);
 			r2 = (ImageButton) findViewById(R.id.txtRepMais);
 			pnt = (TextView) findViewById(R.id.textView9);
-			vcl = (TextView) findViewById(R.id.textView1);
+			vcl = (TextView) findViewById(R.id.escTDisciplina);
 			frg = (TextView) findViewById(R.id.TextView02);
 			slb = (TextView) findViewById(R.id.TextView03);
 			rpt = (TextView) findViewById(R.id.TextView06);

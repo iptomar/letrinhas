@@ -22,6 +22,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author Thiago
+ *
+ */
 public class EscModo extends Activity {
 	Button aluno, prof, volt;
 	int idEscola, idProfessor, idTurma, idAluno, iDs[];

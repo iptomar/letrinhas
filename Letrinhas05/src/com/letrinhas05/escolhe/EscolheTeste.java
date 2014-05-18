@@ -6,14 +6,18 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -22,20 +26,21 @@ import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.util.SystemUiHider;
 
+/**
+ * 
+ * @author Thiago
+ * 
+ */
 public class EscolheTeste extends Activity {
-	ImageButton volt, exect;
-	public int nTestes,numero=0,estudanteId,testId;
-	boolean modo;
+	Button volt, exect;
+	public int nTestes, numero = 0, alunoId, testId;
 	String teste;
-	String[] lista;
-	String[] array;
-	int[] tipo,id;
-	String[] titulo;
-	String[] texto;
+	String[] lista, Nomes, array, titulo;
+	int[] tipo, id, ids;
 	LetrinhasDB ldb;
 
-    protected int idArea, idTipo; //////IDaREA IDTIPO DE TESTE
-    protected String nomeDsiciplina;
+	protected int idArea, idTipo; // ////IDaREA IDTIPO DE TESTE
+	protected String nomeDsiciplina;
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -62,15 +67,59 @@ public class EscolheTeste extends Activity {
 
 		// recebe o parametro de modo
 		Bundle b = getIntent().getExtras();
-		int[] ids = b.getIntArray("IDs");
-		estudanteId = ids[3];
-        idArea = b.getInt("idDisciplina");
-        idTipo = b.getInt("TipoTesteid");
-        nomeDsiciplina = b.getString("TipoTesteid");
-        Log.e("CENAS",idArea +" "+ idTipo); // Error
+		ids = b.getIntArray("IDs");
+		Nomes = b.getStringArray("Nomes");
+		alunoId = ids[3];
+		idArea = b.getInt("idDisciplina");
+		idTipo = b.getInt("TipoTesteid");
+		nomeDsiciplina = b.getString("Disiciplina");
+		
+		Log.e("CENAS", idArea + " " + idTipo); // Error
+		//disciplina
+		TextView tvd= ((TextView)findViewById(R.id.escTDisciplina));
+		tvd.setText(b.getString("Disciplina"));
+		ImageView imgD = new ImageView(this);
+		switch(idArea){
+		case 1:
+			imgD.setImageResource(R.drawable.pt);// Português
+			break;
+		case 2:
+			imgD.setImageResource(R.drawable.mat);// Matemática
+			break;
+		case 3:
+			imgD.setImageResource(R.drawable.estmeio);// Estudo do meio
+			break;
+		case 4:
+			imgD.setImageResource(R.drawable.en);// English
+			break;
+		}
+		tvd.setCompoundDrawables(null, null, imgD.getDrawable(), null);
+		
+		//tipo
+		 imgD = (ImageView)findViewById(R.id.escTivTipo);
+		 switch (idTipo){
+		 case 0:
+			 imgD.setImageResource(R.drawable.textos);
+			 break;
+		 case 1:
+			 imgD.setImageResource(R.drawable.imags);
+			 break;
+		 case 2:
+			 imgD.setImageResource(R.drawable.palavras);
+			 break;
+		 }
+		
 
-        volt = (ImageButton) findViewById(R.id.escTVoltar);
-        exect = (ImageButton) findViewById(R.id.ibComecar);
+		volt = (Button) findViewById(R.id.escTVoltar);
+		exect = (Button) findViewById(R.id.ibComecar);
+
+		// new line faz a rotação do ecrãn em 180 graus
+		int currentOrientation = getResources().getConfiguration().orientation;
+		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+		} else {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+		}
 
 		// esconder o title************************************************+
 		final View contentView = findViewById(R.id.escTeste);
@@ -103,63 +152,52 @@ public class EscolheTeste extends Activity {
 				});
 
 		/************************************************************************
-		 * Criaï¿½ï¿½o de um painel dinï¿½mico para os botï¿½es de selecï¿½ï¿½o dos testes
+		 * Criação de um painel dinâmico para os botões de seleção dos testes
 		 * existentes.
-		 * 
-		 * ï¿½ necessï¿½rio de saber primeiro onde estï¿½o os testes e quantos sï¿½o!
-		 * (Comunicar com a BD)
-		 * 
-		 * aceder ï¿½ BD local, contar o nï¿½ de testes, ex: nTestes
-		 * ="Conta(blï¿½.blï¿½.blï¿½)" ; teste= new Teste[nTestes];
-		 * 
-		 * e os seus tï¿½tulos guardar essa informaï¿½ï¿½o num array para se aceder na
-		 * construï¿½ï¿½o do scroll view. ex: for(int i=0;i<teste.length i++){ int
-		 * tipo= "tipo(blï¿½.blï¿½.blï¿½)"; String tit = "titulo(blï¿½blï¿½blï¿½)"; String
-		 * ender = "endereï¿½o(blï¿½blï¿½blï¿½)"; teste[i]=new Teste(tip,tit,ender); }
-		 * 
 		 */
 
-		// teste:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		ldb = new LetrinhasDB(this);
-//        if  getAllTesteByAreaIdAndTwoTypes
-        List<Teste> dados;
-        if (idTipo == 0)
-            dados = ldb.getAllTesteByAreaIdAndTwoTypes(idArea, idTipo, 3);
-        else
-            dados = ldb.getAllTesteByAreaIdAndType(idArea, idTipo);
+		// if getAllTesteByAreaIdAndTwoTypes
+		List<Teste> dados;
+		if (idTipo == 0)
+			//texto e poemas
+			dados = ldb.getAllTesteByAreaIdAndTwoTypes(idArea, idTipo, 3);
+		else
+			//imagens ou lista
+			dados = ldb.getAllTesteByAreaIdAndType(idArea, idTipo);
 		array = new String[dados.size()];
 		tipo = new int[dados.size()];
 		titulo = new String[dados.size()];
-		texto = new String[dados.size()];
 		id = new int[dados.size()];
 		for (Teste cn : dados) {
-           // String storage = cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
-			String storage = cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo();
-            Log.d("letrinhas-Store", storage.toString());
-            array[numero] = storage.toString();
-            Log.d("letrinhas-Array", array[0].toString());
-            tipo[numero] = cn.getTipo();
-            Log.d("letrinhas-Tipo",String.valueOf(tipo[0]));
-            titulo[numero] = cn.getTitulo();
-            Log.d("letrinhas-Titulo", titulo[0].toString());
-            texto[numero] = cn.getTexto();
-            Log.d("letrinhas-Texto", texto[0].toString());
-            id[numero] = cn.getIdTeste();
-            Log.d("letrinhas-ID", String.valueOf(id[0]));
-            numero++;
-        }
+			// String storage =
+			// cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
+			String storage = cn.getIdTeste() + "," + cn.getTitulo().toString()
+					+ "," + cn.getTexto().toString() + "," + cn.getTipo();
+			Log.d("letrinhas-Store", storage.toString());
+			array[numero] = storage.toString();
+			Log.d("letrinhas-Array", array[0].toString());
+			tipo[numero] = cn.getTipo();
+			Log.d("letrinhas-Tipo", String.valueOf(tipo[0]));
+			titulo[numero] = cn.getTitulo();
+			Log.d("letrinhas-Titulo", titulo[0].toString());
+			id[numero] = cn.getIdTeste();
+			Log.d("letrinhas-ID", String.valueOf(id[0]));
+			numero++;
+		}
 		// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-		// Painel dinï¿½mico ****************************************************
+		// Painel dinï¿½mico
+		// ****************************************************
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
 		// Botï¿½o original que existe por defeniï¿½ï¿½o
-		ToggleButton tg1 = (ToggleButton) findViewById(R.id.ToggleButton1);
+		ToggleButton tg1 = (ToggleButton) findViewById(R.id.escTtbtn);
 		// Se existirem testes no repositï¿½rio correspondentes, cria o nï¿½ de
 		// botï¿½es referentes ao nï¿½ de testes existentes
 		if (0 < numero) {
 			int i = 0;
 			teste = titulo[i].toString();
-			Log.d("Texto-Apenas", teste+" int:"+numero);
+			Log.d("Texto-Apenas", teste + " int:" + numero);
 			// Atribuo o primeiro tï¿½tulo ao primeiro botï¿½o
 			// ********************************+
 			// texto por defeito
@@ -179,10 +217,11 @@ public class EscolheTeste extends Activity {
 				tg.setTextSize(tg1.getTextSize());
 				teste = titulo[i].toString();
 				testId = id[i];
-				Log.d("Texto-Apenas-part2", teste+" int:"+i);
+				Log.d("Texto-Apenas-part2", teste + " int:" + i);
 				// texto por defeito
 				tg.setText(teste);
-				// texto se nï¿½o seleccionado = "titulo do teste sem numeraï¿½ï¿½o"
+				// texto se nï¿½o seleccionado =
+				// "titulo do teste sem numeraï¿½ï¿½o"
 				tg.setTextOff(teste);
 				// texto se seleccionado = "titulo do teste com numeraï¿½ï¿½o"
 				tg.setTextOn((i + 1) + " - " + teste);
@@ -208,10 +247,8 @@ public class EscolheTeste extends Activity {
 			alerta = builder.create();
 			// Mostra
 			alerta.show();
-			
+
 		}
-
-
 
 		escutaBotoes();
 	}
@@ -280,7 +317,7 @@ public class EscolheTeste extends Activity {
 	}
 
 	/**
-	 * Procedimento para executar os testes selecionados, um de cada vez
+	 * Procedimento para executar os testes selecionados, um de cada vez sequêncialmente
 	 * 
 	 * @author Thiago
 	 */
@@ -312,10 +349,11 @@ public class EscolheTeste extends Activity {
 
 		iniciar(j);
 	}
-    ////////////////////////////////////////////////////////////////////////////////////////////
-    ///////aqui em baixo tem o switch onde tem que configurar para as vossas janelas teste////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////
 
+	// //////////////////////////////////////////////////////////////////////////////////////////
+	// /////aqui em baixo tem o switch onde tem que configurar para as vossas
+	// janelas teste////////////////
+	// //////////////////////////////////////////////////////////////////////////////////////////
 
 	public void iniciar(int j) {
 		// iniciar os testes....
@@ -324,36 +362,24 @@ public class EscolheTeste extends Activity {
 			// Decompor o array de teste, para poder enviar por parametros
 			int[] lstID = new int[lista.length];
 			int[] lstTipo = new int[lista.length];
-			String[] lstTitulo = new String[lista.length];
-			String[] lstTexto = new String[lista.length];
 			for (int i = 0; i < lista.length; i++) {
 				lstID[i] = id[i];
 				lstTipo[i] = tipo[i];
-				lstTitulo[i] = titulo[i];
-				lstTexto[i] = texto[i];
 			}
 
 			// enviar o parametro de modo
 			Bundle wrap = new Bundle();
-			wrap.putBoolean("Modo", modo);
-
-			// teste, a depender das informaï¿½ï¿½es da BD
-			// ****************************************************************************
-			wrap.putString("Aluno", "EI3-Tiago Fernandes");
-			wrap.putString("Professor", "ESTT- Pedro Dias");
 
 			// resto dos parametros
-			wrap.putInt("estudanteId", estudanteId);
-			wrap.putInt("testId", testId);
-			Log.d("IDs estudante teste", estudanteId + " <-idaluno idteste-> " + testId);
-			wrap.putIntArray("ListaID", lstID);
-			wrap.putIntArray("ListaTipo", lstTipo);
-			wrap.putStringArray("ListaTitulo", lstTitulo);
-			wrap.putStringArray("ListaTexto", lstTexto);
-			wrap.putStringArray("Storage", array);
+			Log.d("IDs estudante teste", alunoId + " <-idaluno idteste-> "
+					+ testId);
+			wrap.putIntArray("ListaID", lstID);//id's dos testes
+			wrap.putIntArray("ListaTipo", lstTipo);//tipo dos testes
+			wrap.putStringArray("Nomes", Nomes);
+			wrap.putIntArray("IDs", ids);
 
 			switch (tipo[0]) {
-			case 0: // lanï¿½ar a nova activity do tipo texto leitura,
+			case 0: // lançar a nova activity do tipo texto leitura,
 
 				Intent it = new Intent(getApplicationContext(),
 						Teste_Texto_Aluno.class);
@@ -362,7 +388,8 @@ public class EscolheTeste extends Activity {
 				startActivity(it);
 
 				break;
-			case 1:// lanï¿½ar a nova activity do tipo multimedia, e o seu conteï¿½do
+			case 1:// lanï¿½ar a nova activity do tipo multimedia, e o seu
+					// conteï¿½do
 					//
 				Intent ip = new Intent(getApplicationContext(),
 						Teste_Imagem.class);
@@ -371,7 +398,8 @@ public class EscolheTeste extends Activity {
 				startActivity(ip);
 
 				break;
-			case 2: // lanï¿½ar a nova activity do tipo LIsta, e o seu conteï¿½do
+			case 2: // lanï¿½ar a nova activity do tipo LIsta, e o seu
+					// conteï¿½do
 				//
 				Intent ipm = new Intent(getApplicationContext(),
 						Teste_Palavras_Aluno.class);
@@ -380,26 +408,24 @@ public class EscolheTeste extends Activity {
 				startActivity(ipm);
 
 				break;
-			case 3: // lanï¿½ar a nova activity do tipo poema, e o seu conteï¿½do
-                Intent ipp = new Intent(getApplicationContext(),
-                        Teste_Poema_Aluno.class);
-                ipp.putExtras(wrap);
+			case 3: // lanï¿½ar a nova activity do tipo poema, e o seu
+					// conteï¿½do
+				Intent ipp = new Intent(getApplicationContext(),
+						Teste_Poema_Aluno.class);
+				ipp.putExtras(wrap);
 
-                startActivity(ipp);
+				startActivity(ipp);
 				break;
 			default:
-				Toast.makeText(getApplicationContext(), " - Tipo nï¿½o defenido",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),
+						" - Tipo nï¿½o defenido", Toast.LENGTH_SHORT).show();
 				// retirar o teste errado e continuar
 
-				/*int k = 0;
-				Teste aux[] = new Teste[lista.length - 1];
-				for (int i = 1; i < lista.length; i++) {
-					aux[k] = lista[i];
-					k++;
-				}
-				lista = aux;
-				iniciar(lista.length);*/
+				/*
+				 * int k = 0; Teste aux[] = new Teste[lista.length - 1]; for
+				 * (int i = 1; i < lista.length; i++) { aux[k] = lista[i]; k++;
+				 * } lista = aux; iniciar(lista.length);
+				 */
 				break;
 			}
 
@@ -410,7 +436,7 @@ public class EscolheTeste extends Activity {
 			// define o titulo
 			builder.setTitle("Letrinhas 05");
 			// define a mensagem
-			builder.setMessage("Nï¿½o existem testes seleccionados!");
+			builder.setMessage("Não existem testes seleccionados!");
 			// define um botï¿½o como positivo
 			builder.setPositiveButton("OK", null);
 			// cria o AlertDialog

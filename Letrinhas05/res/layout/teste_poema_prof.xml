@@ -176,7 +176,7 @@
                 android:src="@drawable/menos" />
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/escTDisciplina"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
