@@ -8,8 +8,8 @@ public class CorrecaoTesteMultimedia extends CorrecaoTeste {
     protected int opcaoEscolhida;
     protected int certa;
 
-    public CorrecaoTesteMultimedia(int idCorrrecao, int testId, int idEstudante, String dataExecucao, int estado, int opcaoEscolhida, int certa) {
-        super(idCorrrecao, testId, idEstudante, dataExecucao, estado);
+    public CorrecaoTesteMultimedia(int idCorrrecao, int testId, int idEstudante, long dataExecucao, int tipo, int estado, int opcaoEscolhida, int certa) {
+        super(idCorrrecao, testId, idEstudante, dataExecucao, tipo ,estado);
         this.opcaoEscolhida = opcaoEscolhida;
         this.certa = certa;
     }
