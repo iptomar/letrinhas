@@ -189,7 +189,7 @@ public class EscTipoTeste extends Activity {
                 wrap.putIntArray("IDs", iDs);
                 wrap.putInt("idDisciplina", idDisciplina);
                 wrap.putString("Disciplina", disciplina);
-                wrap.putInt("TipoTesteid", 0);
+                wrap.putInt("TipoTesteid", 2);
                 wrap.putString("TipoTeste", "Leitura de Palavras");
 
                 // iniciar a pagina 2 (escolher testes a executar)
@@ -211,7 +211,7 @@ public class EscTipoTeste extends Activity {
                 wrap.putIntArray("IDs", iDs);
                 wrap.putInt("idDisciplina", idDisciplina);
                 wrap.putString("Disciplina", disciplina);
-                wrap.putInt("TipoTesteid", 2);
+                wrap.putInt("TipoTesteid", 0);
                 wrap.putString("TipoTeste", "Leitura de Textos");
 
                 // iniciar a pagina 2 (escolher testes a executar)

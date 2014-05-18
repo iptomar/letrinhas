@@ -58,22 +58,6 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 
 		lerSynTestesMultimedia(strings[0]);
         mActivity.prog.setProgress(100);
-
-
-
-
-//		if (carregado) {
-//			bent.setEnabled(true);
-//			tst.setText("Sincroniza��o realizada com sucesso!!");
-//			tst.show();
-//		} else {
-//			tst.setText("N�o foi possivel aceder ao servidor!");
-//			tst.show();
-//		}
-//		try {
-//			link.setVisibility(View.INVISIBLE);
-//		} catch (Exception e) {	}
-
 		return null;
 	}
 

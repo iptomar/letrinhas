@@ -121,7 +121,12 @@ public class EscolheTeste extends Activity {
 
 		// teste:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		ldb = new LetrinhasDB(this);
-		List<Teste> dados = ldb.getAllTesteByAreaIdAndType(idArea, idTipo);
+//        if  getAllTesteByAreaIdAndTwoTypes
+        List<Teste> dados;
+        if (idTipo == 0)
+            dados = ldb.getAllTesteByAreaIdAndTwoTypes(idArea, idTipo, 3);
+        else
+            dados = ldb.getAllTesteByAreaIdAndType(idArea, idTipo);
 		array = new String[dados.size()];
 		tipo = new int[dados.size()];
 		titulo = new String[dados.size()];
