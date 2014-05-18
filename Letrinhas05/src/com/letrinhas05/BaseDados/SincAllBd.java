@@ -333,7 +333,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
                                 + c.getString("professorAudioUrl")));
                 arrTestesLeitura[i] = testeleitura;
             }
-            guardarTestesLeituraBD(arrTestesLeitura);
+            guardarTestesLeituraListaBD(arrTestesLeitura);
         } catch (Exception e) {
             Log.d("ERRO",
                     "ERRO DE SINC TESTES LEITURATesteLista TALVEZ SERVIDOR EM BAIXO");
@@ -599,6 +599,54 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 			Log.d("BDDADOS: ", cenas);
 		}
 	}
+
+
+    /**
+     * Guarda um array de ObJECTOS testesLeitura na Base de dados
+     *
+     * @param testeLeitura
+     *            Array com testesLeitura para se guardar
+     */
+    public void guardarTestesLeituraListaBD(TesteLeitura... testeLeitura) {
+        LetrinhasDB db = new LetrinhasDB(context);
+        //   db.deleteAllItemsTests();
+       // db.deleteAllItemsTestsLeitura();
+        Log.d("DB", "Inserir Dados na base de dados dos TESTES ..");
+        for (int i = 0; i < testeLeitura.length; i++) {
+            db.addNewItemTestesLeitura(testeLeitura[i]);
+        }
+        db.close();
+        Log.d("DB", "Tudo inserido nas Testes");
+        // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
+        // CONTEUDO DA TABELA//////////////
+        List<Teste> dados = db.getAllTeste();
+        Log.d("BDDADOS: ",
+                "*********Tabela Testes---- + testes Leitura LISTAS********************");
+        for (Teste cn : dados) {
+            String logs = "getIdTeste:   " + cn.getIdTeste() + ",getTitulo:   "
+                    + cn.getTitulo() + ",getTexto:    " + cn.getTexto()
+                    + ", getDataInsercaoTeste:    " + cn.getDataInsercaoTeste()
+                    + ", getGrauEscolar:    " + cn.getGrauEscolar()
+                    + ", getTipo:    " + cn.getTipo();
+
+            // Writing Contacts to log
+
+            Log.d("BDDADOS: ", logs);
+        }
+        // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
+        // CONTEUDO DA TABELA//////////////
+        List<TesteLeitura> dados2 = db.getAllTesteLeitura();
+        Log.d("BDDADOS: ", "\n*********testesleitura********************");
+        for (TesteLeitura cn : dados2) {
+            String cenas = "getIdTeste:" + cn.getIdTeste()
+                    + ", getConteudoTexto: " + cn.getConteudoTexto()
+                    + ", getProfessorAudioUrl: " + cn.getProfessorAudioUrl();
+            // Writing Contacts to log
+            Log.d("BDDADOS: ", cenas);
+        }
+    }
+
+
 
 
 
