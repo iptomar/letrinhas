@@ -2,6 +2,7 @@ package com.letrinhas05.escolhe;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -24,7 +25,8 @@ public class EscTipoTeste extends Activity {
     Button voltar, testePalavras, testeTexto, testeMulti;
     String strings[];
     int[] iDs;
-
+    String disciplina;
+    int idDisciplina;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -57,7 +59,8 @@ public class EscTipoTeste extends Activity {
         strings = b.getStringArray("Nomes");
         // int's - idEscola, idProfessor, idTurma, idAluno
         iDs = b.getIntArray("IDs");
-        String disciplina = b.getString("Disciplina");
+        disciplina = b.getString("Disciplina");
+        idDisciplina = b.getInt("idDisciplina");
 
         // preencher informa��o na activity
         ((TextView) findViewById(R.id.escTipoTEscola)).setText(strings[0]);
@@ -180,17 +183,19 @@ public class EscTipoTeste extends Activity {
         testePalavras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {// sair da activity
-                // enviar os parametros necess�rios
-//                Bundle wrap = new Bundle();
-//                wrap.putStringArray("Nomes", strings);
-//                wrap.putIntArray("IDs", iDs);
-//                wrap.putInt("idDisciplina", 0);
-//                wrap.putString("Disciplina", "Portugu�s");
-//
-//                // iniciar a pagina 2 (escolher testes a executar)
-//                Intent ipt = new Intent(EscTipoTeste.this, EscolheTeste.class);
-//                ipt.putExtras(wrap);
-//                startActivity(ipt);
+//                enviar os parametros necess�rios
+                Bundle wrap = new Bundle();
+                wrap.putStringArray("Nomes", strings);
+                wrap.putIntArray("IDs", iDs);
+                wrap.putInt("idDisciplina", idDisciplina);
+                wrap.putString("Disciplina", disciplina);
+                wrap.putInt("TipoTesteid", 2);
+                wrap.putString("TipoTeste", "Leitura de Palavras");
+
+                // iniciar a pagina 2 (escolher testes a executar)
+                Intent ipt = new Intent(EscTipoTeste.this, EscolheTeste.class);
+                ipt.putExtras(wrap);
+                startActivity(ipt);
         //   finish();
 
                 ////////////AQUI VOU PARA JANELA LEITURA DE PLAVRAS////////////////////
@@ -200,38 +205,38 @@ public class EscTipoTeste extends Activity {
         testeTexto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {// sair da activity
-                // enviar os parametros necess�rios
-//                Bundle wrap = new Bundle();
-//                wrap.putStringArray("Nomes", strings);
-//                wrap.putIntArray("IDs", iDs);
-//                wrap.putInt("idDisciplina", 1);
-//                wrap.putString("Disciplina", "Matem�tica");
-//
-//                // iniciar a pagina 2 (escolher testes a executar)
-//                Intent ipt = new Intent(EscTipoTeste.this, EscolheTeste.class);
-//                ipt.putExtras(wrap);
-//                startActivity(ipt);
-//                finish();
-                ////////////AQUI VOU PARA JANELA LEITURA DE TEXTOS////////////////////
+               // enviar os parametros necess�rios
+                Bundle wrap = new Bundle();
+                wrap.putStringArray("Nomes", strings);
+                wrap.putIntArray("IDs", iDs);
+                wrap.putInt("idDisciplina", idDisciplina);
+                wrap.putString("Disciplina", disciplina);
+                wrap.putInt("TipoTesteid", 0);
+                wrap.putString("TipoTeste", "Leitura de Textos");
+
+                // iniciar a pagina 2 (escolher testes a executar)
+                Intent ipt = new Intent(EscTipoTeste.this, EscolheTeste.class);
+                ipt.putExtras(wrap);
+                startActivity(ipt);
             }
         });
 
         testeMulti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {// sair da activity
-                // enviar os parametros necess�rios
-//                Bundle wrap = new Bundle();
-//                wrap.putStringArray("Nomes", strings);
-//                wrap.putIntArray("IDs", iDs);
-//                wrap.putInt("idDisciplina", 2);
-//                wrap.putString("Disciplina", "Estudo do Meio");
-//
-//                // iniciar a pagina 2 (escolher testes a executar)
-//                Intent ipt = new Intent(EscTipoTeste.this, EscolheTeste.class);
-//                ipt.putExtras(wrap);
-//                startActivity(ipt);
-//                finish();
-                ////////////AQUI VOU PARA JANELA TEXTES MULTIMEDIA////////////////////
+                // enviar os parametros necesserios
+                Bundle wrap = new Bundle();
+                wrap.putStringArray("Nomes", strings);
+                wrap.putIntArray("IDs", iDs);
+                wrap.putInt("idDisciplina", idDisciplina);
+                wrap.putString("Disciplina", disciplina);
+                wrap.putInt("TipoTesteid", 1);
+                wrap.putString("TipoTeste", "Interpretação atraves de Imagens");
+
+                // iniciar a pagina 2 (escolher testes a executar)
+                Intent ipt = new Intent(EscTipoTeste.this, EscolheTeste.class);
+                ipt.putExtras(wrap);
+                startActivity(ipt);
             }
         });
 

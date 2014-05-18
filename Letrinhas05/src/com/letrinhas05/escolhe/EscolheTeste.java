@@ -17,17 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.letrinhas05.R;
-import com.letrinhas05.Teste_Palavras_Aluno;
-import com.letrinhas05.Teste_Poema_Aluno;
-import com.letrinhas05.Teste_Texto_Aluno;
+import com.letrinhas05.*;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.util.SystemUiHider;
 
 public class EscolheTeste extends Activity {
 	ImageButton volt, exect;
-	public int nTestes,numero=0;
+	public int nTestes,numero=0,estudanteId,testId;
 	boolean modo;
 	String teste;
 	String[] lista;
@@ -37,6 +34,8 @@ public class EscolheTeste extends Activity {
 	String[] texto;
 	LetrinhasDB ldb;
 
+    protected int idArea, idTipo; //////IDaREA IDTIPO DE TESTE
+    protected String nomeDsiciplina;
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -63,7 +62,15 @@ public class EscolheTeste extends Activity {
 
 		// recebe o parametro de modo
 		Bundle b = getIntent().getExtras();
-		modo = b.getBoolean("Modo");
+		int[] ids = b.getIntArray("IDs");
+		estudanteId = ids[3];
+        idArea = b.getInt("idDisciplina");
+        idTipo = b.getInt("TipoTesteid");
+        nomeDsiciplina = b.getString("TipoTesteid");
+        Log.e("CENAS",idArea +" "+ idTipo); // Error
+
+        volt = (ImageButton) findViewById(R.id.escTVoltar);
+        exect = (ImageButton) findViewById(R.id.ibComecar);
 
 		// esconder o title************************************************+
 		final View contentView = findViewById(R.id.escTeste);
@@ -96,25 +103,30 @@ public class EscolheTeste extends Activity {
 				});
 
 		/************************************************************************
-		 * Criação de um painel dinâmico para os botões de selecção dos testes
+		 * Criaï¿½ï¿½o de um painel dinï¿½mico para os botï¿½es de selecï¿½ï¿½o dos testes
 		 * existentes.
 		 * 
-		 * É necessário de saber primeiro onde estão os testes e quantos são!
+		 * ï¿½ necessï¿½rio de saber primeiro onde estï¿½o os testes e quantos sï¿½o!
 		 * (Comunicar com a BD)
 		 * 
-		 * aceder à BD local, contar o nº de testes, ex: nTestes
-		 * ="Conta(blá.blá.blá)" ; teste= new Teste[nTestes];
+		 * aceder ï¿½ BD local, contar o nï¿½ de testes, ex: nTestes
+		 * ="Conta(blï¿½.blï¿½.blï¿½)" ; teste= new Teste[nTestes];
 		 * 
-		 * e os seus títulos guardar essa informação num array para se aceder na
-		 * construção do scroll view. ex: for(int i=0;i<teste.length i++){ int
-		 * tipo= "tipo(blá.blá.blá)"; String tit = "titulo(blábláblá)"; String
-		 * ender = "endereço(blábláblá)"; teste[i]=new Teste(tip,tit,ender); }
+		 * e os seus tï¿½tulos guardar essa informaï¿½ï¿½o num array para se aceder na
+		 * construï¿½ï¿½o do scroll view. ex: for(int i=0;i<teste.length i++){ int
+		 * tipo= "tipo(blï¿½.blï¿½.blï¿½)"; String tit = "titulo(blï¿½blï¿½blï¿½)"; String
+		 * ender = "endereï¿½o(blï¿½blï¿½blï¿½)"; teste[i]=new Teste(tip,tit,ender); }
 		 * 
 		 */
 
 		// teste:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		ldb = new LetrinhasDB(this);
-		List<Teste> dados = ldb.getAllTeste();
+//        if  getAllTesteByAreaIdAndTwoTypes
+        List<Teste> dados;
+        if (idTipo == 0)
+            dados = ldb.getAllTesteByAreaIdAndTwoTypes(idArea, idTipo, 3);
+        else
+            dados = ldb.getAllTesteByAreaIdAndType(idArea, idTipo);
 		array = new String[dados.size()];
 		tipo = new int[dados.size()];
 		titulo = new String[dados.size()];
@@ -138,47 +150,48 @@ public class EscolheTeste extends Activity {
         }
 		// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-		// Painel dinâmico ****************************************************
+		// Painel dinï¿½mico ****************************************************
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
-		// Botão original que existe por defenição
+		// Botï¿½o original que existe por defeniï¿½ï¿½o
 		ToggleButton tg1 = (ToggleButton) findViewById(R.id.ToggleButton1);
-		// Se existirem testes no repositório correspondentes, cria o nº de
-		// botões referentes ao nº de testes existentes
+		// Se existirem testes no repositï¿½rio correspondentes, cria o nï¿½ de
+		// botï¿½es referentes ao nï¿½ de testes existentes
 		if (0 < numero) {
 			int i = 0;
 			teste = titulo[i].toString();
 			Log.d("Texto-Apenas", teste+" int:"+numero);
-			// Atribuo o primeiro título ao primeiro botão
+			// Atribuo o primeiro tï¿½tulo ao primeiro botï¿½o
 			// ********************************+
 			// texto por defeito
 			tg1.setText(teste);
-			// texto se não seleccionado = "titulo do teste sem numeração"
+			// texto se nï¿½o seleccionado = "titulo do teste sem numeraï¿½ï¿½o"
 			tg1.setTextOff(teste);
-			// texto se seleccionado = "titulo do teste com numeração"
+			// texto se seleccionado = "titulo do teste com numeraï¿½ï¿½o"
 			tg1.setTextOn((i + 1) + " - " + teste);
 			i++;
 
-			// Resto do títulos
+			// Resto do tï¿½tulos
 			while (i < numero) {
-				// um novo botão
+				// um novo botï¿½o
 				ToggleButton tg = new ToggleButton(getBaseContext());
-				// copiar os parametros de layout do 1º botão
+				// copiar os parametros de layout do 1ï¿½ botï¿½o
 				tg.setLayoutParams(tg1.getLayoutParams());
 				tg.setTextSize(tg1.getTextSize());
 				teste = titulo[i].toString();
+				testId = id[i];
 				Log.d("Texto-Apenas-part2", teste+" int:"+i);
 				// texto por defeito
 				tg.setText(teste);
-				// texto se não seleccionado = "titulo do teste sem numeração"
+				// texto se nï¿½o seleccionado = "titulo do teste sem numeraï¿½ï¿½o"
 				tg.setTextOff(teste);
-				// texto se seleccionado = "titulo do teste com numeração"
+				// texto se seleccionado = "titulo do teste com numeraï¿½ï¿½o"
 				tg.setTextOn((i + 1) + " - " + teste);
 				// inserir no scroll view
 				ll.addView(tg);
 				i++;
 			}
 		} else {
-			// esconder os botões
+			// esconder os botï¿½es
 			tg1.setVisibility(View.INVISIBLE);
 			exect.setVisibility(View.INVISIBLE);
 
@@ -188,8 +201,8 @@ public class EscolheTeste extends Activity {
 			// define o titulo
 			builder.setTitle("Letrinhas 03");
 			// define a mensagem
-			builder.setMessage("Não foram encontrados testes no repositório");
-			// define um botão como positivo
+			builder.setMessage("Nï¿½o foram encontrados testes no repositï¿½rio");
+			// define um botï¿½o como positivo
 			builder.setPositiveButton("OK", null);
 			// cria o AlertDialog
 			alerta = builder.create();
@@ -198,8 +211,7 @@ public class EscolheTeste extends Activity {
 			
 		}
 
-		volt = (ImageButton) findViewById(R.id.escTVoltar);
-		exect = (ImageButton) findViewById(R.id.ibComecar);
+
 
 		escutaBotoes();
 	}
@@ -247,7 +259,7 @@ public class EscolheTeste extends Activity {
 	}
 
 	/**
-	 * Procedimento para veirficar os botões
+	 * Procedimento para veirficar os botï¿½es
 	 * 
 	 * @author Thiago
 	 */
@@ -261,7 +273,7 @@ public class EscolheTeste extends Activity {
 
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {// sair da aplicação
+			public void onClick(View view) {// sair da aplicaï¿½ï¿½o
 				finish();
 			}
 		});
@@ -274,13 +286,13 @@ public class EscolheTeste extends Activity {
 	 */
 	public void executarTestes() {
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
-		// contar o nº de elementos (testes)
+		// contar o nï¿½ de elementos (testes)
 		int nElements = ll.getChildCount();
 
 		int j = 0;
 		// contar quantos e quais foram selecionados
 		for (int i = 0; i < nElements; i++) {
-			// verificar se o teste está ativo
+			// verificar se o teste estï¿½ ativo
 			if (((ToggleButton) ll.getChildAt(i)).isChecked()) {
 				j++;
 			}
@@ -300,6 +312,10 @@ public class EscolheTeste extends Activity {
 
 		iniciar(j);
 	}
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    ///////aqui em baixo tem o switch onde tem que configurar para as vossas janelas teste////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
 
 	public void iniciar(int j) {
 		// iniciar os testes....
@@ -321,12 +337,15 @@ public class EscolheTeste extends Activity {
 			Bundle wrap = new Bundle();
 			wrap.putBoolean("Modo", modo);
 
-			// teste, a depender das informações da BD
+			// teste, a depender das informaï¿½ï¿½es da BD
 			// ****************************************************************************
 			wrap.putString("Aluno", "EI3-Tiago Fernandes");
 			wrap.putString("Professor", "ESTT- Pedro Dias");
 
 			// resto dos parametros
+			wrap.putInt("estudanteId", estudanteId);
+			wrap.putInt("testId", testId);
+			Log.d("IDs estudante teste", estudanteId + " <-idaluno idteste-> " + testId);
 			wrap.putIntArray("ListaID", lstID);
 			wrap.putIntArray("ListaTipo", lstTipo);
 			wrap.putStringArray("ListaTitulo", lstTitulo);
@@ -334,7 +353,7 @@ public class EscolheTeste extends Activity {
 			wrap.putStringArray("Storage", array);
 
 			switch (tipo[0]) {
-			case 0: // lançar a nova activity do tipo texto,
+			case 0: // lanï¿½ar a nova activity do tipo texto leitura,
 
 				Intent it = new Intent(getApplicationContext(),
 						Teste_Texto_Aluno.class);
@@ -343,34 +362,33 @@ public class EscolheTeste extends Activity {
 				startActivity(it);
 
 				break;
-			case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
+			case 1:// lanï¿½ar a nova activity do tipo multimedia, e o seu conteï¿½do
 					//
 				Intent ip = new Intent(getApplicationContext(),
-						Teste_Palavras_Aluno.class);
+						Teste_Imagem.class);
 				ip.putExtras(wrap);
 
 				startActivity(ip);
 
 				break;
-			case 2: // lançar a nova activity do tipo Poema, e o seu conteúdo
+			case 2: // lanï¿½ar a nova activity do tipo LIsta, e o seu conteï¿½do
 				//
 				Intent ipm = new Intent(getApplicationContext(),
-						Teste_Poema_Aluno.class);
+						Teste_Palavras_Aluno.class);
 				ipm.putExtras(wrap);
 
 				startActivity(ipm);
 
 				break;
-			case 3: // lançar a nova activity do tipo imagem, e o seu conteúdo
-				//
-				// Intent it = new Intent(getApplicationContext(),
-				// Teste_Texto.class);
-				// it.putExtras(wrap);
+			case 3: // lanï¿½ar a nova activity do tipo poema, e o seu conteï¿½do
+                Intent ipp = new Intent(getApplicationContext(),
+                        Teste_Poema_Aluno.class);
+                ipp.putExtras(wrap);
 
-				// startActivity(it);
+                startActivity(ipp);
 				break;
 			default:
-				Toast.makeText(getApplicationContext(), " - Tipo não defenido",
+				Toast.makeText(getApplicationContext(), " - Tipo nï¿½o defenido",
 						Toast.LENGTH_SHORT).show();
 				// retirar o teste errado e continuar
 
@@ -385,15 +403,15 @@ public class EscolheTeste extends Activity {
 				break;
 			}
 
-		} else {// senão avisa que não existe nada seleccionado
+		} else {// senï¿½o avisa que nï¿½o existe nada seleccionado
 			android.app.AlertDialog alerta;
 			// Cria o gerador do AlertDialog
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			// define o titulo
-			builder.setTitle("Letrinhas 03");
+			builder.setTitle("Letrinhas 05");
 			// define a mensagem
-			builder.setMessage("Não existem testes seleccionados!");
-			// define um botão como positivo
+			builder.setMessage("Nï¿½o existem testes seleccionados!");
+			// define um botï¿½o como positivo
 			builder.setPositiveButton("OK", null);
 			// cria o AlertDialog
 			alerta = builder.create();

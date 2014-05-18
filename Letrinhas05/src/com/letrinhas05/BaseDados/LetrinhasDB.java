@@ -997,6 +997,43 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     }
 
 
+    /**
+     *  /**
+     * Buscar todos os campos da Tabela CorrecaoTest pelo ID DO PROFESSOR
+     * Retorna uma lista com varios objectos do tipo "CorrecaoTest"
+     * @param idProf id Professor
+     * @return Conjunto de testesCorrecao
+     */
+    public List<CorrecaoTeste> getAllCorrecaoTesteByProfID(int idProf) {
+        List<CorrecaoTeste> listcorrecaoTestes = new ArrayList<CorrecaoTeste>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT  * FROM " + TABELA_CORRECAOTESTE +" , "+
+                TABELA_ESTUDANTE + ", "+ TABELA_TURMAPROFESSOR + " WHERE "+
+                CORRT_IDALUNO + " = " + EST_ID + " AND "+
+                EST_IDTURMA + " = "+ TURPROF_IDTURMA + " AND "+
+                TURPROF_IDPROFESSOR + " = " +idProf;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atravEs de todas as linhas e adicionando Alista
+        if (cursor.moveToFirst()) {
+            do {
+                CorrecaoTeste corrteste = new CorrecaoTeste();
+                corrteste.setIdCorrrecao(cursor.getInt(0));
+                corrteste.setTestId(cursor.getInt(1));
+                corrteste.setIdEstudante(cursor.getInt(2));
+                corrteste.setDataExecucao(cursor.getLong(3));
+                corrteste.setTipo(cursor.getInt(4));
+                corrteste.setEstado(cursor.getInt(5));
+                // Adicionar os os items da base de dados a lista
+                listcorrecaoTestes.add(corrteste);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listcorrecaoTestes;
+    }
+
+
 
 
 
@@ -1030,6 +1067,83 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         // return a lista com todos os items da base de dados
         return listTeste;
     }
+
+
+    /**
+     * Buscar todos os campos da Tabela Testes pelo AreaId e pelo Tipo
+     * @areaId id da Area ou seja Disciplina
+     * @tipo Tipo
+     * Retorna uma lista com varios objectos do tipo "Testes"
+     */
+    public List<Teste> getAllTesteByAreaIdAndType(int areaId, int tipo) {
+        List<Teste> listTeste = new ArrayList<Teste>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT  * FROM " + TABELA_TESTE +" WHERE "+TEST_AREAID +" = " + areaId + " AND "+ TEST_TIPO +" = "+ tipo;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atravEs de todas as linhas e adicionando Alista
+        if (cursor.moveToFirst()) {
+            do {
+                Teste teste = new Teste();
+                teste.setIdTeste(cursor.getInt(0));
+                teste.setAreaId(cursor.getInt(1));
+                teste.setProfessorId(cursor.getInt(2));
+                teste.setTitulo(cursor.getString(3));
+                teste.setTexto(cursor.getString(4));
+                teste.setDataInsercaoTeste(cursor.getLong(5));
+                teste.setGrauEscolar(cursor.getInt(6));
+                teste.setTipos(cursor.getInt(7));
+                // Adicionar os os items da base de dados a lista
+                listTeste.add(teste);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listTeste;
+    }
+
+
+    /**
+     * Buscar todos os campos da Tabela Testes pelo AreaId e pelo dois tipos
+     * @areaId id da Area ou seja Disciplina
+     * @tipo1 Tipo1
+     * @tipo2 Tipo1
+     * Retorna uma lista com varios objectos do tipo "Testes"
+     */
+    public List<Teste> getAllTesteByAreaIdAndTwoTypes(int areaId, int tipo1, int tipo2) {
+        List<Teste> listTeste = new ArrayList<Teste>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT  * FROM " + TABELA_TESTE +" WHERE "+TEST_AREAID +" = " + areaId + " AND ("+ TEST_TIPO +" = "+ tipo1 + " OR "+ TEST_TIPO +" = "+ tipo2 +")";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atravEs de todas as linhas e adicionando Alista
+        if (cursor.moveToFirst()) {
+            do {
+                Teste teste = new Teste();
+                teste.setIdTeste(cursor.getInt(0));
+                teste.setAreaId(cursor.getInt(1));
+                teste.setProfessorId(cursor.getInt(2));
+                teste.setTitulo(cursor.getString(3));
+                teste.setTexto(cursor.getString(4));
+                teste.setDataInsercaoTeste(cursor.getLong(5));
+                teste.setGrauEscolar(cursor.getInt(6));
+                teste.setTipos(cursor.getInt(7));
+                // Adicionar os os items da base de dados a lista
+                listTeste.add(teste);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listTeste;
+    }
+
+
+
+
+
+
+
+
 
     /**
      * Buscar todos os campos da Tabela TestesLeitura

@@ -45,35 +45,22 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         mActivity.prog.setProgress(20);
 
 		lerSynEstudante(strings[0]);
-        mActivity.prog.setProgress(40);
+        mActivity.prog.setProgress(30);
 
 		lerSynTurmas(strings[0]);
-        mActivity.prog.setProgress(50);
+        mActivity.prog.setProgress(40);
 
         lerSynTurmasProfessor(strings[0]);
-        mActivity.prog.setProgress(60);
+        mActivity.prog.setProgress(50);
 
 		lerSynTestes(strings[0]);
+        mActivity.prog.setProgress(65);
+
+        lerSynTestesLista(strings[0]);
         mActivity.prog.setProgress(75);
 
 		lerSynTestesMultimedia(strings[0]);
         mActivity.prog.setProgress(100);
-
-
-
-
-//		if (carregado) {
-//			bent.setEnabled(true);
-//			tst.setText("Sincroniza��o realizada com sucesso!!");
-//			tst.show();
-//		} else {
-//			tst.setText("N�o foi possivel aceder ao servidor!");
-//			tst.show();
-//		}
-//		try {
-//			link.setVisibility(View.INVISIBLE);
-//		} catch (Exception e) {	}
-
 		return null;
 	}
 
@@ -306,8 +293,58 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 		} catch (Exception e) {
 			Log.d("ERRO",
 					"ERRO DE SINC TESTES LEITURA TALVEZ SERVIDOR EM BAIXO");
+            msg +=" TestesLeitura ||";
 		}
 	}
+
+
+    protected void lerSynTestesLista(String URlString) {
+        String url = URlString + "tests?type=2"; // // type 0 -> leitura | 1 ->
+        // multimédia | 2 -> lista
+        // | 3 -> poema
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        // getting JSON string from URL
+        JSONParser jParser = new JSONParser();
+        JSONArray tests = jParser.getJSONArray(url, params);
+        try {
+            TesteLeitura[] arrTestesLeitura = new TesteLeitura[tests.length()];
+            // For (loop)looping atraves de todos os Testes
+            for (int i = 0; i < tests.length(); i++) {
+                TesteLeitura testeleitura = new TesteLeitura();
+                JSONObject c = tests.getJSONObject(i);
+                // /////// Preencher um objecto do tipo teste com a informaçao
+                // ///////////////
+                testeleitura.setIdTeste(c.getInt("id"));
+                testeleitura.setAreaId(c.getInt("areaId"));
+                testeleitura.setProfessorId(c.getInt("professorId"));
+                testeleitura.setTitulo(c.getString("title"));
+                testeleitura.setTexto(c.getString("mainText"));
+                testeleitura.setDataInsercaoTeste(c.getLong("creationDate"));
+                testeleitura.setGrauEscolar(c.getInt("grade"));
+                testeleitura.setTipos(2);
+                // //////////////////
+                testeleitura.setConteudoTexto(c.getString("textContent"));
+                testeleitura.setProfessorAudioUrl("SOM" + c.getInt("id")
+                        + ".mp3");
+                Utils.saveFileSD(
+                        "ReadingTests",
+                        "SOM" + c.getInt("id") + ".mp3",
+                        NetworkUtils.getFile(URlString
+                                + c.getString("professorAudioUrl")));
+                arrTestesLeitura[i] = testeleitura;
+            }
+            guardarTestesLeituraListaBD(arrTestesLeitura);
+        } catch (Exception e) {
+            Log.d("ERRO",
+                    "ERRO DE SINC TESTES LEITURATesteLista TALVEZ SERVIDOR EM BAIXO");
+            msg +=" TestesLista ||";
+        }
+    }
+
+
+
+
+
 
 	/**
 	 * Vai por HTTP buscar toda a informacao sobre os TestesMultimedia e no
@@ -562,6 +599,54 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 			Log.d("BDDADOS: ", cenas);
 		}
 	}
+
+
+    /**
+     * Guarda um array de ObJECTOS testesLeitura na Base de dados
+     *
+     * @param testeLeitura
+     *            Array com testesLeitura para se guardar
+     */
+    public void guardarTestesLeituraListaBD(TesteLeitura... testeLeitura) {
+        LetrinhasDB db = new LetrinhasDB(context);
+        //   db.deleteAllItemsTests();
+       // db.deleteAllItemsTestsLeitura();
+        Log.d("DB", "Inserir Dados na base de dados dos TESTES ..");
+        for (int i = 0; i < testeLeitura.length; i++) {
+            db.addNewItemTestesLeitura(testeLeitura[i]);
+        }
+        db.close();
+        Log.d("DB", "Tudo inserido nas Testes");
+        // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
+        // CONTEUDO DA TABELA//////////////
+        List<Teste> dados = db.getAllTeste();
+        Log.d("BDDADOS: ",
+                "*********Tabela Testes---- + testes Leitura LISTAS********************");
+        for (Teste cn : dados) {
+            String logs = "getIdTeste:   " + cn.getIdTeste() + ",getTitulo:   "
+                    + cn.getTitulo() + ",getTexto:    " + cn.getTexto()
+                    + ", getDataInsercaoTeste:    " + cn.getDataInsercaoTeste()
+                    + ", getGrauEscolar:    " + cn.getGrauEscolar()
+                    + ", getTipo:    " + cn.getTipo();
+
+            // Writing Contacts to log
+
+            Log.d("BDDADOS: ", logs);
+        }
+        // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
+        // CONTEUDO DA TABELA//////////////
+        List<TesteLeitura> dados2 = db.getAllTesteLeitura();
+        Log.d("BDDADOS: ", "\n*********testesleitura********************");
+        for (TesteLeitura cn : dados2) {
+            String cenas = "getIdTeste:" + cn.getIdTeste()
+                    + ", getConteudoTexto: " + cn.getConteudoTexto()
+                    + ", getProfessorAudioUrl: " + cn.getProfessorAudioUrl();
+            // Writing Contacts to log
+            Log.d("BDDADOS: ", cenas);
+        }
+    }
+
+
 
 
 

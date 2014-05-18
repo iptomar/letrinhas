@@ -1,5 +1,8 @@
 package com.letrinhas05.ClassesObjs;
 
+import android.util.Log;
+import android.widget.Toast;
+
 
 /**
  * Created by Alex on 23/04/2014.
@@ -15,6 +18,10 @@ public class CorrecaoTesteLeitura extends CorrecaoTeste {
     protected float expressividade;
     protected float ritmo;
     protected String detalhes;
+    
+    public CorrecaoTesteLeitura(){
+    	
+    }
 
     public CorrecaoTesteLeitura(int idCorrrecao, int testId, int idEstudante, long dataExecucao, int tipo ,int estado,String audiourl, int numPalavCorretas, String observacoes, float numPalavrasMin, float precisao, float velocidade, int numPalavIncorretas, float expressividade, float ritmo, String detalhes) {
         super(idCorrrecao, testId, idEstudante, dataExecucao, tipo, estado);
