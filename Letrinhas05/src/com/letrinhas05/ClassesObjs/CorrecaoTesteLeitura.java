@@ -5,6 +5,7 @@ package com.letrinhas05.ClassesObjs;
  * Created by Alex on 23/04/2014.
  */
 public class CorrecaoTesteLeitura extends CorrecaoTeste {
+    protected String audiourl;
     protected String observacoes;
     protected float numPalavrasMin;
     protected int numPalavCorretas;
@@ -13,19 +14,28 @@ public class CorrecaoTesteLeitura extends CorrecaoTeste {
     protected float velocidade;
     protected float expressividade;
     protected float ritmo;
-    protected byte[] audio;
+    protected String detalhes;
 
-    public CorrecaoTesteLeitura(int testId, int idEstudante, String dataExecucao, String observacoes, float numPalavrasMin, int numPalavCorretas, int numPalavIncorretas, float precisao, float velocidade, float expressividade, float ritmo, byte[] audio) {
-        super(testId, idEstudante, dataExecucao);
-        this.observacoes = observacoes;
-        this.numPalavrasMin = numPalavrasMin;
-        this.numPalavCorretas = numPalavCorretas;
-        this.numPalavIncorretas = numPalavIncorretas;
-        this.precisao = precisao;
-        this.velocidade = velocidade;
-        this.expressividade = expressividade;
-        this.ritmo = ritmo;
-        this.audio = audio;
+    public CorrecaoTesteLeitura(int idCorrrecao, int testId, int idEstudante, String dataExecucao, int estado,String audiourl, int numPalavCorretas, String observacoes, float numPalavrasMin, float precisao, float velocidade, int numPalavIncorretas, float expressividade, float ritmo, String detalhes) {
+        super(idCorrrecao, testId, idEstudante, dataExecucao, estado);
+        this.setAudiourl(audiourl);
+        this.setNumPalavCorretas(numPalavCorretas);
+        this.setObservacoes(observacoes);
+        this.setNumPalavrasMin(numPalavrasMin);
+        this.setPrecisao(precisao);
+        this.setVelocidade(velocidade);
+        this.setNumPalavIncorretas(numPalavIncorretas);
+        this.setExpressividade(expressividade);
+        this.setRitmo(ritmo);
+        this.setDetalhes(detalhes);
+    }
+
+    public String getAudiourl() {
+        return audiourl;
+    }
+
+    public void setAudiourl(String audiourl) {
+        this.audiourl = audiourl;
     }
 
     public String getObservacoes() {
@@ -92,11 +102,11 @@ public class CorrecaoTesteLeitura extends CorrecaoTeste {
         this.ritmo = ritmo;
     }
 
-    public byte[] getAudio() {
-        return audio;
+    public String getDetalhes() {
+        return detalhes;
     }
 
-    public void setAudioUrl( byte[] audio) {
-        this.audio = audio;
+    public void setDetalhes(String detalhes) {
+        this.detalhes = detalhes;
     }
 }

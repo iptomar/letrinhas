@@ -35,6 +35,9 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     private static final String TABELA_TESTELEITURA = "tblTesteLeitura";
     private static final String TABELA_TESTEMULTIMEDIA = "tblTesteMultimedia";
     private static final String TABELA_TURMAPROFESSOR = "tblTurmaProfessor";
+    private static final String TABELA_CORRECAOTESTE = "tblCorrecaoTeste";
+    private static final String TABELA_CORRECAOTESTELEITURA = "tblCorrecaoTesteLeitura";
+    private static final String TABELA_CORRECAOMULTIMEDIA = "tblCorrecaoTesteMultimedia";
 
     // Nomes dos campos da tabela Professores
     private static final String PROF_IDPROFS = "idProfessor";
@@ -99,10 +102,35 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     private static final String TESTM_OPCAO3ISURL= "opcao3IsUrl";
     private static final String TESTM_OPCAOCORRETA= "opcaoCorreta";
 
-
+    // Nomes dos campos da tabela Turmas Prof
     private static final String TURPROF_IDTURMA = "idTeste";
     private static final String TURPROF_IDPROFESSOR = "idProfessor";
 
+        // Nomes dos campos da tabela Correcao Teste
+    private static final String CORRT_ID = "idCorrecao";
+    private static final String CORRT_IDTESTE = "idTeste";
+    private static final String CORRT_IDALUNO = "idAluno";
+    private static final String CORRT_DATAEXEC = "dataExecucao";
+    private static final String CORRT_ESTADO = "estado";
+
+
+    // Nomes dos campos da tabela CorrecaoTesteleitura
+    private static final String CORRTLEIT_IDCORRECAO= "idCorrecao";
+    private static final String CORRTLEIT_AUDIOURL = "audioURL";
+    private static final String CORRTLEIT_OBSERVACOES = "obervacoes";
+    private static final String CORRTLEIT_NUMPALAVRASPORMIN = "numPalavrasPorMin";
+    private static final String CORRTLEIT_NUMPALAVRASCORRET = "numPalavrasCorret";
+    private static final String CORRTLEIT_NUMPALAVRASINCORRE = "numPalavrasIncorre";
+    private static final String CORRTLEIT_PRECISAO = "precisao";
+    private static final String CORRTLEIT_VELOCIDADE = "velocidade";
+    private static final String CORRTLEIT_EXPRESSIVIDADE = "expressividade";
+    private static final String CORRTLEIT_RITMO = "ritmo";
+    private static final String CORRTLEIT_DETALHES = "detalhes";
+
+    // Nomes dos campos da tabela CorrecaoTesteMultimedia
+    private static final String CORRTMULTIMEDIA_ID = "idCorrecao";
+    private static final String CORRTMULTIMEDIA_OPCAOESCOL = "opcaoEscolhida";
+    private static final String CORRTMULTIMEDIA_CERTA = "certa";
 
     public LetrinhasDB(Context context) {
         super(context, NOME_BASEDADOS, null, VERSAO_BASEDADOS);
@@ -203,6 +231,38 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + TESTM_OPCAO3ISURL + " INT,"
                 + TESTM_OPCAOCORRETA + " INT )";
         db.execSQL(createTableString);
+
+        //Construir a Tabela CorrecaoTeste //////////////////
+        createTableString = "CREATE TABLE " + TABELA_CORRECAOTESTE + "("
+                + CORRT_ID + " INTEGER PRIMARY KEY,"
+                + CORRT_IDTESTE + " INT,"
+                + CORRT_IDALUNO + " INT,"
+                + CORRT_DATAEXEC + " LONG,"
+                + CORRT_ESTADO + " INT)";
+        db.execSQL(createTableString);
+
+        //Construir a Tabela CorrecaoTeste //////////////////
+        createTableString = "CREATE TABLE " + TABELA_CORRECAOTESTELEITURA + "("
+                + CORRTLEIT_IDCORRECAO + " INTEGER PRIMARY KEY,"
+                + CORRTLEIT_AUDIOURL + " TEXT,"
+                + CORRTLEIT_OBSERVACOES + " TEXT,"
+                + CORRTLEIT_NUMPALAVRASPORMIN + " REAL,"
+                + CORRTLEIT_NUMPALAVRASCORRET + " INT,"
+                + CORRTLEIT_NUMPALAVRASINCORRE + " INT,"
+                + CORRTLEIT_PRECISAO + " REAL,"
+                + CORRTLEIT_VELOCIDADE + " REAL,"
+                + CORRTLEIT_EXPRESSIVIDADE + " REAL,"
+                + CORRTLEIT_RITMO + " REAL,"
+                + CORRTLEIT_DETALHES + " TEXT)";
+        db.execSQL(createTableString);
+
+        //Construir a Tabela CorrecaoTesteMultimedia //////////////////
+        createTableString = "CREATE TABLE " + TABELA_CORRECAOMULTIMEDIA + "("
+                + CORRTMULTIMEDIA_ID + " INTEGER PRIMARY KEY,"
+                + CORRTMULTIMEDIA_OPCAOESCOL + " INT,"
+                + CORRTMULTIMEDIA_CERTA + " INT)";
+        db.execSQL(createTableString);
+
     }
 
     @Override
@@ -425,7 +485,69 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     }
 
 
-                            //*************************//
+
+
+    /**
+     * Adiciona um novo registo na tabela CorrecaoTesteLeitura
+     * @param correcaoTesteLeitura Recebe um objecto CorrecaoTesteLeitura onde vai inserir
+     *             os dados na base de dados na tabela CorrecaoTesteLeitura
+     */
+    public void addNewItemCorrecaoTesteLeitura (CorrecaoTesteLeitura correcaoTesteLeitura) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues valuesCorrecaoTeste = new ContentValues();
+        valuesCorrecaoTeste.put(CORRT_ID, correcaoTesteLeitura.getTestId());           // Inserir na tabela campo Id
+        valuesCorrecaoTeste.put(CORRT_IDTESTE, correcaoTesteLeitura.getTestId());        // Inserir na tabela campo teste id
+        valuesCorrecaoTeste.put(CORRT_IDALUNO, correcaoTesteLeitura.getIdEstudante());   // Inserir na tabela campo Id estudante
+        valuesCorrecaoTeste.put(CORRT_DATAEXEC, correcaoTesteLeitura.getDataExecucao());              // Inserir na tabela data execucao
+        valuesCorrecaoTeste.put(CORRT_ESTADO, correcaoTesteLeitura.getEstado());                 // Inserir na tabela estado
+               db.insert(TABELA_CORRECAOTESTE, null, valuesCorrecaoTeste);
+        //////////////////////////////////////////////////////
+        ContentValues valuesCorrecaoTestesLeitura = new ContentValues();
+        valuesCorrecaoTestesLeitura.put(CORRTLEIT_IDCORRECAO, correcaoTesteLeitura.getTestId());                           // Inserir na tabela o campo ID
+        valuesCorrecaoTestesLeitura.put(CORRTLEIT_AUDIOURL, correcaoTesteLeitura.getAudiourl());                          // Inserir na tabela o campo audio URL
+        valuesCorrecaoTestesLeitura.put(CORRTLEIT_OBSERVACOES, correcaoTesteLeitura.getObservacoes());                     // Inserir na tabela o campo OBSERVACOES
+        valuesCorrecaoTestesLeitura.put(CORRTLEIT_NUMPALAVRASPORMIN, correcaoTesteLeitura.getNumPalavrasMin());             // Inserir na tabela palavras por minuto
+        valuesCorrecaoTestesLeitura.put(CORRTLEIT_NUMPALAVRASCORRET, correcaoTesteLeitura.getNumPalavCorretas());            // Inserir na tabela o palavras correcas
+        valuesCorrecaoTestesLeitura.put(CORRTLEIT_NUMPALAVRASINCORRE, correcaoTesteLeitura.getNumPalavIncorretas());          // Inserir na tabela o campo palavras incorrectas
+        valuesCorrecaoTestesLeitura.put(CORRTLEIT_PRECISAO, correcaoTesteLeitura.getPrecisao());                             // Inserir na tabela o campo precisao
+        valuesCorrecaoTestesLeitura.put(CORRTLEIT_VELOCIDADE, correcaoTesteLeitura.getVelocidade());                      // Inserir na tabela o campo velocidade
+        valuesCorrecaoTestesLeitura.put(CORRTLEIT_EXPRESSIVIDADE, correcaoTesteLeitura.getExpressividade());           // Inserir na tabela o campo expressividade
+        valuesCorrecaoTestesLeitura.put(CORRTLEIT_RITMO, correcaoTesteLeitura.getRitmo());                           // Inserir na tabela o campo ritmo
+        valuesCorrecaoTestesLeitura.put(CORRTLEIT_DETALHES, correcaoTesteLeitura.getDetalhes());                   // Inserir na tabela o campo detalhes
+        // Inserir LINHAS:
+        db.insert(TABELA_CORRECAOTESTELEITURA, null, valuesCorrecaoTestesLeitura);
+        //  db.close(); // Fechar a conecao a Base de dados
+    }
+
+
+    /**
+     * Adiciona um novo registo na tabela CorrecaoTesteMultimedia
+     * @param correcaoTesteMultimedia Recebe um objecto CorrecaoTesteMultimedia onde vai inserir
+     *             os dados na base de dados na tabela CorrecaoTesteMultimedia
+     */
+    public void addNewItemCorrecaoTesteMultimedia (CorrecaoTesteMultimedia correcaoTesteMultimedia) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues valuesCorrecaoTeste = new ContentValues();
+        valuesCorrecaoTeste.put(CORRT_ID, correcaoTesteMultimedia.getTestId());           // Inserir na tabela campo Id
+        valuesCorrecaoTeste.put(CORRT_IDTESTE, correcaoTesteMultimedia.getTestId());        // Inserir na tabela campo teste id
+        valuesCorrecaoTeste.put(CORRT_IDALUNO, correcaoTesteMultimedia.getIdEstudante());   // Inserir na tabela campo Id estudante
+        valuesCorrecaoTeste.put(CORRT_DATAEXEC, correcaoTesteMultimedia.getDataExecucao());              // Inserir na tabela data execucao
+        valuesCorrecaoTeste.put(CORRT_ESTADO, correcaoTesteMultimedia.getEstado());                 // Inserir na tabela estado
+        db.insert(TABELA_CORRECAOTESTE, null, valuesCorrecaoTeste);
+        //////////////////////////////////////////////////////
+        ContentValues valuesCorrecaoTestesMultimedia = new ContentValues();
+        valuesCorrecaoTestesMultimedia.put(CORRTMULTIMEDIA_ID, correcaoTesteMultimedia.getTestId());                     // Inserir na tabela o campo ID
+        valuesCorrecaoTestesMultimedia.put(CORRTMULTIMEDIA_OPCAOESCOL, correcaoTesteMultimedia.getOpcaoEscolhida());     // Inserir na tabela o campo OPCAOEscolhida
+        valuesCorrecaoTestesMultimedia.put(CORRTMULTIMEDIA_CERTA, correcaoTesteMultimedia.getCerta());                  // Inserir na tabela o campo certa?
+        // Inserir LINHAS:
+        db.insert(TABELA_CORRECAOMULTIMEDIA, null, valuesCorrecaoTestesMultimedia);
+        //  db.close(); // Fechar a conecao a Base de dados
+    }
+
+
+
+
+    //*************************//
                             //*********SELECT**********//
                             //*************************//
 
@@ -971,6 +1093,16 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABELA_TESTEMULTIMEDIA + " WHERE 1");
         db.close();
    //     Utils.deleteAllFileFolder("MultimediaTest");
+    }
+
+    /**
+     * Apaga todos os dados da tabela testeslEITURA
+     */
+    public void deleteAllItemsCorrecaoTeste() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABELA_CORRECAOTESTE + " WHERE 1");
+        db.close();
+        //     Utils.deleteAllFileFolder("MultimediaTest");
     }
 
 

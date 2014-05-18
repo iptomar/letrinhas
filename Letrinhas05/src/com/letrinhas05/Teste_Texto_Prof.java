@@ -291,7 +291,7 @@ public class Teste_Texto_Prof extends Activity {
 					public void onClick(View view) {
 						// voltar para pag inicial
 
-		                sendToServer();
+		              //////////////////  sendToServer();
 						//startAvalia();
 					}
 
@@ -307,14 +307,14 @@ public class Teste_Texto_Prof extends Activity {
 			}
 
 
-
-		    public void sendToServer()
-		    {
-		     String url_Server = "http://code.dei.estt.ipt.pt/:80/postTestResults";
-		    byte[] som =  Utils.getFileSDTest(pastas, fileName);
-		    CorrecaoTesteLeitura corrTestLeit = new CorrecaoTesteLeitura(1, 1, "21-12-2014", "MUNDO", 2, 10, 12, 12.0f, 12.0f, 12.0f, 12.0F, som);
-		    NetworkUtils.postResultados(url_Server, corrTestLeit);
-		    }
+//////////////////////////////////ainda nao feito nao testado
+//		    public void sendToServer()
+//		    {
+//		     String url_Server = "http://code.dei.estt.ipt.pt/:80/postTestResults";
+//		    byte[] som =  Utils.getFileSDTest(pastas, fileName);
+//		    CorrecaoTesteLeitura corrTestLeit = new CorrecaoTesteLeitura(1, 1, "21-12-2014", "MUNDO", 2, 10, 12, 12.0f, 12.0f, 12.0f, 12.0F, som);
+//		    NetworkUtils.postResultados(url_Server, corrTestLeit);
+//		    }
 
 
 

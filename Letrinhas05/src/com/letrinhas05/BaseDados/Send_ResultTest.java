@@ -69,8 +69,8 @@ public class Send_ResultTest extends Activity {
         LetrinhasDB db = new LetrinhasDB(this);
        byte[]  img = db.getProfessorById(3).getFoto();
 
-        CorrecaoTesteLeitura corrTestLeit = new CorrecaoTesteLeitura(testId, idEstudante, date, observacoes, wpm, 10, 12, 12.0f, 12.0f, 12.0f, 12.0F, img);
-        NetworkUtils.postResultados(url_Server, corrTestLeit);
+//        CorrecaoTesteLeitura corrTestLeit = new CorrecaoTesteLeitura(testId, idEstudante, date, observacoes, wpm, 10, 12, 12.0f, 12.0f, 12.0f, 12.0F, img);
+//        NetworkUtils.postResultados(url_Server, corrTestLeit);
 
 
 
