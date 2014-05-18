@@ -1,21 +1,29 @@
 package com.letrinhas05.escolhe;
 
+import java.util.Date;
 import java.util.List;
 
 import com.letrinhas05.R;
+import com.letrinhas05.Teste_Imagem;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.Estudante;
+import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.ClassesObjs.Turma;
 import com.letrinhas05.R.id;
 import com.letrinhas05.R.layout;
 import com.letrinhas05.R.menu;
+import com.letrinhas05.Teste_Palavras_Prof;
+import com.letrinhas05.Teste_Poema_Prof;
+import com.letrinhas05.Teste_Texto_Prof;
 import com.letrinhas05.util.SystemUiHider;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -25,6 +33,9 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +43,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -93,7 +105,7 @@ public class ListarSubmissoes extends Activity {
 			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
 					100, false));
 		}
-		
+
 		// new line faz a rotação do ecrãn em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -144,15 +156,13 @@ public class ListarSubmissoes extends Activity {
 
 	}
 
+	@SuppressLint("NewApi")
 	public void makeLista() {
 
 		LetrinhasDB bd = new LetrinhasDB(this);
 		// vou buscar todas as submissões de teste não corrigidas existentes..
-		List<CorrecaoTeste> ct = bd.getAllCorrecaoTeste();
 		// ... dos alunos, das turmas, do professor selecionado.
-
-		// *************get as turmas do professor
-		List<Turma> turmas = db.getAllTurmasByProfid(iDs[1]);
+		List<CorrecaoTeste> ct = bd.getAllCorrecaoTesteByProfID(iDs[1]);
 
 		// verifico se estas submissões não estão corrigidas
 		int cont = 0;
@@ -162,6 +172,11 @@ public class ListarSubmissoes extends Activity {
 				cont++;
 			}
 		}
+		// objetos do XML
+		LinearLayout ll = (LinearLayout) findViewById(R.id.llListSub);
+		Button btOriginal = (Button) findViewById(R.id.btnLsCorrecao_Original);
+		//remove o botão original do layerlayout
+		ll.removeView(btOriginal);
 		// se existirem submissões a corrigir
 		if (cont != 0) {
 			// crio um array de correcoes auxiliar
@@ -176,25 +191,136 @@ public class ListarSubmissoes extends Activity {
 			}
 
 			// Agora vou construir os botões com a informação necessária:
-			LinearLayout ll = (LinearLayout) findViewById(R.id.llListSub);
-			Button btOriginal = (Button) findViewById(R.id.btnLsCorrecao_Original);
-			ll.removeView(btOriginal);
-
 			for (int i = 0; i < ctAux.length; i++) {
+				//criar o botão
 				Button btIn = new Button(this);
+				//copiar os parametros de layout
 				btIn.setLayoutParams(btOriginal.getLayoutParams());
-				//
-				String nomeAluno;
-				String tituloTeste;
-				String fotoAluno;
+				// nome do aluno do teste
+				Estudante aluno = bd
+						.getEstudanteById(ctAux[i].getIdEstudante());
+				String title = aluno.getNome() + " - ";
+				// titulo do teste
+				Teste tst = bd.getTesteById(ctAux[i].getTestId());
+				title += tst.getTitulo() + " - ";
+				// timeStamp ***** Não sei bem se esta funciona ****************************+
+				title += ""
+						+ DateUtils.formatSameDayTime(
+								ctAux[i].getDataExecucao(),
+								System.currentTimeMillis(), 3, 1);// 3=short; 1=long
+				//********************************************************************
+				
+				// colocar toda a string no botão
+				btIn.setText(title);
 
-				// long
+				// buscar a imagem do tipo
+				ImageView imgTip = new ImageView(this);
+				switch (ctAux[i].getTipo()) {
+				case 0:
+					imgTip.setImageResource(R.drawable.textos);// texto
+					break;
+				case 1:
+					imgTip.setImageResource(R.drawable.imags);// multimedia
+					break;
+				case 2:
+					imgTip.setImageResource(R.drawable.textos);// poema
+					break;
+				case 3:
+					imgTip.setImageResource(R.drawable.palavras);// palavras
+					break;
+				}
 
+				// colocar a foto do aluno
+				if (aluno.getNomefoto() != null) {
+					String imageInSD = Environment
+							.getExternalStorageDirectory().getAbsolutePath()
+							+ "/School-Data/Students/" + aluno.getNomefoto();
+					Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
+					ImageView imgAl = new ImageView(this);
+					// ajustar o tamanho da imagem
+					imgAl.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 120,
+							120, false));
+
+					// enviar para o botão
+					btIn.setCompoundDrawablesWithIntrinsicBounds(
+							imgAl.getDrawable(), null, imgTip.getDrawable(),
+							null);
+				} else {
+					// senï¿½o copia a imagem do botï¿½o original
+					btIn.setCompoundDrawables(
+							btOriginal.getCompoundDrawablesRelative()[0], null,
+							imgTip.getDrawable(), null);
+				}
+				
+				
+				
+				final int idTeste = ctAux[i].getTestId();
+				final int tipo = ctAux[i].getTipo();
+				//alterar os parametros para o teste..
+				iDs[2]=aluno.getIdTurma();
+				iDs[3]=aluno.getIdEstudante();
+				Nomes[4]=aluno.getNome();
+				Nomes[3]=bd.getTurmaByID(aluno.getIdTurma()).getNome();
+				Nomes[5]= aluno.getNomefoto();
+				
+				// Defenir o que faz o botão ao clicar
+				btIn.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						// Entrar na activity
+						Bundle wrap = new Bundle();
+						wrap.putStringArray("Nomes",Nomes);
+						wrap.putIntArray("IDs",iDs);
+						wrap.putInt("ID_teste",idTeste); 
+						
+						Intent it;
+						switch (tipo){
+						case 0://texto
+							it= new Intent(getApplicationContext(),Teste_Texto_Prof.class);
+							it.putExtras(wrap);
+							startActivity(it);
+							break;
+						case 1://multimédia (imagens)
+							it= new Intent(getApplicationContext(),Teste_Imagem.class);
+							it.putExtras(wrap);
+							startActivity(it);
+							break;
+						case 2://poema
+							it= new Intent(getApplicationContext(),Teste_Poema_Prof.class);
+							it.putExtras(wrap);
+							startActivity(it);
+							break;
+						case 3://palavras
+							it= new Intent(getApplicationContext(),Teste_Palavras_Prof.class);
+							it.putExtras(wrap);
+							startActivity(it);
+							break;
+						}
+						//finaliza, pois quando voltar para aqui, atualiza a lista
+						finish();
+					}
+				});
+				
 				ll.addView(btIn);
 			}
 
 			// Senão lança um alerta... de sem submissões de momento
 		} else {
+			
+
+			android.app.AlertDialog alerta;
+			// Cria o gerador do AlertDialog
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			// define o titulo
+			builder.setTitle("Letrinhas 03");
+			// define a mensagem
+			builder.setMessage("Nï¿½o foram encontrados testes no repositï¿½rio");
+			// define um botï¿½o como positivo
+			builder.setPositiveButton("OK", null);
+			// cria o AlertDialog
+			alerta = builder.create();
+			// Mostra
+			alerta.show();
 
 		}
 
