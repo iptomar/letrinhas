@@ -17,10 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.letrinhas05.R;
-import com.letrinhas05.Teste_Palavras_Aluno;
-import com.letrinhas05.Teste_Poema_Aluno;
-import com.letrinhas05.Teste_Texto_Aluno;
+import com.letrinhas05.*;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.util.SystemUiHider;
@@ -37,8 +34,8 @@ public class EscolheTeste extends Activity {
 	String[] texto;
 	LetrinhasDB ldb;
 
-    protected int idArea, idTipo;
-
+    protected int idArea, idTipo; //////IDaREA IDTIPO DE TESTE
+    protected String nomeDsiciplina;
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -69,6 +66,7 @@ public class EscolheTeste extends Activity {
 		estudanteId = ids[3];
         idArea = b.getInt("idDisciplina");
         idTipo = b.getInt("TipoTesteid");
+        nomeDsiciplina = b.getString("TipoTesteid");
         Log.e("CENAS",idArea +" "+ idTipo); // Error
 
         volt = (ImageButton) findViewById(R.id.escTVoltar);
@@ -314,6 +312,10 @@ public class EscolheTeste extends Activity {
 
 		iniciar(j);
 	}
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    ///////aqui em baixo tem o switch onde tem que configurar para as vossas janelas teste////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
 
 	public void iniciar(int j) {
 		// iniciar os testes....
@@ -351,7 +353,7 @@ public class EscolheTeste extends Activity {
 			wrap.putStringArray("Storage", array);
 
 			switch (tipo[0]) {
-			case 0: // lan�ar a nova activity do tipo texto,
+			case 0: // lan�ar a nova activity do tipo texto leitura,
 
 				Intent it = new Intent(getApplicationContext(),
 						Teste_Texto_Aluno.class);
@@ -360,31 +362,30 @@ public class EscolheTeste extends Activity {
 				startActivity(it);
 
 				break;
-			case 1:// lan�ar a nova activity do tipo Palavras, e o seu conte�do
+			case 1:// lan�ar a nova activity do tipo multimedia, e o seu conte�do
 					//
 				Intent ip = new Intent(getApplicationContext(),
-						Teste_Palavras_Aluno.class);
+						Teste_Imagem.class);
 				ip.putExtras(wrap);
 
 				startActivity(ip);
 
 				break;
-			case 2: // lan�ar a nova activity do tipo Poema, e o seu conte�do
+			case 2: // lan�ar a nova activity do tipo LIsta, e o seu conte�do
 				//
 				Intent ipm = new Intent(getApplicationContext(),
-						Teste_Poema_Aluno.class);
+						Teste_Palavras_Aluno.class);
 				ipm.putExtras(wrap);
 
 				startActivity(ipm);
 
 				break;
-			case 3: // lan�ar a nova activity do tipo imagem, e o seu conte�do
-				//
-				// Intent it = new Intent(getApplicationContext(),
-				// Teste_Texto.class);
-				// it.putExtras(wrap);
+			case 3: // lan�ar a nova activity do tipo poema, e o seu conte�do
+                Intent ipp = new Intent(getApplicationContext(),
+                        Teste_Poema_Aluno.class);
+                ipp.putExtras(wrap);
 
-				// startActivity(it);
+                startActivity(ipp);
 				break;
 			default:
 				Toast.makeText(getApplicationContext(), " - Tipo n�o defenido",
