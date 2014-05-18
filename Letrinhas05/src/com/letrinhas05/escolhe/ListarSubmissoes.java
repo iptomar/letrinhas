@@ -7,6 +7,7 @@ import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.Estudante;
+import com.letrinhas05.ClassesObjs.Turma;
 import com.letrinhas05.R.id;
 import com.letrinhas05.R.layout;
 import com.letrinhas05.R.menu;
@@ -19,7 +20,10 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,10 +32,23 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.os.Build;
 
+/**
+ * Activity para listar as submissões a corrigir
+ * 
+ * 
+ * @author Thiago
+ * 
+ */
 public class ListarSubmissoes extends Activity {
 	Button volt;
+
+	int iDs[];
+	String Nomes[];
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -57,6 +74,26 @@ public class ListarSubmissoes extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listar_submissoes);
 
+		// Retirar os Extras
+		Bundle b = getIntent().getExtras();
+		// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
+		Nomes = b.getStringArray("Nomes");
+		// int's - idEscola, idProfessor, idTurma, idAluno
+		iDs = b.getIntArray("IDs");
+
+		((TextView) findViewById(R.id.lsEscola)).setText(Nomes[0]);
+		((TextView) findViewById(R.id.lstvProf)).setText(Nomes[1]);
+
+		// se professor tem uma foto, usa-se
+		if (Nomes[2] != null) {
+			ImageView imageView = ((ImageView) findViewById(R.id.lsivProfessor));
+			String imageInSD = Environment.getExternalStorageDirectory()
+					.getAbsolutePath() + "/School-Data/Professors/" + Nomes[2];
+			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
+					100, false));
+		}
+		
 		// new line faz a rotação do ecrãn em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -102,22 +139,66 @@ public class ListarSubmissoes extends Activity {
 				finish();
 			}
 		});
-		
+
 		makeLista();
 
 	}
-	
-	public void makeLista(){
-		
+
+	public void makeLista() {
+
 		LetrinhasDB bd = new LetrinhasDB(this);
-		//vou buscar todas as correções de leitura..
-		//List<CorrecaoTesteLeitura> ctl = 
-		
-		
+		// vou buscar todas as submissões de teste não corrigidas existentes..
+		List<CorrecaoTeste> ct = bd.getAllCorrecaoTeste();
+		// ... dos alunos, das turmas, do professor selecionado.
+
+		// *************get as turmas do professor
+		List<Turma> turmas = db.getAllTurmasByProfid(iDs[1]);
+
+		// verifico se estas submissões não estão corrigidas
+		int cont = 0;
+		for (int i = 0; i < ct.size(); i++) {
+			// se não está corrigido, conta-o
+			if (ct.get(i).getEstado() == 0) {
+				cont++;
+			}
+		}
+		// se existirem submissões a corrigir
+		if (cont != 0) {
+			// crio um array de correcoes auxiliar
+			CorrecaoTeste ctAux[] = new CorrecaoTeste[cont];
+			cont = 0;
+			for (int i = 0; i < ct.size(); i++) {
+				// se não está corrigido, acrescenta-o
+				if (ct.get(i).getEstado() == 0) {
+					ctAux[cont] = ct.get(i);
+					cont++;
+				}
+			}
+
+			// Agora vou construir os botões com a informação necessária:
+			LinearLayout ll = (LinearLayout) findViewById(R.id.llListSub);
+			Button btOriginal = (Button) findViewById(R.id.btnLsCorrecao_Original);
+			ll.removeView(btOriginal);
+
+			for (int i = 0; i < ctAux.length; i++) {
+				Button btIn = new Button(this);
+				btIn.setLayoutParams(btOriginal.getLayoutParams());
+				//
+				String nomeAluno;
+				String tituloTeste;
+				String fotoAluno;
+
+				// long
+
+				ll.addView(btIn);
+			}
+
+			// Senão lança um alerta... de sem submissões de momento
+		} else {
+
+		}
+
 	}
-	
-	
-	
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
