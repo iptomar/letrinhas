@@ -234,6 +234,7 @@ public class PaginaInicial extends Activity {
 				// a pagina escolher turma(brevemente))
 				Intent it = new Intent(PaginaInicial.this, EscolheEscola.class);// Autenticacao.class);
 				startActivity(it);
+				finish();
 			}
 		});
 

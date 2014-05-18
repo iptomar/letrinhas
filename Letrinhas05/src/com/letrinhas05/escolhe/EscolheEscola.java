@@ -27,6 +27,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.letrinhas05.PaginaInicial;
 import com.letrinhas05.R;
 import com.letrinhas05.Teste_Texto_Aluno;
 import com.letrinhas05.BaseDados.LetrinhasDB;
@@ -139,6 +140,9 @@ public class EscolheEscola extends Activity {
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da ativity
+				Intent it = new Intent(getApplicationContext(),
+						PaginaInicial.class);
+				startActivity(it);
 				finish();
 			}
 		});
@@ -258,6 +262,7 @@ public class EscolheEscola extends Activity {
 						it.putExtras(wrap);
 
 						startActivity(it);
+						finish();
 					}
 				});
 				// inserir o botão na linha
@@ -315,6 +320,7 @@ public class EscolheEscola extends Activity {
 						it.putExtras(wrap);
 
 						startActivity(it);
+						finish();
 
 					}
 				});

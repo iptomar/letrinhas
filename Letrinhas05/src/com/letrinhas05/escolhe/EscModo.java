@@ -219,7 +219,19 @@ public class EscModo extends Activity {
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// voltar para pag inicial
+
+				Bundle wrap = new Bundle();
+				wrap.putString("Escola", Escola);
+				wrap.putInt("Escola_ID", idEscola);
+				wrap.putString("Professor", Professor);
+				wrap.putInt("Professor_ID", idProfessor);
+				wrap.putString("foto_professor", FotoProf);
+				wrap.putString("Turma",Turma);
+				wrap.putInt("turma_ID", idTurma);
+				
+				Intent it = new Intent(EscModo.this, EscolheAluno.class);
+				it.putExtras(wrap);
+				startActivity(it);
 				finish();
 			}
 		});
@@ -249,14 +261,15 @@ public class EscModo extends Activity {
 
 		// enviar os parametros necessários
 		Bundle wrap = new Bundle();
+		// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
 		wrap.putStringArray("Nomes", Nomes);
+		// int's - idEscola, idProfessor, idTurma, idAluno
 		wrap.putIntArray("IDs", iDs);
-		
-		
-		// iniciar a pagina 2 (escolher testes a corrigir)
-			//Intent it = new Intent(EscModo.this, EscolheTeste.class);
-		//it.putExtras(wrap);
-		//startActivity(it);
+			
+		// iniciar a pagina (escolher testes a corrigir)
+		Intent it = new Intent(EscModo.this, ListarSubmissoes.class);
+		it.putExtras(wrap);
+		startActivity(it);
 
 	}
 

@@ -121,7 +121,9 @@ public class EscolheProfessor extends Activity {
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// sair da activity
+				Intent it = new Intent(getApplicationContext(),
+						EscolheEscola.class);
+				startActivity(it);
 				finish();
 			}
 		});
@@ -235,6 +237,7 @@ public class EscolheProfessor extends Activity {
 						it.putExtras(wrap);
 
 						startActivity(it);
+						finish();
 					}
 				});
 				// inserir o botão na linha
@@ -303,6 +306,7 @@ public class EscolheProfessor extends Activity {
 						it.putExtras(wrap);
 
 						startActivity(it);
+						finish();
 					}
 				});
 				// inserir o botão na linha

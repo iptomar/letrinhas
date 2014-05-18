@@ -77,17 +77,16 @@ public class EscolheTurma extends Activity {
 		Professor = b.getString("Professor");
 		FotoProf = b.getString("foto_Professor");
 		((TextView) findViewById(R.id.tvTProf)).setText(Professor);
-		
-		ImageView imageView =((ImageView) findViewById(R.id.ivTProfessor));
+
+		ImageView imageView = ((ImageView) findViewById(R.id.ivTProfessor));
 		if (FotoProf != null) {
-			String imageInSD = Environment
-					.getExternalStorageDirectory().getAbsolutePath()
-					+ "/School-Data/Professors/" + FotoProf;
+			String imageInSD = Environment.getExternalStorageDirectory()
+					.getAbsolutePath() + "/School-Data/Professors/" + FotoProf;
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
-					100, 100, false));
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
+					100, false));
 		}
-		
+
 		// new line faz a rota��o do ecr�n em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -131,7 +130,14 @@ public class EscolheTurma extends Activity {
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// sair da activity
+				Bundle wrap = new Bundle();
+				wrap.putString("Escola", Escola);
+				wrap.putInt("Escola_ID", idEscola);
+				Intent it = new Intent(getApplicationContext(),
+						EscolheProfessor.class);
+				it.putExtras(wrap);
+
+				startActivity(it);				
 				finish();
 			}
 		});
@@ -141,7 +147,8 @@ public class EscolheTurma extends Activity {
 	}
 
 	/**
-	 * Novo m�todo para criar o painel din�mico para os bot�es de selec��o da turma
+	 * Novo m�todo para criar o painel din�mico para os bot�es de
+	 * selec��o da turma
 	 * 
 	 * @author Thiago
 	 */
@@ -150,19 +157,19 @@ public class EscolheTurma extends Activity {
 
 		// Cria o objecto da base de dados
 		LetrinhasDB db = new LetrinhasDB(this);
-		//************* Mudar este select de all para por ID de professor
+		// ************* Mudar este select de all para por ID de professor
 		List<Turma> turmas = db.getAllTurmasByProfid(idProfessor);
-		//*******************************************************************************
+		// *******************************************************************************
 		nTurmas = turmas.size();
 		int[] idTurmas = new int[turmas.size()];
 		String nomeTurma[] = new String[turmas.size()];
-        int anoEscolarTurmas[] = new int[turmas.size()];
+		int anoEscolarTurmas[] = new int[turmas.size()];
 
 		// preenche os arrays com a informa��o necess�ria
 		for (int i = 0; i < nTurmas; i++) {
 			idTurmas[i] = turmas.get(i).getId();
 			nomeTurma[i] = turmas.get(i).getNome();
-            anoEscolarTurmas[i] = turmas.get(i).getAnoEscolar();
+			anoEscolarTurmas[i] = turmas.get(i).getAnoEscolar();
 		}
 
 		for (Turma cn : turmas) {
@@ -193,7 +200,7 @@ public class EscolheTurma extends Activity {
 			linha1.setLayoutParams(linha.getLayoutParams());
 			// criar os 4 bot�es da linha
 			for (int j = 0; j < 4; j++) {
-				
+
 				// **********************************
 				// Nome da turma
 
@@ -210,7 +217,8 @@ public class EscolheTurma extends Activity {
 				bt1.setCompoundDrawables(null,
 						bt.getCompoundDrawablesRelative()[1], null, null);
 
-             final   String aux = anoEscolarTurmas[cont] + " º - "+ nomeTurma[cont];
+				final String aux = anoEscolarTurmas[cont] + " º - "
+						+ nomeTurma[cont];
 				// addicionar o nome
 				bt1.setText(aux);
 				// Defenir o que faz o bot�o ao clicar
@@ -232,6 +240,7 @@ public class EscolheTurma extends Activity {
 						it.putExtras(wrap);
 
 						startActivity(it);
+						finish();
 					}
 				});
 				// inserir o bot�o na linha
@@ -266,7 +275,8 @@ public class EscolheTurma extends Activity {
 						bt.getCompoundDrawablesRelative()[1], null, null);
 
 				// addicionar o nome
-                final   String aux = anoEscolarTurmas[cont] + " º - "+ nomeTurma[cont];
+				final String aux = anoEscolarTurmas[cont] + " º - "
+						+ nomeTurma[cont];
 				bt1.setText(aux);
 				// Defenir o que faz o bot�o ao clicar
 				bt1.setOnClickListener(new View.OnClickListener() {
@@ -286,6 +296,8 @@ public class EscolheTurma extends Activity {
 						it.putExtras(wrap);
 
 						startActivity(it);
+						finish();
+					
 					}
 				});
 				// inserir o bot�o na linha
@@ -294,7 +306,7 @@ public class EscolheTurma extends Activity {
 				cont++;
 			}
 			// inserir a linha criada
-			tabela.addView(linha1); 
+			tabela.addView(linha1);
 		}
 
 		// por fim escondo a 1� linha

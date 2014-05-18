@@ -91,7 +91,6 @@ public class EscolheAluno extends Activity {
 		//Turma
 		idTurma = b.getInt("turma_ID");
 		Turma = b.getString("Turma");
-        Turma = b.getString("Turma");
 
 
 		((TextView) findViewById(R.id.escAlTurma)).setText(Turma);
@@ -137,6 +136,17 @@ public class EscolheAluno extends Activity {
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da aplicaï¿½ï¿½o
+				Bundle wrap = new Bundle();
+				wrap.putString("Escola", Escola);
+				wrap.putInt("Escola_ID", idEscola);
+				wrap.putString("Professor", Professor);
+				wrap.putInt("Professor_ID", idProfessor);
+				wrap.putString("foto_professor", FotoProf);
+				Intent it = new Intent(getApplicationContext(),
+						EscolheTurma.class);
+				it.putExtras(wrap);
+
+				startActivity(it);				
 				finish();
 			}
 		});
@@ -155,8 +165,7 @@ public class EscolheAluno extends Activity {
 
 		// Cria o objecto da base de dados
 		LetrinhasDB db = new LetrinhasDB(this);
-		// ************* Mudar este select de all para por ID de turma
-		// (ALEXANDRE!!)
+		// ************* Todos os alunos desta turma
 		List<Estudante> alunos = db.getAllStudentsByTurmaId(idTurma);
 		// *******************************************************************************
 		int nAlunos = alunos.size();
@@ -164,7 +173,7 @@ public class EscolheAluno extends Activity {
 		String nomeAluno[] = new String[nAlunos];
 		String fotoAluno[] = new String[nAlunos];
 		
-		// preenche os arrays sï¿½ com a informaï¿½ï¿½o necessï¿½ria
+		// preenche os arrays só com a informaï¿½ï¿½o necessï¿½ria
 		for (int i = 0; i < nAlunos; i++) {
 			idAluno[i] = alunos.get(i).getIdEstudante();
 			nomeAluno[i] = alunos.get(i).getNome();
@@ -256,6 +265,7 @@ public class EscolheAluno extends Activity {
 						it.putExtras(wrap);
 
 						startActivity(it);
+						finish();
 					}
 				});
 				// inserir o botï¿½o na linha
@@ -330,6 +340,7 @@ public class EscolheAluno extends Activity {
 						
 
 						startActivity(it);
+						finish();
 					}
 				});
 				// inserir o botï¿½o na linha
