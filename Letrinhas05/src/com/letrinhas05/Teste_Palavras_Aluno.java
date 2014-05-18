@@ -1,7 +1,10 @@
 package com.letrinhas05;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -13,6 +16,7 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -23,8 +27,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
+import com.letrinhas05.ClassesObjs.CorrecaoTeste;
+import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
+import com.letrinhas05.ClassesObjs.Professor;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.util.SystemUiHider;
 
@@ -39,9 +45,11 @@ public class Teste_Palavras_Aluno extends Activity{
 			int plvErradas, pontua, vacil, fragment, silabs, repeti,tipoDeTextView, numero=0,nTestes;
 			private MediaRecorder gravador;
 			private MediaPlayer reprodutor = new MediaPlayer();
-			String endereco,yo;
+			String endereco,yo,yo1,yo2,profSound,tempo,path;
+			String uuid = UUID.randomUUID().toString();
 			LetrinhasDB db;
 			List<Teste> testePalavras;
+			CorrecaoTesteLeitura ctl;
 			String[] texto;
 			String[] texto2;
 			String[] titulo;
@@ -103,7 +111,7 @@ public class Teste_Palavras_Aluno extends Activity{
 							}
 						});
 				// buscar os parametros
-				//Bundle b = getIntent().getExtras();
+				Bundle b = getIntent().getExtras();
 				// Compor novamnete e lista de testes
 				//int lstId[] = b.getIntArray("ListaID");
 				//int[] lstTipo = b.getIntArray("ListaTipo");
@@ -130,20 +138,28 @@ public class Teste_Palavras_Aluno extends Activity{
 				}
 				// Consultar a BD para preencher o conteúdo....
 				String[] var;
-				for(int i = 0; i<tipo.length; i++){
+				for(int i = 0; i<3; i++){
 					var = texto[i].split("[ ]");
+					Log.d("Texto-lista", texto[i]);
 					for(int j = 1; j< var.length; j++){
-						yo += var[j]+"\n";
+						if(i==1)
+							yo += var[j]+"\n";
+						else if(i==2)
+							yo1 += var[j]+"\n";
+						else
+							yo2 += var[j]+"\n";
 						//Log.d("debug-EXtrs", yo);
 					} 
 					//Log.d("debug-EndText", yo);
 				}
 				Log.d("debug-EndText", yo);
 				((TextView) findViewById(R.id.TextView01)).setText(yo);
-				((TextView) findViewById(R.id.TextView02)).setText(yo);
-				((TextView) findViewById(R.id.TextView03)).setText(yo);
-				//endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + b.getString("Professor") + "/" + b.getString("Aluno") + "/" + titulo[0] + ".3gpp";
-				//endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + b.getString("Professor") + "/" + b.getString("Aluno") + "/" + titulo[0] + ".3gpp";
+				((TextView) findViewById(R.id.TextView02)).setText(yo1);
+				((TextView) findViewById(R.id.TextView03)).setText(yo2);
+				
+				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/CorrectionReadTest/"+uuid+".mp3";
+				path =  "/School-Data/CorrectionReadTest/"+uuid+".mp3";
+				profSound = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/ReadingTests/SOM1.mp3";
 				// descontar este teste da lista.
 				//tudo = new String[nTestes - 1];
 				//String[] aux = tudo;
@@ -226,13 +242,13 @@ public class Teste_Palavras_Aluno extends Activity{
 				play.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						startPlay();
+						startPlay("gravação");
 					}
 				});
 				voicePlay.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						//startPlay();
+						startPlay("vozProf");
 					}
 				});
 				cancelar.setOnClickListener(new View.OnClickListener() {
@@ -251,7 +267,7 @@ public class Teste_Palavras_Aluno extends Activity{
 					@Override
 					public void onClick(View view) {
 						// voltar para pag inicial
-						//startAvalia();
+						submit();
 					}
 				});
 				voltar.setOnClickListener(new View.OnClickListener() {
@@ -262,6 +278,67 @@ public class Teste_Palavras_Aluno extends Activity{
 					}
 				});
 			}
+			
+			/**
+			 * 
+			 * @return yyyy-MM-dd HH:mm:ss formate date as string
+			 */
+			@SuppressLint("SimpleDateFormat")
+			public static String getCurrentTimeStamp(){
+			    try {
+
+			        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			        String currentTimeStamp = dateFormat.format(new Date()); // Find todays date
+
+			        return currentTimeStamp;
+			    } catch (Exception e) {
+			        e.printStackTrace();
+
+			        return null;
+			    }
+			}
+			
+			/**
+			 * znyt
+			 * znrdy
+			 * xdgh
+			 * dnyx
+			 * dm
+			 * @author Dário
+			 */
+			public void submit(){
+				ctl = new CorrecaoTesteLeitura();
+				File file = new File(endereco);
+				if(!file.exists()){
+					Toast.makeText(getApplicationContext(),"Não gravou nada",Toast.LENGTH_SHORT).show();
+				}else{
+					Bundle b = getIntent().getExtras();
+					ctl.setAudiourl(path);
+					ctl.setDataExecucao(System.currentTimeMillis()/1000);
+					ctl.setTipo(1);
+					ctl.setEstado(0);
+					ctl.setTestId(b.getInt("testId"));
+					ctl.setIdEstudante(b.getInt("estudanteId"));
+					Toast.makeText(getApplicationContext(),ctl.getAudiourl(),Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),getCurrentTimeStamp(),Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),String.valueOf(ctl.getIdEstudante()),Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),String.valueOf(ctl.getTestId()),Toast.LENGTH_SHORT).show();
+					db.addNewItemCorrecaoTesteLeitura(ctl);
+					
+					List<CorrecaoTeste> data1 = db.getAllCorrecaoTeste();
+					Log.d("CheckInserts: ", "***********Testes******************");
+					for (CorrecaoTeste cn : data1) {
+						String logs = "Id: " + cn.getIdCorrrecao() + ", idEstudante: "
+								+ cn.getIdEstudante() + "  , estado: " + cn.getEstado()
+								+ "  , testeId: " + cn.getTestId() + "  , tipo: "
+								+ cn.getTipo() + "  , data: " + cn.getDataExecucao();
+						// Writing Contacts to log
+						Log.d("CheckInserts: ", logs);
+					}
+					//finaliza();
+				}
+			}
+			
 			int minuto, segundo;
 			/**
 			 * Serve para começar ou parar o recording do audio
@@ -282,17 +359,13 @@ public class Teste_Palavras_Aluno extends Activity{
 						gravador.prepare();
 						gravador.start();
 						Toast.makeText(getApplicationContext(), "A gravar.",Toast.LENGTH_SHORT).show();
-						// O cronometro não funciona assim tão bem no seu modo
-						// original...
-						chrono = (Chronometer) findViewById(R.id.cromTxt);
 						// handler para controlar a GUI do android e a thread seguinte
 						play_handler = new Handler() {
 							@SuppressLint("HandlerLeak")
 							public void handleMessage(Message msg) {
 								switch (msg.what) {
 								case PARADO:
-									String m,
-									s;
+									String m,s;
 									if (minuto < 10) {
 										m = "0" + minuto + ":";
 									} else {
@@ -303,7 +376,8 @@ public class Teste_Palavras_Aluno extends Activity{
 									} else {
 										s = "" + segundo;
 									}
-									chrono.setText(m + s);
+									tempo =  m + s;
+									Toast.makeText(getApplicationContext(), "Tempo: "+ m + s,Toast.LENGTH_SHORT).show();
 									break;
 								default:
 									break;
@@ -323,7 +397,6 @@ public class Teste_Palavras_Aluno extends Activity{
 									try {
 										Thread.sleep(1000);
 									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 									segundo++;
@@ -362,14 +435,19 @@ public class Teste_Palavras_Aluno extends Activity{
 			 * @author Dário Jorge
 			 */
 			@SuppressLint("HandlerLeak")
-			private void startPlay() {
+			private void startPlay(String path) {
 				if (!playing) {
 					play.setImageResource(R.drawable.play_on);
 					record.setVisibility(View.INVISIBLE);
 					playing = true;
 					try {
 						reprodutor = new MediaPlayer();
-						reprodutor.setDataSource(endereco);
+						Toast.makeText(getApplicationContext(),"Tipo de som a ser reproduzido - "+path.toString(),Toast.LENGTH_SHORT).show();
+						if(path=="vozProf"){
+							reprodutor.setDataSource(profSound);
+						}else if(path=="gravação"){
+							reprodutor.setDataSource(endereco);
+						}
 						reprodutor.prepare();
 						reprodutor.start();
 						Toast.makeText(getApplicationContext(), "A reproduzir.",Toast.LENGTH_SHORT).show();

@@ -27,7 +27,7 @@ import com.letrinhas05.util.SystemUiHider;
 
 public class EscolheTeste extends Activity {
 	ImageButton volt, exect;
-	public int nTestes,numero=0;
+	public int nTestes,numero=0,estudanteId,testId;
 	boolean modo;
 	String teste;
 	String[] lista;
@@ -65,6 +65,8 @@ public class EscolheTeste extends Activity {
 
 		// recebe o parametro de modo
 		Bundle b = getIntent().getExtras();
+		int[] ids = b.getIntArray("IDs");
+		estudanteId = ids[3];
         idArea = b.getInt("idDisciplina");
         idTipo = b.getInt("TipoTesteid");
         Log.e("CENAS",idArea +" "+ idTipo); // Error
@@ -178,6 +180,7 @@ public class EscolheTeste extends Activity {
 				tg.setLayoutParams(tg1.getLayoutParams());
 				tg.setTextSize(tg1.getTextSize());
 				teste = titulo[i].toString();
+				testId = id[i];
 				Log.d("Texto-Apenas-part2", teste+" int:"+i);
 				// texto por defeito
 				tg.setText(teste);
@@ -338,6 +341,9 @@ public class EscolheTeste extends Activity {
 			wrap.putString("Professor", "ESTT- Pedro Dias");
 
 			// resto dos parametros
+			wrap.putInt("estudanteId", estudanteId);
+			wrap.putInt("testId", testId);
+			Log.d("IDs estudante teste", estudanteId + " <-idaluno idteste-> " + testId);
 			wrap.putIntArray("ListaID", lstID);
 			wrap.putIntArray("ListaTipo", lstTipo);
 			wrap.putStringArray("ListaTitulo", lstTitulo);
@@ -401,7 +407,7 @@ public class EscolheTeste extends Activity {
 			// Cria o gerador do AlertDialog
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			// define o titulo
-			builder.setTitle("Letrinhas 03");
+			builder.setTitle("Letrinhas 05");
 			// define a mensagem
 			builder.setMessage("N�o existem testes seleccionados!");
 			// define um bot�o como positivo
