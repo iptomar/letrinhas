@@ -25,15 +25,13 @@
 
     <ImageButton
         android:id="@+id/ibComecar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/escTRodape"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="40dp"
+        android:layout_width="140sp"
+        android:layout_height="100sp"
         android:clickable="true"
         android:contentDescription="@string/start"
         android:onClick="executarTestes"
-        android:src="@drawable/right" />
+        android:src="@drawable/right" android:layout_alignParentRight="true" android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="false" android:layout_alignParentBottom="true"/>
 
     <TextView
         android:id="@+id/escTRodape"
@@ -51,18 +49,17 @@
         android:id="@+id/svEscolher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/escTVoltar"
         android:layout_alignLeft="@+id/esTCabecalho"
         android:layout_below="@+id/esTLogo"
         android:layout_marginLeft="40dp"
-        android:layout_toLeftOf="@+id/ibComecar"
-        android:background="@color/black_overlay" >
+        android:background="@color/black_overlay" android:layout_above="@+id/escTVoltar"
+        android:layout_alignParentRight="true">
 
         <LinearLayout
             android:id="@+id/llescteste"
             android:layout_width="match_parent"
             android:layout_height="457dp"
-            android:orientation="vertical" >
+            android:orientation="vertical" android:weightSum="1">
 
             <ToggleButton
                 android:id="@+id/ToggleButton1"
@@ -73,37 +70,24 @@
                 android:textOff="@string/teste"
                 android:textOn="@string/teste"
                 android:textSize="32sp"
-                android:textStyle="normal" />
+                android:textStyle="normal" android:layout_weight="91.70"/>
 
         </LinearLayout>
     </ScrollView>
 
     <ImageView
         android:id="@+id/esTLogo"
-        android:layout_width="wrap_content"
+        android:layout_width="80sp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/esTCabecalho"
-        android:layout_toRightOf="@+id/svEscolher"
         android:contentDescription="@string/teste"
-        android:src="@drawable/index" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/esTLogo"
-        android:layout_alignRight="@+id/esTLogo"
-        android:layout_alignTop="@+id/svEscolher"
-        android:text="@string/act_BD" />
+        android:src="@drawable/index" android:layout_alignParentTop="true" android:layout_alignParentRight="true"/>
 
     <ImageButton
         android:id="@+id/escTVoltar"
         android:layout_width="100sp"
         android:layout_height="100sp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:contentDescription="@string/voltar"
         android:onClick="voltar"
-        android:src="@drawable/voltar" />
+        android:src="@drawable/voltar" android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"/>
 
 </RelativeLayout>

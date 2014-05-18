@@ -1031,6 +1031,46 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return listTeste;
     }
 
+
+    /**
+     * Buscar todos os campos da Tabela Testes
+     * Retorna uma lista com varios objectos do tipo "Testes"
+     */
+    public List<Teste> getAllTesteByAreaIdAndType(int areaId, int tipo) {
+        List<Teste> listTeste = new ArrayList<Teste>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT  * FROM " + TABELA_TESTE +" WHERE "+TEST_AREAID +" = " + areaId + " AND "+ TEST_TIPO +" = "+ tipo;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atravEs de todas as linhas e adicionando Alista
+        if (cursor.moveToFirst()) {
+            do {
+                Teste teste = new Teste();
+                teste.setIdTeste(cursor.getInt(0));
+                teste.setAreaId(cursor.getInt(1));
+                teste.setProfessorId(cursor.getInt(2));
+                teste.setTitulo(cursor.getString(3));
+                teste.setTexto(cursor.getString(4));
+                teste.setDataInsercaoTeste(cursor.getLong(5));
+                teste.setGrauEscolar(cursor.getInt(6));
+                teste.setTipos(cursor.getInt(7));
+                // Adicionar os os items da base de dados a lista
+                listTeste.add(teste);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listTeste;
+    }
+
+
+
+
+
+
+
+
+
     /**
      * Buscar todos os campos da Tabela TestesLeitura
      * Retorna uma lista com varios objectos do tipo "TestesLeitura"

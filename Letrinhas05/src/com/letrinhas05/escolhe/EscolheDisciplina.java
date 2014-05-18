@@ -190,7 +190,7 @@ public class EscolheDisciplina extends Activity {
 				Bundle wrap = new Bundle();
 				wrap.putStringArray("Nomes", strings);
 				wrap.putIntArray("IDs", iDs);
-				wrap.putInt("idDisciplina", 0);
+				wrap.putInt("idDisciplina", 1);
 				wrap.putString("Disciplina", "Portugues");
 
 				// iniciar a pagina 2 (escolher testes a executar)
@@ -208,7 +208,7 @@ public class EscolheDisciplina extends Activity {
 				Bundle wrap = new Bundle();
 				wrap.putStringArray("Nomes", strings);
 				wrap.putIntArray("IDs", iDs);
-				wrap.putInt("idDisciplina", 1);
+				wrap.putInt("idDisciplina", 2);
 				wrap.putString("Disciplina", "Matematica");
 
 				// iniciar a pagina 2 (escolher testes a executar)
@@ -226,7 +226,7 @@ public class EscolheDisciplina extends Activity {
 				Bundle wrap = new Bundle();
 				wrap.putStringArray("Nomes", strings);
 				wrap.putIntArray("IDs", iDs);
-				wrap.putInt("idDisciplina", 2);
+				wrap.putInt("idDisciplina", 3);
 				wrap.putString("Disciplina", "Estudo do Meio");
 
 				// iniciar a pagina 2 (escolher testes a executar)
@@ -244,7 +244,7 @@ public class EscolheDisciplina extends Activity {
 				Bundle wrap = new Bundle();
 				wrap.putStringArray("Nomes", strings);
 				wrap.putIntArray("IDs", iDs);
-				wrap.putInt("idDisciplina", 3);
+				wrap.putInt("idDisciplina", 4);
 				wrap.putString("Disciplina", "Inglês");
 
 				// iniciar a pagina 2 (escolher testes a executar)
