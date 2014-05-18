@@ -9,17 +9,20 @@ public class CorrecaoTeste {
     protected int idCorrrecao;
     protected int testId;
     protected int idEstudante;
-    protected String DataExecucao;
+    protected long DataExecucao;
+    protected int tipo;
     protected int estado;
 
+    public CorrecaoTeste() {
+    }
 
-
-    public CorrecaoTeste( int idCorrrecao, int testId, int idEstudante, String dataExecucao, int estado) {
+    public CorrecaoTeste( int idCorrrecao, int testId, int idEstudante, long dataExecucao, int tipo,int estado) {
        this.setIdCorrrecao(idCorrrecao);
         this.testId = testId;
         this.idEstudante = idEstudante;
         this.DataExecucao = dataExecucao;
-        this.setEstado(estado);
+        this.tipo = tipo;
+        this.estado = estado ;
     }
 
     public int getTestId() {
@@ -38,11 +41,11 @@ public class CorrecaoTeste {
         this.idEstudante = idEstudante;
     }
 
-    public String getDataExecucao() {
+    public long getDataExecucao() {
         return DataExecucao;
     }
 
-    public void setDataExecucao(String dataExecucao) {
+    public void setDataExecucao(long dataExecucao) {
         this.DataExecucao = dataExecucao;
     }
 
@@ -60,5 +63,13 @@ public class CorrecaoTeste {
 
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 }

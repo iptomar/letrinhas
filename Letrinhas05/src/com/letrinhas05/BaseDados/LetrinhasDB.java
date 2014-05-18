@@ -111,6 +111,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     private static final String CORRT_IDTESTE = "idTeste";
     private static final String CORRT_IDALUNO = "idAluno";
     private static final String CORRT_DATAEXEC = "dataExecucao";
+    private static final String CORRT_TIPO = "tipo";
     private static final String CORRT_ESTADO = "estado";
 
 
@@ -238,6 +239,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + CORRT_IDTESTE + " INT,"
                 + CORRT_IDALUNO + " INT,"
                 + CORRT_DATAEXEC + " LONG,"
+                + CORRT_TIPO + " INT,"
                 + CORRT_ESTADO + " INT)";
         db.execSQL(createTableString);
 
@@ -499,6 +501,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         valuesCorrecaoTeste.put(CORRT_IDTESTE, correcaoTesteLeitura.getTestId());        // Inserir na tabela campo teste id
         valuesCorrecaoTeste.put(CORRT_IDALUNO, correcaoTesteLeitura.getIdEstudante());   // Inserir na tabela campo Id estudante
         valuesCorrecaoTeste.put(CORRT_DATAEXEC, correcaoTesteLeitura.getDataExecucao());              // Inserir na tabela data execucao
+        valuesCorrecaoTeste.put(CORRT_TIPO, correcaoTesteLeitura.getTipo());
         valuesCorrecaoTeste.put(CORRT_ESTADO, correcaoTesteLeitura.getEstado());                 // Inserir na tabela estado
                db.insert(TABELA_CORRECAOTESTE, null, valuesCorrecaoTeste);
         //////////////////////////////////////////////////////
@@ -532,6 +535,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         valuesCorrecaoTeste.put(CORRT_IDTESTE, correcaoTesteMultimedia.getTestId());        // Inserir na tabela campo teste id
         valuesCorrecaoTeste.put(CORRT_IDALUNO, correcaoTesteMultimedia.getIdEstudante());   // Inserir na tabela campo Id estudante
         valuesCorrecaoTeste.put(CORRT_DATAEXEC, correcaoTesteMultimedia.getDataExecucao());              // Inserir na tabela data execucao
+        valuesCorrecaoTeste.put(CORRT_TIPO, correcaoTesteMultimedia.getTipo());
         valuesCorrecaoTeste.put(CORRT_ESTADO, correcaoTesteMultimedia.getEstado());                 // Inserir na tabela estado
         db.insert(TABELA_CORRECAOTESTE, null, valuesCorrecaoTeste);
         //////////////////////////////////////////////////////
@@ -545,9 +549,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     }
 
 
-
-
-    //*************************//
+                             //*************************//
                             //*********SELECT**********//
                             //*************************//
 
@@ -571,7 +573,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         Professor prof = new Professor(cursor.getInt(0), cursor.getInt(1),
                 cursor.getString(2), cursor.getString(3),
                 cursor.getString(4), cursor.getString(5), cursor.getString(6),
-                Utils.getFileSD("Professors", cursor.getString(7)), cursor.getInt(8));
+                 cursor.getString(7), cursor.getInt(8));
         // return o Item ja carregado com os dados
         db.close();
         return prof;
@@ -596,7 +598,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         Estudante est = new Estudante(cursor.getInt(0),
                 cursor.getInt(1),
                 cursor.getString(2),
-                Utils.getFileSD("Students", cursor.getString(3)),
+                cursor.getString(3),
                 cursor.getInt(4));
         // return o Item ja carregado com os dados
         db.close();
@@ -627,6 +629,70 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.close();
         return sist;
     }
+
+    /**
+     * Buscar Um Campo Teste pelo o id
+     * @id recebe o id
+     * Retorna um objecto que contem Teste preenchido
+     */
+    public Teste getTesteById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABELA_TESTE,
+                new String[]{TEST_ID, TEST_AREAID, TEST_PROFESSORID,
+                        TEST_TITULO, TEST_TEXTO,TEST_DATAINSERCAO, TEST_GRAU, TEST_TIPO },
+                TEST_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null
+        );
+        ////// Se existir dados comeca a preencher o Objecto Estudante
+        if (cursor != null)
+            cursor.moveToFirst();
+        Teste test = new Teste();
+        test.setIdTeste(  cursor.getInt(0));
+        test.setAreaId(  cursor.getInt(1));
+        test.setProfessorId(  cursor.getInt(2));
+        test.setTitulo(  cursor.getString(3));
+        test.setTexto(  cursor.getString(4));
+        test.setDataInsercaoTeste(  cursor.getLong(5));
+        test.setGrauEscolar(  cursor.getInt(6));
+        test.setTipos(  cursor.getInt(7));
+        // return o Item ja carregado com os dados
+        db.close();
+        return test;
+    }
+
+    /**
+     * Buscar Um Campo turma pelo o id
+     * @id recebe o id
+     * Retorna um objecto que contem turma preenchido
+     */
+    public Turma getTurmaByID(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABELA_TURMAS,
+                new String[]{TUR_ID, TUR_IDESCOLA, TUR_ANO,
+                        TUR_NOME, TUR_ANOLETIVO},
+                TUR_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null
+        );
+        ////// Se existir dados comeca a preencher o Objecto Estudante
+        if (cursor != null)
+            cursor.moveToFirst();
+        Turma turma = new Turma();
+        turma.setId(  cursor.getInt(0));
+        turma.setIdEscola(  cursor.getInt(1));
+        turma.setAnoEscolar(  cursor.getInt(2));
+        turma.setNome(  cursor.getString(3));
+        turma.setAnoLetivo(  cursor.getString(4));
+        // return o Item ja carregado com os dados
+        db.close();
+        return turma;
+    }
+
+
+
+
+
+
+
 
 
                  //*************************//
@@ -899,6 +965,40 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         // return a lista com todos os items da base de dados
         return listSistema;
     }
+
+
+    /**
+     * Buscar todos os campos da Tabela CorrecaoTest
+     * Retorna uma lista com varios objectos do tipo "CorrecaoTest"
+     */
+    public List<CorrecaoTeste> getAllCorrecaoTeste() {
+        List<CorrecaoTeste> listcorrecaoTestes = new ArrayList<CorrecaoTeste>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT  * FROM " + TABELA_CORRECAOTESTE;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atravEs de todas as linhas e adicionando Alista
+        if (cursor.moveToFirst()) {
+            do {
+                CorrecaoTeste corrteste = new CorrecaoTeste();
+                corrteste.setIdCorrrecao(cursor.getInt(0));
+                corrteste.setTestId(cursor.getInt(1));
+                corrteste.setIdEstudante(cursor.getInt(2));
+                corrteste.setDataExecucao(cursor.getLong(3));
+                corrteste.setTipo(cursor.getInt(4));
+                corrteste.setEstado(cursor.getInt(5));
+                // Adicionar os os items da base de dados a lista
+                listcorrecaoTestes.add(corrteste);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listcorrecaoTestes;
+    }
+
+
+
+
 
     /**
      * Buscar todos os campos da Tabela Testes
