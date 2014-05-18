@@ -3,7 +3,7 @@
                 android:id="@+id/escTipoTeste"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#689800"
+                android:background="#80bb00"
                 android:gravity="clip_vertical"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="30sp"
@@ -149,6 +149,6 @@
             android:text="Selecione o Tipo de Teste:"
             android:id="@+id/txtTipoTDisciplina"
             android:textIsSelectable="false" android:textSize="27sp" android:layout_below="@+id/escTipoTProfname"
-            android:layout_alignLeft="@+id/btnTestePalav" android:layout_marginTop="50dp"/>
+            android:layout_alignLeft="@+id/btnTestePalav" android:layout_marginTop="50dp" android:textColor="#ffffff"/>
 
 </RelativeLayout>

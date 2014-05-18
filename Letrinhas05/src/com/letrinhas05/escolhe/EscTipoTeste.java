@@ -99,7 +99,6 @@ public class EscTipoTeste extends Activity {
                 .setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
                     // Cached values.
                     int mShortAnimTime;
-
                     @Override
                     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
                     public void onVisibilityChange(boolean visible) {
@@ -147,7 +146,6 @@ public class EscTipoTeste extends Activity {
             return false;
         }
     };
-
     Handler mHideHandler = new Handler();
     Runnable mHideRunnable = new Runnable() {
         @Override
@@ -194,6 +192,8 @@ public class EscTipoTeste extends Activity {
 //                ipt.putExtras(wrap);
 //                startActivity(ipt);
         //   finish();
+
+                ////////////AQUI VOU PARA JANELA LEITURA DE PLAVRAS////////////////////
             }
         });
 
@@ -212,6 +212,7 @@ public class EscTipoTeste extends Activity {
 //                ipt.putExtras(wrap);
 //                startActivity(ipt);
 //                finish();
+                ////////////AQUI VOU PARA JANELA LEITURA DE TEXTOS////////////////////
             }
         });
 
@@ -230,6 +231,7 @@ public class EscTipoTeste extends Activity {
 //                ipt.putExtras(wrap);
 //                startActivity(ipt);
 //                finish();
+                ////////////AQUI VOU PARA JANELA TEXTES MULTIMEDIA////////////////////
             }
         });
 
