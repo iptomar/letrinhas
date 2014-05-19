@@ -335,9 +335,9 @@ public class EscolheTeste extends Activity {
 				Toast.LENGTH_SHORT).show();
 
 		// Copiar os id's dos testes seleccionados para uma lista auxiliar
-		j = 0;
 		int[] lstID = new int[j];
-		for (int i = 0; i < nElements; i++) {
+		j = 0;
+		for (int i = 0; i <idTestes.length; i++) {
 			if (((ToggleButton) ll.getChildAt(i)).isChecked()) {
 				lstID[j] = idTestes[i];
 				j++;

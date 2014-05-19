@@ -54,7 +54,7 @@ public class ResumoSubmissoes extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.resumo_submissoes);
 
-		// new line faz a rotacao do ecran 180 graus
+		/* new line faz a rotacao do ecran 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -92,7 +92,7 @@ public class ResumoSubmissoes extends Activity {
 					}
 				});
 
-		// buscar os parametros
+		// buscar os parametros */
 		Bundle b = getIntent().getExtras();
 		inicia(b);
 
@@ -132,14 +132,14 @@ public class ResumoSubmissoes extends Activity {
 		CorrecaoTesteLeitura[] crtAux = new CorrecaoTesteLeitura[j];
 		// copio a informação necessária
 		j = 0;
-		for (int i = 0; i < crt.size(); i++) {
+		/*for (int i = 0; i < crt.size(); i++) {
 			if (crt.get(i).getIdEstudante() == alunoID
 					&& crt.get(i).getTestId() == testeID) {
 				crtAux[j] = (CorrecaoTesteLeitura) crt.get(i);
 				j++;
 			}
 		}
-		// ****************************************************************
+		// ****************************************************************/
 
 		// Painel Dinamico
 		// objetos do XML
@@ -149,7 +149,7 @@ public class ResumoSubmissoes extends Activity {
 		ll.removeView(btOriginal);
 
 		// Contruir os botoes
-		for (int i = 0; i < crtAux.length; i++) {
+		for (int i = 0; i < crt.size(); i++){//crtAux.length; i++) {
 			// criar o botao
 			Button btIn = new Button(this);
 			// copiar os parametros de layout
@@ -157,14 +157,14 @@ public class ResumoSubmissoes extends Activity {
 			// copiar a imagem do botao original
 			btIn.setCompoundDrawables(null, null,
 					btOriginal.getCompoundDrawablesRelative()[2], null);
-			btIn.setText("" + crtAux[i].getDataExecucao());
-			final String audioUrl = crtAux[i].getAudiourl();
+			btIn.setText("" + crt.get(i).getDataExecucao());//crtAux[i].getDataExecucao());
+			//final String audioUrl = crtAux[i].getAudiourl();
 
 			// o que o botão faz
 			btIn.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					play(audioUrl);
+				//	play(audioUrl);
 				}
 
 			});
@@ -243,6 +243,7 @@ public class ResumoSubmissoes extends Activity {
 
 	}
 
+	/*
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
@@ -258,6 +259,7 @@ public class ResumoSubmissoes extends Activity {
 	 * system UI. This is to prevent the jarring behavior of controls going away
 	 * while interacting with activity UI.
 	 */
+	/*
 	View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
 		@Override
 		public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -279,10 +281,10 @@ public class ResumoSubmissoes extends Activity {
 	/**
 	 * Schedules a call to hide() in [delay] milliseconds, canceling any
 	 * previously scheduled calls.
-	 */
+	 *//*
 	private void delayedHide(int delayMillis) {
 		mHideHandler.removeCallbacks(mHideRunnable);
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
-	}
+	}*/
 
 }

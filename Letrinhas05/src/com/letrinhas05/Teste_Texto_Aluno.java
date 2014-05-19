@@ -162,7 +162,8 @@ public class Teste_Texto_Aluno extends Activity {
 
 		fileName = getCurrentTimeStamp() + ".3gpp";
 
-		audio = teste.getProfessorAudioUrl();
+		audio = Environment.getExternalStorageDirectory().getAbsolutePath()
+				+ "/School-Data/ReadingTests/"+teste.getProfessorAudioUrl();
 
 		// descontar este teste da lista.
 		int[] aux = new int[testesID.length - 1];
@@ -296,10 +297,8 @@ public class Teste_Texto_Aluno extends Activity {
 		avancar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// voltar para pag inicial
-				// Testar uma submissão
+				// executa uma submissão
 				submit();
-				finaliza();
 			}
 
 		});
@@ -332,7 +331,8 @@ public class Teste_Texto_Aluno extends Activity {
 		if (!recording) {
 			ImageView img = new ImageView(this);
 			img.setImageResource(R.drawable.stop);
-			record.setCompoundDrawables(null, img.getDrawable(), null, null);
+			record.setCompoundDrawablesWithIntrinsicBounds(null,
+					img.getDrawable(), null, null);
 			record.setText("Parar");
 			play.setVisibility(View.INVISIBLE);
 			demo.setVisibility(View.INVISIBLE);
@@ -378,7 +378,8 @@ public class Teste_Texto_Aluno extends Activity {
 		} else {
 			ImageView img = new ImageView(this);
 			img.setImageResource(R.drawable.record);
-			record.setCompoundDrawables(null, img.getDrawable(), null, null);
+			record.setCompoundDrawablesWithIntrinsicBounds(null,
+					img.getDrawable(), null, null);
 			record.setText("Repetir");
 			play.setVisibility(View.VISIBLE);
 			demo.setVisibility(View.VISIBLE);
@@ -418,7 +419,8 @@ public class Teste_Texto_Aluno extends Activity {
 		if (!playing) {
 			ImageView img = new ImageView(this);
 			img.setImageResource(R.drawable.pause);
-			play.setCompoundDrawables(null, img.getDrawable(), null, null);
+			play.setCompoundDrawablesWithIntrinsicBounds(null,
+					img.getDrawable(), null, null);
 			play.setText("Parar");
 			record.setVisibility(View.INVISIBLE);
 			demo.setVisibility(View.INVISIBLE);
@@ -439,8 +441,8 @@ public class Teste_Texto_Aluno extends Activity {
 					public void handleMessage(Message msg) {
 						switch (msg.what) {
 						case PARADO:
-							play.setCompoundDrawables(null, img2.getDrawable(),
-									null, null);
+							play.setCompoundDrawablesWithIntrinsicBounds(null,
+									img2.getDrawable(), null, null);
 							play.setText("Ouvir");
 							record.setVisibility(View.VISIBLE);
 							demo.setVisibility(View.VISIBLE);
@@ -474,12 +476,21 @@ public class Teste_Texto_Aluno extends Activity {
 				Toast.makeText(getApplicationContext(),
 						"Erro na reprodução.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
+				
+				img.setImageResource(R.drawable.play);
+				play.setCompoundDrawablesWithIntrinsicBounds(null,
+						img.getDrawable(), null, null);
+				play.setText("Ouvir");
+				record.setVisibility(View.VISIBLE);
+				demo.setVisibility(View.VISIBLE);
+				playing = false;
 			}
 
 		} else {
 			ImageView img = new ImageView(this);
 			img.setImageResource(R.drawable.play);
-			play.setCompoundDrawables(null, img.getDrawable(), null, null);
+			play.setCompoundDrawablesWithIntrinsicBounds(null,
+					img.getDrawable(), null, null);
 			play.setText("Ouvir");
 			record.setVisibility(View.VISIBLE);
 			demo.setVisibility(View.VISIBLE);
@@ -503,7 +514,8 @@ public class Teste_Texto_Aluno extends Activity {
 		if (!playing) {
 			ImageView img = new ImageView(this);
 			img.setImageResource(R.drawable.play_on);
-			demo.setCompoundDrawables(null, img.getDrawable(), null, null);
+			demo.setCompoundDrawablesWithIntrinsicBounds(null,
+					img.getDrawable(), null, null);
 			demo.setText("Parar");
 			record.setVisibility(View.INVISIBLE);
 			play.setVisibility(View.INVISIBLE);
@@ -525,8 +537,8 @@ public class Teste_Texto_Aluno extends Activity {
 					public void handleMessage(Message msg) {
 						switch (msg.what) {
 						case PARADO:
-							demo.setCompoundDrawables(null, img2.getDrawable(),
-									null, null);
+							demo.setCompoundDrawablesWithIntrinsicBounds(null,
+									img2.getDrawable(), null, null);
 							record.setVisibility(View.VISIBLE);
 							play.setVisibility(View.VISIBLE);
 							demo.setText("Demo");
@@ -560,12 +572,21 @@ public class Teste_Texto_Aluno extends Activity {
 				Toast.makeText(getApplicationContext(),
 						"Erro na reprodução da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
+				
+				img.setImageResource(R.drawable.palyoff);
+				demo.setCompoundDrawablesWithIntrinsicBounds(null,
+						img.getDrawable(), null, null);
+				record.setVisibility(View.VISIBLE);
+				play.setVisibility(View.VISIBLE);
+				demo.setText("Demo");
+				playing = false;
 			}
 
 		} else {
 			ImageView img = new ImageView(this);
 			img.setImageResource(R.drawable.palyoff);
-			demo.setCompoundDrawables(null, img.getDrawable(), null, null);
+			demo.setCompoundDrawablesWithIntrinsicBounds(null,
+					img.getDrawable(), null, null);
 			record.setVisibility(View.VISIBLE);
 			play.setVisibility(View.VISIBLE);
 			demo.setText("Demo");
@@ -654,16 +675,6 @@ public class Teste_Texto_Aluno extends Activity {
 
 		}
 		//
-		Bundle wrap = new Bundle();
-		wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
-		wrap.putInt("IDAluno", iDs[3]); //id do aluno
-		// listar submissões anteriores do mesmo teste
-		 Intent it = new Intent(getApplicationContext(),
-		 ResumoSubmissoes.class);
-		 it.putExtras(wrap);
-		 startActivity(it);
-		 
-		//
 		finish();
 	}
 
@@ -710,7 +721,17 @@ public class Teste_Texto_Aluno extends Activity {
 				// Writing Contacts to log
 				Log.d("CheckInserts: ", logs);
 			}
-			// finaliza();
+			 finaliza();
+			 
+			 Bundle wrap = new Bundle();
+				wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
+				wrap.putInt("IDAluno", iDs[3]); //id do aluno
+				// listar submissões anteriores do mesmo teste
+				 Intent it = new Intent(getApplicationContext(),
+				 ResumoSubmissoes.class);
+				 it.putExtras(wrap);
+				 startActivity(it);
+				 
 		}
 	}
 
