@@ -123,10 +123,14 @@
         </activity>
         <activity
             android:name="com.letrinhas05.escolhe.ListarSubmissoes"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_listar_submissoes"
-            android:configChanges="orientation|keyboardHidden|screenSize" 
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name="com.letrinhas05.ResumoSubmissoes"
+            android:label="@string/title_activity_resumo_submissoes" >
         </activity>
     </application>
 

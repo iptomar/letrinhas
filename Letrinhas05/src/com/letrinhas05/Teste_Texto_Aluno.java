@@ -1,25 +1,17 @@
 package com.letrinhas05;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
-import com.letrinhas05.BaseDados.NetworkUtils;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.ClassesObjs.TesteLeitura;
-import com.letrinhas05.util.Avaliacao;
 import com.letrinhas05.util.SystemUiHider;
-import com.letrinhas05.util.Utils;
-
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
@@ -30,24 +22,14 @@ import android.os.Message;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.text.Spannable;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,7 +45,6 @@ public class Teste_Texto_Aluno extends Activity {
 	TesteLeitura teste;
 	// objetos
 	Button record, demo, play, voltar, cancelar, avancar;
-
 	private MediaRecorder gravador;
 	private MediaPlayer reprodutor = new MediaPlayer();
 	private String endereco, audio, fileName;
@@ -136,7 +117,27 @@ public class Teste_Texto_Aluno extends Activity {
 
 		// buscar os parametros
 		Bundle b = getIntent().getExtras();
+		inicia(b);
+		
+		//atribuir os botões
+		record = (Button) findViewById(R.id.txtRecord);
+		demo = (Button) findViewById(R.id.txtDemo);
+		play = (Button) findViewById(R.id.txtPlay);
+		play.setVisibility(View.INVISIBLE);
+		voltar = (Button) findViewById(R.id.txtVoltar);
+		cancelar = (Button) findViewById(R.id.txtCancel);
+		avancar = (Button) findViewById(R.id.txtAvaliar);
 
+		escutaBotoes();
+	}
+	
+	/**
+	 * método para iniciar os componetes, que dependem do conteudo passado
+	 * por parametros (extras)
+	 * 
+	 * @param b Bundle, contém informação da activity anterior
+	 */
+	public void inicia(Bundle b){
 		// Compor novamente e lista de testes
 		testesID = b.getIntArray("ListaID");
 		// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
@@ -169,16 +170,7 @@ public class Teste_Texto_Aluno extends Activity {
 			aux[i - 1] = testesID[i];
 		}
 		testesID = aux;
-
-		record = (Button) findViewById(R.id.txtRecord);
-		demo = (Button) findViewById(R.id.txtDemo);
-		play = (Button) findViewById(R.id.txtPlay);
-		play.setVisibility(View.INVISIBLE);
-		voltar = (Button) findViewById(R.id.txtVoltar);
-		cancelar = (Button) findViewById(R.id.txtCancel);
-		avancar = (Button) findViewById(R.id.txtAvaliar);
-
-		escutaBotoes();
+		
 	}
 
 	/**
@@ -294,13 +286,9 @@ public class Teste_Texto_Aluno extends Activity {
 		cancelar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// salta a avaliaï¿½ï¿½o e vai para o prï¿½ximo teste descurando
-				// a
-				// gravaï¿½ï¿½o gerada
-				File file = new File(endereco);
-				if (file.exists()) {
-					file.delete();
-				}
+				// salta a avaliacao e vai para o proximo teste descurando
+				// a gravacao gerada
+				elimina();
 				finaliza();
 			}
 		});
@@ -309,9 +297,9 @@ public class Teste_Texto_Aluno extends Activity {
 			@Override
 			public void onClick(View view) {
 				// voltar para pag inicial
-
-				// /////////////// sendToServer();
-				// startAvalia();
+				// Testar uma submissão
+				submit();
+				finaliza();
 			}
 
 		});
@@ -319,10 +307,17 @@ public class Teste_Texto_Aluno extends Activity {
 		voltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// voltar para pag inicial
+				elimina();
 				finish();
 			}
 		});
+	}
+	
+	public void elimina(){
+		File file = new File(endereco);
+		if (file.exists()) {
+			file.delete();
+		}		
 	}
 
 	int minuto, segundo;
@@ -338,6 +333,7 @@ public class Teste_Texto_Aluno extends Activity {
 			ImageView img = new ImageView(this);
 			img.setImageResource(R.drawable.stop);
 			record.setCompoundDrawables(null, img.getDrawable(), null, null);
+			record.setText("Parar");
 			play.setVisibility(View.INVISIBLE);
 			demo.setVisibility(View.INVISIBLE);
 			cancelar.setVisibility(View.INVISIBLE);
@@ -375,7 +371,7 @@ public class Teste_Texto_Aluno extends Activity {
 
 			} catch (Exception e) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na gravaï¿½ï¿½o.\n" + e.getMessage(),
+						"Erro na gravacao.\n" + e.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 
@@ -383,6 +379,7 @@ public class Teste_Texto_Aluno extends Activity {
 			ImageView img = new ImageView(this);
 			img.setImageResource(R.drawable.record);
 			record.setCompoundDrawables(null, img.getDrawable(), null, null);
+			record.setText("Repetir");
 			play.setVisibility(View.VISIBLE);
 			demo.setVisibility(View.VISIBLE);
 			cancelar.setVisibility(View.VISIBLE);
@@ -412,9 +409,9 @@ public class Teste_Texto_Aluno extends Activity {
 	private Handler play_handler;
 
 	/**
-	 * serve para a aplicaï¿½ï¿½o reproduzir ou parar o som
+	 * serve para a aplicacao reproduzir ou parar o som
 	 * 
-	 * @author Dï¿½rio Jorge
+	 * @author Dario Jorge
 	 */
 	@SuppressLint("HandlerLeak")
 	private void startPlay() {
@@ -422,6 +419,7 @@ public class Teste_Texto_Aluno extends Activity {
 			ImageView img = new ImageView(this);
 			img.setImageResource(R.drawable.pause);
 			play.setCompoundDrawables(null, img.getDrawable(), null, null);
+			play.setText("Parar");
 			record.setVisibility(View.INVISIBLE);
 			demo.setVisibility(View.INVISIBLE);
 			playing = true;
@@ -436,13 +434,14 @@ public class Teste_Texto_Aluno extends Activity {
 				final ImageView img2 = new ImageView(this);
 				img2.setImageResource(R.drawable.play);
 				// espetar aqui uma thread, para caso isto pare
-				// handler para controlara a GUI do androi e a thread seguinte
+				// handler para controlara a GUI do android e a thread seguinte
 				play_handler = new Handler() {
 					public void handleMessage(Message msg) {
 						switch (msg.what) {
 						case PARADO:
 							play.setCompoundDrawables(null, img2.getDrawable(),
 									null, null);
+							play.setText("Ouvir");
 							record.setVisibility(View.VISIBLE);
 							demo.setVisibility(View.VISIBLE);
 							playing = false;
@@ -481,6 +480,7 @@ public class Teste_Texto_Aluno extends Activity {
 			ImageView img = new ImageView(this);
 			img.setImageResource(R.drawable.play);
 			play.setCompoundDrawables(null, img.getDrawable(), null, null);
+			play.setText("Ouvir");
 			record.setVisibility(View.VISIBLE);
 			demo.setVisibility(View.VISIBLE);
 			playing = false;
@@ -504,6 +504,7 @@ public class Teste_Texto_Aluno extends Activity {
 			ImageView img = new ImageView(this);
 			img.setImageResource(R.drawable.play_on);
 			demo.setCompoundDrawables(null, img.getDrawable(), null, null);
+			demo.setText("Parar");
 			record.setVisibility(View.INVISIBLE);
 			play.setVisibility(View.INVISIBLE);
 			playing = true;
@@ -528,6 +529,7 @@ public class Teste_Texto_Aluno extends Activity {
 									null, null);
 							record.setVisibility(View.VISIBLE);
 							play.setVisibility(View.VISIBLE);
+							demo.setText("Demo");
 							playing = false;
 							try {
 								reprodutor.stop();
@@ -566,6 +568,7 @@ public class Teste_Texto_Aluno extends Activity {
 			demo.setCompoundDrawables(null, img.getDrawable(), null, null);
 			record.setVisibility(View.VISIBLE);
 			play.setVisibility(View.VISIBLE);
+			demo.setText("Demo");
 			playing = false;
 			try {
 				reprodutor.stop();
@@ -654,9 +657,7 @@ public class Teste_Texto_Aluno extends Activity {
 
 		}
 		//
-		// Testar uma submissão
-		submit();
-
+		
 		// listar submissões anteriores do mesmo teste
 		// Intent it = new Intent(getApplicationContext(),
 		// resumo_resolucao.class);
@@ -677,7 +678,7 @@ public class Teste_Texto_Aluno extends Activity {
 		} else {
 			
 			long time = System.currentTimeMillis() / 1000;
-			Bundle b = getIntent().getExtras();
+			
 			String aux = id + iDs[3] + time + "";
 			ctl.setIdCorrrecao(Long.parseLong(aux));
 			ctl.setAudiourl(endereco + fileName);

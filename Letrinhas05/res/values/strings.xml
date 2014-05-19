@@ -118,5 +118,7 @@ pediram-me para fazer um poema, e fízi-o.\n</string>
     <string name="title_activity_listar_submissoes">Listar Submissoes</string>
     <string name="corrigirSubmisoes">Escolher testes a corrigir</string>
     <string name="cancel">cancelar</string>
+    <string name="title_activity_resumo_submissoes">Resumo Submissoes</string>
+    <string name="resumo">Resumo</string>
 
 </resources>
