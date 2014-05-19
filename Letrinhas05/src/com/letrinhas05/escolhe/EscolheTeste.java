@@ -33,10 +33,10 @@ import com.letrinhas05.util.SystemUiHider;
  */
 public class EscolheTeste extends Activity {
 	Button volt, exect;
-	public int nTestes, numero = 0, alunoId, testId;
+	public int nTestes, numero = 0, alunoId, testId,tipo;
 	String teste;
 	String[] lista, Nomes, array, titulo;
-	int[] tipo, id, ids;
+	int[]  id, ids;
 	LetrinhasDB ldb;
 
 	protected int idArea, idTipo; // ////IDaREA IDTIPO DE TESTE
@@ -160,13 +160,15 @@ public class EscolheTeste extends Activity {
 		// if getAllTesteByAreaIdAndTwoTypes
 		List<Teste> dados;
 		if (idTipo == 0)
-			//texto e poemas
+			//texto e / ou poemas
 			dados = ldb.getAllTesteByAreaIdAndTwoTypes(idArea, idTipo, 3);
 		else
 			//imagens ou lista
 			dados = ldb.getAllTesteByAreaIdAndType(idArea, idTipo);
+		
+		tipo=dados.get(0).getTipo();
+		
 		array = new String[dados.size()];
-		tipo = new int[dados.size()];
 		titulo = new String[dados.size()];
 		id = new int[dados.size()];
 		for (Teste cn : dados) {
@@ -177,8 +179,6 @@ public class EscolheTeste extends Activity {
 			Log.d("letrinhas-Store", storage.toString());
 			array[numero] = storage.toString();
 			Log.d("letrinhas-Array", array[0].toString());
-			tipo[numero] = cn.getTipo();
-			Log.d("letrinhas-Tipo", String.valueOf(tipo[0]));
 			titulo[numero] = cn.getTitulo();
 			Log.d("letrinhas-Titulo", titulo[0].toString());
 			id[numero] = cn.getIdTeste();
@@ -361,31 +361,22 @@ public class EscolheTeste extends Activity {
 		if (0 < j) {
 			// Decompor o array de teste, para poder enviar por parametros
 			int[] lstID = new int[lista.length];
-			int[] lstTipo = new int[lista.length];
 			for (int i = 0; i < lista.length; i++) {
 				lstID[i] = id[i];
-				lstTipo[i] = tipo[i];
 			}
 
-			// enviar o parametro de modo
+			// enviar os parametros
 			Bundle wrap = new Bundle();
 
-			// resto dos parametros
 			Log.d("IDs estudante teste", alunoId + " <-idaluno idteste-> "
 					+ testId);
 			wrap.putIntArray("ListaID", lstID);//id's dos testes
-			wrap.putIntArray("ListaTipo", lstTipo);//tipo dos testes
 			wrap.putStringArray("Nomes", Nomes);
 			wrap.putIntArray("IDs", ids);
 
-			switch (tipo[0]) {
-<<<<<<< HEAD
+			switch (tipo) {
 			case 0: // lançar a nova activity do tipo texto leitura,
 
-=======
-			case 0: // lanï¿½ar a nova activity do tipo texto leitura,
-                wrap.putInt("tipoTeste", 0);
->>>>>>> refs/remotes/origin/master
 				Intent it = new Intent(getApplicationContext(),
 						Teste_Texto_Aluno.class);
 				it.putExtras(wrap);
@@ -395,8 +386,6 @@ public class EscolheTeste extends Activity {
 				break;
 			case 1:// lanï¿½ar a nova activity do tipo multimedia, e o seu
 					// conteï¿½do
-					//
-                wrap.putInt("tipoTeste", 1);
 				Intent ip = new Intent(getApplicationContext(),
 						Teste_Imagem.class);
 				ip.putExtras(wrap);
@@ -406,8 +395,6 @@ public class EscolheTeste extends Activity {
 				break;
 			case 2: // lanï¿½ar a nova activity do tipo LIsta, e o seu
 					// conteï¿½do
-				//
-                wrap.putInt("tipoTeste", 2);
 				Intent ipm = new Intent(getApplicationContext(),
 						Teste_Palavras_Aluno.class);
 				ipm.putExtras(wrap);
@@ -415,19 +402,11 @@ public class EscolheTeste extends Activity {
 				startActivity(ipm);
 
 				break;
-<<<<<<< HEAD
 			case 3: // lanï¿½ar a nova activity do tipo poema, e o seu
 					// conteï¿½do
 				Intent ipp = new Intent(getApplicationContext(),
 						Teste_Poema_Aluno.class);
 				ipp.putExtras(wrap);
-=======
-			case 3: // lanï¿½ar a nova activity do tipo poema, e o seu conteï¿½do
-                wrap.putInt("tipoTeste", 3);
-                Intent ipp = new Intent(getApplicationContext(),
-                        Teste_Poema_Aluno.class);
-                ipp.putExtras(wrap);
->>>>>>> refs/remotes/origin/master
 
 				startActivity(ipp);
 				break;
