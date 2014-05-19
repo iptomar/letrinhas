@@ -33,7 +33,7 @@ import com.letrinhas05.util.SystemUiHider;
  * @author Thiago
  */
 public class PaginaInicial extends Activity {
-	public Button bentrar, exper; // bot�o para aceder ao menu
+	public Button bentrar, btnSincManual; // bot�o para aceder ao menu
 	ImageButton ibotao;// bot�o para sair da app
     public ProgressBar prog;
     public TextView txtViewMSG;
@@ -79,6 +79,7 @@ public class PaginaInicial extends Activity {
         findViewById(R.id.bEntrar1).setOnTouchListener(mDelayHideTouchListener);
         bentrar = (Button) findViewById(R.id.bEntrar1);
         ibotao = (ImageButton) findViewById(R.id.iBSair);
+        btnSincManual = (Button) findViewById(R.id.btnSincManual);
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
 
@@ -149,68 +150,24 @@ public class PaginaInicial extends Activity {
 		});
 
 
-
-		/**************
-		 * Por fazer,
-		 * ##############################################################
-		 * Verificar se sexiste algum professor "logado", se sim, retira as suas
-		 * credenciais e avan�a sem que seja necess�rio fazer a
-		 * autentica��o se n�o, executa a escolha da escola, do professor,
-		 * requer a autentica��o do professor, que posteriormente carrega
-		 * turmas / alunos ao seu encargo.
-		 * 
-		 * o utilizador (professor) escolhe o aluno que vai executar o teste e o
-		 * seu modo (Aluno = treino) ou (Professor=avalia��o).
-		 * 
-		 * 
-		 * //###################################################################
-		 * #################################### //###### Iniciar uma classe do
-		 * tipo thread para detetar a liga��o, sincronizar / carregar a BD,
-		 * desativar //###### a barra de progresso e ativar o bot�o para
-		 * entrar.~
-		 * 
-		 */
-		// DE acordo com a ultima aula ficou decidido que n�o vamos ligar o
-		// WI.fi
-		// coneccaoW con = new coneccaoW(this);
-		// con.run();//M�todo run, pois a DVM � burra!!! e n�o funciona
-		// muito bem com as threads no m�todo Start()
-
-		// bloqueiar o bot�o Entrar
-		bentrar.setEnabled(false);
-
 		// verifica se existe alguma coisa na BD local, vou � primeira tabela
 		// necess�ria
 		LetrinhasDB db = new LetrinhasDB(this);
-		List<Escola> escolas = db.getAllSchools();
+		int totalEscolas= db.getEscolasCount();
 
 		// Se n�o existir, tentamos aqui ligar ao servidor
-		if (escolas.size() == 0) {
+		if (totalEscolas == 0) {
 			try {
+                // bloqueiar o bot�o Entrar
 				Toast.makeText(this,"Sem informacao na Base de dados local!\n"
 								+ "A descarregar BASE DADOS do servidor!\n",
 						Toast.LENGTH_LONG).show();
-                prog.setVisibility(View.VISIBLE);
-                txtViewMSG.setVisibility(View.VISIBLE);
-				// /////////////////////////////////////////////////////////////////////////////////////////
-				// //////////CHAMA EM BAKCGORUND A SINCRO DE TABELAS E INSERE NA
-				// BASE DE DADOS /////////////
-				String ip = "code.dei.estt.ipt.pt"; // //TROCAR ISTO POR
-													// VARIAVEIS
-				// COM OS ENDERE�OS IP QUE NAO SEI ONDE TEM/////////
-				String porta = "80";
-				// Forma o endere�o http
-				String URlString = "http://" + ip + ":" + porta + "/";
-
-				String[] myTaskParams = { URlString, URlString, URlString };
-				new SincAllBd(this, this).execute(myTaskParams);
-
-				// //////////////PODEM VER EM LOGCAT A INSERIR TODOS OS DADOS NA
+                sinc();
 				// /////////////////////////////////////////////////////////////////////////////////////////
 			} catch (Exception e2) {
+                txtViewMSG.setText("ERROO....");
 				Toast.makeText(this, "Nao foi possivel aceder ao servidor!\n"
 						+ "Debug: " + e2, Toast.LENGTH_LONG).show();
-
 			}
 		} else {
 			// desbloqueia botao de entrar
@@ -218,9 +175,10 @@ public class PaginaInicial extends Activity {
             txtViewMSG.setVisibility(View.INVISIBLE);
 			bentrar.setEnabled(true);
 		}
-
 		escutaBotoes();
 	}
+
+
 
 	private void escutaBotoes() {
 
@@ -238,6 +196,13 @@ public class PaginaInicial extends Activity {
 			}
 		});
 
+        btnSincManual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sinc();
+            }
+        });
+
 		ibotao.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -247,7 +212,32 @@ public class PaginaInicial extends Activity {
 		});
 	}
 
-	@Override
+    /**
+     * sinc fAZ A SINCRONIZACAO
+     */
+    private void sinc() {
+        bentrar.setEnabled(false);
+        txtViewMSG.setText("A carregar....");
+        prog.setVisibility(View.VISIBLE);
+        txtViewMSG.setVisibility(View.VISIBLE);
+        // /////////////////////////////////////////////////////////////////////////////////////////
+        // //////////CHAMA EM BAKCGORUND A SINCRO DE TABELAS E INSERE NA
+        // BASE DE DADOS /////////////
+        String ip = "code.dei.estt.ipt.pt"; // //TROCAR ISTO POR
+        // VARIAVEIS
+        // COM OS ENDERE�OS IP QUE NAO SEI ONDE TEM/////////
+        String porta = "80";
+        // Forma o endere�o http
+        String URlString = "http://" + ip + ":" + porta + "/";
+        String[] myTaskParams = { URlString, URlString, URlString };
+        new SincAllBd(this, this).execute(myTaskParams);
+    }
+
+
+
+
+
+    @Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 
