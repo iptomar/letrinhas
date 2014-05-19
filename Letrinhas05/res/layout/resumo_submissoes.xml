@@ -20,4 +20,24 @@
         android:textSize="40sp"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:drawableRight="@drawable/right"
+        android:text="@string/avancar"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/rSCabecalho"
+        android:layout_toRightOf="@+id/rSCabecalho"
+        android:text="Titulo do teste"
+        android:textSize="25sp" />
+
 </RelativeLayout>

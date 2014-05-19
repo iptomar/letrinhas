@@ -151,7 +151,7 @@ public class Teste_Texto_Aluno extends Activity {
 
 		((TextView) findViewById(R.id.textCabecalho))
 				.setText(teste.getTitulo());
-		((TextView) findViewById(R.id.txtTexto)).setText(teste.getTexto());
+		((TextView) findViewById(R.id.txtTexto)).setText(teste.getConteudoTexto());
 
 		// **********************************************************************************************
 
@@ -659,11 +659,10 @@ public class Teste_Texto_Aluno extends Activity {
 		//
 		
 		// listar submissões anteriores do mesmo teste
-		// Intent it = new Intent(getApplicationContext(),
-		// resumo_resolucao.class);
-		// it.putExtras(wrap);
-
-		// startActivity(it);
+		 Intent it = new Intent(getApplicationContext(),
+		 ResumoSubmissoes.class);
+		 startActivity(it);
+		 
 		//
 		finish();
 	}
