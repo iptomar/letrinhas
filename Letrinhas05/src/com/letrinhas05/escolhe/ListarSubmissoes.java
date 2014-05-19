@@ -145,11 +145,11 @@ public class ListarSubmissoes extends Activity {
 	public void makeLista() {
 
 		LetrinhasDB bd = new LetrinhasDB(this);
-		// vou buscar todas as submiss�es de teste n�o corrigidas existentes..
+		// vou buscar todas as submissoes de teste nao corrigidas existentes..
 		// ... dos alunos, das turmas, do professor selecionado.
 		List<CorrecaoTeste> ct = bd.getAllCorrecaoTesteByProfID(iDs[1]);
 
-		// verifico se estas submiss�es n�o est�o corrigidas
+		// verifico se estas submissoes nao estao corrigidas
 		int cont = 0;
 		for (int i = 0; i < ct.size(); i++) {
 			// se n�o est� corrigido, conta-o
@@ -160,15 +160,15 @@ public class ListarSubmissoes extends Activity {
 		// objetos do XML
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llListSub);
 		Button btOriginal = (Button) findViewById(R.id.btnLsCorrecao_Original);
-		//remove o bot�o original do layerlayout
+		//remove o botao original do layerlayout
 		ll.removeView(btOriginal);
-		// se existirem submiss�es a corrigir
+		// se existirem submissoes a corrigir
 		if (cont != 0) {
 			// crio um array de correcoes auxiliar
 			CorrecaoTeste ctAux[] = new CorrecaoTeste[cont];
 			cont = 0;
 			for (int i = 0; i < ct.size(); i++) {
-				// se n�o est� corrigido, acrescenta-o
+				// se nao esta corrigido, acrescenta-o
 				if (ct.get(i).getEstado() == 0) {
 					ctAux[cont] = ct.get(i);
 					cont++;
@@ -195,7 +195,7 @@ public class ListarSubmissoes extends Activity {
 								System.currentTimeMillis(), 3, 1);// 3=short; 1=long
 				//********************************************************************
 				
-				// colocar toda a string no bot�o
+				// colocar toda a string no botao
 				btIn.setText(title);
 
 				// buscar a imagem do tipo
@@ -231,7 +231,7 @@ public class ListarSubmissoes extends Activity {
 							imgAl.getDrawable(), null, imgTip.getDrawable(),
 							null);
 				} else {
-					// sen�o copia a imagem do bot�o original
+					// senaoo copia a imagem do botao original
 					btIn.setCompoundDrawables(
 							btOriginal.getCompoundDrawablesRelative()[0], null,
 							imgTip.getDrawable(), null);
@@ -265,7 +265,7 @@ public class ListarSubmissoes extends Activity {
 							it.putExtras(wrap);
 							startActivity(it);
 							break;
-						case 1://multim�dia (imagens)
+						case 1://multimedia (imagens)
 							it= new Intent(getApplicationContext(),Teste_Imagem.class);
 							it.putExtras(wrap);
 							startActivity(it);
@@ -300,7 +300,7 @@ public class ListarSubmissoes extends Activity {
 			// define o titulo
 			builder.setTitle("Letrinhas 03");
 			// define a mensagem
-			builder.setMessage("N�o foram encontrados testes no reposit�rio");
+			builder.setMessage("Nao foram encontradas submissoes no repositorio");
 			// define um bot�o como positivo
 			builder.setPositiveButton("OK", null);
 			// cria o AlertDialog

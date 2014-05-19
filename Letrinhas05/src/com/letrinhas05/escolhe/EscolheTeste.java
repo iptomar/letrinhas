@@ -33,10 +33,10 @@ import com.letrinhas05.util.SystemUiHider;
  */
 public class EscolheTeste extends Activity {
 	Button volt, exect;
-	public int nTestes, numero = 0, alunoId, testId,tipo;
+	public int nTestes, numero = 0, alunoId,tipo;
 	String teste;
 	String[] lista, Nomes, array, titulo;
-	int[]  id, ids;
+	int[]  idTestes, ids;
 	LetrinhasDB ldb;
 
 	protected int idArea, idTipo; // ////IDaREA IDTIPO DE TESTE
@@ -160,17 +160,16 @@ public class EscolheTeste extends Activity {
 		// if getAllTesteByAreaIdAndTwoTypes
 		List<Teste> dados;
 		if (idTipo == 0)
-			//texto e / ou poemas
+			//texto e poemas
 			dados = ldb.getAllTesteByAreaIdAndTwoTypes(idArea, idTipo, 3);
 		else
 			//imagens ou lista
 			dados = ldb.getAllTesteByAreaIdAndType(idArea, idTipo);
 		
-		tipo=dados.get(0).getTipo();
 		
 		array = new String[dados.size()];
 		titulo = new String[dados.size()];
-		id = new int[dados.size()];
+		idTestes = new int[dados.size()];
 		for (Teste cn : dados) {
 			// String storage =
 			// cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
@@ -178,11 +177,11 @@ public class EscolheTeste extends Activity {
 					+ "," + cn.getTexto().toString() + "," + cn.getTipo();
 			Log.d("letrinhas-Store", storage.toString());
 			array[numero] = storage.toString();
-			Log.d("letrinhas-Array", array[0].toString());
+			Log.d("letrinhas-Array", array[numero].toString());
 			titulo[numero] = cn.getTitulo();
-			Log.d("letrinhas-Titulo", titulo[0].toString());
-			id[numero] = cn.getIdTeste();
-			Log.d("letrinhas-ID", String.valueOf(id[0]));
+			Log.d("letrinhas-Titulo", titulo[numero].toString());
+			idTestes[numero] = cn.getIdTeste();
+			Log.d("letrinhas-ID", String.valueOf(idTestes[numero]));
 			numero++;
 		}
 		// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -216,8 +215,6 @@ public class EscolheTeste extends Activity {
 				tg.setLayoutParams(tg1.getLayoutParams());
 				tg.setTextSize(tg1.getTextSize());
 				teste = titulo[i].toString();
-				testId = id[i];
-				Log.d("Texto-Apenas-part2", teste + " int:" + i);
 				// texto por defeito
 				tg.setText(teste);
 				// texto se nï¿½o seleccionado =
@@ -323,7 +320,7 @@ public class EscolheTeste extends Activity {
 	 */
 	public void executarTestes() {
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
-		// contar o nï¿½ de elementos (testes)
+		// contar o numero de elementos (testes)
 		int nElements = ll.getChildCount();
 
 		int j = 0;
@@ -337,43 +334,35 @@ public class EscolheTeste extends Activity {
 		Toast.makeText(getApplicationContext(), j + " Testes seleccionados",
 				Toast.LENGTH_SHORT).show();
 
-		// Copiar os testes seleccionados para uma lista auxiliar
-		lista = new String[j];
+		// Copiar os id's dos testes seleccionados para uma lista auxiliar
 		j = 0;
+		int[] lstID = new int[j];
 		for (int i = 0; i < nElements; i++) {
 			if (((ToggleButton) ll.getChildAt(i)).isChecked()) {
-				lista[j] = array[i];
+				lstID[j] = idTestes[i];
 				j++;
 			}
 		}
 
-		iniciar(j);
+		iniciar(lstID);
 	}
 
-	// //////////////////////////////////////////////////////////////////////////////////////////
-	// /////aqui em baixo tem o switch onde tem que configurar para as vossas
-	// janelas teste////////////////
-	// //////////////////////////////////////////////////////////////////////////////////////////
-
-	public void iniciar(int j) {
+	
+	public void iniciar(int[] lstID) {
 		// iniciar os testes....
 		// Se existir items seleccionados arranca com os testes,
-		if (0 < j) {
-			// Decompor o array de teste, para poder enviar por parametros
-			int[] lstID = new int[lista.length];
-			for (int i = 0; i < lista.length; i++) {
-				lstID[i] = id[i];
-			}
-
+		if (0 < lstID.length) {
+			
 			// enviar os parametros
 			Bundle wrap = new Bundle();
 
-			Log.d("IDs estudante teste", alunoId + " <-idaluno idteste-> "
-					+ testId);
-			wrap.putIntArray("ListaID", lstID);//id's dos testes
+			wrap.putIntArray("ListaID", lstID);//id's dos testes selecionados
 			wrap.putStringArray("Nomes", Nomes);
 			wrap.putIntArray("IDs", ids);
 
+			//consuta à base de dados o tipo do primeiro teste a executar
+			tipo = ldb.getTesteById(lstID[0]).getTipo();
+			
 			switch (tipo) {
 			case 0: // lançar a nova activity do tipo texto leitura,
 
@@ -384,8 +373,8 @@ public class EscolheTeste extends Activity {
 				startActivity(it);
 
 				break;
-			case 1:// lanï¿½ar a nova activity do tipo multimedia, e o seu
-					// conteï¿½do
+			case 1:// lancar a nova activity do tipo multimedia, e o seu
+					// conteudo
 				Intent ip = new Intent(getApplicationContext(),
 						Teste_Imagem.class);
 				ip.putExtras(wrap);
@@ -393,8 +382,8 @@ public class EscolheTeste extends Activity {
 				startActivity(ip);
 
 				break;
-			case 2: // lanï¿½ar a nova activity do tipo LIsta, e o seu
-					// conteï¿½do
+			case 2: // lancar a nova activity do tipo LIsta, e o seu
+					// conteudo
 				Intent ipm = new Intent(getApplicationContext(),
 						Teste_Palavras_Aluno.class);
 				ipm.putExtras(wrap);
@@ -402,8 +391,8 @@ public class EscolheTeste extends Activity {
 				startActivity(ipm);
 
 				break;
-			case 3: // lanï¿½ar a nova activity do tipo poema, e o seu
-					// conteï¿½do
+			case 3: // lancar a nova activity do tipo poema, e o seu
+					// conteudo
 				Intent ipp = new Intent(getApplicationContext(),
 						Teste_Poema_Aluno.class);
 				ipp.putExtras(wrap);
@@ -412,7 +401,7 @@ public class EscolheTeste extends Activity {
 				break;
 			default:
 				Toast.makeText(getApplicationContext(),
-						" - Tipo nï¿½o defenido", Toast.LENGTH_SHORT).show();
+						" - Tipo nao defenido", Toast.LENGTH_SHORT).show();
 				// retirar o teste errado e continuar
 
 				/*
@@ -423,7 +412,7 @@ public class EscolheTeste extends Activity {
 				break;
 			}
 
-		} else {// senï¿½o avisa que nï¿½o existe nada seleccionado
+		} else {// senao avisa que nao existe nada seleccionado
 			android.app.AlertDialog alerta;
 			// Cria o gerador do AlertDialog
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -431,7 +420,7 @@ public class EscolheTeste extends Activity {
 			builder.setTitle("Letrinhas 05");
 			// define a mensagem
 			builder.setMessage("Não existem testes seleccionados!");
-			// define um botï¿½o como positivo
+			// define um botao como positivo
 			builder.setPositiveButton("OK", null);
 			// cria o AlertDialog
 			alerta = builder.create();

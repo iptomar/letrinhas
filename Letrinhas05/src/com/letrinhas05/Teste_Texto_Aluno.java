@@ -49,7 +49,7 @@ public class Teste_Texto_Aluno extends Activity {
 	private MediaPlayer reprodutor = new MediaPlayer();
 	private String endereco, audio, fileName;
 
-	int tipo, id;
+	int tipo, idTesteAtual;
 	String[] Nomes;
 	int[] iDs, testesID;
 
@@ -77,7 +77,7 @@ public class Teste_Texto_Aluno extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_teste__texto__aluno);
 
-		// new line faz a rotaï¿½ï¿½o do ecrï¿½n 180 graus
+		// new line faz a rotacao do ecran 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -155,7 +155,7 @@ public class Teste_Texto_Aluno extends Activity {
 
 		// **********************************************************************************************
 
-		id = testesID[0];
+		idTesteAtual = testesID[0];
 		endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
 				+ "/School-Data/submits/" + iDs[0] + "/" + iDs[1] + "/"
 				+ iDs[2] + "/" + iDs[3] + "/" + "/" + testesID[0] + "/";
@@ -586,17 +586,14 @@ public class Teste_Texto_Aluno extends Activity {
 	}
 
 	/**
-	 * Prepara a finalizaï¿½ï¿½o da activity, descobrindo qual o prï¿½ximo teste
-	 * a realizar Este mï¿½todo deverï¿½ ser usado em todas as paginas de teste.
+	 * Prepara a finalizacao da activity, descobrindo qual o proximo teste
+	 * a realizar Este metodo devera ser usado em todas as paginas de teste.
 	 */
 	private void finaliza() {
+		
 		if (testesID.length != 0) {
-
 			// enviar o parametro de modo
 			Bundle wrap = new Bundle();
-
-			// teste, a depender das informaï¿½ï¿½es da BD
-			// **********************************************
 
 			wrap.putIntArray("ListaID", testesID);// id's dos testes
 			wrap.putStringArray("Nomes", Nomes);
@@ -657,10 +654,13 @@ public class Teste_Texto_Aluno extends Activity {
 
 		}
 		//
-		
+		Bundle wrap = new Bundle();
+		wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
+		wrap.putInt("IDAluno", iDs[3]); //id do aluno
 		// listar submissões anteriores do mesmo teste
 		 Intent it = new Intent(getApplicationContext(),
 		 ResumoSubmissoes.class);
+		 it.putExtras(wrap);
 		 startActivity(it);
 		 
 		//
@@ -678,13 +678,13 @@ public class Teste_Texto_Aluno extends Activity {
 			
 			long time = System.currentTimeMillis() / 1000;
 			
-			String aux = id + iDs[3] + time + "";
+			String aux = idTesteAtual + iDs[3] + time + "";
 			ctl.setIdCorrrecao(Long.parseLong(aux));
 			ctl.setAudiourl(endereco + fileName);
 			ctl.setDataExecucao(time);
 			ctl.setTipo(0);// pois estou num teste texto
 			ctl.setEstado(0);
-			ctl.setTestId(id);
+			ctl.setTestId(idTesteAtual);
 			ctl.setIdEstudante(iDs[3]);
 			Toast.makeText(getApplicationContext(),
 					"audio: " + ctl.getAudiourl(), Toast.LENGTH_SHORT).show();
