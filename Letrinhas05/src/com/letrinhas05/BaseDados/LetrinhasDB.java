@@ -636,7 +636,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
      * @id recebe o id
      * Retorna um objecto que contem Teste preenchido
      */
-    public Teste getTesteLeituraById(int id) {
+    public TesteLeitura getTesteLeituraById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABELA_TESTE,
                 new String[]{TEST_ID, TEST_AREAID, TEST_PROFESSORID,

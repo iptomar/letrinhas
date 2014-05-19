@@ -147,7 +147,7 @@ public class Teste_Texto_Aluno extends Activity {
 
 		/** Consultar a BD para preencher o conte�do.... */
 		LetrinhasDB bd = new LetrinhasDB(this);
-		teste = (TesteLeitura) bd.getTesteById(testesID[0]);
+		teste =  bd.getTesteLeituraById(testesID[0]);
 
 		((TextView) findViewById(R.id.textCabecalho))
 				.setText(teste.getTitulo());
