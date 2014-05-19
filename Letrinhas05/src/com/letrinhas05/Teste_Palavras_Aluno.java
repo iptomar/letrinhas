@@ -318,7 +318,7 @@ public class Teste_Palavras_Aluno extends Activity{
                     ctl.setIdCorrrecao(Long.parseLong(aux));
 					ctl.setAudiourl(path);
 					ctl.setDataExecucao(time);
-					ctl.setTipo(1);
+					ctl.setTipo( b.getInt("tipoTeste"));
 					ctl.setEstado(0);
 					ctl.setTestId(b.getInt("testId"));
 					ctl.setIdEstudante(b.getInt("estudanteId"));

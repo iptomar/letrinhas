@@ -354,7 +354,7 @@ public class EscolheTeste extends Activity {
 
 			switch (tipo[0]) {
 			case 0: // lan�ar a nova activity do tipo texto leitura,
-
+                wrap.putInt("tipoTeste", 0);
 				Intent it = new Intent(getApplicationContext(),
 						Teste_Texto_Aluno.class);
 				it.putExtras(wrap);
@@ -364,6 +364,7 @@ public class EscolheTeste extends Activity {
 				break;
 			case 1:// lan�ar a nova activity do tipo multimedia, e o seu conte�do
 					//
+                wrap.putInt("tipoTeste", 1);
 				Intent ip = new Intent(getApplicationContext(),
 						Teste_Imagem.class);
 				ip.putExtras(wrap);
@@ -373,6 +374,7 @@ public class EscolheTeste extends Activity {
 				break;
 			case 2: // lan�ar a nova activity do tipo LIsta, e o seu conte�do
 				//
+                wrap.putInt("tipoTeste", 2);
 				Intent ipm = new Intent(getApplicationContext(),
 						Teste_Palavras_Aluno.class);
 				ipm.putExtras(wrap);
@@ -381,6 +383,7 @@ public class EscolheTeste extends Activity {
 
 				break;
 			case 3: // lan�ar a nova activity do tipo poema, e o seu conte�do
+                wrap.putInt("tipoTeste", 3);
                 Intent ipp = new Intent(getApplicationContext(),
                         Teste_Poema_Aluno.class);
                 ipp.putExtras(wrap);

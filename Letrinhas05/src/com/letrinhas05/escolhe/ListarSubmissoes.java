@@ -282,16 +282,17 @@ public class ListarSubmissoes extends Activity {
 							it.putExtras(wrap);
 							startActivity(it);
 							break;
-						case 2://poema
-							it= new Intent(getApplicationContext(),Teste_Poema_Prof.class);
-							it.putExtras(wrap);
-							startActivity(it);
+						case 2://lista
+                            it= new Intent(getApplicationContext(),Teste_Palavras_Prof.class);
+                            it.putExtras(wrap);
+                            startActivity(it);
+
 							break;
-						case 3://palavras
-							it= new Intent(getApplicationContext(),Teste_Palavras_Prof.class);
-							it.putExtras(wrap);
-							startActivity(it);
-							break;
+						case 3://poemas
+                            it= new Intent(getApplicationContext(),Teste_Poema_Prof.class);
+                            it.putExtras(wrap);
+                            startActivity(it);
+                            break;
 						}
 						//finaliza, pois quando voltar para aqui, atualiza a lista
 						finish();
