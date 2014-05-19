@@ -34,6 +34,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
@@ -44,12 +45,10 @@ import android.widget.Toast;
 public class Teste_Texto_Aluno extends Activity {
 
 	// flags para verificar os diversos estados do teste
-		boolean modo, gravado, recording, playing;
+		boolean  gravado, recording, playing;
 
 		// objetos
-		ImageButton record, play, voltar, cancelar, avancar;
-		TextView pnt, vcl, frg, slb, rpt, pErr;
-		Chronometer chrono;
+		Button record, play, voltar, cancelar, avancar;
 
 		// Objeto controlador para a avalia��o
 		Avaliacao avaliador;
@@ -131,13 +130,15 @@ public class Teste_Texto_Aluno extends Activity {
 
 			// buscar os parametros
 			Bundle b = getIntent().getExtras();
-			//String[] ss = 
-		//	Log.d("Texto", b.getStringArray("ListaTexto").toString());
+			
+			wrap.putIntArray("ListaID", lstID);//id's dos testes
+			wrap.putIntArray("ListaTipo", lstTipo);//tipo dos testes
+			wrap.putStringArray("Nomes", Nomes);
+			wrap.putIntArray("IDs", ids);
+
 			// Compor novamente e lista de testes
 			int lstID[] = b.getIntArray("ListaID");
 			int[] lstTipo = b.getIntArray("ListaTipo");
-			String[] lstTitulo = b.getStringArray("ListaTitulo");
-			String[] lstTexto = b.getStringArray("ListaTexto");
 			array = b.getStringArray("Storage");
 			id = lstID;
 			tipo = lstTipo;
@@ -148,7 +149,6 @@ public class Teste_Texto_Aluno extends Activity {
 				lista[i] = new Teste(lstID[i], lstTipo[i], lstTitulo[i]);
 			}*/
 
-			modo = b.getBoolean("Modo");
 
 			/**####################################################################################
 			// **********************************************************************************************
@@ -185,7 +185,7 @@ public class Teste_Texto_Aluno extends Activity {
 //			}
 
 			record = (ImageButton) findViewById(R.id.txtRecord);
-			play = (ImageButton) findViewById(R.id.txtPlay);
+			play = (ImageButton) findViewById(R.id.txtDemo);
 			play.setVisibility(View.INVISIBLE);
 			voltar = (ImageButton) findViewById(R.id.txtVoltar);
 			cancelar = (ImageButton) findViewById(R.id.txtCancel);
@@ -830,7 +830,6 @@ public class Teste_Texto_Aluno extends Activity {
 				}
 				// enviar o parametro de modo
 				Bundle wrap = new Bundle();
-				wrap.putBoolean("Modo", modo);
 
 				// teste, a depender das informa��es da BD
 				// ***********************************************************+

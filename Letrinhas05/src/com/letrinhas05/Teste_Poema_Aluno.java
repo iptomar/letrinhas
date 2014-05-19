@@ -137,7 +137,7 @@ public class Teste_Poema_Aluno extends Activity {
 	 			 				 	//grava leitura
 	 			 				 	record = (ImageButton) findViewById(R.id.txtRecord);
 	 			 					//ouve professor
-	 			 				 	playProf = (ImageButton) findViewById(R.id.txtPlay);
+	 			 				 	playProf = (ImageButton) findViewById(R.id.txtDemo);
 	 			 				 	//volta a traz
 	 			 					voltar = (ImageButton) findViewById(R.id.txtVoltar);
 	 			 					//termina o teste

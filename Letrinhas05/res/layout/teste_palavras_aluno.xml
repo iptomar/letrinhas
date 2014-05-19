@@ -112,7 +112,7 @@
         android:src="@drawable/record" />
 
     <ImageButton
-        android:id="@+id/txtPlay"
+        android:id="@+id/txtDemo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/txtRecord"
@@ -125,8 +125,8 @@
         android:id="@+id/voicePlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtPlay"
-        android:layout_below="@+id/txtPlay"
+        android:layout_alignLeft="@+id/txtDemo"
+        android:layout_below="@+id/txtDemo"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/play"
         android:src="@drawable/play" />

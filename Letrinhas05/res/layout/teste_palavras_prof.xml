@@ -164,7 +164,7 @@
         android:src="@drawable/valido" />
 
     <ImageButton
-        android:id="@+id/txtPlay"
+        android:id="@+id/txtDemo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/txtRecord"
@@ -176,7 +176,7 @@
         android:id="@+id/txtCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtPlay"
+        android:layout_alignLeft="@+id/txtDemo"
         android:layout_alignTop="@+id/txtAvaliar"
         android:contentDescription="@string/sair"
         android:src="@drawable/cancelar" />

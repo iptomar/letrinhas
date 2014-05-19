@@ -22,24 +22,14 @@
         android:textSize="50sp"
         android:textStyle="bold" />
 
-    <ImageButton
-        android:id="@+id/txtRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textCabecalho"
-        android:contentDescription="@string/Recording"
-        android:src="@drawable/record" />
-
     <ScrollView
         android:id="@+id/txtTela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtVoltar"
-        android:layout_alignLeft="@+id/textCabecalho"
-        android:layout_alignRight="@+id/txtRecord"
+        android:layout_above="@+id/txtDemo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/textCabecalho"
-        android:layout_marginLeft="21dp"
         android:background="#ccccff"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
@@ -55,41 +45,14 @@
             <TextView
                 android:id="@+id/txtTexto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="fill"
-                android:textIsSelectable="true"
                 android:textColor="#303030"
+                android:textIsSelectable="true"
                 android:textSize="35sp" />
 
         </LinearLayout>
     </ScrollView>
-
-    <ImageButton
-        android:id="@+id/txtPlay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtRecord"
-        android:layout_toLeftOf="@+id/txtRecord"
-        android:contentDescription="@string/play"
-        android:src="@drawable/palyoff" />
-
-    <ImageButton
-        android:id="@+id/txtCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtPlay"
-        android:layout_alignTop="@+id/txtAvaliar"
-        android:contentDescription="@string/sair"
-        android:src="@drawable/cancelar" />
-
-    <ImageButton
-        android:id="@+id/txtVoltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtTela"
-        android:layout_alignParentBottom="true"
-        android:contentDescription="@string/voltar"
-        android:src="@drawable/voltar" />
 
     <TextView
         android:id="@+id/textRodape"
@@ -102,13 +65,72 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <ImageButton
+    <Button
+        android:id="@+id/txtDemo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20sp"
+        android:layout_alignTop="@+id/txtRecord"
+        android:layout_toRightOf="@+id/txtRecord"
+        android:contentDescription="@string/play"
+        android:drawableTop="@drawable/palyoff"
+        android:text="@string/demo" />
+
+    <Button
+        android:id="@+id/txtRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="40sp"
+        android:layout_marginRight="20sp"
+        android:layout_toRightOf="@+id/textRodape"
+        android:contentDescription="@string/Recording"
+        android:drawableTop="@drawable/record"
+        android:text="@string/iniciar" />
+
+    <Button
+        android:id="@+id/txtVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/txtRecord"
+        android:contentDescription="@string/voltar"
+        android:drawableTop="@drawable/voltar"
+        android:text="@string/voltar" />
+
+    <Button
+        android:id="@+id/txtCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/txtDemo"
+        android:layout_toLeftOf="@+id/txtAvaliar"
+        android:contentDescription="@string/sair"
+        android:drawableTop="@drawable/cancelar"
+        android:text="@string/cancel" />
+
+    <Button
         android:id="@+id/txtAvaliar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textRodape"
-        android:layout_toRightOf="@+id/txtCancel"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/txtCancel"
         android:contentDescription="@string/entrar"
-        android:src="@drawable/valido" />
+        android:drawableTop="@drawable/valido"
+        android:text="@string/avancar" />
+
+    <Button
+        android:id="@+id/txtPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/txtDemo"
+        android:layout_toRightOf="@+id/txtDemo"
+        android:contentDescription="@string/play"
+        android:drawableTop="@drawable/play"
+        android:text="@string/play" />
 
 </RelativeLayout>

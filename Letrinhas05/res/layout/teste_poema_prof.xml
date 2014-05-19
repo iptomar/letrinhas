@@ -386,14 +386,14 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_above="@+id/txtCancel"
-        android:layout_alignLeft="@+id/txtPlay"
+        android:layout_alignLeft="@+id/txtDemo"
         android:background="#FFFFFF"
         android:contentDescription="@string/entrar"
         android:scaleType="fitCenter"
         android:src="@drawable/valido" />
 
     <ImageButton
-        android:id="@+id/txtPlay"
+        android:id="@+id/txtDemo"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_above="@+id/txtAvaliar"
@@ -407,7 +407,7 @@
         android:id="@+id/play"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_above="@+id/txtPlay"
+        android:layout_above="@+id/txtDemo"
         android:layout_toLeftOf="@+id/cromTxt"
         android:background="#FFFFFF"
         android:contentDescription="@string/play"

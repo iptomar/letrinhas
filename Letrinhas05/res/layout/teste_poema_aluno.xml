@@ -42,7 +42,7 @@
         android:layout_alignLeft="@+id/textCabecalho"
         android:layout_below="@+id/textCabecalho"
         android:layout_marginLeft="21dp"
-        android:layout_toLeftOf="@+id/txtPlay"
+        android:layout_toLeftOf="@+id/txtDemo"
         android:background="#ccccff"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
@@ -81,7 +81,7 @@
         android:background="#FFFFFF"/>
 
     <ImageButton
-        android:id="@+id/txtPlay"
+        android:id="@+id/txtDemo"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="fitCenter"
@@ -107,8 +107,8 @@
         android:id="@+id/txtRecord"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_alignLeft="@+id/txtPlay"
-        android:layout_below="@+id/txtPlay"
+        android:layout_alignLeft="@+id/txtDemo"
+        android:layout_below="@+id/txtDemo"
         android:layout_marginTop="36dp"
         android:background="#FFFFFF"
         android:contentDescription="@string/Recording"

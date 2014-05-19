@@ -119,7 +119,7 @@ public class Teste_Imagem extends Activity {
 						((TableLayout) findViewById(R.id.txtControlo)).setVisibility(View.INVISIBLE);
 					} 
 					record = (ImageButton) findViewById(R.id.txtRecord);
-					play = (ImageButton) findViewById(R.id.txtPlay);
+					play = (ImageButton) findViewById(R.id.txtDemo);
 					play.setVisibility(View.INVISIBLE);
 					voltar = (ImageButton) findViewById(R.id.txtVoltar);
 					cancelar = (ImageButton) findViewById(R.id.txtCancel);

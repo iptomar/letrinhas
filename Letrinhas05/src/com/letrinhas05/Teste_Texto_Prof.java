@@ -185,7 +185,7 @@ public class Teste_Texto_Prof extends Activity {
 //				}
 
 				record = (ImageButton) findViewById(R.id.txtRecord);
-				play = (ImageButton) findViewById(R.id.txtPlay);
+				play = (ImageButton) findViewById(R.id.txtDemo);
 				play.setVisibility(View.INVISIBLE);
 				voltar = (ImageButton) findViewById(R.id.txtVoltar);
 				cancelar = (ImageButton) findViewById(R.id.txtCancel);
