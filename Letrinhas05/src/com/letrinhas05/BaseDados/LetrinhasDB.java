@@ -1335,14 +1335,15 @@ public class LetrinhasDB extends SQLiteOpenHelper {
      * Obtendo Contagem Items na Base de  dados
      * Retorna um inteiro com o total de resgisto da Base de dados
      */
-//	public int getContactsCount() {
-//		String countQuery = "SELECT  * FROM " + TABLE_IMAGES;
-//		SQLiteDatabase db = this.getReadableDatabase();
-//		Cursor cursor = db.rawQuery(countQuery, null);
-//		cursor.close();
-//		// return Total de registos da Base de Dados
-//		return cursor.getCount();
-//	}
+	public int getEscolasCount() {
+		String countQuery = "SELECT  * FROM " + TABELA_ESCOLAS;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(countQuery, null);
+        int total = cursor.getCount();
+		cursor.close();
+		// return Total de registos da Base de Dados
+		return total;
+	}
 
 //////////////////////////////////////////APENAS PARA TESTES PARA MAIS TARDE
 

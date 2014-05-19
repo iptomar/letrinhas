@@ -42,22 +42,22 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         mActivity.prog.setProgress(15);
 
 		lerSynEscolas(strings[0]);
-        mActivity.prog.setProgress(20);
+        mActivity.prog.setProgress(22);
 
 		lerSynEstudante(strings[0]);
-        mActivity.prog.setProgress(30);
+        mActivity.prog.setProgress(32);
 
 		lerSynTurmas(strings[0]);
-        mActivity.prog.setProgress(40);
+        mActivity.prog.setProgress(42);
 
         lerSynTurmasProfessor(strings[0]);
-        mActivity.prog.setProgress(50);
+        mActivity.prog.setProgress(52);
 
 		lerSynTestes(strings[0]);
         mActivity.prog.setProgress(65);
 
         lerSynTestesLista(strings[0]);
-        mActivity.prog.setProgress(75);
+        mActivity.prog.setProgress(77);
 
 		lerSynTestesMultimedia(strings[0]);
         mActivity.prog.setProgress(100);
@@ -435,7 +435,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 		} catch (Exception e) {
 			Log.d("ERRO",
 					"ERRO DE SINC TESTESMULTIMEDIA TALVEZ SERVIDOR EM BAIXO");
-            msg +="TESTESMULTIMEDIA ||";
+            msg +=" TestesMultimedia ||";
 		}
 	}
 
