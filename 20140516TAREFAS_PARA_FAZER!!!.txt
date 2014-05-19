@@ -1,6 +1,8 @@
-teste texto/português
-vista escolher tipo teste
-corrigir submissão
-lista submissões
-aluno lista de submissões no final de submeter
-verificar resultados de avaliação
+
+1-teste texto/português
+2-vista escolher tipo teste
+3-enviar submissão
+4-lista submissões
+5-corrigir submissão
+6-verificar resultados de avaliação
+7-aluno lista de submissões no final de submeter
