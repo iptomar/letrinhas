@@ -21,7 +21,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/rsAvancar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -32,12 +32,30 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/rsTituloTeste"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/rSCabecalho"
         android:layout_toRightOf="@+id/rSCabecalho"
         android:text="Titulo do teste"
         android:textSize="25sp" />
+
+    <ScrollView
+        android:id="@+id/svResumo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rsAvancar"
+        android:layout_alignLeft="@+id/rSCabecalho"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/rSCabecalho" >
+
+        <LinearLayout
+            android:id="@+id/llResumo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
