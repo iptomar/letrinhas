@@ -66,13 +66,13 @@
         android:id="@+id/tvMProf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ivMProfessor"
-        android:layout_toLeftOf="@+id/ivMProfessor"
+        android:layout_alignBottom="@+id/imgProfEscmODO"
+        android:layout_toLeftOf="@+id/imgProfEscmODO"
         android:text="Professor escolhido"
         android:textSize="30sp" android:layout_marginRight="20dp"/>
 
     <ImageView
-        android:id="@+id/ivMProfessor"
+        android:id="@+id/imgProfEscmODO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

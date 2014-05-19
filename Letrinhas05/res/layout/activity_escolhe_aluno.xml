@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/escAlRodape"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/ivAlProfessor"
+        android:layout_below="@+id/imgProfEscolhAluno"
         android:layout_toRightOf="@+id/escAlbtnVoltar"
         android:background="#0099cc"
         android:contentDescription="@string/escola" >
@@ -103,10 +103,9 @@
         android:textSize="30sp" />
 
     <ImageView
-        android:id="@+id/ivAlProfessor"
+        android:id="@+id/imgProfEscolhAluno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/svEscolherAl"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:contentDescription="@string/professor"
@@ -116,8 +115,8 @@
         android:id="@+id/tvAlProf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ivAlProfessor"
-        android:layout_toLeftOf="@+id/ivAlProfessor"
+        android:layout_alignBottom="@+id/imgProfEscolhAluno"
+        android:layout_toLeftOf="@+id/imgProfEscolhAluno"
         android:text="Professor escolhido"
         android:textSize="30sp" android:layout_marginRight="30dp"/>
 

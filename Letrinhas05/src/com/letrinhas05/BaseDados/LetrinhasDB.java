@@ -1382,6 +1382,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 		Cursor cursor = db.rawQuery(countQuery, null);
         int total = cursor.getCount();
 		cursor.close();
+        db.close();
 		// return Total de registos da Base de Dados
 		return total;
 	}

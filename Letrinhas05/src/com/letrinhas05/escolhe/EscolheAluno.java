@@ -79,7 +79,7 @@ public class EscolheAluno extends Activity {
 		FotoProf = b.getString("foto_Professor");
 		((TextView) findViewById(R.id.tvAlProf)).setText(Professor);
 
-		ImageView imageView = ((ImageView) findViewById(R.id.ivAlProfessor));
+		ImageView imageView = ((ImageView) findViewById(R.id.imgProfEscolhAluno));
 		if (FotoProf != null) {
 			String imageInSD = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/School-Data/Professors/" + FotoProf;
@@ -136,17 +136,6 @@ public class EscolheAluno extends Activity {
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da aplicaï¿½ï¿½o
-				Bundle wrap = new Bundle();
-				wrap.putString("Escola", Escola);
-				wrap.putInt("Escola_ID", idEscola);
-				wrap.putString("Professor", Professor);
-				wrap.putInt("Professor_ID", idProfessor);
-				wrap.putString("foto_professor", FotoProf);
-				Intent it = new Intent(getApplicationContext(),
-						EscolheTurma.class);
-				it.putExtras(wrap);
-
-				startActivity(it);				
 				finish();
 			}
 		});
@@ -173,7 +162,7 @@ public class EscolheAluno extends Activity {
 		String nomeAluno[] = new String[nAlunos];
 		String fotoAluno[] = new String[nAlunos];
 		
-		// preenche os arrays só com a informaï¿½ï¿½o necessï¿½ria
+		// preenche os arrays sï¿½ com a informaï¿½ï¿½o necessï¿½ria
 		for (int i = 0; i < nAlunos; i++) {
 			idAluno[i] = alunos.get(i).getIdEstudante();
 			nomeAluno[i] = alunos.get(i).getNome();
@@ -248,6 +237,8 @@ public class EscolheAluno extends Activity {
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
+                        Log.e("gaita1 ",FotoProf );
+
 						// Entrar na activity
 						Bundle wrap = new Bundle();
 						wrap.putString("Escola", Escola);
@@ -260,12 +251,9 @@ public class EscolheAluno extends Activity {
 						wrap.putString("Aluno",alumni);
 						wrap.putInt("Aluno_ID", idAL);
 						wrap.putString("Foto_Aluno", alunFot);
-						
 						Intent it = new Intent(getApplicationContext(),EscModo.class);
 						it.putExtras(wrap);
-
 						startActivity(it);
-						finish();
 					}
 				});
 				// inserir o botï¿½o na linha
@@ -322,25 +310,22 @@ public class EscolheAluno extends Activity {
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
+                        Log.e("gaita2 ",FotoProf );
 						// Entrar na activity
 						Bundle wrap = new Bundle();
 						wrap.putString("Escola", Escola);
 						wrap.putInt("Escola_ID", idEscola);
 						wrap.putString("Professor", Professor);
 						wrap.putInt("Professor_ID", idProfessor);
-						wrap.putString("Foto_professor", FotoProf);
+						wrap.putString("fotoProfs", FotoProf);
 						wrap.putString("Turma",Turma);
 						wrap.putInt("Turma_ID", idTurma);
 						wrap.putString("Aluno",alumni);
 						wrap.putInt("Aluno_ID", idAL);
 						wrap.putString("Foto_Aluno", alunFot);
-						
 						Intent it = new Intent(getApplicationContext(),EscModo.class);
 						it.putExtras(wrap);
-						
-
 						startActivity(it);
-						finish();
 					}
 				});
 				// inserir o botï¿½o na linha

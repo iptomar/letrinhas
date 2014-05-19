@@ -1,5 +1,6 @@
 package com.letrinhas05.escolhe;
 
+import android.util.Log;
 import com.letrinhas05.R;
 import com.letrinhas05.util.SystemUiHider;
 
@@ -67,12 +68,14 @@ public class EscModo extends Activity {
 		// professor
 		idProfessor = b.getInt("Professor_ID");
 		Professor = b.getString("Professor");
-		FotoProf = b.getString("Foto_Professor");
+		FotoProf = b.getString("fotoProfs");
+        Log.d("MERDA",FotoProf );
+
 		((TextView) findViewById(R.id.tvMProf)).setText(Professor);
 
 		// se professor tem uma foto, usa-se
 		if (FotoProf != null) {
-			ImageView imageView = ((ImageView) findViewById(R.id.ivMProfessor));
+			ImageView imageView = ((ImageView) findViewById(R.id.imgProfEscmODO));
 			String imageInSD = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/School-Data/Professors/" + FotoProf;
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
@@ -101,7 +104,7 @@ public class EscModo extends Activity {
 					100, false));
 		}
 
-		// juntar tudo num array, para simplificar o código
+		// juntar tudo num array, para simplificar o cï¿½digo
 		// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
 		Nomes = new String[6];
 		Nomes[0] = Escola;
@@ -118,7 +121,7 @@ public class EscModo extends Activity {
 		iDs[2] = idTurma;
 		iDs[3] = idAluno;
 
-		// new line faz a rotação do ecrãn em 180 graus
+		// new line faz a rotaï¿½ï¿½o do ecrï¿½n em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -156,7 +159,7 @@ public class EscModo extends Activity {
 					}
 				});
 
-		// inicializar os botões
+		// inicializar os botï¿½es
 		aluno = (Button) findViewById(R.id.btModoAluno);
 		prof = (Button) findViewById(R.id.btModoProf);
 		volt = (Button) findViewById(R.id.escMbtnVoltar);
@@ -224,19 +227,6 @@ public class EscModo extends Activity {
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-
-				Bundle wrap = new Bundle();
-				wrap.putString("Escola", Escola);
-				wrap.putInt("Escola_ID", idEscola);
-				wrap.putString("Professor", Professor);
-				wrap.putInt("Professor_ID", idProfessor);
-				wrap.putString("foto_professor", FotoProf);
-				wrap.putString("Turma",Turma);
-				wrap.putInt("turma_ID", idTurma);
-				
-				Intent it = new Intent(EscModo.this, EscolheAluno.class);
-				it.putExtras(wrap);
-				startActivity(it);
 				finish();
 			}
 		});
@@ -246,7 +236,7 @@ public class EscModo extends Activity {
 		((Button) findViewById(R.id.btModoAluno)).setTextColor(Color.GREEN);
 		((Button) findViewById(R.id.btModoProf)).setTextColor(Color.rgb(0x5d,
 				0xdf, 0xff));
-		// enviar os parametros necessários
+		// enviar os parametros necessï¿½rios
 		Bundle wrap = new Bundle();
 		wrap.putStringArray("Nomes", Nomes);
 		wrap.putIntArray("IDs", iDs);
@@ -264,7 +254,7 @@ public class EscModo extends Activity {
 		((Button) findViewById(R.id.btModoAluno)).setTextColor(Color.rgb(0x5d,
 				0xdf, 0xff));
 
-		// enviar os parametros necessários
+		// enviar os parametros necessï¿½rios
 		Bundle wrap = new Bundle();
 		// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
 		wrap.putStringArray("Nomes", Nomes);

@@ -240,7 +240,7 @@ public class EscolheTurma extends Activity {
 						it.putExtras(wrap);
 
 						startActivity(it);
-						finish();
+					//	finish();
 					}
 				});
 				// inserir o bot�o na linha
@@ -284,10 +284,11 @@ public class EscolheTurma extends Activity {
 					public void onClick(View view) {
 						// Entrar na activity
 						Bundle wrap = new Bundle();
-						wrap.putString("Escola", Escola);
-						wrap.putInt("Escola_ID", idEscola);
-						wrap.putString("Professor", Professor);
-						wrap.putInt("Professor_ID", idProfessor);
+                        wrap.putString("Escola", Escola);
+                        wrap.putInt("Escola_ID", idEscola);
+                        wrap.putString("Professor", Professor);
+                        wrap.putInt("Professor_ID", idProfessor);
+                        wrap.putString("foto_Professor", FotoProf);
 						wrap.putString("Turma", aux);
 						wrap.putInt("turma_ID", idturm);
 
@@ -296,7 +297,7 @@ public class EscolheTurma extends Activity {
 						it.putExtras(wrap);
 
 						startActivity(it);
-						finish();
+					//	finish();
 					
 					}
 				});
