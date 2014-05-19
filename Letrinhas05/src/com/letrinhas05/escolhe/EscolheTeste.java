@@ -379,8 +379,13 @@ public class EscolheTeste extends Activity {
 			wrap.putIntArray("IDs", ids);
 
 			switch (tipo[0]) {
+<<<<<<< HEAD
 			case 0: // lançar a nova activity do tipo texto leitura,
 
+=======
+			case 0: // lanï¿½ar a nova activity do tipo texto leitura,
+                wrap.putInt("tipoTeste", 0);
+>>>>>>> refs/remotes/origin/master
 				Intent it = new Intent(getApplicationContext(),
 						Teste_Texto_Aluno.class);
 				it.putExtras(wrap);
@@ -391,6 +396,7 @@ public class EscolheTeste extends Activity {
 			case 1:// lanï¿½ar a nova activity do tipo multimedia, e o seu
 					// conteï¿½do
 					//
+                wrap.putInt("tipoTeste", 1);
 				Intent ip = new Intent(getApplicationContext(),
 						Teste_Imagem.class);
 				ip.putExtras(wrap);
@@ -401,6 +407,7 @@ public class EscolheTeste extends Activity {
 			case 2: // lanï¿½ar a nova activity do tipo LIsta, e o seu
 					// conteï¿½do
 				//
+                wrap.putInt("tipoTeste", 2);
 				Intent ipm = new Intent(getApplicationContext(),
 						Teste_Palavras_Aluno.class);
 				ipm.putExtras(wrap);
@@ -408,11 +415,19 @@ public class EscolheTeste extends Activity {
 				startActivity(ipm);
 
 				break;
+<<<<<<< HEAD
 			case 3: // lanï¿½ar a nova activity do tipo poema, e o seu
 					// conteï¿½do
 				Intent ipp = new Intent(getApplicationContext(),
 						Teste_Poema_Aluno.class);
 				ipp.putExtras(wrap);
+=======
+			case 3: // lanï¿½ar a nova activity do tipo poema, e o seu conteï¿½do
+                wrap.putInt("tipoTeste", 3);
+                Intent ipp = new Intent(getApplicationContext(),
+                        Teste_Poema_Aluno.class);
+                ipp.putExtras(wrap);
+>>>>>>> refs/remotes/origin/master
 
 				startActivity(ipp);
 				break;
