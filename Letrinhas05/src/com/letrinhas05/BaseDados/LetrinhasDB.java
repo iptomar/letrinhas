@@ -211,14 +211,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.execSQL(createTableString);
 
 
-        //Construir a Tabela TesteLeitura //////////////////
-        createTableString = "CREATE TABLE " + TABELA_TURMAPROFESSOR + "("
-                + TURPROF_IDTURMA + " INTEGER NOT NULL,"
-                + TURPROF_IDPROFESSOR + " INTEGER NOT NULL," +
-                "PRIMARY KEY ("+ TURPROF_IDTURMA +", "+ TURPROF_IDPROFESSOR +"))";
-        db.execSQL(createTableString);
-
-
         //Construir a Tabela TesteMultimedia //////////////////
         createTableString = "CREATE TABLE " + TABELA_TESTEMULTIMEDIA + "("
                 + TESTM_ID + " INTEGER PRIMARY KEY ,"
@@ -231,6 +223,13 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + TESTM_OPCAO3 + " TEXT,"
                 + TESTM_OPCAO3ISURL + " INT,"
                 + TESTM_OPCAOCORRETA + " INT )";
+        db.execSQL(createTableString);
+
+        //Construir a Tabela TurmaProf //////////////////
+        createTableString = "CREATE TABLE " + TABELA_TURMAPROFESSOR + "("
+                + TURPROF_IDTURMA + " INTEGER NOT NULL,"
+                + TURPROF_IDPROFESSOR + " INTEGER NOT NULL," +
+                "PRIMARY KEY ("+ TURPROF_IDTURMA +", "+ TURPROF_IDPROFESSOR +"))";
         db.execSQL(createTableString);
 
         //Construir a Tabela CorrecaoTeste //////////////////
@@ -633,11 +632,11 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     }
 
     /**
-     * Buscar Um Campo Teste pelo o id
+     * Buscar Um Campo TesteLeitura pelo o id
      * @id recebe o id
      * Retorna um objecto que contem Teste preenchido
      */
-    public Teste getTesteById(int id) {
+    public Teste getTesteLeituraById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABELA_TESTE,
                 new String[]{TEST_ID, TEST_AREAID, TEST_PROFESSORID,
@@ -648,18 +647,29 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         ////// Se existir dados comeca a preencher o Objecto Estudante
         if (cursor != null)
             cursor.moveToFirst();
-        Teste test = new Teste();
-        test.setIdTeste(  cursor.getInt(0));
-        test.setAreaId(  cursor.getInt(1));
-        test.setProfessorId(  cursor.getInt(2));
-        test.setTitulo(  cursor.getString(3));
-        test.setTexto(  cursor.getString(4));
-        test.setDataInsercaoTeste(  cursor.getLong(5));
-        test.setGrauEscolar(  cursor.getInt(6));
-        test.setTipos(  cursor.getInt(7));
+        TesteLeitura testeLeitura = new TesteLeitura();
+        testeLeitura.setIdTeste(  cursor.getInt(0));
+        testeLeitura.setAreaId(  cursor.getInt(1));
+        testeLeitura.setProfessorId(  cursor.getInt(2));
+        testeLeitura.setTitulo(  cursor.getString(3));
+        testeLeitura.setTexto(  cursor.getString(4));
+        testeLeitura.setDataInsercaoTeste(  cursor.getLong(5));
+        testeLeitura.setGrauEscolar(  cursor.getInt(6));
+        testeLeitura.setTipos(  cursor.getInt(7));
+
+        Cursor cursor2 = db.query(TABELA_TESTELEITURA,
+                new String[]{TESTL_TEXTO, TESTL_SOMPROFESSOR},
+                TESTL_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null
+        );
+        ////// Se existir dados comeca a preencher o Objecto Estudante
+        if (cursor2 != null)
+            cursor2.moveToFirst();
+        testeLeitura.setConteudoTexto(  cursor2.getString(0));
+        testeLeitura.setProfessorAudioUrl(cursor2.getString(1));
         // return o Item ja carregado com os dados
         db.close();
-        return test;
+        return testeLeitura;
     }
 
     /**
