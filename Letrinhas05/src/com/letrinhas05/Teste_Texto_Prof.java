@@ -89,7 +89,7 @@ public class Teste_Texto_Prof extends Activity {
 			@Override
 			protected void onCreate(Bundle savedInstanceState) {
 				super.onCreate(savedInstanceState);
-				setContentView(R.layout.activity_teste__texto__aluno);
+				setContentView(R.layout.activity_teste__texto__prof);
 				
 				//new line faz a rota��o do ecr�n 180 graus
 				int currentOrientation = getResources().getConfiguration().orientation;
