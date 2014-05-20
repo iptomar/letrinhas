@@ -463,7 +463,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 					+ "  , username: " + cn.getUsername() + "  , password: "
 					+ cn.getPassword() + "  , telefone: " + cn.getTelefone()
 					+ "  , email: " + cn.getEmail() + "  , foto: "
-					+ cn.getFoto();
+					+ cn.getFotoNome();
 			// Writing Contacts to log
 			Log.d("BDDADOS: ", logs);
 		}
@@ -490,7 +490,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 		Log.d("BDDADOS: ", "********ESCOLAS********************");
 		for (Escola cn : dadosImg) {
 			String logs = "Id: " + cn.getIdEscola() + ", nome: " + cn.getNome()
-					+ ", logotipo: " + cn.getLogotipo() + ", morada: "
+					+ ", logotipo: " + cn.getLogotipoNome() + ", morada: "
 					+ cn.getMorada();
 			// Writing Contacts to log
 			Log.d("BDDADOS: ", logs);
@@ -546,7 +546,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 		for (Estudante cn : dados) {
 			String logs = "IdEstudante:" + cn.getIdEstudante() + ", IdTurma: "
 					+ cn.getIdTurma() + ", nome: " + cn.getNome()
-					+ "  , foto: " + cn.getFoto() + "  , estado: "
+					+ "  , foto: " + cn.getNomefoto() + "  , estado: "
 					+ cn.getEstado();
 			Log.d("BDDADOS: ", logs);
 		}

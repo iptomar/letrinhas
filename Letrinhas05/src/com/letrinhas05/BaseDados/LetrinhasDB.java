@@ -1399,13 +1399,12 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
 
     /**
-     * Apaga todos os dados da tabela Professores
+     * Apaga todos os dados da tabela turmasProfessor
      */
     public void deleteAllItemsTurmasProfessor() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_TURMAPROFESSOR + " WHERE 1");
         db.close();
-        Utils.deleteAllFileFolder("Professors");
     }
 
 
