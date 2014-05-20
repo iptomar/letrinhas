@@ -347,7 +347,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         //	db.close(); // Fechar a conecao a Base de dados
     }
 
-
     /**
      * Adiciona um novo registo na tabela Turmas
      * @param turma Recebe um objecto do tipo Turma onde vai inserir
@@ -366,7 +365,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         //	db.close(); // Fechar a conecao a Base de dados
     }
 
-
     /**
      * Adiciona um novo registo na tabela TurmasProfessor
      * @param turmaProfessor Recebe um objecto do tipo Turma onde vai inserir
@@ -381,8 +379,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.insert(TABELA_TURMAPROFESSOR, null, values);
         //	db.close(); // Fechar a conecao a Base de dados
     }
-
-
 
     /**
      * Adiciona um novo registo na tabela Sistema
@@ -399,7 +395,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.insert(TABELA_SISTEMA, null, values);
       //  db.close(); // Fechar a conecao a Base de dados
     }
-
 
     /**
      * Adiciona um novo registo na tabela Testes
@@ -485,9 +480,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
       //  db.close(); // Fechar a conecao a Base de dados
     }
 
-
-
-
     /**
      * Adiciona um novo registo na tabela CorrecaoTesteLeitura
      * @param correcaoTesteLeitura Recebe um objecto CorrecaoTesteLeitura onde vai inserir
@@ -503,8 +495,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         valuesCorrecaoTeste.put(CORRT_TIPO, correcaoTesteLeitura.getTipo());
         valuesCorrecaoTeste.put(CORRT_ESTADO, correcaoTesteLeitura.getEstado());                 // Inserir na tabela estado
                db.insert(TABELA_CORRECAOTESTE, null, valuesCorrecaoTeste);
-
-
         //////////////////////////////////////////////////////
         ContentValues valuesCorrecaoTestesLeitura = new ContentValues();
         valuesCorrecaoTestesLeitura.put(CORRTLEIT_IDCORRECAO, correcaoTesteLeitura.getIdCorrrecao());                           // Inserir na tabela o campo ID
@@ -522,7 +512,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.insert(TABELA_CORRECAOTESTELEITURA, null, valuesCorrecaoTestesLeitura);
         //  db.close(); // Fechar a conecao a Base de dados
     }
-
 
     /**
      * Adiciona um novo registo na tabela CorrecaoTesteMultimedia
@@ -553,6 +542,10 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                              //*************************//
                             //*********SELECT**********//
                             //*************************//
+
+    //******************************//
+    //*********SELECT BY **********//
+    //****************************//
 
     /**
      * Buscar Um professor pelo o ID
@@ -730,18 +723,9 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return turma;
     }
 
-
-
-
-
-
-
-
-
                  //*************************//
                  //********SELECT ALL*******//
                  //*************************//
-
 
     /**
      * Buscar todos os campos da Tabela Professores
@@ -835,8 +819,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return listEscolas;
     }
 
-
-
     /**
      * Buscar todos os campos da Tabela Escola
      * Retorna uma lista com varios objectos do tipo "Escola"
@@ -889,7 +871,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.close();
         return listTurmasProf;
     }
-
 
     /**
      * Buscar todos os campos da Tabela Turmas referentes ao ID Professor
@@ -980,9 +961,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return listEstudantes;
     }
 
-
-
-
     /**
      * Buscar todos os campos da Tabela Sistema
      * Retorna uma lista com varios objectos do tipo "sistema"
@@ -1008,7 +986,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         // return a lista com todos os items da base de dados
         return listSistema;
     }
-
 
     /**
      * Buscar todos os campos da Tabela CorrecaoTest
@@ -1147,10 +1124,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return listcorrecaoTestes;
     }
 
-
-
-
-
     /**
      * Buscar todos os campos da Tabela Testes
      * Retorna uma lista com varios objectos do tipo "Testes"
@@ -1251,14 +1224,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return listTeste;
     }
 
-
-
-
-
-
-
-
-
     /**
      * Buscar todos os campos da Tabela TestesLeitura
      * Retorna uma lista com varios objectos do tipo "TestesLeitura"
@@ -1338,10 +1303,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 		return db.update(TABELA_SISTEMA, values, SIS_NOME + " = ?",
 				new String[] { String.valueOf(sistema.getNome()) });
 	}
-
-
-
-
 
 
                                      //*************************//
@@ -1440,7 +1401,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
 
 
-///////////////////Codigo antigo mais tarde deve dar jeito///////////
+                ///////////////////COUNT///////////
     /**
      * Obtendo Contagem Items na Base de  dados
      * Retorna um inteiro com o total de resgisto da Base de dados

@@ -14,25 +14,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.letrinhas05.PaginaInicial;
 import com.letrinhas05.R;
-import com.letrinhas05.Teste_Texto_Aluno;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.Escola;
-import com.letrinhas05.util.Custom;
 import com.letrinhas05.util.SystemUiHider;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -43,7 +34,7 @@ public class EscolheEscola extends Activity {
     protected LetrinhasDB db;
     protected int[] id;
     protected String[] img;
-    protected String[] nome;
+    protected String[] arrNomeEscolas;
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -134,12 +125,12 @@ public class EscolheEscola extends Activity {
 		// Cria o objecto da base de dados
 		db = new LetrinhasDB(this);
         listaEscolas = db.getAllSchools();
-		nome = new String[listaEscolas.size()];
+        arrNomeEscolas = new String[listaEscolas.size()];
 		id = new int[listaEscolas.size()];
 		img = new String[listaEscolas.size()];
 
 		for (int i = 0; i < listaEscolas.size(); i++) {
-			nome[i] = listaEscolas.get(i).getNome();
+            arrNomeEscolas[i] = listaEscolas.get(i).getNome();
 			id[i] = listaEscolas.get(i).getIdEscola();
 			img[i] = listaEscolas.get(i).getLogotipoNome();
 		}
@@ -172,7 +163,7 @@ public class EscolheEscola extends Activity {
 				// **********************************
 				// Nome da escola,
 
-				final String school = nome[cont];
+				final String school = arrNomeEscolas[cont];
 				final int idEs = id[cont];
 				// ***********************************
 
@@ -201,7 +192,7 @@ public class EscolheEscola extends Activity {
 				}
 
 				// addicionar o nome
-				bt1.setText(nome[cont]);
+				bt1.setText(arrNomeEscolas[cont]);
 				// Defenir o que faz o bot�o ao clicar, neste caso muda o texto
 				// do cabe�alho
 				bt1.setOnClickListener(new View.OnClickListener() {
@@ -229,12 +220,12 @@ public class EscolheEscola extends Activity {
 		}
 
 		// resto
-		if (nome.length % 4 != 0) {
+		if (arrNomeEscolas.length % 4 != 0) {
 			TableRow linha1 = new TableRow(getBaseContext());
 			linha1.setLayoutParams(linha.getLayoutParams());
-			for (int j = 0; j < nome.length % 4; j++) {
+			for (int j = 0; j < arrNomeEscolas.length % 4; j++) {
 
-				final String school = nome[cont];
+				final String school = arrNomeEscolas[cont];
 				final int idEs = id[cont];
 
 				Button bt1 = new Button(bt.getContext());
@@ -260,7 +251,7 @@ public class EscolheEscola extends Activity {
 							bt.getCompoundDrawablesRelative()[1], null, null);
 				}
 				
-				bt1.setText(nome[cont]);
+				bt1.setText(arrNomeEscolas[cont]);
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {

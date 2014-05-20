@@ -14,38 +14,31 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
-import com.letrinhas05.ClassesObjs.Escola;
 import com.letrinhas05.ClassesObjs.Professor;
 import com.letrinhas05.util.SystemUiHider;
 
 public class EscolheProfessor extends Activity {
 
-	Button volt;
-	public int nProfs, numero = 0, idEscola;
-	String Escola;
-	List<Professor> profs;
-	LetrinhasDB db;
-	ListView list;
-	Integer[] image;
-	int[] idProf;
-	String[] username;
-	String[] password;
-	String[] telefone;
-	String[] email;
-	String[] fotoNome;
-	int[] estado;
+    ///Varivaveis/////////////////
+    protected Button btnVoltar;
+    protected int nProfs, idEscola;
+    protected String escolaNome;
+    protected List<Professor> listaProfs;
+    protected String[] arrNomesFotosProfs;
+    protected LetrinhasDB db;
+    protected int[] arridProfs;
+    protected String[] username;
+
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -71,23 +64,24 @@ public class EscolheProfessor extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_escolhe_professor);
 
-		// sacar os extras
+		// Ir buscar os extras a janela anterior
 		Bundle b = getIntent().getExtras();
 		idEscola = b.getInt("Escola_ID");
-		Escola = b.getString("Escola");
-		((TextView) findViewById(R.id.escPEscola)).setText(Escola);
+		escolaNome = b.getString("Escola");
+
+        /////////////Aceder a objectos visuais da janela///////
+        btnVoltar = (Button) findViewById(R.id.btnVoltarProf);
+		((TextView) findViewById(R.id.escPEscola)).setText(escolaNome);
+        final View contentView = findViewById(R.id.escProf);
+		//////////////////////////////////////////////////////////////
 		
-		
-		// new line faz a rotação do ecrãn em 180 graus
+		// new line faz a rotaï¿½ï¿½o do ecrï¿½n em 180 graus
 				int currentOrientation = getResources().getConfiguration().orientation;
 				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 				} else {
 					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 				}
-
-		// esconder o title************************************************+
-		final View contentView = findViewById(R.id.escProf);
 
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
@@ -98,7 +92,6 @@ public class EscolheProfessor extends Activity {
 				.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
 					// Cached values.
 					int mShortAnimTime;
-
 					@Override
 					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
 					public void onVisibilityChange(boolean visible) {
@@ -108,7 +101,6 @@ public class EscolheProfessor extends Activity {
 										android.R.integer.config_shortAnimTime);
 							}
 						}
-
 						if (visible && AUTO_HIDE) {
 							// Schedule a hide().
 							delayedHide(AUTO_HIDE_DELAY_MILLIS);
@@ -116,9 +108,8 @@ public class EscolheProfessor extends Activity {
 					}
 				});
 
-		// Botão de voltar
-		volt = (Button) findViewById(R.id.btnVoltarProf);
-		volt.setOnClickListener(new View.OnClickListener() {
+		// Botao de voltar
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent it = new Intent(getApplicationContext(),
@@ -127,12 +118,11 @@ public class EscolheProfessor extends Activity {
 				finish();
 			}
 		});
-
 		makeTabela();
 	}
 
 	/**
-	 * Novo método para criar o painel dinâmico para os botões de selecção do professor
+	 * Novo mï¿½todo para criar o painel dinï¿½mico para os botï¿½es de selecï¿½ï¿½o do professor
 	 * 
 	 * @author Thiago
 	 */
@@ -141,28 +131,21 @@ public class EscolheProfessor extends Activity {
 
 		// Cria o objecto da base de dados
 		db = new LetrinhasDB(this);
-		profs = db.getAllProfesorsBySchool(idEscola);
-		nProfs = profs.size();
-		idProf = new int[profs.size()];
-		username = new String[profs.size()];
-		fotoNome = new String[profs.size()];
-		;
+        listaProfs = db.getAllProfesorsBySchool(idEscola);
+		nProfs = listaProfs.size();
+        arridProfs = new int[listaProfs.size()];
+		username = new String[listaProfs.size()];
+		arrNomesFotosProfs = new String[listaProfs.size()];
 
-		// password = new String[profs.size()];
-		// telefone = new String[profs.size()];
-		// email = new String[profs.size()];
-		// estado = new int[profs.size()];
 		for (int i = 0; i < nProfs; i++) {
-			username[i] = profs.get(i).getNome();
-			idProf[i] = profs.get(i).getId();
-			fotoNome[i] = profs.get(i).getFotoNome();
+			username[i] = listaProfs.get(i).getNome();
+            arridProfs[i] = listaProfs.get(i).getId();
+			arrNomesFotosProfs[i] = listaProfs.get(i).getFotoNome();
 		}
-
-		for (Professor cn : profs) {
+		for (Professor cn : listaProfs) {
 			String storage = cn.getEmail() + "," + cn.getFotoNome() + ","
 					+ cn.getId() + "," + cn.getNome() + "," + cn.getPassword()
 					+ "," + cn.getTelefone() + "," + cn.getUsername();
-			Log.d("letrinhas-Professores da "+Escola+" ", storage.toString());
 		}
 
 		/**
@@ -172,7 +155,7 @@ public class EscolheProfessor extends Activity {
 		TableLayout tabela = (TableLayout) findViewById(R.id.tblEscolheProf);
 		// linha da tabela a editar
 		TableRow linha = (TableRow) findViewById(R.id.Proflinha01);
-		// 1º botão
+		// 1ï¿½ botï¿½o
 		Button bt = (Button) findViewById(R.id.PrfBtOriginal);
 		bt.setText("teste professores");
 
@@ -181,7 +164,7 @@ public class EscolheProfessor extends Activity {
 		for (int i = 0; i < nProfs / 4; i++) {
 			// nova linha da tabela
 			TableRow linha1 = new TableRow(getBaseContext());
-			// Copiar os parametros da 1ª linha
+			// Copiar os parametros da 1ï¿½ linha
 			linha1.setLayoutParams(linha.getLayoutParams());
 			for (int j = 0; j < 4; j++) {
 
@@ -189,58 +172,55 @@ public class EscolheProfessor extends Activity {
 				// Nome do professor
 
 				final String proff = username[cont];
-				final String fotoprof = fotoNome[cont];
-				final int idPrf = idProf[cont];
+				final String fotoprof = arrNomesFotosProfs[cont];
+				final int idPrf = arridProfs[cont];
 				// ***********************************
 
-				// novo botão
+				// novo botï¿½o
 				Button bt1 = new Button(bt.getContext());
-				// copiar os parametros do botão original
+				// copiar os parametros do botï¿½o original
 				bt1.setLayoutParams(bt.getLayoutParams());
 
 				// se a professor tiver foto, vou busca-la
-				if (fotoNome[cont] != null) {
+				if (arrNomesFotosProfs[cont] != null) {
 					String imageInSD = Environment
 							.getExternalStorageDirectory().getAbsolutePath()
-							+ "/School-Data/Professors/" + fotoNome[cont];
+							+ "/School-Data/Professors/" + arrNomesFotosProfs[cont];
 					Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
 					ImageView imageView = new ImageView(this);
-
 					// ajustar o tamanho da imagem
 					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
 							240, 240, false));
-					// enviar para o botão
+					// enviar para o botï¿½o
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null,
 							imageView.getDrawable(), null, null);
 				} else {
-					// senão copia a imagem do botão original
+					// senï¿½o copia a imagem do botï¿½o original
 					bt1.setCompoundDrawables(null,
 							bt.getCompoundDrawablesRelative()[1], null, null);
 				}
 
 				// addicionar o nome
 				bt1.setText(username[cont]);
-				// Defenir o que faz o botão ao clicar
+				///////////////////////////BOTAO DE CLICAR DA LISTA////////////////////////
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						// Entrar na activity
+						/////////////PARAMETROS PARA A PROXIMA JANELA/////////////////
 						Bundle wrap = new Bundle();
-						wrap.putString("Escola", Escola);
+						wrap.putString("Escola", escolaNome);
 						wrap.putInt("Escola_ID", idEscola);
 						wrap.putString("Professor", proff);
 						wrap.putString("foto_Professor", fotoprof);
 						wrap.putInt("Professor_ID", idPrf);
-
 						Intent it = new Intent(getApplicationContext(),
 								EscolheTurma.class);
 						it.putExtras(wrap);
-
 						startActivity(it);
 						finish();
 					}
 				});
-				// inserir o botão na linha
+				// inserir o botAo na linha
 				linha1.addView(bt1);
 				// incrementar o contador de controlo
 				cont++;
@@ -258,70 +238,67 @@ public class EscolheProfessor extends Activity {
 				// Nome do professor
 
 				final String proff = username[cont];
-				final String fotoprof = fotoNome[cont];
-				final int idPrf = idProf[cont];
+				final String fotoprof = arrNomesFotosProfs[cont];
+				final int idPrf = arridProfs[cont];
 				// ***********************************
 
-				// novo botão
+				// novo botï¿½o
 				Button bt1 = new Button(bt.getContext());
-				// copiar os parametros do botão original
+				// copiar os parametros do botï¿½o original
 				bt1.setLayoutParams(bt.getLayoutParams());
 
 				// se a professor tiver foto, vou busca-la
-				if (fotoNome[cont] != null) {
+				if (arrNomesFotosProfs[cont] != null) {
 					String imageInSD = Environment
 							.getExternalStorageDirectory().getAbsolutePath()
-							+ "/School-Data/Professors/" + fotoNome[cont];
+							+ "/School-Data/Professors/" + arrNomesFotosProfs[cont];
 					Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
 					ImageView imageView = new ImageView(this);
 
 					// ajustar o tamanho da imagem
 					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
 							240, 240, false));
-					// enviar para o botão
+					// enviar para o botï¿½o
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null,
 							imageView.getDrawable(), null, null);
 				} else {
-					// senão copia a imagem do botão original
+					// senï¿½o copia a imagem do botï¿½o original
 					bt1.setCompoundDrawables(null,
 							bt.getCompoundDrawablesRelative()[1], null, null);
 				}
 
 				// addicionar o nome
 				bt1.setText(username[cont]);
-				// Defenir o que faz o botão ao clicar
+				// Defenir o que faz o botï¿½o ao clicar
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
 						// Entrar na activity
+                        /////////////PARAMETROS PARA A PROXIMA JANELA/////////////////
 						Bundle wrap = new Bundle();
-						wrap.putString("Escola", Escola);
+						wrap.putString("Escola", escolaNome);
 						wrap.putInt("Escola_ID", idEscola);
 						wrap.putString("Professor", proff);
 						wrap.putString("foto_Professor", fotoprof);
 						wrap.putInt("Professor_ID", idPrf);
-
 						Intent it = new Intent(getApplicationContext(),
 								EscolheTurma.class);
 						it.putExtras(wrap);
-
 						startActivity(it);
 						finish();
 					}
 				});
-				// inserir o botão na linha
+				// inserir o botï¿½o na linha
 				linha1.addView(bt1);
 				// incrementar o contador de controlo
 				cont++;
 			}
-			// inserir a linha criada com o resto dos botões
+			// inserir a linha criada com o resto dos botï¿½es
 			tabela.addView(linha1);
 		}
-
-		// por fim escondo a 1ª linha
+		// por fim escondo a 1ï¿½ linha
 		tabela.removeView(linha);
 	}
-
 	
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
