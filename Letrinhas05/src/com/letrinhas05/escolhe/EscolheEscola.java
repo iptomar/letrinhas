@@ -14,41 +14,27 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.letrinhas05.PaginaInicial;
 import com.letrinhas05.R;
-import com.letrinhas05.Teste_Texto_Aluno;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.Escola;
-import com.letrinhas05.util.Custom;
 import com.letrinhas05.util.SystemUiHider;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class EscolheEscola extends Activity {
 
-	Button volt, exect;
-	public int nEscolas, numero = 0;
-	List<Escola> escolas;
-	LetrinhasDB db;
-	int[] id;
-	String[] morada;
-	String[] img;
-	String[] nome;
-	byte[] logotipo;
-	ListView list;
-	Integer[] image;
+    protected Button btnVoltar;
+    protected List<Escola> listaEscolas;
+    protected LetrinhasDB db;
+    protected int[] id;
+    protected String[] img;
+    protected String[] arrNomeEscolas;
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -74,40 +60,19 @@ public class EscolheEscola extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_escolhe_escola);
 
-		// Não necessitamos de tantos dados para esta Pagina *******
 
-		// Cria o objecto da base de dados
-		// db = new LetrinhasDB(this);
-		// escolas = db.getAllSchools();
-		// morada = new String[escolas.size()];
-		// nome = new String[escolas.size()];
+        ///Declaracao de coisas da janela /////////////////////////////////
+        btnVoltar = (Button) findViewById(R.id.btnVoltarEscolherEscola);
+        final View contentView = findViewById(R.id.escEscola);
+        ///////////////////////////////////////////////////////////////////
 
-		// img = new String[escolas.size()];
-		// id = new int[escolas.size()];
-		// nEscolas = escolas.size();
-		/*
-		 * for (Escola cn : escolas) { String storage =
-		 * cn.getMorada()+","+cn.getIdEscola
-		 * ()+","+cn.getNome()+","+cn.getLogotipoNome();
-		 * Log.d("letrinhas-Escola", storage.toString()); morada[numero] =
-		 * cn.getMorada(); Log.d("letrinhas-Tipo",String.valueOf(morada[0]));
-		 * nome[numero] = cn.getNome(); Log.d("letrinhas-Titulo",
-		 * nome[0].toString()); id[numero] = cn.getIdEscola();
-		 * Log.d("letrinhas-ID", String.valueOf(id[0])); img[numero] =
-		 * cn.getLogotipoNome(); Log.d("letrinhas-IMG", img[0]); setUp(nome,
-		 * img, id); numero++; }
-		 */
-
-		// new line faz a rotação do ecrãn em 180 graus
+		// new line faz a rotacao do ecrï¿½n em 180 graus
 				int currentOrientation = getResources().getConfiguration().orientation;
 				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 				} else {
 					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 				}
-		
-		// esconder o title************************************************+
-		final View contentView = findViewById(R.id.escEscola);
 
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
@@ -136,8 +101,8 @@ public class EscolheEscola extends Activity {
 					}
 				});
 
-		volt = (Button) findViewById(R.id.btnVoltar);
-		volt.setOnClickListener(new View.OnClickListener() {
+        ////////////ClickLister De botoes//////////////////////
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da ativity
 				Intent it = new Intent(getApplicationContext(),
@@ -150,7 +115,7 @@ public class EscolheEscola extends Activity {
 	}
 
 	/**
-	 * Novo método para criar o painel dinâmico para os botões de selecção da
+	 * Novo mï¿½todo para criar o painel dinï¿½mico para os botï¿½es de selecï¿½ï¿½o da
 	 * escola
 	 * 
 	 * @author Thiago
@@ -159,75 +124,55 @@ public class EscolheEscola extends Activity {
 	private void makeTabela() {
 		// Cria o objecto da base de dados
 		db = new LetrinhasDB(this);
-		escolas = db.getAllSchools();
-		nome = new String[escolas.size()];
-		id = new int[escolas.size()];
-		img = new String[escolas.size()];
+        listaEscolas = db.getAllSchools();
+        arrNomeEscolas = new String[listaEscolas.size()];
+		id = new int[listaEscolas.size()];
+		img = new String[listaEscolas.size()];
 
-		for (int i = 0; i < escolas.size(); i++) {
-			nome[i] = escolas.get(i).getNome();
-			id[i] = escolas.get(i).getIdEscola();
-			img[i] = escolas.get(i).getLogotipoNome();
+		for (int i = 0; i < listaEscolas.size(); i++) {
+            arrNomeEscolas[i] = listaEscolas.get(i).getNome();
+			id[i] = listaEscolas.get(i).getIdEscola();
+			img[i] = listaEscolas.get(i).getLogotipoNome();
 		}
 
-		// img = new String[escolas.size()];
-		// morada = new String[escolas.size()];
-		// nEscolas = escolas.size();
-
-		for (Escola cn : escolas) {
+		for (Escola cn : listaEscolas) {
 			String storage = cn.getMorada() + "," + cn.getIdEscola() + ","
 					+ cn.getNome() + "," + cn.getLogotipoNome();
-			Log.d("letrinhas-Escola", storage.toString());
-			// morada[numero] = cn.getMorada();
-			// Log.d("letrinhas-Tipo", String.valueOf(morada[0]));
-			// nome[numero] = cn.getNome();
-			// Log.d("letrinhas-Titulo", nome[0].toString());
-			// id[numero] = cn.getIdEscola();
-			// Log.d("letrinhas-ID", String.valueOf(id[0]));
-			// img[numero] = cn.getLogotipoNome();
-			// Log.d("letrinhas-IMG", img[0]);
-			// setUp(nome, img, id);
-			// numero++;
 		}
 
 		/**
 		 * Scroll view com uma table de 4 colunas(max)
 		 */
-		// numero de elementos =15 Buscar esta informação à BD.
-		// int nelement=15;//escolas.size(); //*********************************
-		// nome das escolas
-		// final String[] s = new String[nelement];//escolas.size()];
-
 		// tabela a editar
 		TableLayout tabela = (TableLayout) findViewById(R.id.tblEscolhe);
 		// linha da tabela a editar
 		TableRow linha = (TableRow) findViewById(R.id.linha01);
-		// 1º botão
+		// 1ï¿½ botï¿½o
 		Button bt = (Button) findViewById(R.id.Button04);
 		bt.setText("teste escolas");
 
 		// Contador de controlo
 		int cont = 0;
-		for (int i = 0; i < escolas.size() / 4; i++) {
+		for (int i = 0; i < listaEscolas.size() / 4; i++) {
 			// nova linha da tabela
 			TableRow linha1 = new TableRow(getBaseContext());
-			// Copiar os parametros da 1ª linha
+			// Copiar os parametros da 1ï¿½ linha
 			linha1.setLayoutParams(linha.getLayoutParams());
 			for (int j = 0; j < 4; j++) {
 
 				// **********************************
 				// Nome da escola,
 
-				final String school = nome[cont];
+				final String school = arrNomeEscolas[cont];
 				final int idEs = id[cont];
 				// ***********************************
 
-				// novo botão
+				// novo botï¿½o
 				Button bt1 = new Button(bt.getContext());
-				// copiar os parametros do botão original
+				// copiar os parametros do botï¿½o original
 				bt1.setLayoutParams(bt.getLayoutParams());
 
-				// se a escola já tiver logotipo, vou busca-lo
+				// se a escola jï¿½ tiver logotipo, vou busca-lo
 				if (img[cont] != null) {
 					String imageInSD = Environment
 							.getExternalStorageDirectory().getAbsolutePath()
@@ -237,19 +182,19 @@ public class EscolheEscola extends Activity {
 
 					//ajustar o tamanho da imagem
 					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 240, 240, false));
-					//enviar para o botão
+					//enviar para o botï¿½o
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null, imageView.getDrawable(),
 							null, null);
 				} else {
-					// senão copia a imagem do botão original
+					// senï¿½o copia a imagem do botï¿½o original
 					bt1.setCompoundDrawables(null,
 							bt.getCompoundDrawablesRelative()[1], null, null);
 				}
 
 				// addicionar o nome
-				bt1.setText(nome[cont]);
-				// Defenir o que faz o botão ao clicar, neste caso muda o texto
-				// do cabeçalho
+				bt1.setText(arrNomeEscolas[cont]);
+				// Defenir o que faz o botï¿½o ao clicar, neste caso muda o texto
+				// do cabeï¿½alho
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -265,7 +210,7 @@ public class EscolheEscola extends Activity {
 						finish();
 					}
 				});
-				// inserir o botão na linha
+				// inserir o botï¿½o na linha
 				linha1.addView(bt1);
 				// incrementar o contador de controlo
 				cont++;
@@ -275,18 +220,18 @@ public class EscolheEscola extends Activity {
 		}
 
 		// resto
-		if (nome.length % 4 != 0) {
+		if (arrNomeEscolas.length % 4 != 0) {
 			TableRow linha1 = new TableRow(getBaseContext());
 			linha1.setLayoutParams(linha.getLayoutParams());
-			for (int j = 0; j < nome.length % 4; j++) {
+			for (int j = 0; j < arrNomeEscolas.length % 4; j++) {
 
-				final String school = nome[cont];
+				final String school = arrNomeEscolas[cont];
 				final int idEs = id[cont];
 
 				Button bt1 = new Button(bt.getContext());
 				bt1.setLayoutParams(bt.getLayoutParams());
 
-				// se a escola já tiver logotipo, vou busca-lo
+				// se a escola jï¿½ tiver logotipo, vou busca-lo
 				if (img[cont] != null) {
 					String imageInSD = Environment
 							.getExternalStorageDirectory().getAbsolutePath()
@@ -296,17 +241,17 @@ public class EscolheEscola extends Activity {
 
 					//ajustar o tamanho da imagem
 					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 240, 240, false));
-					//enviar para o botão
+					//enviar para o botï¿½o
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null, imageView.getDrawable(),
 							null, null);
 
 				} else {
-					// senão copia a imagem do botão original
+					// senï¿½o copia a imagem do botï¿½o original
 					bt1.setCompoundDrawables(null,
 							bt.getCompoundDrawablesRelative()[1], null, null);
 				}
 				
-				bt1.setText(nome[cont]);
+				bt1.setText(arrNomeEscolas[cont]);
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -314,11 +259,9 @@ public class EscolheEscola extends Activity {
 						Bundle wrap = new Bundle();
 						wrap.putString("Escola", school);
 						wrap.putInt("Escola_ID", idEs);
-
 						Intent it = new Intent(getApplicationContext(),
 								EscolheProfessor.class);
 						it.putExtras(wrap);
-
 						startActivity(it);
 						finish();
 
@@ -328,11 +271,10 @@ public class EscolheEscola extends Activity {
 				cont++;
 
 			}
-			// inserir a linha criada com o resto dos botões
+			// inserir a linha criada com o resto dos botoes
 			tabela.addView(linha1);
 		}
-
-		// por fim escondo a 1ª linha
+		// por fim escondo a 1ï¿½ linha
 		tabela.removeView(linha);
 	}
 
@@ -342,8 +284,6 @@ public class EscolheEscola extends Activity {
 		super.onPostCreate(savedInstanceState);
 
 		// Trigger the initial hide() shortly after the activity has been
-		// created, to briefly hint to the user that UI controls
-		// are available.
 		delayedHide(1000);
 	}
 

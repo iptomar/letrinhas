@@ -14,33 +14,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
-import com.letrinhas05.ClassesObjs.Escola;
 import com.letrinhas05.ClassesObjs.Estudante;
-import com.letrinhas05.ClassesObjs.Professor;
-import com.letrinhas05.ClassesObjs.Turma;
-import com.letrinhas05.util.Custom;
 import com.letrinhas05.util.SystemUiHider;
 
 public class EscolheAluno extends Activity {
 
-	Button volt;
-	public int nAlunos, idEscola, idProfessor, idTurma;
-	public String Escola, Professor, FotoProf, Turma;
+    protected Button btnVoltar;
+    protected  int  idEscola, idProfessor, idTurma;
+    protected  String nomeEscola, nomeProfessor, fotoNomeProf, nomeTurma;
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -66,35 +56,34 @@ public class EscolheAluno extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_escolhe_aluno);
 
-		// Retirar os Extras
+		//////////// Retirar os Extras da janela anterior ////////////////////////
 		Bundle b = getIntent().getExtras();
 		// escola
 		idEscola = b.getInt("Escola_ID");
-		Escola = b.getString("Escola");
-		((TextView) findViewById(R.id.escAlEscola)).setText(Escola);
-		
+        nomeEscola = b.getString("Escola");
 		// professor
 		idProfessor = b.getInt("Professor_ID");
-		Professor = b.getString("Professor");
-		FotoProf = b.getString("foto_Professor");
-		((TextView) findViewById(R.id.tvAlProf)).setText(Professor);
+        nomeProfessor = b.getString("Professor");
+        fotoNomeProf = b.getString("foto_Professor");
+        //Turma
+        idTurma = b.getInt("turma_ID");
+        nomeTurma = b.getString("Turma");
 
-		ImageView imageView = ((ImageView) findViewById(R.id.imgProfEscolhAluno));
-		if (FotoProf != null) {
+//////////////////////////////Aceder a objectos Visuais da janela ///////////////////////
+        btnVoltar = (Button) findViewById(R.id.escAlbtnVoltar);
+        ((TextView) findViewById(R.id.escAlEscola)).setText(nomeEscola);
+		((TextView) findViewById(R.id.tvAlProf)).setText(nomeProfessor);
+        ImageView imageView = ((ImageView) findViewById(R.id.imgProfEscolhAluno));
+        ((TextView) findViewById(R.id.escAlTurma)).setText(nomeTurma);
+        final View contentView = findViewById(R.id.escAluno);
+   ////////////////////////////////////////////////////////////////////////////////////////////v
+		if (fotoNomeProf != null) {
 			String imageInSD = Environment.getExternalStorageDirectory()
-					.getAbsolutePath() + "/School-Data/Professors/" + FotoProf;
+					.getAbsolutePath() + "/School-Data/Professors/" + fotoNomeProf;
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
 			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
 					100, 100, false));
 		}
-
-		//Turma
-		idTurma = b.getInt("turma_ID");
-		Turma = b.getString("Turma");
-
-
-		((TextView) findViewById(R.id.escAlTurma)).setText(Turma);
-
 		// new line faz a rota��o do ecr�n em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -102,10 +91,6 @@ public class EscolheAluno extends Activity {
 		} else {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 		}
-
-		// esconder o title************************************************+
-		final View contentView = findViewById(R.id.escAluno);
-
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
 		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
@@ -132,8 +117,8 @@ public class EscolheAluno extends Activity {
 					}
 				});
 
-		volt = (Button) findViewById(R.id.escAlbtnVoltar);
-		volt.setOnClickListener(new View.OnClickListener() {
+           ////////////BOTAO VOLTAR
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da aplica��o
 				finish();
@@ -172,8 +157,6 @@ public class EscolheAluno extends Activity {
 		for (Estudante cn : alunos) {
 			String storage = cn.getNome() + "," + cn.getIdEstudante() + ","
 					+ cn.getNomefoto()+ "," + cn.getEstado() + "," + cn.getIdTurma();
-			Log.d("letrinhas-Alunos", storage.toString());
-
 		}
 
 		/**
@@ -186,7 +169,6 @@ public class EscolheAluno extends Activity {
 		// 1� bot�o
 		Button bt = (Button) findViewById(R.id.AlBtOriginal);
 		bt.setText("teste alunos");
-
 		// Contador de controlo
 		int cont = 0;
 		// criar o n� de linhas a dividir por 4 colunas
@@ -197,7 +179,6 @@ public class EscolheAluno extends Activity {
 			linha1.setLayoutParams(linha.getLayoutParams());
 			// criar os 4 bot�es da linha
 			for (int j = 0; j < 4; j++) {
-
 				// **********************************
 				// Nome, id e foto do aluno
 
@@ -237,16 +218,15 @@ public class EscolheAluno extends Activity {
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-                        Log.e("gaita1 ",FotoProf );
-
 						// Entrar na activity
+                     ////////////////CAMPOS PARA A PROXIMA JANELA///////////////////
 						Bundle wrap = new Bundle();
-						wrap.putString("Escola", Escola);
+						wrap.putString("Escola", nomeEscola);
 						wrap.putInt("Escola_ID", idEscola);
-						wrap.putString("Professor", Professor);
+						wrap.putString("Professor", nomeProfessor);
 						wrap.putInt("Professor_ID", idProfessor);
-						wrap.putString("Foto_professor", FotoProf);
-						wrap.putString("Turma",Turma);
+						wrap.putString("Foto_professor", fotoNomeProf);
+						wrap.putString("Turma",nomeTurma);
 						wrap.putInt("Turma_ID", idTurma);
 						wrap.putString("Aluno",alumni);
 						wrap.putInt("Aluno_ID", idAL);
@@ -264,21 +244,17 @@ public class EscolheAluno extends Activity {
 			// inserir a linha criada
 			tabela.addView(linha1);
 		}
-
 		// resto
 		if (nAlunos % 4 != 0) {
 			TableRow linha1 = new TableRow(getBaseContext());
 			linha1.setLayoutParams(linha.getLayoutParams());
 			for (int j = 0; j < nAlunos % 4; j++) {
-
 				// **********************************
 				// Nome, id e foto do aluno
-
 				final String alumni = nomeAluno[cont];
 				final int idAL = idAluno[cont];
 				final String alunFot = fotoAluno[cont];
 				// ***********************************
-
 				// novo bot�o
 				Button bt1 = new Button(bt.getContext());
 				// copiar os parametros do bot�o original
@@ -310,15 +286,15 @@ public class EscolheAluno extends Activity {
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-                        Log.e("gaita2 ",FotoProf );
 						// Entrar na activity
+                        ////////////////CAMPOS PARA A PROXIMA JANELA///////////////////
 						Bundle wrap = new Bundle();
-						wrap.putString("Escola", Escola);
+						wrap.putString("Escola", nomeEscola);
 						wrap.putInt("Escola_ID", idEscola);
-						wrap.putString("Professor", Professor);
+						wrap.putString("Professor", nomeProfessor);
 						wrap.putInt("Professor_ID", idProfessor);
-						wrap.putString("fotoProfs", FotoProf);
-						wrap.putString("Turma",Turma);
+						wrap.putString("fotoProfs", fotoNomeProf);
+						wrap.putString("Turma",nomeTurma);
 						wrap.putInt("Turma_ID", idTurma);
 						wrap.putString("Aluno",alumni);
 						wrap.putInt("Aluno_ID", idAL);
@@ -336,7 +312,6 @@ public class EscolheAluno extends Activity {
 			// inserir a linha criada
 			tabela.addView(linha1);
 		}
-
 		// por fim escondo a 1� linha
 		tabela.removeView(linha);
 	}

@@ -39,28 +39,28 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 	protected String doInBackground(String[] strings) {
 
 		lerSynProfessores(strings[0]);
-        mActivity.prog.setProgress(15);
+        mActivity.progBar.setProgress(15);
 
 		lerSynEscolas(strings[0]);
-        mActivity.prog.setProgress(22);
+        mActivity.progBar.setProgress(22);
 
 		lerSynEstudante(strings[0]);
-        mActivity.prog.setProgress(32);
+        mActivity.progBar.setProgress(32);
 
 		lerSynTurmas(strings[0]);
-        mActivity.prog.setProgress(42);
+        mActivity.progBar.setProgress(42);
 
         lerSynTurmasProfessor(strings[0]);
-        mActivity.prog.setProgress(52);
+        mActivity.progBar.setProgress(52);
 
 		lerSynTestes(strings[0]);
-        mActivity.prog.setProgress(65);
+        mActivity.progBar.setProgress(65);
 
         lerSynTestesLista(strings[0]);
-        mActivity.prog.setProgress(77);
+        mActivity.progBar.setProgress(77);
 
 		lerSynTestesMultimedia(strings[0]);
-        mActivity.prog.setProgress(100);
+        mActivity.progBar.setProgress(100);
 		return null;
 	}
 
@@ -84,14 +84,13 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 	public SincAllBd(Context context, PaginaInicial mActivity) {
 		this.context = context;
         this.mActivity = mActivity;
-        mActivity.prog.setProgress(5);
+        mActivity.progBar.setProgress(5);
 	}
 
 	/**
 	 * Vai por HTTP buscar toda a informacao sobre os Professor e no final chama
 	 * o metodo para guardar na base dados
 	 */
-	@SuppressLint("ShowToast")
 	protected void lerSynProfessores(String URlString) {
 
 		String url = URlString + "professors/";
@@ -464,7 +463,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 					+ "  , username: " + cn.getUsername() + "  , password: "
 					+ cn.getPassword() + "  , telefone: " + cn.getTelefone()
 					+ "  , email: " + cn.getEmail() + "  , foto: "
-					+ cn.getFoto();
+					+ cn.getFotoNome();
 			// Writing Contacts to log
 			Log.d("BDDADOS: ", logs);
 		}
@@ -491,7 +490,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 		Log.d("BDDADOS: ", "********ESCOLAS********************");
 		for (Escola cn : dadosImg) {
 			String logs = "Id: " + cn.getIdEscola() + ", nome: " + cn.getNome()
-					+ ", logotipo: " + cn.getLogotipo() + ", morada: "
+					+ ", logotipo: " + cn.getLogotipoNome() + ", morada: "
 					+ cn.getMorada();
 			// Writing Contacts to log
 			Log.d("BDDADOS: ", logs);
@@ -500,9 +499,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 
 	/**
 	 * Guarda um array de ObJECTOS escola na Base de dados
-	 * 
-	 * @param turmas
-	 *            Array com escolas para se guardar
+	 * @param turmas Array com escolas para se guardar
 	 */
 	public void guardarTurmasBD(Turma... turmas) {
 		LetrinhasDB db = new LetrinhasDB(context);
@@ -549,7 +546,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 		for (Estudante cn : dados) {
 			String logs = "IdEstudante:" + cn.getIdEstudante() + ", IdTurma: "
 					+ cn.getIdTurma() + ", nome: " + cn.getNome()
-					+ "  , foto: " + cn.getFoto() + "  , estado: "
+					+ "  , foto: " + cn.getNomefoto() + "  , estado: "
 					+ cn.getEstado();
 			Log.d("BDDADOS: ", logs);
 		}
@@ -676,26 +673,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
             // Writing Contacts to log
             Log.d("BDDADOS: ", logs);
         }
-
-
-
-
-//        // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
-//        // CONTEUDO DA TABELA//////////////
-//        List<Turma> dados2 = db.getAllTurmasByProfid(1);
-//        Log.d("BDDADOS: ",
-//                "*********TURMASBYIUD********************");
-//        for (Turma cn : dados2) {
-//            String logs = "getNome:   " + cn.getNome() + ",getAnoEscolar:   "
-//                    + cn.getAnoEscolar();
-//            // Writing Contacts to log
-//            Log.d("BDDADOS: ", logs);
-//        }
-
-
-
     }
-
 
 
 	/**

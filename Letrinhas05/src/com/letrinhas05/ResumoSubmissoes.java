@@ -99,11 +99,11 @@ public class ResumoSubmissoes extends Activity {
 	}
 
 	/**
-	 * método para iniciar os componetes, que dependem do conteudo passado por
+	 * mï¿½todo para iniciar os componetes, que dependem do conteudo passado por
 	 * parametros (extras)
 	 * 
 	 * @param b
-	 *            Bundle, contém informação da activity anterior
+	 *            Bundle, contï¿½m informaï¿½ï¿½o da activity anterior
 	 */
 	@SuppressLint("NewApi")
 	public void inicia(Bundle b) {
@@ -115,9 +115,9 @@ public class ResumoSubmissoes extends Activity {
 		LetrinhasDB bd = new LetrinhasDB(this);
 		Teste teste = bd.getTesteById(testeID);
 
-		// *** aqui tenho de alterar pelo método que o Alexandre vai fazer!!
+		// *** POR FAVOR TESTEM ISTO SF //////////////////////////////////oBRIGADO <3
 
-		List<CorrecaoTeste> crt = bd.getAllCorrecaoTeste();
+		List<CorrecaoTesteLeitura> crt = bd.getAllCorrecaoTesteLeitura_ByIDaluno_TestID(alunoID, testeID);
 
 		int j = 0;
 		// procuro as que correspondem
@@ -130,7 +130,7 @@ public class ResumoSubmissoes extends Activity {
 
 		// construo um array auxiliar
 		CorrecaoTesteLeitura[] crtAux = new CorrecaoTesteLeitura[j];
-		// copio a informação necessária
+		// copio a informaï¿½ï¿½o necessï¿½ria
 		j = 0;
 		/*for (int i = 0; i < crt.size(); i++) {
 			if (crt.get(i).getIdEstudante() == alunoID
@@ -160,7 +160,7 @@ public class ResumoSubmissoes extends Activity {
 			btIn.setText("" + crt.get(i).getDataExecucao());//crtAux[i].getDataExecucao());
 			//final String audioUrl = crtAux[i].getAudiourl();
 
-			// o que o botão faz
+			// o que o botï¿½o faz
 			btIn.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
@@ -214,7 +214,7 @@ public class ResumoSubmissoes extends Activity {
 							reprodutor.stop();
 							reprodutor.release();
 							Toast.makeText(getApplicationContext(),
-									"Fim da reprodução.", Toast.LENGTH_SHORT)
+									"Fim da reproduï¿½ï¿½o.", Toast.LENGTH_SHORT)
 									.show();
 						} catch (Exception ex) {
 						}
@@ -237,7 +237,7 @@ public class ResumoSubmissoes extends Activity {
 
 		} catch (Exception ex) {
 			Toast.makeText(getApplicationContext(),
-					"Erro na reprodução.\n" + ex.getMessage(),
+					"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),
 					Toast.LENGTH_SHORT).show();
 		}
 

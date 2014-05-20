@@ -24,9 +24,9 @@
         android:id="@+id/Rodape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btnVoltar"
+        android:layout_alignBottom="@+id/btnVoltarEscolherEscola"
         android:layout_marginLeft="10sp"
-        android:layout_toRightOf="@+id/btnVoltar"
+        android:layout_toRightOf="@+id/btnVoltarEscolherEscola"
         android:text="@string/letrinhas"
         android:textColor="#5ddfff"
         android:textSize="30sp"
@@ -39,7 +39,7 @@
         android:layout_above="@+id/Rodape"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/Cabecalho"
-        android:layout_toRightOf="@+id/btnVoltar"
+        android:layout_toRightOf="@+id/btnVoltarEscolherEscola"
         android:background="#0099cc"
         android:clickable="true"
         android:contentDescription="@string/escola" >
@@ -87,7 +87,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/btnVoltar"
+        android:id="@+id/btnVoltarEscolherEscola"
         android:layout_width="100sp"
         android:layout_height="100sp"
         android:layout_alignLeft="@+id/logo"
