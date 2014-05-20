@@ -22,20 +22,21 @@ import com.letrinhas05.escolhe.EscolheEscola;
 import com.letrinhas05.util.SystemUiHider;
 
 /**
- * P�gina Inicial
+ * Pagina Inicial
  * 
  * com um exemplo de uma actividade full-screen, que mostra e esconde o User
  * Interface de sistema (i.e. status bar and navigation/system bar) com a
- * intera��o do utilizador
+ * interacao do utilizador
  * 
  * @see SystemUiHider
  * 
  * @author Thiago
  */
 public class PaginaInicial extends Activity {
-	public Button bentrar, btnSincManual; // bot�o para aceder ao menu
-	ImageButton ibotao;// bot�o para sair da app
-    public ProgressBar prog;
+    //Variaveis
+	public Button bentrar, btnSincManual; // botoes para aceder ao menu
+    public ImageButton btnSair;// botao para sair da app
+    public ProgressBar progBar;
     public TextView txtViewMSG;
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -72,19 +73,19 @@ public class PaginaInicial extends Activity {
 		setContentView(R.layout.pagina_inicial);
 
         //Declaracao de objectos da janela
-        prog = (ProgressBar) findViewById(R.id.progressBarLoad);
-        prog.setVisibility(View.INVISIBLE);
+        progBar = (ProgressBar) findViewById(R.id.progressBarLoad);
+        progBar.setVisibility(View.INVISIBLE);
         txtViewMSG = (TextView) findViewById(R.id.txtMsg);
         txtViewMSG.setVisibility(View.INVISIBLE);
         findViewById(R.id.bEntrar1).setOnTouchListener(mDelayHideTouchListener);
         bentrar = (Button) findViewById(R.id.bEntrar1);
-        ibotao = (ImageButton) findViewById(R.id.iBSair);
+        btnSair = (ImageButton) findViewById(R.id.iBSair);
         btnSincManual = (Button) findViewById(R.id.btnSincManual);
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
 
 
-		        // new line faz a rota��o do ecr�n em 180 graus
+		        // new line faz a rotacao do ecren em 180 graus
 				int currentOrientation = getResources().getConfiguration().orientation;
 				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -97,8 +98,7 @@ public class PaginaInicial extends Activity {
 		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
 				HIDER_FLAGS);
 		mSystemUiHider.setup();
-		mSystemUiHider
-				.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
+		mSystemUiHider.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
 					// Cached values.
 					int mControlsHeight;
 					int mShortAnimTime;
@@ -151,7 +151,7 @@ public class PaginaInicial extends Activity {
 
 
 		// verifica se existe alguma coisa na BD local, vou � primeira tabela
-		// necess�ria
+		// necessaria
 		LetrinhasDB db = new LetrinhasDB(this);
 		int totalEscolas= db.getEscolasCount();
 
@@ -162,7 +162,7 @@ public class PaginaInicial extends Activity {
 				Toast.makeText(this,"Sem informacao na Base de dados local!\n"
 								+ "A descarregar BASE DADOS do servidor!\n",
 						Toast.LENGTH_LONG).show();
-                sinc();
+                sincBd();
 				// /////////////////////////////////////////////////////////////////////////////////////////
 			} catch (Exception e2) {
                 txtViewMSG.setText("ERROO....");
@@ -171,7 +171,7 @@ public class PaginaInicial extends Activity {
 			}
 		} else {
 			// desbloqueia botao de entrar
-            prog.setVisibility(View.INVISIBLE);
+            progBar.setVisibility(View.INVISIBLE);
             txtViewMSG.setVisibility(View.INVISIBLE);
 			bentrar.setEnabled(true);
 		}
@@ -181,12 +181,9 @@ public class PaginaInicial extends Activity {
 
 
 	private void escutaBotoes() {
-
 		bentrar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// *****************************************************************************
-				// *****************************************************************************
 				// *****************************************************************************
 				// iniciar a pagina 2 (escolher escola ou ent�o passar logo para
 				// a pagina escolher turma(brevemente))
@@ -199,11 +196,10 @@ public class PaginaInicial extends Activity {
         btnSincManual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sinc();
+                sincBd();
             }
         });
-
-		ibotao.setOnClickListener(new View.OnClickListener() {
+        btnSair.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				// sair da aplica��o
@@ -215,17 +211,15 @@ public class PaginaInicial extends Activity {
     /**
      * sinc fAZ A SINCRONIZACAO
      */
-    private void sinc() {
+    private void sincBd() {
         bentrar.setEnabled(false);
         txtViewMSG.setText("A carregar....");
-        prog.setVisibility(View.VISIBLE);
+        progBar.setVisibility(View.VISIBLE);
         txtViewMSG.setVisibility(View.VISIBLE);
-        // /////////////////////////////////////////////////////////////////////////////////////////
-        // //////////CHAMA EM BAKCGORUND A SINCRO DE TABELAS E INSERE NA
-        // BASE DE DADOS /////////////
+        ////////////CHAMA EM BAKCGORUND A SINCRO DE TABELAS E INSERE NA BASE DE DADOS /////////////
         String ip = "code.dei.estt.ipt.pt"; // //TROCAR ISTO POR
         // VARIAVEIS
-        // COM OS ENDERE�OS IP QUE NAO SEI ONDE TEM/////////
+        // COM OS ENDERECOS IP QUE NAO SEI ONDE TEM/////////
         String porta = "80";
         // Forma o endere�o http
         String URlString = "http://" + ip + ":" + porta + "/";

@@ -242,7 +242,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + CORRT_ESTADO + " INT)";
         db.execSQL(createTableString);
 
-        //Construir a Tabela CorrecaoTeste //////////////////
+        //Construir a Tabela CorrecaoTesteLeitura //////////////////
         createTableString = "CREATE TABLE " + TABELA_CORRECAOTESTELEITURA + "("
                 + CORRTLEIT_IDCORRECAO + " LONG PRIMARY KEY,"
                 + CORRTLEIT_AUDIOURL + " TEXT,"
@@ -1040,6 +1040,70 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     }
 
     /**
+     * Buscar todos os campos da Tabela CorrecaoTestLeitura pelo idAluno e pelo IDteste
+     * @param idAluno id do aluno que se deseja
+     * @param idTeste id do teste que se deseja
+     * @return retorna uma lista de testes de leitura
+     */
+    public List<CorrecaoTesteLeitura> getAllCorrecaoTesteLeitura_ByIDaluno_TestID(int idAluno, int idTeste) {
+        List<CorrecaoTesteLeitura> listcorrecaoTestes = new ArrayList<CorrecaoTesteLeitura>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT " +
+                TABELA_CORRECAOTESTE +"."+ CORRT_ID +", "+
+                TABELA_CORRECAOTESTE +"."+ CORRT_IDTESTE +", "+
+                TABELA_CORRECAOTESTE +"."+ CORRT_IDALUNO +", "+
+                TABELA_CORRECAOTESTE +"."+ CORRT_DATAEXEC +", "+
+                TABELA_CORRECAOTESTE +"."+ CORRT_TIPO +", "+
+                TABELA_CORRECAOTESTE +"."+ CORRT_ESTADO +", "+
+
+                TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_AUDIOURL +", "+
+                TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_OBSERVACOES +", "+
+                TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_NUMPALAVRASPORMIN +", "+
+                TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_NUMPALAVRASCORRET +", "+
+                TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_NUMPALAVRASINCORRE +", "+
+                TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_VELOCIDADE +", "+
+                TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_EXPRESSIVIDADE +", "+
+                TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_RITMO +", "+
+                TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_DETALHES +
+
+                " FROM " + TABELA_CORRECAOTESTE + ", "+ TABELA_CORRECAOTESTELEITURA +
+                " WHERE "+ TABELA_CORRECAOTESTE+"."+CORRT_ID +" = "+TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_IDCORRECAO+
+                " AND "+ TABELA_CORRECAOTESTE+"."+CORRT_IDALUNO +" = "+idAluno +
+                " AND "+ TABELA_CORRECAOTESTE+"."+CORRT_IDTESTE +" = "+idTeste;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atravEs de todas as linhas e adicionando Alista
+        if (cursor.moveToFirst()) {
+            do {
+                CorrecaoTesteLeitura corrtesteLeit = new CorrecaoTesteLeitura();
+                corrtesteLeit.setIdCorrrecao(cursor.getLong(0));
+                corrtesteLeit.setTestId(cursor.getInt(1));
+                corrtesteLeit.setIdEstudante(cursor.getInt(2));
+                corrtesteLeit.setDataExecucao(cursor.getLong(3));
+                corrtesteLeit.setTipo(cursor.getInt(4));
+                corrtesteLeit.setEstado(cursor.getInt(5));
+
+                corrtesteLeit.setAudiourl(cursor.getString(6));
+                corrtesteLeit.setObservacoes(cursor.getString(7));
+                corrtesteLeit.setNumPalavrasMin(cursor.getFloat(8));
+                corrtesteLeit.setNumPalavCorretas(cursor.getInt(9));
+                corrtesteLeit.setNumPalavIncorretas(cursor.getInt(10));
+                corrtesteLeit.setVelocidade(cursor.getFloat(11));
+                corrtesteLeit.setExpressividade(cursor.getFloat(12));
+                corrtesteLeit.setRitmo(cursor.getFloat(13));
+                corrtesteLeit.setDetalhes(cursor.getString(14));
+                // Adicionar os os items da base de dados a lista
+                listcorrecaoTestes.add(corrtesteLeit);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listcorrecaoTestes;
+    }
+
+
+
+    /**
      *  /**
      * Buscar todos os campos da Tabela CorrecaoTest pelo ID DO PROFESSOR
      * Retorna uma lista com varios objectos do tipo "CorrecaoTest"
@@ -1275,6 +1339,11 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 				new String[] { String.valueOf(sistema.getNome()) });
 	}
 
+
+
+
+
+
                                      //*************************//
                                      //*********DELETE**********//
                                      //*************************//
@@ -1330,12 +1399,13 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
 
     /**
-     * Apaga todos os dados da tabela turmas
+     * Apaga todos os dados da tabela Professores
      */
     public void deleteAllItemsTurmasProfessor() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_TURMAPROFESSOR + " WHERE 1");
         db.close();
+        Utils.deleteAllFileFolder("Professors");
     }
 
 
@@ -1346,7 +1416,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_TESTELEITURA + " WHERE 1");
         db.close();
-      //  Utils.deleteAllFileFolder("ReadingTests");
+        Utils.deleteAllFileFolder("ReadingTests");
     }
 
     /**
@@ -1356,7 +1426,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_TESTEMULTIMEDIA + " WHERE 1");
         db.close();
-   //     Utils.deleteAllFileFolder("MultimediaTest");
+        Utils.deleteAllFileFolder("MultimediaTest");
     }
 
     /**

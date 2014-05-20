@@ -32,12 +32,13 @@ import com.letrinhas05.util.SystemUiHider;
  * 
  */
 public class EscolheTeste extends Activity {
-	Button volt, exect;
-	public int nTestes, numero = 0, alunoId,tipo;
-	String teste;
-	String[] lista, Nomes, array, titulo;
-	int[]  idTestes, ids;
-	LetrinhasDB ldb;
+    ////Variaveis
+    protected Button volt, exect;
+    protected int numero = 0, alunoId,tipo;
+    protected String teste;
+    protected String[] Nomes, array, titulo;
+    protected int[]  idTestes, ids;
+    protected LetrinhasDB ldb;
 
 	protected int idArea, idTipo; // ////IDaREA IDTIPO DE TESTE
 	protected String nomeDsiciplina;
@@ -81,10 +82,10 @@ public class EscolheTeste extends Activity {
 		ImageView imgD = new ImageView(this);
 		switch(idArea){
 		case 1:
-			imgD.setImageResource(R.drawable.pt);// Português
+			imgD.setImageResource(R.drawable.pt);// Portuguï¿½s
 			break;
 		case 2:
-			imgD.setImageResource(R.drawable.mat);// Matemática
+			imgD.setImageResource(R.drawable.mat);// Matemï¿½tica
 			break;
 		case 3:
 			imgD.setImageResource(R.drawable.estmeio);// Estudo do meio
@@ -113,7 +114,7 @@ public class EscolheTeste extends Activity {
 		volt = (Button) findViewById(R.id.escTVoltar);
 		exect = (Button) findViewById(R.id.ibComecar);
 
-		// new line faz a rotação do ecrãn em 180 graus
+		// new line faz a rotaï¿½ï¿½o do ecrï¿½n em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -152,7 +153,7 @@ public class EscolheTeste extends Activity {
 				});
 
 		/************************************************************************
-		 * Criação de um painel dinâmico para os botões de seleção dos testes
+		 * Criaï¿½ï¿½o de um painel dinï¿½mico para os botï¿½es de seleï¿½ï¿½o dos testes
 		 * existentes.
 		 */
 
@@ -314,7 +315,7 @@ public class EscolheTeste extends Activity {
 	}
 
 	/**
-	 * Procedimento para executar os testes selecionados, um de cada vez sequêncialmente
+	 * Procedimento para executar os testes selecionados, um de cada vez sequï¿½ncialmente
 	 * 
 	 * @author Thiago
 	 */
@@ -360,11 +361,11 @@ public class EscolheTeste extends Activity {
 			wrap.putStringArray("Nomes", Nomes);
 			wrap.putIntArray("IDs", ids);
 
-			//consuta à base de dados o tipo do primeiro teste a executar
+			//consuta ï¿½ base de dados o tipo do primeiro teste a executar
 			tipo = ldb.getTesteById(lstID[0]).getTipo();
 			
 			switch (tipo) {
-			case 0: // lançar a nova activity do tipo texto leitura,
+			case 0: // lanï¿½ar a nova activity do tipo texto leitura,
 
 				Intent it = new Intent(getApplicationContext(),
 						Teste_Texto_Aluno.class);
@@ -419,7 +420,7 @@ public class EscolheTeste extends Activity {
 			// define o titulo
 			builder.setTitle("Letrinhas 05");
 			// define a mensagem
-			builder.setMessage("Não existem testes seleccionados!");
+			builder.setMessage("Nï¿½o existem testes seleccionados!");
 			// define um botao como positivo
 			builder.setPositiveButton("OK", null);
 			// cria o AlertDialog
