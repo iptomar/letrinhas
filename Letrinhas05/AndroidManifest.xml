@@ -132,6 +132,10 @@
             android:name="com.letrinhas05.ResumoSubmissoes"
             android:label="@string/title_activity_resumo_submissoes" >
         </activity>
+        <activity
+            android:name="com.letrinhas05.RelatasCorrection"
+            android:label="@string/title_activity_relatas_correction" >
+        </activity>
     </application>
 
 </manifest>

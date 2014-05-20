@@ -1,6 +1,7 @@
 package com.letrinhas05;
 
 import java.io.File;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -20,6 +21,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Spannable;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,6 +37,9 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.letrinhas05.R;
+import com.letrinhas05.BaseDados.LetrinhasDB;
+import com.letrinhas05.ClassesObjs.CorrecaoTeste;
+import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.util.SystemUiHider;
 import com.letrinhas05.util.Teste;
 
@@ -50,7 +55,9 @@ public class Teste_Palavras_Prof extends Activity{
 			private MediaRecorder gravador;
 			private MediaPlayer reprodutor = new MediaPlayer();
 			private String endereco;
+			CorrecaoTesteLeitura ctl;
 			Teste[] lista;
+			LetrinhasDB db;
 			TextView auxiliar;
 			/**
 			 * Whether or not the system UI should be auto-hidden after
@@ -109,13 +116,17 @@ public class Teste_Palavras_Prof extends Activity{
 				Bundle b = getIntent().getExtras();
 				// Compor novamnete e lista de testes
 				int lstID[] = b.getIntArray("ListaID");
-				int[] lstTipo = b.getIntArray("ListaTipo");
-				String[] lstTitulo = b.getStringArray("ListaTitulo");
+				
+				
 				//
-				lista = new Teste[lstID.length];
+				/*lista = new Teste[lstID.length];
 				for (int i = 0; i < lstTitulo.length; i++) {
 					lista[i] = new Teste(lstID[i], lstTipo[i], lstTitulo[i]);
-				}
+				
+				}*/
+				db = new LetrinhasDB(this);
+				//db.get
+				
 				modo = b.getBoolean("Modo");
 				// Consultar a BD para preencher o conteúdo....
 				((TextView) findViewById(R.id.textCabecalho)).setText(lista[0].getTitulo());
@@ -237,6 +248,60 @@ public class Teste_Palavras_Prof extends Activity{
 				});
 			}
 			int minuto, segundo;
+		
+			/**
+			 * znyt
+			 * znrdy
+			 * xdgh
+			 * dnyx
+			 * dm
+			 * @author Dário
+			 */
+			public void submit(){
+				ctl = new CorrecaoTesteLeitura();
+				File file = new File(endereco);
+				if(!file.exists()){
+					Toast.makeText(getApplicationContext(),"Não gravou nada",Toast.LENGTH_SHORT).show();
+				}else{
+					long time = System.currentTimeMillis() / 1000;
+					Bundle b = getIntent().getExtras();
+					//String aux = idTesteAtual + iDs[3] + time + "";
+					//ctl.setIdCorrrecao(Long.parseLong(aux));
+					//ctl.setAudiourl(path);
+					ctl.setDataExecucao(time);
+					ctl.setTipo(0);
+					ctl.setEstado(0);
+					ctl.setTestId(b.getInt("testId"));
+					ctl.setIdEstudante(b.getInt("estudanteId"));
+					Toast.makeText(getApplicationContext(),ctl.getAudiourl(),Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getApplicationContext(),System.currentTimeMillis() / 1000,Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),String.valueOf(ctl.getIdEstudante()),Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),String.valueOf(ctl.getTestId()),Toast.LENGTH_SHORT).show();
+					db.addNewItemCorrecaoTesteLeitura(ctl);
+					
+					List<CorrecaoTeste> data1 = db.getAllCorrecaoTeste();
+					Log.d("CheckInserts: ", "***********Testes******************");
+					for (CorrecaoTeste cn : data1) {
+						String logs = "Id: " + cn.getIdCorrrecao() + ", idEstudante: "
+								+ cn.getIdEstudante() + "  , estado: " + cn.getEstado()
+								+ "  , testeId: " + cn.getTestId() + "  , tipo: "
+								+ cn.getTipo() + "  , data: " + cn.getDataExecucao();
+						// Writing Contacts to log
+						Log.d("CheckInserts: ", logs);
+					}
+					finaliza();
+					
+					Bundle wrap = new Bundle();
+					//wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
+					//wrap.putInt("IDAluno", iDs[3]); //id do aluno
+					// listar submissões anteriores do mesmo teste
+					 Intent it = new Intent(getApplicationContext(),
+					 ResumoSubmissoes.class);
+					 it.putExtras(wrap);
+					 startActivity(it);
+				}
+			}
+			
 			/**
 			 * Serve para começar ou parar o recording do audio
 			 * 

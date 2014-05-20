@@ -9,6 +9,18 @@
     android:paddingRight="30sp"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.letrinhas05.Teste_Palavras_Aluno" >
+    
+    <TextView
+        android:id="@+id/textTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:drawableLeft="@drawable/logo2"
+        android:text="@string/title_activity_teste__palavras"
+        android:textColor="#5ddfff"
+        android:textSize="50sp"
+        android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/txtTela"
