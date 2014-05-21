@@ -148,10 +148,15 @@ public class Teste_Palavras_Aluno extends Activity{
 				teste =  bd.getTesteLeituraById(testesID[0]);
 				Log.d("Debug-Iniciar(b)", "testesID->"+String.valueOf(testesID[0])+" teste->"+teste.getTexto());
 				Log.d("Debug-getTitulo()", teste.getTitulo());
+				String[] yo = teste.getTexto().split("[ ]");
+				String yo2 = "";
 				((TextView) findViewById(R.id.textTitulo)).setText(teste.getTitulo());
-				((TextView) findViewById(R.id.TextView01)).setText(teste.getTexto());
-				((TextView) findViewById(R.id.TextView02)).setText(teste.getTexto());
-				((TextView) findViewById(R.id.TextView03)).setText(teste.getTexto());
+				for(int i = 0; i<yo.length;i++){
+					yo2 += yo[i]+"\n";
+				}
+				((TextView) findViewById(R.id.TextView01)).setText(yo2);
+				((TextView) findViewById(R.id.TextView02)).setText(yo2);
+				((TextView) findViewById(R.id.TextView03)).setText(yo2);
 
 				// **********************************************************************************************
 
