@@ -40,25 +40,23 @@ import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
+import com.letrinhas05.escolhe.ListarSubmissoes;
 import com.letrinhas05.util.SystemUiHider;
 import com.letrinhas05.util.Teste;
 
 public class Teste_Palavras_Prof extends Activity{
-	// flags para verificar os diversos estados do teste
-			boolean modo, gravado, recording, playing;
+			boolean playing;
 			// objetos
-			ImageButton record, play, voltar, cancelar, avancar;
-			TextView pnt, vcl, frg, slb, rpt, pErr;
+			ImageButton play, voltar, cancelar, avancar;
 			Chronometer chrono;
-			// variaveis contadoras para a avaliação
-			int plvErradas, pontua, vacil, fragment, silabs, repeti,tipoDeTextView;
-			private MediaRecorder gravador;
+			int plvErradas, tipoDeTextView;
+			TextView pErr;
 			private MediaPlayer reprodutor = new MediaPlayer();
-			private String endereco;
+			private String endereco,uuidAudio;
 			CorrecaoTesteLeitura ctl;
 			Teste[] lista;
 			LetrinhasDB db;
-			TextView auxiliar;
+			
 			/**
 			 * Whether or not the system UI should be auto-hidden after
 			 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -114,38 +112,15 @@ public class Teste_Palavras_Prof extends Activity{
 						});
 				// buscar os parametros
 				Bundle b = getIntent().getExtras();
-				// Compor novamnete e lista de testes
-				int lstID[] = b.getIntArray("ListaID");
 				
-				
-				//
-				/*lista = new Teste[lstID.length];
-				for (int i = 0; i < lstTitulo.length; i++) {
-					lista[i] = new Teste(lstID[i], lstTipo[i], lstTitulo[i]);
-				
-				}*/
 				db = new LetrinhasDB(this);
-				//db.get
-				
-				modo = b.getBoolean("Modo");
 				// Consultar a BD para preencher o conteúdo....
-				((TextView) findViewById(R.id.textCabecalho)).setText(lista[0].getTitulo());
-				((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
-				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + b.getString("Professor") + "/" + b.getString("Aluno") + "/" + lista[0].getTitulo() + ".3gpp";
-				// descontar este teste da lista.
-				Teste[] aux = new Teste[lista.length - 1];
-				for (int i = 1; i < lista.length; i++) {
-					aux[i - 1] = lista[i];
-				}
-				lista = aux;
-				if (modo) {// está em modo professor
-					setCorreccao();
-				} else { // está em modo aluno
-					((TableLayout) findViewById(R.id.txtControlo)).setVisibility(View.INVISIBLE);
-				}
-				record = (ImageButton) findViewById(R.id.txtRecord);
-				play = (ImageButton) findViewById(R.id.txtDemo);
-				play.setVisibility(View.INVISIBLE);
+				//((TextView) findViewById(R.id.textCabecalho)).setText(lista[0].getTitulo());
+				//((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
+				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/CorrectionReadTest/"+uuidAudio+".mp3";
+				Log.d("Debug-pathAudio", endereco);
+				setCorreccao();
+				play = (ImageButton) findViewById(R.id.txtVoicePlay);
 				voltar = (ImageButton) findViewById(R.id.txtVoltar);
 				cancelar = (ImageButton) findViewById(R.id.txtCancel);
 				avancar = (ImageButton) findViewById(R.id.txtAvaliar);
@@ -193,27 +168,7 @@ public class Teste_Palavras_Prof extends Activity{
 				mHideHandler.postDelayed(mHideRunnable, delayMillis);
 			}
 
-			public void setUp() {
-				gravador = new MediaRecorder();
-				gravador.setAudioSource(MediaRecorder.AudioSource.MIC);
-				gravador.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-				gravador.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-				// construir as pastas caso necessário
-				File file = new File(endereco);
-				if (file.getParent() != null && !file.getParentFile().exists()) {
-					file.getParentFile().mkdirs();
-				}
-				gravador.setOutputFile(endereco);
-			}
-
 			private void escutaBotoes() {
-				record.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						startGrava();
-					}
-
-				});
 				play.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -223,13 +178,8 @@ public class Teste_Palavras_Prof extends Activity{
 				cancelar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						// salta a avaliação e vai para o próximo teste descurando a
-						// gravação gerada
-						File file = new File(endereco);
-						if (file.exists()) {
-							file.delete();
-						}
-					//	finaliza();
+						 Intent it = new Intent(getApplicationContext(), ListarSubmissoes.class);
+						startActivity(it);
 					}
 				});
 				avancar.setOnClickListener(new View.OnClickListener() {
@@ -302,97 +252,6 @@ public class Teste_Palavras_Prof extends Activity{
 				}
 			}
 			
-			/**
-			 * Serve para começar ou parar o recording do audio
-			 * 
-			 * @author Dário Jorge
-			 */
-			@SuppressLint("HandlerLeak")
-			private void startGrava() {
-				if (!recording) {
-					record.setImageResource(R.drawable.stop);
-					play.setVisibility(View.INVISIBLE);
-					cancelar.setVisibility(View.INVISIBLE);
-					voltar.setVisibility(View.INVISIBLE);
-					avancar.setVisibility(View.INVISIBLE);
-					recording = true;
-					try {
-						setUp();
-						gravador.prepare();
-						gravador.start();
-						Toast.makeText(getApplicationContext(), "A gravar.",Toast.LENGTH_SHORT).show();
-						// O cronometro não funciona assim tão bem no seu modo
-						// original...
-						chrono = (Chronometer) findViewById(R.id.cromTxt);
-						// handler para controlar a GUI do android e a thread seguinte
-						play_handler = new Handler() {
-							@SuppressLint("HandlerLeak")
-							public void handleMessage(Message msg) {
-								switch (msg.what) {
-								case PARADO:
-									String m,
-									s;
-									if (minuto < 10) {
-										m = "0" + minuto + ":";
-									} else {
-										m = minuto + ":";
-									}
-									if (segundo < 10) {
-										s = "0" + segundo;
-									} else {
-										s = "" + segundo;
-									}
-									chrono.setText(m + s);
-									break;
-								default:
-									break;
-								}
-							}
-						};
-						// pequena thread, para interagir com o cronometro
-						new Thread(new Runnable() {
-							public void run() {
-								minuto = 0;
-								segundo = 0;
-								while (recording) {
-									Message msg = new Message();
-									msg.what = PARADO;
-									play_handler.sendMessage(msg);
-
-									try {
-										Thread.sleep(1000);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									segundo++;
-									if (segundo == 60) {
-										minuto++;
-										segundo = 0;
-									}
-								}
-							}
-						}).start();
-					} catch (Exception e) {
-						Toast.makeText(getApplicationContext(),"Erro na gravação.\n" + e.getMessage(),Toast.LENGTH_SHORT).show();
-					}
-				} else {
-					record.setImageResource(R.drawable.record);
-					play.setVisibility(View.VISIBLE);
-					cancelar.setVisibility(View.VISIBLE);
-					voltar.setVisibility(View.VISIBLE);
-					avancar.setVisibility(View.VISIBLE);
-					recording = false;
-					try {
-						gravador.stop();
-						gravador.release();
-						Toast.makeText(getApplicationContext(),"Gravação efetuada com sucesso!", Toast.LENGTH_SHORT).show();
-						Toast.makeText(getApplicationContext(),"Tempo de leitura: " + minuto + ":" + segundo,Toast.LENGTH_LONG).show();
-					} catch (Exception e) {
-						Toast.makeText(getApplicationContext(),"Erro na gravação.\n" + e.getMessage(),Toast.LENGTH_SHORT).show();
-					}
-				}
-			}
 			private final int PARADO = 2;
 			private Handler play_handler;
 			/**
@@ -404,7 +263,6 @@ public class Teste_Palavras_Prof extends Activity{
 			private void startPlay() {
 				if (!playing) {
 					play.setImageResource(R.drawable.play_on);
-					record.setVisibility(View.INVISIBLE);
 					playing = true;
 					try {
 						reprodutor = new MediaPlayer();
@@ -419,7 +277,6 @@ public class Teste_Palavras_Prof extends Activity{
 								switch (msg.what) {
 								case PARADO:
 									play.setImageResource(R.drawable.palyoff);
-									record.setVisibility(View.VISIBLE);
 									playing = false;
 									try {
 										reprodutor.stop();
@@ -446,7 +303,6 @@ public class Teste_Palavras_Prof extends Activity{
 					}
 				} else {
 					play.setImageResource(R.drawable.palyoff);
-					record.setVisibility(View.VISIBLE);
 					playing = false;
 					try {
 						reprodutor.stop();
@@ -459,23 +315,21 @@ public class Teste_Palavras_Prof extends Activity{
 				}
 			}
 			private void startAvalia() {
-				if (modo) { // se está em modo de professor
-							// inicia a avaliação
+					// inicia a avaliação
 					File file = new File(endereco);
 					if (file.exists()) { // se já fez uma gravação
 						// uma pop-up ou activity para determinar o valor de
 						// exprecividade da leitura
 						// usar a classe Avaliação para calcular os resultados.
-						// avançar para o próximo teste caso este exista.
 					//	finaliza();
 					} else {
 						android.app.AlertDialog alerta;
 						// Cria o gerador do AlertDialog
 						AlertDialog.Builder builder = new AlertDialog.Builder(this);
 						// define o titulo
-						builder.setTitle("Letrinhas 03");
+						builder.setTitle("Letrinhas 05");
 						// define a mensagem
-						builder.setMessage(" Ainda não executou a gravação da leitura!\n"+ " Faça-o antes de avaliar.");
+						builder.setMessage(" Não existe o ficheiro audio!");
 						// define um botão como positivo
 						builder.setPositiveButton("OK", null);
 						// cria o AlertDialog
@@ -483,7 +337,6 @@ public class Teste_Palavras_Prof extends Activity{
 						// Mostra
 						alerta.show();
 					}
-				}
 			}
 			/**
 			 * Procedimento para ativar a selecção das palavras erradas no texto e o
