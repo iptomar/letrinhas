@@ -141,9 +141,15 @@
             android:name="com.letrinhas05.ResumoSubmissoes"
             android:label="@string/title_activity_resumo_submissoes" >
         </activity>
+<<<<<<< HEAD
          <activity
             android:name="com.letrinhas05.Resultado"
             android:label="@string/title_activity_resultado" >
+=======
+        <activity
+            android:name="com.letrinhas05.RelatasCorrection"
+            android:label="@string/title_activity_relatas_correction" >
+>>>>>>> refs/remotes/origin/master
         </activity>
     </application>
 

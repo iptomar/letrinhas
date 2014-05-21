@@ -8,58 +8,27 @@
     android:paddingLeft="30sp"
     android:paddingRight="30sp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.letrinhas05.Teste_Palavras_Aluno" >
-
+    tools:context="com.letrinhas05.Teste_Palavras_Prof" >
+    
     <TextView
-        android:id="@+id/textCabecalho"
+        android:id="@+id/textTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:drawableLeft="@drawable/logo2"
-        android:text="@string/title_activity_teste_texto"
+        android:text="@string/title_activity_teste__palavras"
         android:textColor="#5ddfff"
         android:textSize="50sp"
         android:textStyle="bold" />
 
-    <ImageButton
-        android:id="@+id/txtRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textCabecalho"
-        android:contentDescription="@string/Recording"
-        android:src="@drawable/record" />
-
-    <ImageButton
-        android:id="@+id/txtVoltar"
+    <ScrollView
+        android:id="@+id/txtScroll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:contentDescription="@string/voltar"
-        android:src="@drawable/voltar" />
-
-    <TextView
-        android:id="@+id/textRodape"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtVoltar"
-        android:layout_marginLeft="32dp"
-        android:layout_toRightOf="@+id/txtVoltar"
-        android:text="@string/letrinhas"
-        android:textColor="#5ddfff"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-
-    <ScrollView
-        android:id="@+id/txtTela"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/txtVoltar"
-        android:layout_alignLeft="@+id/textCabecalho"
-        android:layout_below="@+id/textCabecalho"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="21dp"
         android:background="#ccccff"
         android:paddingBottom="10dp"
@@ -68,9 +37,9 @@
         android:paddingTop="10dp" >
 
         <LinearLayout
-            android:id="@+id/llescteste"
-            android:layout_width="240dp"
-            android:layout_height="1221dp"
+            android:id="@+id/lllayer"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:orientation="vertical" >
 
             <ToggleButton
@@ -84,29 +53,30 @@
                 android:textStyle="normal" />
 
         </LinearLayout>
+
     </ScrollView>
      <ScrollView
-        android:id="@+id/txtTela1"
+        android:id="@+id/txtScroll1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtControlo"
-        android:layout_alignTop="@+id/txtTela"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/txtTela"
+        android:layout_toRightOf="@+id/txtScroll"
         android:background="#ccccff"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="10dp" >
 
-        <LinearLayout
-            android:id="@+id/llescteste1"
-            android:layout_width="240dp"
-            android:layout_height="1221dp"
-            android:orientation="vertical" >
+         <LinearLayout
+             android:id="@+id/lllayer1"
+             android:layout_width="match_parent"
+             android:layout_height="@+id/txtTela"
+             android:orientation="vertical" >
 
-            <ToggleButton
-                android:id="@+id/escTtbtn"
+              <ToggleButton
+                android:id="@+id/ToggleButton1"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="@string/teste"
@@ -114,30 +84,30 @@
                 android:textOn="@string/teste"
                 android:textSize="32sp"
                 android:textStyle="normal" />
+         </LinearLayout>
 
-        </LinearLayout>
     </ScrollView>
      <ScrollView
-        android:id="@+id/txtTela2"
+        android:id="@+id/txtScroll2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtControlo"
-        android:layout_alignTop="@+id/txtTela1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/txtTela1"
+        android:layout_toRightOf="@+id/txtScroll1"
         android:background="#ccccff"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="10dp" >
 
-        <LinearLayout
-            android:id="@+id/llescteste2"
-            android:layout_width="240dp"
-            android:layout_height="1221dp"
-            android:orientation="vertical" >
+         <LinearLayout
+             android:id="@+id/lllayer2"
+             android:layout_width="match_parent"
+             android:layout_height="@+id/txtTela"
+             android:orientation="vertical" >
 
-           <ToggleButton
+              <ToggleButton
                 android:id="@+id/ToggleButton2"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -146,51 +116,55 @@
                 android:textOn="@string/teste"
                 android:textSize="32sp"
                 android:textStyle="normal" />
-           		<!--
-                android:background="@drawable/btn_toggle"
-                
-                -->
+         </LinearLayout>
 
-        </LinearLayout>
     </ScrollView>
 
     <ImageButton
-        android:id="@+id/txtAvaliar"
+        android:id="@+id/txtVoicePlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textRodape"
+        android:layout_above="@+id/txtControlo"
         android:layout_alignRight="@+id/txtControlo"
-        android:contentDescription="@string/entrar"
-        android:src="@drawable/valido" />
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/play"
+        android:src="@drawable/play" />
 
     <ImageButton
-        android:id="@+id/txtDemo"
+        android:id="@+id/txtVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtRecord"
-        android:layout_toLeftOf="@+id/txtRecord"
-        android:contentDescription="@string/play"
-        android:src="@drawable/palyoff" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/voltar"
+        android:src="@drawable/voltar" />
 
     <ImageButton
         android:id="@+id/txtCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtDemo"
-        android:layout_alignTop="@+id/txtAvaliar"
+        android:layout_above="@+id/txtVoltar"
+        android:layout_alignRight="@+id/txtVoltar"
+        android:layout_marginBottom="40dp"
         android:contentDescription="@string/sair"
         android:src="@drawable/cancelar" />
 
- 
+    <ImageButton
+        android:id="@+id/txtAvaliar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtCancel"
+        android:layout_alignRight="@+id/txtCancel"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="@string/entrar"
+        android:src="@drawable/valido" />
     
-    
-    <TableLayout
+        <TableLayout
         android:id="@+id/txtControlo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtTela"
-        android:layout_alignRight="@+id/txtRecord"
-        android:layout_alignTop="@+id/txtTela"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:paddingLeft="10dp" >
 
         <TableRow
@@ -253,205 +227,14 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/TextView07"
+                android:id="@+id/ValueWord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/numer"
                 android:textColor="#ff2020"
                 android:textSize="30sp"
                 android:textStyle="bold" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/vacilar"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <ImageButton
-                android:id="@+id/txtVacilMen"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:contentDescription="@string/menos"
-                android:src="@drawable/menos" />
-
-            <TextView
-                android:id="@+id/escTDisciplina"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/numer"
-                android:textColor="#ff2020"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/txtVacilMais"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:contentDescription="@string/mais"
-                android:src="@drawable/mais" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/TableRow01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/resCabecalho"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/TableRow02"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <ImageButton
-                android:id="@+id/txtFragMen"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:contentDescription="@string/menos"
-                android:src="@drawable/menos" />
-
-            <TextView
-                android:id="@+id/TextView02"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/numer"
-                android:textColor="#ff2020"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/txtFragMais"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:contentDescription="@string/mais"
-                android:src="@drawable/mais" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/TableRow04"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/TextView04"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/silabac"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/TableRow03"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <ImageButton
-                android:id="@+id/txtSilbMen"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:contentDescription="@string/menos"
-                android:src="@drawable/menos" />
-
-            <TextView
-                android:id="@+id/TextView03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/numer"
-                android:textColor="#ff2020"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/txtSilbMais"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:contentDescription="@string/mais"
-                android:src="@drawable/mais" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/TableRow05"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/TextView05"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/repeti"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/TableRow06"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <ImageButton
-                android:id="@+id/txtRepMen"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:contentDescription="@string/menos"
-                android:src="@drawable/menos" />
-
-            <TextView
-                android:id="@+id/TextView06"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/numer"
-                android:textColor="#ff2020"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/txtRepMais"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:contentDescription="@string/mais"
-                android:src="@drawable/mais" />
         </TableRow>
     </TableLayout>
-    
-    
-    
-    
-    
-    
-    
 
 </RelativeLayout>

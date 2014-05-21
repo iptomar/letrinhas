@@ -1078,8 +1078,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return listcorrecaoTestes;
     }
 
-
-
     /**
      *  /**
      * Buscar todos os campos da Tabela CorrecaoTest pelo ID DO PROFESSOR
@@ -1305,6 +1303,48 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 	}
 
 
+    /**
+     * Actualizar um registo unico da Tabela CorrecaoTesteLeitura Passa o estado para corrigido
+     * e actualiza os campos enviados por paramentro
+     * @param idCorrecao ID da correcao que se pretende actualziar os campos
+     * @param dataAlteracao data de  alteracao
+     * @param observacoes observacoes
+     * @param numPalavrasorMin numero de plavras por minuto
+     * @param numPalavrasCorr  numero de palavras correctas
+     * @param numPalavrasInc  numero de plavras incorrectas
+     * @param precisao precisao
+     * @param velocidade velocidade
+     * @param expressividade  expressividade
+     * @param ritmo   ritmo
+     * @param detalhes detalhes
+     */
+    public void updateCorrecaoTesteLeitura(int idCorrecao, long dataAlteracao, String observacoes,
+                                          float numPalavrasorMin, int numPalavrasCorr, int numPalavrasInc,
+                                          float precisao, float velocidade,
+                                          float expressividade,float ritmo, float detalhes) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CORRT_ESTADO, 1 ); /// Estado corrigido
+        values.put(CORRT_DATAEXEC, dataAlteracao ); /// data
+        // Actualizar registos na Base de dados
+        db.update(TABELA_CORRECAOTESTE, values, CORRT_ID + " = ?",
+                new String[] { String.valueOf(idCorrecao) });
+        ///////////////////////////////////////////////////////////
+        ContentValues values2 = new ContentValues();
+        values.put(CORRTLEIT_OBSERVACOES, observacoes );
+        values.put(CORRTLEIT_NUMPALAVRASPORMIN, numPalavrasorMin );
+        values.put(CORRTLEIT_NUMPALAVRASINCORRE, numPalavrasCorr );
+        values.put(CORRTLEIT_NUMPALAVRASINCORRE, numPalavrasInc );
+        values.put(CORRTLEIT_PRECISAO, precisao );
+        values.put(CORRTLEIT_PRECISAO, velocidade );
+        values.put(CORRTLEIT_EXPRESSIVIDADE, expressividade );
+        values.put(CORRTLEIT_RITMO, ritmo );
+        values.put(CORRTLEIT_DETALHES, detalhes );
+        // Actualizar registos na Base de dados
+        db.update(TABELA_CORRECAOTESTELEITURA, values, CORRTLEIT_IDCORRECAO + " = ?",
+                new String[] { String.valueOf(idCorrecao) });
+    }
+
                                      //*************************//
                                      //*********DELETE**********//
                                      //*************************//
@@ -1376,7 +1416,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_TESTELEITURA + " WHERE 1");
         db.close();
-        Utils.deleteAllFileFolder("ReadingTests");
+    //    Utils.deleteAllFileFolder("ReadingTests");
     }
 
     /**
@@ -1386,7 +1426,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_TESTEMULTIMEDIA + " WHERE 1");
         db.close();
-        Utils.deleteAllFileFolder("MultimediaTest");
+       // Utils.deleteAllFileFolder("MultimediaTest");
     }
 
     /**

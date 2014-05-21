@@ -9,6 +9,18 @@
     android:paddingRight="30sp"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.letrinhas05.Teste_Palavras_Aluno" >
+    
+    <TextView
+        android:id="@+id/textTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:drawableLeft="@drawable/logo2"
+        android:text="@string/title_activity_teste__palavras"
+        android:textColor="#5ddfff"
+        android:textSize="50sp"
+        android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/txtTela"
@@ -103,7 +115,7 @@
     </ScrollView>
      
     <ImageButton
-        android:id="@+id/txtRecord"
+        android:id="@+id/txtRecordPalavras"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -112,21 +124,21 @@
         android:src="@drawable/record" />
 
     <ImageButton
-        android:id="@+id/txtDemo"
+        android:id="@+id/txtDemoPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/txtRecord"
-        android:layout_below="@+id/txtRecord"
+        android:layout_alignRight="@+id/txtRecordPalavras"
+        android:layout_below="@+id/txtRecordPalavras"
         android:layout_marginTop="34dp"
         android:contentDescription="@string/play"
         android:src="@drawable/palyoff" />
 
     <ImageButton
-        android:id="@+id/voicePlay"
+        android:id="@+id/txtVoicePlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtDemo"
-        android:layout_below="@+id/txtDemo"
+        android:layout_alignLeft="@+id/txtDemoPlay"
+        android:layout_below="@+id/txtDemoPlay"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/play"
         android:src="@drawable/play" />

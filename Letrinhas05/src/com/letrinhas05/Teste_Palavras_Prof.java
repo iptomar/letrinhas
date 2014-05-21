@@ -1,6 +1,7 @@
 package com.letrinhas05;
 
 import java.io.File;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -20,6 +21,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Spannable;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,23 +37,29 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.letrinhas05.R;
+import com.letrinhas05.BaseDados.LetrinhasDB;
+import com.letrinhas05.ClassesObjs.CorrecaoTeste;
+import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
+import com.letrinhas05.escolhe.ListarSubmissoes;
 import com.letrinhas05.util.SystemUiHider;
 import com.letrinhas05.util.Teste;
 
 public class Teste_Palavras_Prof extends Activity{
-	// flags para verificar os diversos estados do teste
-			boolean modo, gravado, recording, playing;
+			boolean playing;
 			// objetos
-			ImageButton record, play, voltar, cancelar, avancar;
-			TextView pnt, vcl, frg, slb, rpt, pErr;
+			ImageButton play, voltar, cancelar, avancar;
 			Chronometer chrono;
-			// variaveis contadoras para a avaliação
-			int plvErradas, pontua, vacil, fragment, silabs, repeti,tipoDeTextView;
-			private MediaRecorder gravador;
+			int plvErradas,id_teste, totalDePalavras;
 			private MediaPlayer reprodutor = new MediaPlayer();
-			private String endereco;
+			private String endereco,uuidAudio;
+			CorrecaoTesteLeitura ctl;
 			Teste[] lista;
-			TextView auxiliar;
+			LetrinhasDB db;
+			String[] nomes;
+			int[] ids;
+			String text;
+			TextView valueWord;
+			
 			/**
 			 * Whether or not the system UI should be auto-hidden after
 			 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -107,34 +115,33 @@ public class Teste_Palavras_Prof extends Activity{
 						});
 				// buscar os parametros
 				Bundle b = getIntent().getExtras();
-				// Compor novamnete e lista de testes
-				int lstID[] = b.getIntArray("ListaID");
-				int[] lstTipo = b.getIntArray("ListaTipo");
-				String[] lstTitulo = b.getStringArray("ListaTitulo");
-				//
-				lista = new Teste[lstID.length];
-				for (int i = 0; i < lstTitulo.length; i++) {
-					lista[i] = new Teste(lstID[i], lstTipo[i], lstTitulo[i]);
+				nomes = b.getStringArray("Nomes");
+				ids = b.getIntArray("IDs");
+				id_teste = b.getInt("ID_teste"); 
+				db = new LetrinhasDB(this);
+				text = db.getTesteLeituraById(id_teste).getTexto();
+				Log.d("Debug-text",text);
+				Log.d("Debug-nomes.lenght",String.valueOf(nomes.length));
+				for(int i = 0;i<nomes.length;i++){
+					// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
+					Log.d("Debug-nomes",nomes[i]);
 				}
-				modo = b.getBoolean("Modo");
+				for(int i = 0;i<ids.length;i++){
+					// int's - idEscola, idProfessor, idTurma, idAluno
+					Log.d("Debug-ids",String.valueOf(ids[i]));
+				}
+				Log.d("Debug-id_teste",String.valueOf(id_teste));
 				// Consultar a BD para preencher o conteúdo....
-				((TextView) findViewById(R.id.textCabecalho)).setText(lista[0].getTitulo());
-				((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
-				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + b.getString("Professor") + "/" + b.getString("Aluno") + "/" + lista[0].getTitulo() + ".3gpp";
-				// descontar este teste da lista.
-				Teste[] aux = new Teste[lista.length - 1];
-				for (int i = 1; i < lista.length; i++) {
-					aux[i - 1] = lista[i];
-				}
-				lista = aux;
-				if (modo) {// está em modo professor
-					setCorreccao();
-				} else { // está em modo aluno
-					((TableLayout) findViewById(R.id.txtControlo)).setVisibility(View.INVISIBLE);
-				}
-				record = (ImageButton) findViewById(R.id.txtRecord);
-				play = (ImageButton) findViewById(R.id.txtDemo);
-				play.setVisibility(View.INVISIBLE);
+				//((TextView) findViewById(R.id.textCabecalho)).setText(lista[0].getTitulo());
+				//((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
+				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/CorrectionReadTest/"+uuidAudio+".mp3";
+				Log.d("Debug-pathAudio", endereco);
+				valueWord = (TextView) findViewById(R.id.ValueWord);
+				valueWord.setText("0");
+				initSetup(getResources(), R.id.txtScroll, R.id.ToggleButton, R.id.lllayer);
+				initSetup(getResources(), R.id.txtScroll1, R.id.ToggleButton1, R.id.lllayer1);
+				initSetup(getResources(), R.id.txtScroll2, R.id.ToggleButton2, R.id.lllayer2);
+				play = (ImageButton) findViewById(R.id.txtVoicePlay);
 				voltar = (ImageButton) findViewById(R.id.txtVoltar);
 				cancelar = (ImageButton) findViewById(R.id.txtCancel);
 				avancar = (ImageButton) findViewById(R.id.txtAvaliar);
@@ -182,27 +189,7 @@ public class Teste_Palavras_Prof extends Activity{
 				mHideHandler.postDelayed(mHideRunnable, delayMillis);
 			}
 
-			public void setUp() {
-				gravador = new MediaRecorder();
-				gravador.setAudioSource(MediaRecorder.AudioSource.MIC);
-				gravador.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-				gravador.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-				// construir as pastas caso necessário
-				File file = new File(endereco);
-				if (file.getParent() != null && !file.getParentFile().exists()) {
-					file.getParentFile().mkdirs();
-				}
-				gravador.setOutputFile(endereco);
-			}
-
 			private void escutaBotoes() {
-				record.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						startGrava();
-					}
-
-				});
 				play.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -212,13 +199,8 @@ public class Teste_Palavras_Prof extends Activity{
 				cancelar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						// salta a avaliação e vai para o próximo teste descurando a
-						// gravação gerada
-						File file = new File(endereco);
-						if (file.exists()) {
-							file.delete();
-						}
-						finaliza();
+						 Intent it = new Intent(getApplicationContext(), ListarSubmissoes.class);
+						 startActivity(it);
 					}
 				});
 				avancar.setOnClickListener(new View.OnClickListener() {
@@ -237,97 +219,60 @@ public class Teste_Palavras_Prof extends Activity{
 				});
 			}
 			int minuto, segundo;
+		
 			/**
-			 * Serve para começar ou parar o recording do audio
-			 * 
-			 * @author Dário Jorge
+			 * znyt
+			 * znrdy
+			 * xdgh
+			 * dnyx
+			 * dm
+			 * @author Dário
 			 */
-			@SuppressLint("HandlerLeak")
-			private void startGrava() {
-				if (!recording) {
-					record.setImageResource(R.drawable.stop);
-					play.setVisibility(View.INVISIBLE);
-					cancelar.setVisibility(View.INVISIBLE);
-					voltar.setVisibility(View.INVISIBLE);
-					avancar.setVisibility(View.INVISIBLE);
-					recording = true;
-					try {
-						setUp();
-						gravador.prepare();
-						gravador.start();
-						Toast.makeText(getApplicationContext(), "A gravar.",Toast.LENGTH_SHORT).show();
-						// O cronometro não funciona assim tão bem no seu modo
-						// original...
-						chrono = (Chronometer) findViewById(R.id.cromTxt);
-						// handler para controlar a GUI do android e a thread seguinte
-						play_handler = new Handler() {
-							@SuppressLint("HandlerLeak")
-							public void handleMessage(Message msg) {
-								switch (msg.what) {
-								case PARADO:
-									String m,
-									s;
-									if (minuto < 10) {
-										m = "0" + minuto + ":";
-									} else {
-										m = minuto + ":";
-									}
-									if (segundo < 10) {
-										s = "0" + segundo;
-									} else {
-										s = "" + segundo;
-									}
-									chrono.setText(m + s);
-									break;
-								default:
-									break;
-								}
-							}
-						};
-						// pequena thread, para interagir com o cronometro
-						new Thread(new Runnable() {
-							public void run() {
-								minuto = 0;
-								segundo = 0;
-								while (recording) {
-									Message msg = new Message();
-									msg.what = PARADO;
-									play_handler.sendMessage(msg);
-
-									try {
-										Thread.sleep(1000);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									segundo++;
-									if (segundo == 60) {
-										minuto++;
-										segundo = 0;
-									}
-								}
-							}
-						}).start();
-					} catch (Exception e) {
-						Toast.makeText(getApplicationContext(),"Erro na gravação.\n" + e.getMessage(),Toast.LENGTH_SHORT).show();
+			public void submit(){
+				ctl = new CorrecaoTesteLeitura();
+				File file = new File(endereco);
+				if(!file.exists()){
+					Toast.makeText(getApplicationContext(),"Não gravou nada",Toast.LENGTH_SHORT).show();
+				}else{
+					long time = System.currentTimeMillis() / 1000;
+					Bundle b = getIntent().getExtras();
+					//String aux = idTesteAtual + iDs[3] + time + "";
+					//ctl.setIdCorrrecao(Long.parseLong(aux));
+					//ctl.setAudiourl(path);
+					ctl.setDataExecucao(time);
+					ctl.setTipo(0);
+					ctl.setEstado(0);
+					ctl.setTestId(b.getInt("testId"));
+					ctl.setIdEstudante(b.getInt("estudanteId"));
+					Toast.makeText(getApplicationContext(),ctl.getAudiourl(),Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getApplicationContext(),System.currentTimeMillis() / 1000,Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),String.valueOf(ctl.getIdEstudante()),Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),String.valueOf(ctl.getTestId()),Toast.LENGTH_SHORT).show();
+					//db.addNewItemCorrecaoTesteLeitura(ctl);
+					
+					List<CorrecaoTeste> data1 = db.getAllCorrecaoTeste();
+					Log.d("CheckInserts: ", "***********Testes******************");
+					for (CorrecaoTeste cn : data1) {
+						String logs = "Id: " + cn.getIdCorrrecao() + ", idEstudante: "
+								+ cn.getIdEstudante() + "  , estado: " + cn.getEstado()
+								+ "  , testeId: " + cn.getTestId() + "  , tipo: "
+								+ cn.getTipo() + "  , data: " + cn.getDataExecucao();
+						// Writing Contacts to log
+						Log.d("CheckInserts: ", logs);
 					}
-				} else {
-					record.setImageResource(R.drawable.record);
-					play.setVisibility(View.VISIBLE);
-					cancelar.setVisibility(View.VISIBLE);
-					voltar.setVisibility(View.VISIBLE);
-					avancar.setVisibility(View.VISIBLE);
-					recording = false;
-					try {
-						gravador.stop();
-						gravador.release();
-						Toast.makeText(getApplicationContext(),"Gravação efetuada com sucesso!", Toast.LENGTH_SHORT).show();
-						Toast.makeText(getApplicationContext(),"Tempo de leitura: " + minuto + ":" + segundo,Toast.LENGTH_LONG).show();
-					} catch (Exception e) {
-						Toast.makeText(getApplicationContext(),"Erro na gravação.\n" + e.getMessage(),Toast.LENGTH_SHORT).show();
-					}
+				//	finaliza();
+					
+					Bundle wrap = new Bundle();
+					//wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
+					//wrap.putInt("IDAluno", iDs[3]); //id do aluno
+					// listar submissões anteriores do mesmo teste
+					 Intent it = new Intent(getApplicationContext(),
+					 ResumoSubmissoes.class);
+					 it.putExtras(wrap);
+					 startActivity(it);
 				}
 			}
+			
 			private final int PARADO = 2;
 			private Handler play_handler;
 			/**
@@ -339,7 +284,6 @@ public class Teste_Palavras_Prof extends Activity{
 			private void startPlay() {
 				if (!playing) {
 					play.setImageResource(R.drawable.play_on);
-					record.setVisibility(View.INVISIBLE);
 					playing = true;
 					try {
 						reprodutor = new MediaPlayer();
@@ -354,7 +298,6 @@ public class Teste_Palavras_Prof extends Activity{
 								switch (msg.what) {
 								case PARADO:
 									play.setImageResource(R.drawable.palyoff);
-									record.setVisibility(View.VISIBLE);
 									playing = false;
 									try {
 										reprodutor.stop();
@@ -381,7 +324,6 @@ public class Teste_Palavras_Prof extends Activity{
 					}
 				} else {
 					play.setImageResource(R.drawable.palyoff);
-					record.setVisibility(View.VISIBLE);
 					playing = false;
 					try {
 						reprodutor.stop();
@@ -394,175 +336,60 @@ public class Teste_Palavras_Prof extends Activity{
 				}
 			}
 			private void startAvalia() {
-				if (modo) { // se está em modo de professor
-							// inicia a avaliação
+					// inicia a avaliação
 					File file = new File(endereco);
 					if (file.exists()) { // se já fez uma gravação
 						// uma pop-up ou activity para determinar o valor de
 						// exprecividade da leitura
 						// usar a classe Avaliação para calcular os resultados.
-						// avançar para o próximo teste caso este exista.
-						finaliza();
+					//	finaliza();
+						submit();
 					} else {
 						android.app.AlertDialog alerta;
 						// Cria o gerador do AlertDialog
 						AlertDialog.Builder builder = new AlertDialog.Builder(this);
 						// define o titulo
-						builder.setTitle("Letrinhas 03");
+						builder.setTitle("Letrinhas 05");
 						// define a mensagem
-						builder.setMessage(" Ainda não executou a gravação da leitura!\n"+ " Faça-o antes de avaliar.");
+						builder.setMessage(" Não existe o ficheiro audio!");
 						// define um botão como positivo
 						builder.setPositiveButton("OK", null);
 						// cria o AlertDialog
 						alerta = builder.create();
 						// Mostra
 						alerta.show();
+						//submit();
 					}
-				}
 			}
+			
 			/**
 			 * Procedimento para ativar a selecção das palavras erradas no texto e o
 			 * painel de controlo de erros.
 			 */
-			private void setCorreccao() {
-				pErr = (TextView) findViewById(R.id.TextView07);
-				pErr.setText("" + plvErradas);
-
-				// tela do texto
-				/*((TextView) findViewById(R.id.txtTexto)).setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						textViewtxt();
-					}
-				});
-				((TextView) findViewById(R.id.txtTexto1)).setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						textViewtxt1();
-					}
-				});
-			/*	((TextView) findViewById(R.id.txtTexto2)).setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						textViewtxt2();
-					}
-				});*/
-				textReader();
-			}
-			/******************************************************
-			 * ***************** Marcar a palvra errada no texto *** A melhorar, deverá
-			 * contabilizar correctamente a palavra, e desmarcar se repetir a selecção
-			 * da palavra.
-			 * 
-			 * @author Jorge
-			 */
-			/*public void textViewtxt(){
-				TextView textozico = (TextView) findViewById(R.id.txtTexto);
-				textozico.performLongClick();
-				marcaPalavra(textozico);
-			}
-			public void textViewtxt1(){
-				TextView textozico1 = (TextView) findViewById(R.id.txtTexto1);
-				textozico1.performLongClick();
-				marcaPalavra(textozico1);
-			}
-			public void textViewtxt2(){
-				TextView textozico2 = (TextView) findViewById(R.id.txtTexto2);
-				textozico2.performLongClick();
-				marcaPalavra(textozico2);
-			}*/
-			public void textReader(){
-				/*String[] teste = {"manel","jakim","jusephino"};
-				// Painel dinâmico ****************************************************
-				LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
-				// Botão original que existe por defenição
-				ToggleButton tg1 = (ToggleButton) findViewById(R.id.ToggleButton1);
-				// Atribuo o primeiro título ao primeiro botão
-				// ********************************+
-				// texto por defeito
-				tg1.setText(teste[0]);
-				// texto se não seleccionado = "titulo do teste sem numeração"
-				tg1.setTextOff(teste[0]);
-				// texto se seleccionado = "titulo do teste com numeração"
-				tg1.setTextOn(teste[0]);
-
-				// Resto do títulos
-				for(int i = 1; i<teste.length;i++){
-					// um novo botão
-					ToggleButton tg = new ToggleButton(getBaseContext());
-					// copiar os parametros de layout do 1º botão
-					tg.setLayoutParams(tg1.getLayoutParams());
-					tg.setBackgroundDrawable(tg1.getBackground());
-					tg.setTextSize(tg1.getTextSize());
-					// texto por defeito
-					tg.setText(teste[i]);
-					// texto se não seleccionado = "titulo do teste sem numeração"
-					tg.setTextOff(teste[i]);
-					// texto se seleccionado = "titulo do teste com numeração"
-					tg.setTextOn(teste[i]);
-					// inserir no scroll view
-					ll.addView(tg);
-				}*/
-				/*Resources res = getResources();
-				String text = res.getString(R.string.listaPalavras3);
-				String[] ar = text.split("[\n]");
-				ToggleButton tg1 = (ToggleButton) findViewById(R.id.ToggleButton2);
-				tg1.setBackgroundColor(Color.DKGRAY);
-				LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste2);
-				buttonSetUp(ar,1,ll,tg1);
-		        // Resto do títulos
-				for(int i = 0; i<ar.length;i++){
-					buttonSetUp(ar,i,ll,tg1);
-				}	
-				//
-				String text1 = res.getString(R.string.listaPalavras2);
-				String[] ar1 = text1.split("[\n]");
-				ToggleButton tg2 = (ToggleButton) findViewById(R.id.ToggleButton1);
-				tg2.setBackgroundColor(Color.DKGRAY);
-				LinearLayout ll1 = (LinearLayout) findViewById(R.id.llescteste1);
-				buttonSetUp(ar,1,ll1,tg2);
-		        // Resto do títulos
-				for(int i = 0; i<ar1.length;i++){
-					buttonSetUp(ar1,i,ll1,tg2);
-				}	
-				//
-				String text2 = res.getString(R.string.listaPalavras1);
-				String[] ar2 = text2.split("[\n]");
-				ToggleButton tg3 = (ToggleButton) findViewById(R.id.ToggleButton);
-				tg3.setBackgroundColor(Color.DKGRAY);
-				LinearLayout ll2 = (LinearLayout) findViewById(R.id.llescteste);
-				buttonSetUp(ar2,1,ll2,tg3);
-		        // Resto do títulos
-				for(int i = 0; i<ar.length;i++){
-					buttonSetUp(ar2,i,ll2,tg3);
-				}	*/
-			//	initSetup(getResources(),R.string.listaPalavras1,R.id.ToggleButton,R.id.llescteste);
-			//	initSetup(getResources(),R.string.listaPalavras2,R.id.ToggleButton1,R.id.llescteste1);
-			//	initSetup(getResources(),R.string.listaPalavras3,R.id.ToggleButton2,R.id.llescteste2);
-			}
-			
 			public void initSetup(Resources res,int list, int toggle, int layout){
-				String text = res.getString(list);
-				String[] ar = text.split("[\n]");
+				//String text = res.getString(list);
+				String[] ar = text.split("[ ]");
 				ToggleButton tg = (ToggleButton) findViewById(toggle);
 				tg.setTextColor(Color.DKGRAY);
 				tg.setBackgroundColor(Color.DKGRAY);
 				tg.setTextColor(Color.WHITE);
 				tg.setOnClickListener(new OnClickListener() {
-					@Override
 					public void onClick(View v) {
-						 if (((CompoundButton) v).isChecked()) {
-					            v.setBackgroundColor(Color.RED);
-					            plvErradas++;
-					            pErr.setText("" + plvErradas);
-					        } /*else {
-					        	v.setBackgroundColor(Color.DKGRAY);
-					        	plvErradas--;
-					            pErr.setText("" + plvErradas);
-					        }*/
-					}
+				          if (((CompoundButton) v).isChecked()){
+				        	Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
+							v.setBackgroundColor(Color.RED);
+							plvErradas++;
+							Log.d("Debug-plvErradas",String.valueOf(plvErradas));
+							valueWord.setText(String.valueOf(plvErradas));
+				          }else{
+				        	Toast.makeText(getApplicationContext(),"UnChecked",Toast.LENGTH_SHORT).show();
+							v.setBackgroundColor(Color.DKGRAY);
+							plvErradas--;
+							valueWord.setText(String.valueOf(plvErradas));
+				          }
+				   }
 				});
-		        tg.setChecked(true);
+		       // tg.setChecked(true);
 		        tg.setText(ar[0]);
 		        tg.setTextOn(ar[0]);
 		        tg.setTextOff(ar[0]);
@@ -570,7 +397,9 @@ public class Teste_Palavras_Prof extends Activity{
 		        // Resto do títulos
 				for(int i = 1; i<ar.length;i++){
 					buttonSetUp(ar,i,ll,tg);
+					totalDePalavras = (i*3)+3;
 				}	
+				Log.d("Debug-totalDePalavras", String.valueOf(totalDePalavras));
 			}
 			
 			public void buttonSetUp(String[] teste,int i,LinearLayout ll,ToggleButton tg1){
@@ -578,145 +407,26 @@ public class Teste_Palavras_Prof extends Activity{
 				tg.setLayoutParams(tg1.getLayoutParams());
 				tg.setBackgroundColor(Color.DKGRAY);
 				tg.setTextColor(Color.WHITE);
+				tg.setTextColor(Color.WHITE);
 				tg.setOnClickListener(new OnClickListener() {
-					@Override
 					public void onClick(View v) {
-						 if (((CompoundButton) v).isChecked()) {
-					            v.setBackgroundColor(Color.RED);
-					            plvErradas++;
-					            pErr.setText("" + plvErradas);
-					        } /*else {
-					        	v.setBackgroundColor(Color.DKGRAY);
-					        	plvErradas--;
-					        	pErr.setText("" + plvErradas);
-					        }*/
-					}
+				          if (((CompoundButton) v).isChecked()){
+				        	Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
+							v.setBackgroundColor(Color.RED);
+							plvErradas++;
+							valueWord.setText(String.valueOf(plvErradas));
+				          }else{
+				        	Toast.makeText(getApplicationContext(),"UnChecked",Toast.LENGTH_SHORT).show();
+							v.setBackgroundColor(Color.DKGRAY);
+							plvErradas--;
+							valueWord.setText(String.valueOf(plvErradas));
+				          }
+				   }
 				});
-		      //  tg.setChecked(true);
+				// tg.setChecked(true);
 		        tg.setText(teste[i]);
 		        tg.setTextOn(teste[i]);
 		        tg.setTextOff(teste[i]);
 				ll.addView(tg);
-			}
-			
-			public void marcaPalavra(final TextView textozico) {
-				/*
-				 * final TextView textozico = (TextView) findViewById(R.id.txtTexto);
-				 * textozico.performLongClick(); final int startSelection =
-				 * textozico.getSelectionStart(); final int endSelection =
-				 * textozico.getSelectionEnd(); plvErradas++; Spannable WordtoSpan =
-				 * (Spannable) textozico.getText(); ForegroundColorSpan cor = new
-				 * ForegroundColorSpan(Color.RED); WordtoSpan.setSpan(cor,
-				 * startSelection, endSelection, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-				 * textozico.setText(WordtoSpan); pErr.setText("" + plvErradas);
-				 */
-				// Mostrar Popup se caregou no ecra
-				
-				final int startSelection = textozico.getSelectionStart();
-				final int endSelection = textozico.getSelectionEnd();
-				@SuppressWarnings("unused")
-				final String selectedText = textozico.getText().toString().substring(startSelection, endSelection);
-				PopupMenu menu = new PopupMenu(getApplicationContext(), textozico);
-				menu.getMenuInflater().inflate(R.menu.menu, menu.getMenu());
-				menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-					@Override
-					public boolean onMenuItemClick(MenuItem item) {
-						// Mostrar palavra seleccionada na textbox
-						switch (item.getItemId()) {
-						case R.id.PalavraErrada:
-							plvErradas++;
-							pErr.setText("" + plvErradas);
-							Spannable WordtoSpan = (Spannable) textozico.getText();
-							ForegroundColorSpan cor = new ForegroundColorSpan(Color.RED);
-							WordtoSpan.setSpan(cor, startSelection, endSelection,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-							textozico.setText(WordtoSpan);
-							break;
-						case R.id.CancelarSeleccao:
-							if (plvErradas > 0) {
-								Spannable WordtoCancelSpan = (Spannable) textozico.getText();
-								ForegroundColorSpan corCancelar = new ForegroundColorSpan(Color.BLACK);
-								WordtoCancelSpan.setSpan(corCancelar, startSelection,endSelection,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-								textozico.setText(WordtoCancelSpan);
-								plvErradas--;
-								pErr.setText("" + plvErradas);
-							} else {
-								Toast toast = Toast.makeText(getApplicationContext(),"Não existem palavras erradas",Toast.LENGTH_SHORT);
-								toast.show();
-							}
-						}
-						return true;
-					}
-				});
-				menu.show();
-			}
-
-			/**
-			 * Prepara a finalização da activity, descobrindo qual o próximo teste a
-			 * realizar Este método deverá ser usado em todas as paginas de teste.
-			 */
-			private void finaliza() {
-				if (lista.length != 0) {
-					// Decompor o array de teste, para poder enviar por parametros
-					int[] lstID = new int[lista.length];
-					int[] lstTipo = new int[lista.length];
-					String[] lstTitulo = new String[lista.length];
-					for (int i = 0; i < lista.length; i++) {
-						lstID[i] = lista[i].getID();
-						lstTipo[i] = lista[i].getTipo();
-						lstTitulo[i] = lista[i].getTitulo();
-					}
-					// enviar o parametro de modo
-					Bundle wrap = new Bundle();
-					wrap.putBoolean("Modo", modo);
-					// teste, a depender das informações da BD
-					// ***********************************************************+
-					wrap.putString("Aluno", "EI3C-Tiago Fernandes");
-					wrap.putString("Professor", "ESTT-Antonio Manso");
-					wrap.putIntArray("ListaID", lstID);
-					wrap.putIntArray("ListaTipo", lstTipo);
-					wrap.putStringArray("ListaTitulo", lstTitulo);
-					// identifico o tipo de teste
-					switch (lista[0].getTipo()) {
-					case 0:
-						// lançar a nova activity do tipo texto,
-						// iniciar a pagina 2 (escolher teste)
-						Intent it = new Intent(getApplicationContext(),Teste_Texto_Aluno.class);
-						it.putExtras(wrap);
-						startActivity(it);
-						break;
-					case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
-							//
-						Intent ip = new Intent(getApplicationContext(),Teste_Palavras_Prof.class);
-						ip.putExtras(wrap);
-						startActivity(ip);
-						break;
-					case 2: // lançar a nova activity do tipo Poema, e o seu conteúdo
-						//
-						Intent ipm = new Intent(getApplicationContext(),Teste_Poema_Aluno.class);
-						ipm.putExtras(wrap);
-						startActivity(ipm);
-						break;
-					case 3: // lançar a nova activity do tipo imagem, e o seu conteúdo
-						//
-						// Intent it = new Intent(getApplicationContext(),
-						// Teste_Texto.class);
-						// it.putExtras(wrap);
-						// startActivity(it);
-						break;
-					default:
-						Toast.makeText(getApplicationContext(), " - Tipo não defenido",Toast.LENGTH_SHORT).show();
-						// retirar o teste errado e continuar
-						int k = 0;
-						Teste aux[] = new Teste[lista.length - 1];
-						for (int i = 1; i < lista.length; i++) {
-							aux[k] = lista[i];
-							k++;
-						}
-						lista = aux;
-						finaliza();
-						break;
-					}
-				}
-				finish();
 			}
 		}

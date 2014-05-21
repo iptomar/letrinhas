@@ -120,6 +120,10 @@ pediram-me para fazer um poema, e fízi-o.\n</string>
     <string name="cancel">cancelar</string>
     <string name="title_activity_resumo_submissoes">Resumo Submissoes</string>
     <string name="resumo">Resumo</string>
+<<<<<<< HEAD
     <string name="pararRep">Parar de ouvir</string>
+=======
+    <string name="title_activity_relatas_correction">RelatasCorrection</string>
+>>>>>>> refs/remotes/origin/master
 
 </resources>
