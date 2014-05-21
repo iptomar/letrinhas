@@ -1416,7 +1416,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_TESTELEITURA + " WHERE 1");
         db.close();
-        Utils.deleteAllFileFolder("ReadingTests");
+    //    Utils.deleteAllFileFolder("ReadingTests");
     }
 
     /**
@@ -1426,7 +1426,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_TESTEMULTIMEDIA + " WHERE 1");
         db.close();
-        Utils.deleteAllFileFolder("MultimediaTest");
+       // Utils.deleteAllFileFolder("MultimediaTest");
     }
 
     /**
