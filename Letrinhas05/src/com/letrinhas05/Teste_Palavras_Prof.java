@@ -49,13 +49,16 @@ public class Teste_Palavras_Prof extends Activity{
 			// objetos
 			ImageButton play, voltar, cancelar, avancar;
 			Chronometer chrono;
-			int plvErradas, tipoDeTextView;
-			TextView pErr;
+			int plvErradas,id_teste, totalDePalavras;
 			private MediaPlayer reprodutor = new MediaPlayer();
 			private String endereco,uuidAudio;
 			CorrecaoTesteLeitura ctl;
 			Teste[] lista;
 			LetrinhasDB db;
+			String[] nomes;
+			int[] ids;
+			String text;
+			TextView valueWord;
 			
 			/**
 			 * Whether or not the system UI should be auto-hidden after
@@ -112,14 +115,32 @@ public class Teste_Palavras_Prof extends Activity{
 						});
 				// buscar os parametros
 				Bundle b = getIntent().getExtras();
-				
+				nomes = b.getStringArray("Nomes");
+				ids = b.getIntArray("IDs");
+				id_teste = b.getInt("ID_teste"); 
 				db = new LetrinhasDB(this);
+				text = db.getTesteLeituraById(id_teste).getTexto();
+				Log.d("Debug-text",text);
+				Log.d("Debug-nomes.lenght",String.valueOf(nomes.length));
+				for(int i = 0;i<nomes.length;i++){
+					// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
+					Log.d("Debug-nomes",nomes[i]);
+				}
+				for(int i = 0;i<ids.length;i++){
+					// int's - idEscola, idProfessor, idTurma, idAluno
+					Log.d("Debug-ids",String.valueOf(ids[i]));
+				}
+				Log.d("Debug-id_teste",String.valueOf(id_teste));
 				// Consultar a BD para preencher o conteúdo....
 				//((TextView) findViewById(R.id.textCabecalho)).setText(lista[0].getTitulo());
 				//((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
 				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/CorrectionReadTest/"+uuidAudio+".mp3";
 				Log.d("Debug-pathAudio", endereco);
-				setCorreccao();
+				valueWord = (TextView) findViewById(R.id.ValueWord);
+				valueWord.setText("0");
+				initSetup(getResources(), R.id.txtScroll, R.id.ToggleButton, R.id.lllayer);
+				initSetup(getResources(), R.id.txtScroll1, R.id.ToggleButton1, R.id.lllayer1);
+				initSetup(getResources(), R.id.txtScroll2, R.id.ToggleButton2, R.id.lllayer2);
 				play = (ImageButton) findViewById(R.id.txtVoicePlay);
 				voltar = (ImageButton) findViewById(R.id.txtVoltar);
 				cancelar = (ImageButton) findViewById(R.id.txtCancel);
@@ -179,7 +200,7 @@ public class Teste_Palavras_Prof extends Activity{
 					@Override
 					public void onClick(View view) {
 						 Intent it = new Intent(getApplicationContext(), ListarSubmissoes.class);
-						startActivity(it);
+						 startActivity(it);
 					}
 				});
 				avancar.setOnClickListener(new View.OnClickListener() {
@@ -227,7 +248,7 @@ public class Teste_Palavras_Prof extends Activity{
 					//Toast.makeText(getApplicationContext(),System.currentTimeMillis() / 1000,Toast.LENGTH_SHORT).show();
 					Toast.makeText(getApplicationContext(),String.valueOf(ctl.getIdEstudante()),Toast.LENGTH_SHORT).show();
 					Toast.makeText(getApplicationContext(),String.valueOf(ctl.getTestId()),Toast.LENGTH_SHORT).show();
-					db.addNewItemCorrecaoTesteLeitura(ctl);
+					//db.addNewItemCorrecaoTesteLeitura(ctl);
 					
 					List<CorrecaoTeste> data1 = db.getAllCorrecaoTeste();
 					Log.d("CheckInserts: ", "***********Testes******************");
@@ -322,6 +343,7 @@ public class Teste_Palavras_Prof extends Activity{
 						// exprecividade da leitura
 						// usar a classe Avaliação para calcular os resultados.
 					//	finaliza();
+						submit();
 					} else {
 						android.app.AlertDialog alerta;
 						// Cria o gerador do AlertDialog
@@ -336,151 +358,38 @@ public class Teste_Palavras_Prof extends Activity{
 						alerta = builder.create();
 						// Mostra
 						alerta.show();
+						//submit();
 					}
 			}
+			
 			/**
 			 * Procedimento para ativar a selecção das palavras erradas no texto e o
 			 * painel de controlo de erros.
 			 */
-			private void setCorreccao() {
-				pErr = (TextView) findViewById(R.id.TextView07);
-				pErr.setText("" + plvErradas);
-
-				// tela do texto
-				/*((TextView) findViewById(R.id.txtTexto)).setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						textViewtxt();
-					}
-				});
-				((TextView) findViewById(R.id.txtTexto1)).setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						textViewtxt1();
-					}
-				});
-			/*	((TextView) findViewById(R.id.txtTexto2)).setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						textViewtxt2();
-					}
-				});*/
-				textReader();
-			}
-			/******************************************************
-			 * ***************** Marcar a palvra errada no texto *** A melhorar, deverá
-			 * contabilizar correctamente a palavra, e desmarcar se repetir a selecção
-			 * da palavra.
-			 * 
-			 * @author Jorge
-			 */
-			/*public void textViewtxt(){
-				TextView textozico = (TextView) findViewById(R.id.txtTexto);
-				textozico.performLongClick();
-				marcaPalavra(textozico);
-			}
-			public void textViewtxt1(){
-				TextView textozico1 = (TextView) findViewById(R.id.txtTexto1);
-				textozico1.performLongClick();
-				marcaPalavra(textozico1);
-			}
-			public void textViewtxt2(){
-				TextView textozico2 = (TextView) findViewById(R.id.txtTexto2);
-				textozico2.performLongClick();
-				marcaPalavra(textozico2);
-			}*/
-			public void textReader(){
-				/*String[] teste = {"manel","jakim","jusephino"};
-				// Painel dinâmico ****************************************************
-				LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
-				// Botão original que existe por defenição
-				ToggleButton tg1 = (ToggleButton) findViewById(R.id.ToggleButton1);
-				// Atribuo o primeiro título ao primeiro botão
-				// ********************************+
-				// texto por defeito
-				tg1.setText(teste[0]);
-				// texto se não seleccionado = "titulo do teste sem numeração"
-				tg1.setTextOff(teste[0]);
-				// texto se seleccionado = "titulo do teste com numeração"
-				tg1.setTextOn(teste[0]);
-
-				// Resto do títulos
-				for(int i = 1; i<teste.length;i++){
-					// um novo botão
-					ToggleButton tg = new ToggleButton(getBaseContext());
-					// copiar os parametros de layout do 1º botão
-					tg.setLayoutParams(tg1.getLayoutParams());
-					tg.setBackgroundDrawable(tg1.getBackground());
-					tg.setTextSize(tg1.getTextSize());
-					// texto por defeito
-					tg.setText(teste[i]);
-					// texto se não seleccionado = "titulo do teste sem numeração"
-					tg.setTextOff(teste[i]);
-					// texto se seleccionado = "titulo do teste com numeração"
-					tg.setTextOn(teste[i]);
-					// inserir no scroll view
-					ll.addView(tg);
-				}*/
-				/*Resources res = getResources();
-				String text = res.getString(R.string.listaPalavras3);
-				String[] ar = text.split("[\n]");
-				ToggleButton tg1 = (ToggleButton) findViewById(R.id.ToggleButton2);
-				tg1.setBackgroundColor(Color.DKGRAY);
-				LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste2);
-				buttonSetUp(ar,1,ll,tg1);
-		        // Resto do títulos
-				for(int i = 0; i<ar.length;i++){
-					buttonSetUp(ar,i,ll,tg1);
-				}	
-				//
-				String text1 = res.getString(R.string.listaPalavras2);
-				String[] ar1 = text1.split("[\n]");
-				ToggleButton tg2 = (ToggleButton) findViewById(R.id.ToggleButton1);
-				tg2.setBackgroundColor(Color.DKGRAY);
-				LinearLayout ll1 = (LinearLayout) findViewById(R.id.llescteste1);
-				buttonSetUp(ar,1,ll1,tg2);
-		        // Resto do títulos
-				for(int i = 0; i<ar1.length;i++){
-					buttonSetUp(ar1,i,ll1,tg2);
-				}	
-				//
-				String text2 = res.getString(R.string.listaPalavras1);
-				String[] ar2 = text2.split("[\n]");
-				ToggleButton tg3 = (ToggleButton) findViewById(R.id.ToggleButton);
-				tg3.setBackgroundColor(Color.DKGRAY);
-				LinearLayout ll2 = (LinearLayout) findViewById(R.id.llescteste);
-				buttonSetUp(ar2,1,ll2,tg3);
-		        // Resto do títulos
-				for(int i = 0; i<ar.length;i++){
-					buttonSetUp(ar2,i,ll2,tg3);
-				}	*/
-			//	initSetup(getResources(),R.string.listaPalavras1,R.id.ToggleButton,R.id.llescteste);
-			//	initSetup(getResources(),R.string.listaPalavras2,R.id.ToggleButton1,R.id.llescteste1);
-			//	initSetup(getResources(),R.string.listaPalavras3,R.id.ToggleButton2,R.id.llescteste2);
-			}
-			
 			public void initSetup(Resources res,int list, int toggle, int layout){
-				String text = res.getString(list);
-				String[] ar = text.split("[\n]");
+				//String text = res.getString(list);
+				String[] ar = text.split("[ ]");
 				ToggleButton tg = (ToggleButton) findViewById(toggle);
 				tg.setTextColor(Color.DKGRAY);
 				tg.setBackgroundColor(Color.DKGRAY);
 				tg.setTextColor(Color.WHITE);
 				tg.setOnClickListener(new OnClickListener() {
-					@Override
 					public void onClick(View v) {
-						 if (((CompoundButton) v).isChecked()) {
-					            v.setBackgroundColor(Color.RED);
-					            plvErradas++;
-					            pErr.setText("" + plvErradas);
-					        } /*else {
-					        	v.setBackgroundColor(Color.DKGRAY);
-					        	plvErradas--;
-					            pErr.setText("" + plvErradas);
-					        }*/
-					}
+				          if (((CompoundButton) v).isChecked()){
+				        	Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
+							v.setBackgroundColor(Color.RED);
+							plvErradas++;
+							Log.d("Debug-plvErradas",String.valueOf(plvErradas));
+							valueWord.setText(String.valueOf(plvErradas));
+				          }else{
+				        	Toast.makeText(getApplicationContext(),"UnChecked",Toast.LENGTH_SHORT).show();
+							v.setBackgroundColor(Color.DKGRAY);
+							plvErradas--;
+							valueWord.setText(String.valueOf(plvErradas));
+				          }
+				   }
 				});
-		        tg.setChecked(true);
+		       // tg.setChecked(true);
 		        tg.setText(ar[0]);
 		        tg.setTextOn(ar[0]);
 		        tg.setTextOff(ar[0]);
@@ -488,7 +397,9 @@ public class Teste_Palavras_Prof extends Activity{
 		        // Resto do títulos
 				for(int i = 1; i<ar.length;i++){
 					buttonSetUp(ar,i,ll,tg);
+					totalDePalavras = (i*3)+3;
 				}	
+				Log.d("Debug-totalDePalavras", String.valueOf(totalDePalavras));
 			}
 			
 			public void buttonSetUp(String[] teste,int i,LinearLayout ll,ToggleButton tg1){
@@ -496,75 +407,26 @@ public class Teste_Palavras_Prof extends Activity{
 				tg.setLayoutParams(tg1.getLayoutParams());
 				tg.setBackgroundColor(Color.DKGRAY);
 				tg.setTextColor(Color.WHITE);
+				tg.setTextColor(Color.WHITE);
 				tg.setOnClickListener(new OnClickListener() {
-					@Override
 					public void onClick(View v) {
-						 if (((CompoundButton) v).isChecked()) {
-					            v.setBackgroundColor(Color.RED);
-					            plvErradas++;
-					            pErr.setText("" + plvErradas);
-					        } /*else {
-					        	v.setBackgroundColor(Color.DKGRAY);
-					        	plvErradas--;
-					        	pErr.setText("" + plvErradas);
-					        }*/
-					}
+				          if (((CompoundButton) v).isChecked()){
+				        	Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
+							v.setBackgroundColor(Color.RED);
+							plvErradas++;
+							valueWord.setText(String.valueOf(plvErradas));
+				          }else{
+				        	Toast.makeText(getApplicationContext(),"UnChecked",Toast.LENGTH_SHORT).show();
+							v.setBackgroundColor(Color.DKGRAY);
+							plvErradas--;
+							valueWord.setText(String.valueOf(plvErradas));
+				          }
+				   }
 				});
-		      //  tg.setChecked(true);
+				// tg.setChecked(true);
 		        tg.setText(teste[i]);
 		        tg.setTextOn(teste[i]);
 		        tg.setTextOff(teste[i]);
 				ll.addView(tg);
-			}
-			
-			public void marcaPalavra(final TextView textozico) {
-				/*
-				 * final TextView textozico = (TextView) findViewById(R.id.txtTexto);
-				 * textozico.performLongClick(); final int startSelection =
-				 * textozico.getSelectionStart(); final int endSelection =
-				 * textozico.getSelectionEnd(); plvErradas++; Spannable WordtoSpan =
-				 * (Spannable) textozico.getText(); ForegroundColorSpan cor = new
-				 * ForegroundColorSpan(Color.RED); WordtoSpan.setSpan(cor,
-				 * startSelection, endSelection, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-				 * textozico.setText(WordtoSpan); pErr.setText("" + plvErradas);
-				 */
-				// Mostrar Popup se caregou no ecra
-				
-				final int startSelection = textozico.getSelectionStart();
-				final int endSelection = textozico.getSelectionEnd();
-				@SuppressWarnings("unused")
-				final String selectedText = textozico.getText().toString().substring(startSelection, endSelection);
-				PopupMenu menu = new PopupMenu(getApplicationContext(), textozico);
-				menu.getMenuInflater().inflate(R.menu.menu, menu.getMenu());
-				menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-					@Override
-					public boolean onMenuItemClick(MenuItem item) {
-						// Mostrar palavra seleccionada na textbox
-						switch (item.getItemId()) {
-						case R.id.PalavraErrada:
-							plvErradas++;
-							pErr.setText("" + plvErradas);
-							Spannable WordtoSpan = (Spannable) textozico.getText();
-							ForegroundColorSpan cor = new ForegroundColorSpan(Color.RED);
-							WordtoSpan.setSpan(cor, startSelection, endSelection,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-							textozico.setText(WordtoSpan);
-							break;
-						case R.id.CancelarSeleccao:
-							if (plvErradas > 0) {
-								Spannable WordtoCancelSpan = (Spannable) textozico.getText();
-								ForegroundColorSpan corCancelar = new ForegroundColorSpan(Color.BLACK);
-								WordtoCancelSpan.setSpan(corCancelar, startSelection,endSelection,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-								textozico.setText(WordtoCancelSpan);
-								plvErradas--;
-								pErr.setText("" + plvErradas);
-							} else {
-								Toast toast = Toast.makeText(getApplicationContext(),"Não existem palavras erradas",Toast.LENGTH_SHORT);
-								toast.show();
-							}
-						}
-						return true;
-					}
-				});
-				menu.show();
 			}
 		}

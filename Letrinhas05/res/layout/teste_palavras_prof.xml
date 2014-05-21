@@ -23,7 +23,7 @@
         android:textStyle="bold" />
 
     <ScrollView
-        android:id="@+id/txtTela"
+        android:id="@+id/txtScroll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -37,6 +37,7 @@
         android:paddingTop="10dp" >
 
         <LinearLayout
+            android:id="@+id/lllayer"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="vertical" >
@@ -55,13 +56,13 @@
 
     </ScrollView>
      <ScrollView
-        android:id="@+id/txtTela1"
+        android:id="@+id/txtScroll1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/txtTela"
+        android:layout_toRightOf="@+id/txtScroll"
         android:background="#ccccff"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
@@ -69,6 +70,7 @@
         android:paddingTop="10dp" >
 
          <LinearLayout
+             android:id="@+id/lllayer1"
              android:layout_width="match_parent"
              android:layout_height="@+id/txtTela"
              android:orientation="vertical" >
@@ -86,13 +88,13 @@
 
     </ScrollView>
      <ScrollView
-        android:id="@+id/txtTela2"
+        android:id="@+id/txtScroll2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/txtTela1"
+        android:layout_toRightOf="@+id/txtScroll1"
         android:background="#ccccff"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
@@ -100,6 +102,7 @@
         android:paddingTop="10dp" >
 
          <LinearLayout
+             android:id="@+id/lllayer2"
              android:layout_width="match_parent"
              android:layout_height="@+id/txtTela"
              android:orientation="vertical" >
@@ -160,8 +163,8 @@
         android:id="@+id/txtControlo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtAvaliar"
-        android:layout_alignRight="@+id/txtAvaliar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:paddingLeft="10dp" >
 
         <TableRow
@@ -224,7 +227,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/TextView07"
+                android:id="@+id/ValueWord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/numer"
