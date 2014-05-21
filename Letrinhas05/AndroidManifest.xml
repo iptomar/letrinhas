@@ -57,6 +57,13 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
         </activity>
+        
+        <activity
+            android:name="com.letrinhas05.Teste_Imagem"
+            android:label="@string/title_activity_teste__imagem"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme" >
+        </activity>
         <activity
             android:name="com.letrinhas05.Teste_Texto_Prof"
             android:label="@string/title_activity_teste_texto"

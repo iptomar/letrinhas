@@ -1,8 +1,10 @@
 
-1-teste texto/português
-2-vista escolher tipo teste
-3-enviar submissão
-4-lista submissões
-5-corrigir submissão
-6-verificar resultados de avaliação
-7-aluno lista de submissões no final de submeter
+1-teste texto/português (feito)
+2-vista escolher tipo teste (feito)
+3-enviar submissão:
+	3.1 - para a BDlocal (feito)
+	3.2 - para o servidor (Falta)
+4-lista submissões (feito)
+5-corrigir submissão (Tiago a fazer)
+6-verificar resultados de avaliação (Dário a fazer)
+7-aluno lista de submissões no final de submeter (feito)

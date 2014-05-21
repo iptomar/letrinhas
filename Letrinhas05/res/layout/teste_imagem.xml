@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/testTexto"
+    android:id="@+id/testeImagem"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="clip_vertical"
@@ -8,7 +8,7 @@
     android:paddingLeft="30sp"
     android:paddingRight="30sp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.letrinhas05.Teste_Texto_Aluno" >
+    tools:context="com.letrinhas05.Teste_Imagem" >
 
     <TextView
         android:id="@+id/textCabecalho"
