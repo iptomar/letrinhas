@@ -74,6 +74,7 @@ public class Teste_Palavras_Aluno extends Activity{
 			protected void onCreate(Bundle savedInstanceState) {
 				super.onCreate(savedInstanceState);
 				setContentView(R.layout.teste_palavras_aluno);
+				db = new LetrinhasDB(this);
 				//new line faz a rotação do ecrãn 180 graus
 				int currentOrientation = getResources().getConfiguration().orientation;
 				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -116,10 +117,12 @@ public class Teste_Palavras_Aluno extends Activity{
 				path =  "/School-Data/CorrectionReadTest/"+uuid+".mp3";
 				profSound = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/ReadingTests/SOM1.mp3";
 
-				record = (ImageButton) findViewById(R.id.txtRecord);
-				play = (ImageButton) findViewById(R.id.txtPlay);
+				Log.d("Debug-ButtonRecord", String.valueOf(findViewById(R.id.txtRecordPalavras)));
+				Log.d("Debug-ButtonComeca", String.valueOf(findViewById(R.id.txtVoicePlay)));
+				record = (ImageButton) findViewById(R.id.txtRecordPalavras);
+				play = (ImageButton) findViewById(R.id.txtVoicePlay);
 				play.setVisibility(View.INVISIBLE);
-				voicePlay = (ImageButton) findViewById(R.id.voicePlay);
+				voicePlay = (ImageButton) findViewById(R.id.txtDemoPlay);
 				voltar = (ImageButton) findViewById(R.id.txtVoltar);
 				cancelar = (ImageButton) findViewById(R.id.txtCancel);
 				avancar = (ImageButton) findViewById(R.id.txtAvaliar);
@@ -143,12 +146,12 @@ public class Teste_Palavras_Aluno extends Activity{
 				/** Consultar a BD para preencher o conteï¿½do.... */
 				LetrinhasDB bd = new LetrinhasDB(this);
 				teste =  bd.getTesteLeituraById(testesID[0]);
-				Log.d("Debug-Iniciar(b)", "testesID->"+String.valueOf(testesID[0])+" teste->"+teste);
+				Log.d("Debug-Iniciar(b)", "testesID->"+String.valueOf(testesID[0])+" teste->"+teste.getTexto());
 				Log.d("Debug-getTitulo()", teste.getTitulo());
 				((TextView) findViewById(R.id.textTitulo)).setText(teste.getTitulo());
-				((TextView) findViewById(R.id.TextView01)).setText(teste.getConteudoTexto());
-				((TextView) findViewById(R.id.TextView02)).setText(teste.getConteudoTexto());
-				((TextView) findViewById(R.id.TextView03)).setText(teste.getConteudoTexto());
+				((TextView) findViewById(R.id.TextView01)).setText(teste.getTexto());
+				((TextView) findViewById(R.id.TextView02)).setText(teste.getTexto());
+				((TextView) findViewById(R.id.TextView03)).setText(teste.getTexto());
 
 				// **********************************************************************************************
 
@@ -300,12 +303,12 @@ public class Teste_Palavras_Aluno extends Activity{
 					Bundle b = getIntent().getExtras();
 					String aux = idTesteAtual + iDs[3] + time + "";
 					ctl.setIdCorrrecao(Long.parseLong(aux));
-					ctl.setAudiourl(path);
+					ctl.setAudiourl(endereco);
 					ctl.setDataExecucao(time);
-					ctl.setTipo(0);
+					ctl.setTipo(2);// pois estou num teste texto
 					ctl.setEstado(0);
-					ctl.setTestId(b.getInt("testId"));
-					ctl.setIdEstudante(b.getInt("estudanteId"));
+					ctl.setTestId(idTesteAtual);
+					ctl.setIdEstudante(iDs[3]);
 					Toast.makeText(getApplicationContext(),ctl.getAudiourl(),Toast.LENGTH_SHORT).show();
 					Toast.makeText(getApplicationContext(),getCurrentTimeStamp(),Toast.LENGTH_SHORT).show();
 					Toast.makeText(getApplicationContext(),String.valueOf(ctl.getIdEstudante()),Toast.LENGTH_SHORT).show();

@@ -229,7 +229,7 @@ public class Teste_Palavras_Prof extends Activity{
 						if (file.exists()) {
 							file.delete();
 						}
-						finaliza();
+					//	finaliza();
 					}
 				});
 				avancar.setOnClickListener(new View.OnClickListener() {
@@ -289,7 +289,7 @@ public class Teste_Palavras_Prof extends Activity{
 						// Writing Contacts to log
 						Log.d("CheckInserts: ", logs);
 					}
-					finaliza();
+				//	finaliza();
 					
 					Bundle wrap = new Bundle();
 					//wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
@@ -467,7 +467,7 @@ public class Teste_Palavras_Prof extends Activity{
 						// exprecividade da leitura
 						// usar a classe Avaliação para calcular os resultados.
 						// avançar para o próximo teste caso este exista.
-						finaliza();
+					//	finaliza();
 					} else {
 						android.app.AlertDialog alerta;
 						// Cria o gerador do AlertDialog
@@ -713,75 +713,5 @@ public class Teste_Palavras_Prof extends Activity{
 					}
 				});
 				menu.show();
-			}
-
-			/**
-			 * Prepara a finalização da activity, descobrindo qual o próximo teste a
-			 * realizar Este método deverá ser usado em todas as paginas de teste.
-			 */
-			private void finaliza() {
-				if (lista.length != 0) {
-					// Decompor o array de teste, para poder enviar por parametros
-					int[] lstID = new int[lista.length];
-					int[] lstTipo = new int[lista.length];
-					String[] lstTitulo = new String[lista.length];
-					for (int i = 0; i < lista.length; i++) {
-						lstID[i] = lista[i].getID();
-						lstTipo[i] = lista[i].getTipo();
-						lstTitulo[i] = lista[i].getTitulo();
-					}
-					// enviar o parametro de modo
-					Bundle wrap = new Bundle();
-					wrap.putBoolean("Modo", modo);
-					// teste, a depender das informações da BD
-					// ***********************************************************+
-					wrap.putString("Aluno", "EI3C-Tiago Fernandes");
-					wrap.putString("Professor", "ESTT-Antonio Manso");
-					wrap.putIntArray("ListaID", lstID);
-					wrap.putIntArray("ListaTipo", lstTipo);
-					wrap.putStringArray("ListaTitulo", lstTitulo);
-					// identifico o tipo de teste
-					switch (lista[0].getTipo()) {
-					case 0:
-						// lançar a nova activity do tipo texto,
-						// iniciar a pagina 2 (escolher teste)
-						Intent it = new Intent(getApplicationContext(),Teste_Texto_Aluno.class);
-						it.putExtras(wrap);
-						startActivity(it);
-						break;
-					case 1:// lançar a nova activity do tipo Palavras, e o seu conteúdo
-							//
-						Intent ip = new Intent(getApplicationContext(),Teste_Palavras_Prof.class);
-						ip.putExtras(wrap);
-						startActivity(ip);
-						break;
-					case 2: // lançar a nova activity do tipo Poema, e o seu conteúdo
-						//
-						Intent ipm = new Intent(getApplicationContext(),Teste_Poema_Aluno.class);
-						ipm.putExtras(wrap);
-						startActivity(ipm);
-						break;
-					case 3: // lançar a nova activity do tipo imagem, e o seu conteúdo
-						//
-						// Intent it = new Intent(getApplicationContext(),
-						// Teste_Texto.class);
-						// it.putExtras(wrap);
-						// startActivity(it);
-						break;
-					default:
-						Toast.makeText(getApplicationContext(), " - Tipo não defenido",Toast.LENGTH_SHORT).show();
-						// retirar o teste errado e continuar
-						int k = 0;
-						Teste aux[] = new Teste[lista.length - 1];
-						for (int i = 1; i < lista.length; i++) {
-							aux[k] = lista[i];
-							k++;
-						}
-						lista = aux;
-						finaliza();
-						break;
-					}
-				}
-				finish();
 			}
 		}
