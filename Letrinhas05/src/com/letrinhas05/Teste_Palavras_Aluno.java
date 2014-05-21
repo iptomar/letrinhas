@@ -120,9 +120,9 @@ public class Teste_Palavras_Aluno extends Activity{
 				Log.d("Debug-ButtonRecord", String.valueOf(findViewById(R.id.txtRecordPalavras)));
 				Log.d("Debug-ButtonComeca", String.valueOf(findViewById(R.id.txtVoicePlay)));
 				record = (ImageButton) findViewById(R.id.txtRecordPalavras);
-				play = (ImageButton) findViewById(R.id.txtVoicePlay);
+				play = (ImageButton) findViewById(R.id.txtDemoPlay);
 				play.setVisibility(View.INVISIBLE);
-				voicePlay = (ImageButton) findViewById(R.id.txtDemoPlay);
+				voicePlay = (ImageButton) findViewById(R.id.txtVoicePlay);
 				voltar = (ImageButton) findViewById(R.id.txtVoltar);
 				cancelar = (ImageButton) findViewById(R.id.txtCancel);
 				avancar = (ImageButton) findViewById(R.id.txtAvaliar);
@@ -234,7 +234,7 @@ public class Teste_Palavras_Aluno extends Activity{
 				play.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						startPlay("gravação");
+						startPlay("gravacao");
 					}
 				});
 				voicePlay.setOnClickListener(new View.OnClickListener() {
@@ -455,8 +455,10 @@ public class Teste_Palavras_Aluno extends Activity{
 						reprodutor = new MediaPlayer();
 						Toast.makeText(getApplicationContext(),"Tipo de som a ser reproduzido - "+path.toString(),Toast.LENGTH_SHORT).show();
 						if(path=="vozProf"){
+							Log.d("Debug-path", path);
+							Log.d("Debug-vozProf", profSound);
 							reprodutor.setDataSource(profSound);
-						}else if(path=="gravação"){
+						}else if(path=="gravacao"){
 							reprodutor.setDataSource(endereco);
 						}
 						reprodutor.prepare();
