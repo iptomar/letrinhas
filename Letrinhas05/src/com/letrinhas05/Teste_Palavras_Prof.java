@@ -48,7 +48,6 @@ public class Teste_Palavras_Prof extends Activity{
 			boolean playing;
 			// objetos
 			ImageButton play, voltar, cancelar, avancar;
-			Chronometer chrono;
 			int plvErradas,id_teste, totalDePalavras;
 			private MediaPlayer reprodutor = new MediaPlayer();
 			private String endereco,uuidAudio;
@@ -59,6 +58,10 @@ public class Teste_Palavras_Prof extends Activity{
 			int[] ids;
 			String text;
 			TextView valueWord;
+			int testId=1, idEstudante=2, tipo=3, estado=4, numPalavCorretas=5, numPalavIncorretas=6;
+			long dataExecucao=7, idCorrrecao=8;
+			float numPalavrasMin=9, precisao=10, velocidade=11, expressividade=12, ritmo=13;
+			String observacoes="14", detalhes="15";
 			
 			/**
 			 * Whether or not the system UI should be auto-hidden after
@@ -119,6 +122,18 @@ public class Teste_Palavras_Prof extends Activity{
 				ids = b.getIntArray("IDs");
 				id_teste = b.getInt("ID_teste"); 
 				db = new LetrinhasDB(this);
+				
+				List<CorrecaoTesteLeitura> a = db.getAllCorrecaoTesteLeitura_ByIDaluno_TestID(ids[3], id_teste);
+				String[] g = new String[a.size()];
+				int x=0;
+				for(CorrecaoTesteLeitura asdf: a){
+					g[x] = asdf.getAudiourl().toString();
+					uuidAudio = g[x];
+					Log.d("Debug-url", g[x]+" awehfe "+x);
+					x++;
+				}
+				
+				
 				text = db.getTesteLeituraById(id_teste).getTexto();
 				Log.d("Debug-text",text);
 				Log.d("Debug-nomes.lenght",String.valueOf(nomes.length));
@@ -134,7 +149,7 @@ public class Teste_Palavras_Prof extends Activity{
 				// Consultar a BD para preencher o conteúdo....
 				//((TextView) findViewById(R.id.textCabecalho)).setText(lista[0].getTitulo());
 				//((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
-				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/CorrectionReadTest/"+uuidAudio+".mp3";
+				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + uuidAudio;
 				Log.d("Debug-pathAudio", endereco);
 				valueWord = (TextView) findViewById(R.id.ValueWord);
 				valueWord.setText("0");
@@ -146,6 +161,7 @@ public class Teste_Palavras_Prof extends Activity{
 				cancelar = (ImageButton) findViewById(R.id.txtCancel);
 				avancar = (ImageButton) findViewById(R.id.txtAvaliar);
 				escutaBotoes();
+				submit();
 			}
 
 			@Override
@@ -224,53 +240,63 @@ public class Teste_Palavras_Prof extends Activity{
 			 * znyt
 			 * znrdy
 			 * xdgh
-			 * dnyx
+			 * dnyx<
 			 * dm
 			 * @author Dário
 			 */
 			public void submit(){
 				ctl = new CorrecaoTesteLeitura();
-				File file = new File(endereco);
-				if(!file.exists()){
-					Toast.makeText(getApplicationContext(),"Não gravou nada",Toast.LENGTH_SHORT).show();
-				}else{
-					long time = System.currentTimeMillis() / 1000;
-					Bundle b = getIntent().getExtras();
-					//String aux = idTesteAtual + iDs[3] + time + "";
-					//ctl.setIdCorrrecao(Long.parseLong(aux));
-					//ctl.setAudiourl(path);
-					ctl.setDataExecucao(time);
-					ctl.setTipo(0);
-					ctl.setEstado(0);
-					ctl.setTestId(b.getInt("testId"));
-					ctl.setIdEstudante(b.getInt("estudanteId"));
-					Toast.makeText(getApplicationContext(),ctl.getAudiourl(),Toast.LENGTH_SHORT).show();
-					//Toast.makeText(getApplicationContext(),System.currentTimeMillis() / 1000,Toast.LENGTH_SHORT).show();
-					Toast.makeText(getApplicationContext(),String.valueOf(ctl.getIdEstudante()),Toast.LENGTH_SHORT).show();
-					Toast.makeText(getApplicationContext(),String.valueOf(ctl.getTestId()),Toast.LENGTH_SHORT).show();
-					//db.addNewItemCorrecaoTesteLeitura(ctl);
+				long time = System.currentTimeMillis() / 1000;
+				Bundle b = getIntent().getExtras();
+				//String aux = idTesteAtual + iDs[3] + time + "";
+				//ctl.setIdCorrrecao(Long.parseLong(aux));
+				//ctl.setAudiourl(path);
+				ctl.setDataExecucao(time);
+				ctl.setTipo(0);
+				ctl.setEstado(0);
+				ctl.setTestId(b.getInt("testId"));
+				ctl.setIdEstudante(b.getInt("estudanteId"));
+				Toast.makeText(getApplicationContext(),ctl.getAudiourl(),Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(),System.currentTimeMillis() / 1000,Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),String.valueOf(ctl.getIdEstudante()),Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),String.valueOf(ctl.getTestId()),Toast.LENGTH_SHORT).show();
+				//db.addNewItemCorrecaoTesteLeitura(ctl);
 					
-					List<CorrecaoTeste> data1 = db.getAllCorrecaoTeste();
-					Log.d("CheckInserts: ", "***********Testes******************");
-					for (CorrecaoTeste cn : data1) {
-						String logs = "Id: " + cn.getIdCorrrecao() + ", idEstudante: "
-								+ cn.getIdEstudante() + "  , estado: " + cn.getEstado()
-								+ "  , testeId: " + cn.getTestId() + "  , tipo: "
-								+ cn.getTipo() + "  , data: " + cn.getDataExecucao();
-						// Writing Contacts to log
-						Log.d("CheckInserts: ", logs);
-					}
-				//	finaliza();
-					
-					Bundle wrap = new Bundle();
-					//wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
-					//wrap.putInt("IDAluno", iDs[3]); //id do aluno
-					// listar submissões anteriores do mesmo teste
-					 Intent it = new Intent(getApplicationContext(),
-					 ResumoSubmissoes.class);
-					 it.putExtras(wrap);
-					 startActivity(it);
+				List<CorrecaoTeste> data1 = db.getAllCorrecaoTeste();
+				Log.d("CheckInserts: ", "***********Testes******************");
+				for (CorrecaoTeste cn : data1) {
+					String logs = "Id: " + cn.getIdCorrrecao() + ", idEstudante: "
+							+ cn.getIdEstudante() + "  , estado: " + cn.getEstado()
+							+ "  , testeId: " + cn.getTestId() + "  , tipo: "
+							+ cn.getTipo() + "  , data: " + cn.getDataExecucao();
+					// Writing Contacts to log
+					Log.d("CheckInserts: ", logs);
 				}
+			//	finaliza();
+				Bundle wrap = new Bundle();
+				//int[] -> testId, idEstudante, tipo, estado,numPalavCorretas, numPalavIncorretas
+				int[] valueInt = {testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas};
+				Log.d("Debug-valueInt[0]", String.valueOf(valueInt[0]));
+				wrap.putIntArray("ints", valueInt);
+				
+				//long[] -> dataExecucao, idCorrrecao
+				long[] valueLong = {dataExecucao, idCorrrecao};
+				wrap.putLongArray("longs", valueLong);
+				
+				//float[] -> numPalavrasMin, precisao, velocidade, expressividade, ritmo
+				float[] valueFloat = {numPalavrasMin, precisao, velocidade, expressividade, ritmo};
+				wrap.putFloatArray("floats", valueFloat);
+				
+				//String[] -> observacoes, detalhes
+				String[] valueString = {observacoes, detalhes};
+				wrap.putStringArray("strings", valueString);
+				//wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
+				//wrap.putInt("IDAluno", iDs[3]); //id do aluno
+				// listar submissões anteriores do mesmo teste
+				 Intent it = new Intent(getApplicationContext(),
+				 RelatasCorrection.class);
+				 it.putExtras(wrap);
+				 startActivity(it);
 			}
 			
 			private final int PARADO = 2;
@@ -335,8 +361,10 @@ public class Teste_Palavras_Prof extends Activity{
 					}
 				}
 			}
+			/**
+			 * Este metodo servirá para iniciar a avaliação
+			 */
 			private void startAvalia() {
-					// inicia a avaliação
 					File file = new File(endereco);
 					if (file.exists()) { // se já fez uma gravação
 						// uma pop-up ou activity para determinar o valor de
@@ -363,11 +391,9 @@ public class Teste_Palavras_Prof extends Activity{
 			}
 			
 			/**
-			 * Procedimento para ativar a selecção das palavras erradas no texto e o
-			 * painel de controlo de erros.
+			 * este metodo irá criar o primeiro butão, que irá servir de modelo para os restantes
 			 */
 			public void initSetup(Resources res,int list, int toggle, int layout){
-				//String text = res.getString(list);
 				String[] ar = text.split("[ ]");
 				ToggleButton tg = (ToggleButton) findViewById(toggle);
 				tg.setTextColor(Color.DKGRAY);
@@ -389,7 +415,6 @@ public class Teste_Palavras_Prof extends Activity{
 				          }
 				   }
 				});
-		       // tg.setChecked(true);
 		        tg.setText(ar[0]);
 		        tg.setTextOn(ar[0]);
 		        tg.setTextOff(ar[0]);
@@ -402,6 +427,13 @@ public class Teste_Palavras_Prof extends Activity{
 				Log.d("Debug-totalDePalavras", String.valueOf(totalDePalavras));
 			}
 			
+			/**
+			 * Esta metodo serve para a criação de todos os outros butões
+			 * @param teste
+			 * @param i
+			 * @param ll
+			 * @param tg1
+			 */
 			public void buttonSetUp(String[] teste,int i,LinearLayout ll,ToggleButton tg1){
 				ToggleButton tg = new ToggleButton(getBaseContext());
 				tg.setLayoutParams(tg1.getLayoutParams());
@@ -423,7 +455,6 @@ public class Teste_Palavras_Prof extends Activity{
 				          }
 				   }
 				});
-				// tg.setChecked(true);
 		        tg.setText(teste[i]);
 		        tg.setTextOn(teste[i]);
 		        tg.setTextOff(teste[i]);

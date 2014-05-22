@@ -305,10 +305,9 @@ public class Teste_Palavras_Aluno extends Activity{
 					Toast.makeText(getApplicationContext(),"Não gravou nada",Toast.LENGTH_SHORT).show();
 				}else{
 					long time = System.currentTimeMillis() / 1000;
-					Bundle b = getIntent().getExtras();
 					String aux = idTesteAtual + iDs[3] + time + "";
 					ctl.setIdCorrrecao(Long.parseLong(aux));
-					ctl.setAudiourl(endereco);
+					ctl.setAudiourl(path);
 					ctl.setDataExecucao(time);
 					ctl.setTipo(2);// pois estou num teste texto
 					ctl.setEstado(0);
