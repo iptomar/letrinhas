@@ -91,7 +91,7 @@ public class ListarSubmissoes extends Activity {
 					100, false));
 		}
 
-		// new line faz a rota��o do ecr�n em 180 graus
+		// new line faz a rotaco do ecran em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -136,7 +136,7 @@ public class ListarSubmissoes extends Activity {
 				finish();
 			}
 		});
-
+		
 		makeLista();
 
 	}
@@ -152,7 +152,7 @@ public class ListarSubmissoes extends Activity {
 		// verifico se estas submissoes nao estao corrigidas
 		int cont = 0;
 		for (int i = 0; i < ct.size(); i++) {
-			// se n�o est� corrigido, conta-o
+			// se nao esta corrigido, conta-o
 			if (ct.get(i).getEstado() == 0) {
 				cont++;
 			}
@@ -174,10 +174,24 @@ public class ListarSubmissoes extends Activity {
 					cont++;
 				}
 			}
-
-			// Agora vou construir os bot�es com a informa��o necess�ria:
+			//Destaque do aluno selecionado
+			CorrecaoTeste ctAux2[]= new CorrecaoTeste[cont];
+			cont=0;
 			for (int i = 0; i < ctAux.length; i++) {
-				//criar o bot�o
+				//vai para o array, no sentido acesdente 
+				if(ctAux[i].getIdEstudante()==iDs[3]){
+					ctAux2[cont]=ctAux[i];
+					cont++;					
+				}else{//vai para o array, no sentido acesdente
+					ctAux2[ctAux.length-cont-1]=ctAux[i];
+					cont++;					
+				}				
+			}		
+			ctAux=ctAux2;			
+
+			// Agora vou construir os botoes com a informacao necessaria:
+			for (int i = 0; i < ctAux.length; i++) {
+				//criar o botao
 				Button btIn = new Button(this);
 				//copiar os parametros de layout
 				btIn.setLayoutParams(btOriginal.getLayoutParams());
@@ -188,7 +202,7 @@ public class ListarSubmissoes extends Activity {
 				// titulo do teste
 				Teste tst = bd.getTesteById(ctAux[i].getTestId());
 				title += tst.getTitulo() + " - ";
-				// timeStamp ***** N�o sei bem se esta funciona ****************************+
+				// timeStamp ***** Nao sei bem se esta funciona ****************************+
 				title += ""
 						+ DateUtils.formatSameDayTime(
 								ctAux[i].getDataExecucao(),
@@ -231,7 +245,7 @@ public class ListarSubmissoes extends Activity {
 							imgAl.getDrawable(), null, imgTip.getDrawable(),
 							null);
 				} else {
-					// senaoo copia a imagem do botao original
+					// senao copia a imagem do botao original
 					btIn.setCompoundDrawables(
 							btOriginal.getCompoundDrawablesRelative()[0], null,
 							imgTip.getDrawable(), null);

@@ -43,29 +43,19 @@ import android.widget.Toast;
 
 public class Correcao_Texto_Prof extends Activity {
 
-	// flags para verificar os diversos estados do teste
-			boolean modo, gravado, recording, playing;
+			boolean  playing;
 
 			// objetos
-			ImageButton record, play, voltar, cancelar, avancar;
+			ImageButton play, voltar, cancelar, avancar;
 			TextView pnt, vcl, frg, slb, rpt, pErr;
 			Chronometer chrono;
 
-			// Objeto controlador para a avalia��o
+			// Objeto controlador para a avaliacao
 			Avaliacao avaliador;
 			String avaliacao;
 
-			private MediaRecorder gravador;
 			private MediaPlayer reprodutor = new MediaPlayer();
-			private String endereco, texto, pastas, fileName;
-
-			//Teste[] lista;
-			String teste;
-			//String[] lista;
-			String[] array;
-			int[] tipo,id;
-			String[] titulo;
-			String[] texto0;
+			private String fileName;
 
 			/**
 			 * Whether or not the system UI should be auto-hidden after
@@ -89,7 +79,7 @@ public class Correcao_Texto_Prof extends Activity {
 			@Override
 			protected void onCreate(Bundle savedInstanceState) {
 				super.onCreate(savedInstanceState);
-				setContentView(R.layout.activity_teste__texto__prof);
+				setContentView(R.layout.correcao_texto);
 				
 				//new line faz a rota��o do ecr�n 180 graus
 				int currentOrientation = getResources().getConfiguration().orientation;
@@ -138,10 +128,10 @@ public class Correcao_Texto_Prof extends Activity {
 				int[] lstTipo = b.getIntArray("ListaTipo");
 				String[] lstTitulo = b.getStringArray("ListaTitulo");
 				String[] lstTexto = b.getStringArray("ListaTexto");
-				array = b.getStringArray("Storage");
-				id = lstID;
-				tipo = lstTipo;
-				titulo = lstTitulo;
+/*				array = b.getStringArray("Storage");
+//				id = lstID;
+//				tipo = lstTipo;
+//				titulo = lstTitulo;
 				texto0 = lstTexto;
 				/*lista = new Teste[lstID.length];
 				for (int i = 0; i < lstTitulo.length; i++) {
@@ -157,14 +147,14 @@ public class Correcao_Texto_Prof extends Activity {
 				((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
 				//texto = getResources().getText(R.string.exemploTexto).toString();
 				Log.d("Texto", lstTexto[0]);
-				texto = lstTexto[0];
+	//			texto = lstTexto[0];
 				// **********************************************************************************************
 
-				endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
-						+ "/" + b.getString("Professor") + "/" + b.getString("Aluno")
-						+ "/" + lstTitulo[0] + ".3gpp";
+//				endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
+//						+ "/" + b.getString("Professor") + "/" + b.getString("Aluno")
+//						+ "/" + lstTitulo[0] + ".3gpp";
 
-		        pastas = "/" + b.getString("Professor") + "/" + b.getString("Aluno")+ "/";
+/*		        pastas = "/" + b.getString("Professor") + "/" + b.getString("Aluno")+ "/";
 		        fileName = lstTitulo[0] + ".3gpp";
 				// descontar este teste da lista.
 				String[] aux = new String[array.length-1];
@@ -191,7 +181,7 @@ public class Correcao_Texto_Prof extends Activity {
 				cancelar = (ImageButton) findViewById(R.id.txtCancel);
 				avancar = (ImageButton) findViewById(R.id.txtAvaliar);
 
-				escutaBotoes();
+				escutaBotoes();*/
 			}
 
 			@Override
@@ -238,8 +228,8 @@ public class Correcao_Texto_Prof extends Activity {
 
 			public void setUp() {
 //				if (modo) {// est� em modo professor
-					setCorreccao();
-//				}
+//					setCorreccao();
+/*				}
 
 				gravador = new MediaRecorder();
 				gravador.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -252,10 +242,10 @@ public class Correcao_Texto_Prof extends Activity {
 					file.getParentFile().mkdirs();
 				}
 
-				gravador.setOutputFile(endereco);
+				gravador.setOutputFile(endereco);*/
 
 			}
-
+/*
 			private void escutaBotoes() {
 				record.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -326,7 +316,7 @@ public class Correcao_Texto_Prof extends Activity {
 			 * 
 			 * @author D�rio Jorge
 			 */
-			@SuppressLint("HandlerLeak")
+	/*		@SuppressLint("HandlerLeak")
 			private void startGrava() {
 				if (!recording) {
 					record.setImageResource(R.drawable.stop);
@@ -434,7 +424,7 @@ public class Correcao_Texto_Prof extends Activity {
 			 * 
 			 * @author D�rio Jorge
 			 */
-			@SuppressLint("HandlerLeak")
+		/*	@SuppressLint("HandlerLeak")
 			private void startPlay() {
 				if (!playing) {
 					play.setImageResource(R.drawable.play_on);
@@ -549,7 +539,7 @@ public class Correcao_Texto_Prof extends Activity {
 			 * Procedimento para ativar a selec��o das palavras erradas no texto e o
 			 * painel de controlo de erros.
 			 */
-			private void setCorreccao() {
+			/*private void setCorreccao() {
 				// Painel de controlo:
 				ImageButton p1, p2, v1, v2, f1, f2, s1, s2, r1, r2;
 	
@@ -749,7 +739,7 @@ public class Correcao_Texto_Prof extends Activity {
 			 * 
 			 * @author Jorge
 			 */
-			public void marcaPalavra() {
+			/*public void marcaPalavra() {
 	
 				/*
 				 * final TextView textozico = (TextView) findViewById(R.id.txtTexto);
@@ -763,7 +753,7 @@ public class Correcao_Texto_Prof extends Activity {
 				 */
 	
 				// Mostrar Popup se caregou no ecra
-				final TextView textozico = (TextView) findViewById(R.id.txtTexto);
+	/*			final TextView textozico = (TextView) findViewById(R.id.txtTexto);
 				textozico.performLongClick();
 				final int startSelection = textozico.getSelectionStart();
 				final int endSelection = textozico.getSelectionEnd();
@@ -815,7 +805,7 @@ public class Correcao_Texto_Prof extends Activity {
 			 * Prepara a finaliza��o da activity, descobrindo qual o pr�ximo teste a
 			 * realizar Este m�todo dever� ser usado em todas as paginas de teste.
 			 */
-			private void finaliza() {
+		/*	private void finaliza() {
 				if (array.length != 0) {
 					// Decompor o array de teste, para poder enviar por parametros
 					int[] lstID = new int[array.length];
@@ -915,7 +905,7 @@ public class Correcao_Texto_Prof extends Activity {
 					startActivity(av);			
 				}
 				finish();
-			}
+			}*/
 
 
 }
