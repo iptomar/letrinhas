@@ -124,8 +124,8 @@
         android:id="@+id/txtVoicePlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtControlo"
-        android:layout_alignRight="@+id/txtControlo"
+        android:layout_above="@+id/txtAvaliar"
+        android:layout_alignRight="@+id/txtAvaliar"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/play"
         android:src="@drawable/play" />

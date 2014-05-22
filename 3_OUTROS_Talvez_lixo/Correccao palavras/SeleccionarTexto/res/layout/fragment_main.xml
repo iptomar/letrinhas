@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.jorge.seleccionartexto.MainActivity$PlaceholderFragment" >
+
+    <TextView
+        android:id="@+id/TextoAEscolher"     
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world"
+        android:textIsSelectable="true"
+        android:onClick="onClick"/>
+
+    <TextView
+        android:id="@+id/ClassificacoesEscolhidas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/PavrasErradasEscolhidas"
+        android:layout_alignBottom="@+id/PavrasErradasEscolhidas"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="19dp"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/TextoErradas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextoAEscolher"
+        android:layout_below="@+id/TextoAEscolher"
+        android:layout_marginTop="17dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/TexyViewTeste"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextoErradas"
+        android:layout_below="@+id/TextoErradas"
+        android:layout_marginTop="96dp"
+        android:text="TextView" />
+
+</RelativeLayout>

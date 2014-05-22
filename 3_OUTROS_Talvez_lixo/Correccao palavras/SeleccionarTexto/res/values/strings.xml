@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SeleccionarTexto</string>
+    <string name="hello_world">Atirei o pau ao gato-to  \n 
+Mas o gato-to \n       
+Não morreu-eu-eu  \n     
+Dona Chica-ca  \n  
+Assustou-se    \n           
+Com o berro, com o berro  \n 
+Que o gato deu   \n 
+Miau!!! </string>
+    <string name="action_settings">Settings</string>
+    <string name="PalavraErrada">Palavra Errada</string>
+    <string name="CancelarSeleccao">Cancelar Seleccao</string>
+
+</resources>
