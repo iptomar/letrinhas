@@ -82,8 +82,7 @@ public class Teste_Imagem extends Activity {
 				protected void onCreate(Bundle savedInstanceState) {
 					super.onCreate(savedInstanceState);
 					setContentView(R.layout.teste_imagem);
-<<<<<<< HEAD
-=======
+
 					//new line faz a rotação do ecrãn 180 graus
 					int currentOrientation = getResources().getConfiguration().orientation;
 					if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -594,7 +593,6 @@ public class Teste_Imagem extends Activity {
 						}
 					}
 					finish();
->>>>>>> refs/remotes/origin/master
 				}
 
 }
