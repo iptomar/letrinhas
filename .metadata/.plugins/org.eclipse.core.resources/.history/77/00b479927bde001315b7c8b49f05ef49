@@ -1,0 +1,86 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/escModo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    android:configChanges="orientation|keyboardHidden|screenSize"
+    android:gravity="center_horizontal"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="40sp"
+    android:paddingRight="40sp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:screenOrientation="landscape"
+    tools:context="com.letrinhas05.escolhe.ListarSubmissoes" >
+
+    <ImageView
+        android:id="@+id/lslogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/letrinhas"
+        android:src="@drawable/letrinhas" />
+
+    <TextView
+        android:id="@+id/lsRodape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lsbtnVoltar"
+        android:layout_marginLeft="10sp"
+        android:layout_toRightOf="@+id/lsbtnVoltar"
+        android:text="@string/letrinhas"
+        android:textColor="#5ddfff"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/lsbtnVoltar"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:layout_alignLeft="@+id/lslogo"
+        android:layout_alignParentBottom="true"
+        android:contentDescription="@string/voltar"
+        android:drawableTop="@drawable/voltar"
+        android:text="@string/voltar" />
+
+    <TextView
+        android:id="@+id/lsCabecalho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/lslogo"
+        android:layout_toRightOf="@+id/escMlogo"
+        android:text="@string/escolherModo"
+        android:textColor="#5ddfff"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/lsEscola"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lsCabecalho"
+        android:layout_below="@+id/lsCabecalho"
+        android:text="Escola escolhida"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/lstvProf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lsviProfessor"
+        android:layout_toLeftOf="@+id/lsivProfessor"
+        android:text="Professor escolhido"
+        android:textSize="30sp" android:layout_marginRight="20dp"/>
+
+    <ImageView
+        android:id="@+id/lsivProfessor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/lsCabecalho"
+        android:contentDescription="@string/professor"
+        android:src="@drawable/professora" />
+
+   
+
+
+</RelativeLayout>

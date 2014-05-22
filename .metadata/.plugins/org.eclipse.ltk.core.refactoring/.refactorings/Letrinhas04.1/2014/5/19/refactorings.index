@@ -1,0 +1,52 @@
+1399688953191	Change Widget Type
+1399691059722	Rename package 'com.letrinhas03.util'
+1399691116655	Rename package 'com.letrinhas03.BaseDados'
+1399691193219	Rename package 'com.letrinhas03.ClassesObjs'
+1399692616153	Delete element
+1399692618468	Delete element
+1399692621990	Delete element
+1399692624140	Delete element
+1399692626565	Delete element
+1399692628522	Delete element
+1399692630579	Delete element
+1399693217767	Extracts string 'null' into R.string.agrupamento
+1399693389579	Rename field 'textView1'
+1399693591168	Change Widget Type
+1399693646618	Change Widget Type
+1399698342256	Rename field 'escEscola'
+1399698424478	Extracts string 'null' into R.string.escProfessor
+1399772811867	Rename field 'esTCabecalho_escl'
+1399772827826	Rename field 'escpEscola'
+1399772958178	Extracts string 'null' into R.string.escolherTurma
+1399773008072	Rename field 'tblEscolhe_escola'
+1399773026300	Rename field 'escesclinha01'
+1399773043064	Rename field 'escTVoltar_escl'
+1399773115718	Rename field 'imageView1'
+1399773908843	Rename field 'svEscolher_escl'
+1399774126286	Rename field 'escProfessor'
+1399774197254	Rename field 'escTRodape_escl'
+1399774208188	Rename field 'svEscolher_turm'
+1399774221426	Rename field 'tblEscolhe_Turma'
+1399774236428	Rename field 'esctrmlinha01'
+1399774255611	Rename field 'escTVoltar'
+1399774761891	Extracts string 'null' into R.string.escolherAluno
+1399777141354	Extracts string 'null' into R.string.escolherModo
+1399777225058	Change Widget Type
+1399777298189	Change Widget Type
+1399777637704	Change Widget Type
+1399777673471	Change Widget Type
+1399777704193	Change Widget Type
+1399777878210	Delete element
+1399777972428	Delete element
+1399779631590	Extracts string 'null' into R.string.realizarTeste
+1399779659656	Extracts string 'null' into R.string.corrigirTeste
+1399782268799	Rename field 'scrollView1'
+1399783021575	Move compilation unit
+1399784360816	Rename field 'button1'
+1399784432498	Extracts string 'null' into R.string.cancel
+1399786290368	Rename field 'Button03'
+1399786317741	Extracts string 'null' into R.string.iniciar
+1399786540284	Rename field 'Button02'
+1399786634164	Extracts string 'null' into R.string.demo
+1399786706969	Rename field 'Button02'
+1399786757794	Rename field 'Button01'

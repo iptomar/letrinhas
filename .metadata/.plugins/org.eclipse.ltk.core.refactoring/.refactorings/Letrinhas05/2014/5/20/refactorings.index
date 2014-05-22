@@ -1,0 +1,35 @@
+1399859285898	Extracts string 'null' into R.string.agrupamento
+1399859328814	Rename resource 'activity_escolhe_escola.xml'
+1399870787111	Extracts string 'null' into R.string.agrupamento
+1399890518080	Extracts string 'null' into R.string.escProfessor
+1399901464426	Move compilation unit
+1399903431012	Extracts string 'null' into R.string.escolherTurma
+1400024026125	Delete element
+1400024030707	Delete element
+1400063683470	Extracts string 'null' into R.string.escolherAluno
+1400087735121	Extracts string 'null' into R.string.escolherModo
+1400087860000	Extracts string 'null' into R.string.realizarTeste
+1400087899655	Extracts string 'null' into R.string.corrigirTeste
+1400099612305	Rename type 'EscolheAno'
+1400101516973	Change Widget Type
+1400102334362	Change Widget Type
+1400103931884	Delete element
+1400176369721	Rename field 'imageView1'
+1400239048739	Extracts string 'null' into R.string.demo
+1400239114993	Extracts string 'null' into R.string.iniciar
+1400347671460	Rename package 'com.letrinhas04.util'
+1400347688186	Rename package 'com.letrinhas04'
+1400347751062	Rename package 'com.letrinhas04'
+1400347795999	Delete element
+1400348697020	Rename package 'com.letrinhas04'
+1400348729758	Rename resource 'Letrinhas04.apk'
+1400348828166	Copy file
+1400410636393	Move compilation unit
+1400417385926	Extracts string 'null' into R.string.corrigirSubmisoes
+1400420999391	Rename field 'button1'
+1400452256004	Rename field 'ToggleButton1'
+1400452811010	Change Widget Type
+1400452844674	Change Widget Type
+1400453271591	Rename field 'textView1'
+1400457402409	Change Widget Type
+1400457514739	Change Widget Type

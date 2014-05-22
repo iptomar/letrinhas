@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 3 elements to &apos;Testes/src/com.testes.util&apos;&#x0D;&#x0A;- Original project: &apos;Letrinhas04.1&apos;&#x0D;&#x0A;- Destination element: &apos;Testes/src/com.testes.util&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     com.letrinhas04.util.SystemUiHiderHoneycomb.java&#x0D;&#x0A;     com.letrinhas04.util.SystemUiHiderBase.java&#x0D;&#x0A;     com.letrinhas04.util.SystemUiHider.java" description="Copy compilation units" destination="=Testes/src&lt;com.testes.util" element1="/src&lt;com.letrinhas04.util{SystemUiHiderHoneycomb.java" element2="/src&lt;com.letrinhas04.util{SystemUiHiderBase.java" element3="/src&lt;com.letrinhas04.util{SystemUiHider.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1399860264142" units="3" version="1.0"/>
+</session>

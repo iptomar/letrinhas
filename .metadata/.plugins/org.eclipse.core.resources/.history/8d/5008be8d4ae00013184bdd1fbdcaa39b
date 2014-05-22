@@ -1,0 +1,188 @@
+package com.letrinhas05;
+
+import java.util.List;
+
+import com.letrinhas05.BaseDados.LetrinhasDB;
+import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
+import com.letrinhas05.ClassesObjs.Teste;
+import com.letrinhas05.util.SystemUiHider;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+/**
+ * Listar o hitorico de submissoes do teste executado do aluno atual
+ *   
+ * @author Thiago
+ *
+ */
+public class ResumoSubmissoes extends Activity {
+	int testeID, alunoID;
+	Button continuar;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.resumo_submissoes);
+
+		// buscar os parametros */
+		Bundle b = getIntent().getExtras();
+		inicia(b);
+
+	}
+
+	/**
+	 * metodo para iniciar os componetes, que dependem do conteudo passado por
+	 * parametros (extras)
+	 * 
+	 * @param b
+	 *            Bundle, contem informacao da activity anterior
+	 */
+	@SuppressLint("NewApi")
+	public void inicia(Bundle b) {
+		//
+		testeID = b.getInt("IDTeste");
+		alunoID = b.getInt("IDAluno");
+
+		/** Consultar a BD para preencher o conteudo.... */
+		LetrinhasDB bd = new LetrinhasDB(this);
+		Teste teste = bd.getTesteById(testeID);
+
+		// *** POR FAVOR TESTEM ISTO SF //////////////////////////////////oBRIGADO <3
+
+		List<CorrecaoTesteLeitura> crt = bd.getAllCorrecaoTesteLeitura_ByIDaluno_TestID(alunoID, testeID);
+
+		//int j = 0;
+		/* procuro as que correspondem
+		for (int i = 0; i < crt.size(); i++) {
+			if (crt.get(i).getIdEstudante() == alunoID
+					&& crt.get(i).getTestId() == testeID) {
+				j++;
+			}
+		}
+
+		// construo um array auxiliar
+		CorrecaoTesteLeitura[] crtAux = new CorrecaoTesteLeitura[j];
+		// copio a informa��o necess�ria
+		j = 0;
+		/*for (int i = 0; i < crt.size(); i++) {
+			if (crt.get(i).getIdEstudante() == alunoID
+					&& crt.get(i).getTestId() == testeID) {
+				crtAux[j] = (CorrecaoTesteLeitura) crt.get(i);
+				j++;
+			}
+		}
+		// ****************************************************************/
+
+		// Painel Dinamico
+		// objetos do XML
+		LinearLayout ll = (LinearLayout) findViewById(R.id.llResumo);
+		Button btOriginal = (Button) findViewById(R.id.rsBtnOriginal);
+		// remove o botao original do layerlayout
+		ll.removeView(btOriginal);
+
+		// Contruir os botoes
+		for (int i = 0; i < crt.size(); i++){//crtAux.length; i++) {
+			// criar o botao
+			Button btIn = new Button(this);
+			// copiar os parametros de layout
+			btIn.setLayoutParams(btOriginal.getLayoutParams());
+			// copiar a imagem do botao original
+			btIn.setCompoundDrawables(null, null,
+					btOriginal.getCompoundDrawablesRelative()[2], null);
+			btIn.setText("" + crt.get(i).getDataExecucao());//crtAux[i].getDataExecucao());
+			final String audioUrl = crt.get(i).getAudiourl();
+
+			// o que o bot�o faz
+			btIn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					play(audioUrl);
+				}
+
+			});
+
+			ll.addView(btIn);
+		}
+
+		TextView txt = ((TextView) findViewById(R.id.rsTituloTeste));
+		txt.setText(teste.getTitulo());
+
+		continuar = (Button) findViewById(R.id.rsAvancar);
+		continuar.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+			}
+		});
+
+	}
+
+	@SuppressLint("HandlerLeak")
+	private void play(String audioUrl) {
+		LinearLayout ll = (LinearLayout) findViewById(R.id.llResumo);
+		ll.setEnabled(false);
+		continuar.setEnabled(false);
+		final LinearLayout llF = ll;
+		final Button btt = continuar;
+		final Handler play_handler;
+		try {
+
+			final MediaPlayer reprodutor = new MediaPlayer();
+			reprodutor.setDataSource(audioUrl);
+			reprodutor.prepare();
+			reprodutor.start();
+			Toast.makeText(getApplicationContext(), "A reproduzir.",
+					Toast.LENGTH_SHORT).show();
+
+			// espetar aqui uma thread, para quando isto pare
+			// habilitar novamente a vista
+			
+				play_handler = new Handler() {
+				public void handleMessage(Message msg) {
+					switch (msg.what) {
+					case PARADO:
+						llF.setEnabled(true);
+						btt.setEnabled(true);
+						try {
+							reprodutor.stop();
+							reprodutor.release();
+							Toast.makeText(getApplicationContext(),
+									"Fim da reprodu��o.", Toast.LENGTH_SHORT)
+									.show();
+						} catch (Exception ex) {
+						}
+						break;
+					default:
+						break;
+					}
+				}
+			};
+
+			new Thread(new Runnable() {
+				public void run() {
+					while (reprodutor.isPlaying())
+						;
+					Message msg = new Message();
+					msg.what = PARADO;
+					play_handler.sendMessage(msg);
+				}
+			}).start();
+
+		} catch (Exception ex) {
+			Toast.makeText(getApplicationContext(),
+					"Erro na reprodu��o.\n" + ex.getMessage(),
+					Toast.LENGTH_SHORT).show();
+		}
+
+	}
+}
