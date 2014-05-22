@@ -13,30 +13,22 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Spannable;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Chronometer;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
@@ -48,7 +40,7 @@ public class Teste_Palavras_Prof extends Activity{
 			boolean playing;
 			// objetos
 			ImageButton play, voltar, cancelar, avancar;
-			int plvErradas,id_teste, totalDePalavras;
+			int plvErradas=0,id_teste, totalDePalavras=0;
 			private MediaPlayer reprodutor = new MediaPlayer();
 			private String endereco,uuidAudio;
 			CorrecaoTesteLeitura ctl;
@@ -58,10 +50,10 @@ public class Teste_Palavras_Prof extends Activity{
 			int[] ids;
 			String text;
 			TextView valueWord;
-			int testId=1, idEstudante=2, tipo=3, estado=4, numPalavCorretas=5, numPalavIncorretas=6;
-			long dataExecucao=7, idCorrrecao=8;
-			float numPalavrasMin=9, precisao=10, velocidade=11, expressividade=12, ritmo=13;
-			String observacoes="14", detalhes="15";
+			int testId=0, idEstudante=0, tipo=0, estado=0, numPalavCorretas=0, numPalavIncorretas=0;
+			long dataExecucao=0, idCorrrecao=0;
+			float numPalavrasMin=0, precisao=0, velocidade=0, expressividade=0, ritmo=0;
+			String observacoes="empty", detalhes="empty";
 			
 			/**
 			 * Whether or not the system UI should be auto-hidden after
@@ -215,8 +207,7 @@ public class Teste_Palavras_Prof extends Activity{
 				cancelar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						 Intent it = new Intent(getApplicationContext(), ListarSubmissoes.class);
-						 startActivity(it);
+						finish();
 					}
 				});
 				avancar.setOnClickListener(new View.OnClickListener() {
@@ -246,20 +237,27 @@ public class Teste_Palavras_Prof extends Activity{
 			 */
 			public void submit(){
 				ctl = new CorrecaoTesteLeitura();
-				long time = System.currentTimeMillis() / 1000;
-				Bundle b = getIntent().getExtras();
-				//String aux = idTesteAtual + iDs[3] + time + "";
-				//ctl.setIdCorrrecao(Long.parseLong(aux));
-				//ctl.setAudiourl(path);
-				ctl.setDataExecucao(time);
-				ctl.setTipo(0);
-				ctl.setEstado(0);
-				ctl.setTestId(b.getInt("testId"));
-				ctl.setIdEstudante(b.getInt("estudanteId"));
-				Toast.makeText(getApplicationContext(),ctl.getAudiourl(),Toast.LENGTH_SHORT).show();
-				//Toast.makeText(getApplicationContext(),System.currentTimeMillis() / 1000,Toast.LENGTH_SHORT).show();
-				Toast.makeText(getApplicationContext(),String.valueOf(ctl.getIdEstudante()),Toast.LENGTH_SHORT).show();
-				Toast.makeText(getApplicationContext(),String.valueOf(ctl.getTestId()),Toast.LENGTH_SHORT).show();
+
+				int[] valueInt1 = {testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas};
+				long[] valueLong1 = {dataExecucao, idCorrrecao};
+				float[] valueFloat1 = {numPalavrasMin, precisao, velocidade, expressividade, ritmo};
+				String[] valueString1 = {observacoes, detalhes};
+
+				ctl.setTestId(valueInt1[0]);
+				ctl.setIdEstudante(valueInt1[1]);
+				ctl.setTipo(valueInt1[2]);
+				ctl.setEstado(valueInt1[3]);
+				ctl.setNumPalavCorretas(valueInt1[4]);
+				ctl.setNumPalavIncorretas(valueInt1[5]);
+				ctl.setDataExecucao(valueLong1[0]);
+				ctl.setIdCorrrecao(valueLong1[1]);
+				ctl.setNumPalavrasMin(valueFloat1[0]);
+				ctl.setPrecisao(valueFloat1[1]);
+				ctl.setVelocidade(valueFloat1[2]);
+				ctl.setExpressividade(valueFloat1[3]);
+				ctl.setRitmo(valueFloat1[4]);
+				ctl.setObservacoes(valueString1[0]);
+				ctl.setDetalhes(valueString1[1]);
 				//db.addNewItemCorrecaoTesteLeitura(ctl);
 					
 				List<CorrecaoTeste> data1 = db.getAllCorrecaoTeste();
@@ -274,8 +272,10 @@ public class Teste_Palavras_Prof extends Activity{
 				}
 			//	finaliza();
 				Bundle wrap = new Bundle();
-				//int[] -> testId, idEstudante, tipo, estado,numPalavCorretas, numPalavIncorretas
-				int[] valueInt = {testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas};
+				numPalavIncorretas = plvErradas;
+				numPalavCorretas = totalDePalavras - plvErradas;
+				//int[] -> testId, idEstudante, tipo, estado,numPalavCorretas, numPalavIncorretas, totalDePalavras
+				int[] valueInt = {testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas, totalDePalavras};
 				Log.d("Debug-valueInt[0]", String.valueOf(valueInt[0]));
 				wrap.putIntArray("ints", valueInt);
 				

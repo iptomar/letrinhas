@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,11 +18,18 @@ public class RelatasCorrection extends Activity {
 	long[] valueLong;
 	float[] valueFloat;
 	String[] valueString;
-	TextView testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas, dataExecucao, idCorrrecao, numPalavrasMin, precisao, velocidade, expressividade, ritmo, observacoes, detalhes;
+	TextView testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas, dataExecucao, idCorrrecao, numPalavrasMin, precisao, velocidade, expressividade, ritmo, observacoes, detalhes, totalDePalavras;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_relatas_correction);
+		
+		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+                                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        setContentView(R.layout.activity_relatas_correction);
+		
 		Bundle b = getIntent().getExtras();
 	
 		valueInt = b.getIntArray("ints");
@@ -46,6 +55,7 @@ public class RelatasCorrection extends Activity {
 		ritmo = (TextView) findViewById(R.id.ritmo);
 		observacoes = (TextView) findViewById(R.id.observacoes);
 		detalhes = (TextView) findViewById(R.id.detalhes);
+		totalDePalavras = (TextView) findViewById(R.id.totalDePalavras);
 		
 		testId.setText(String.valueOf(valueInt[0]));
 		idEstudante.setText(String.valueOf(valueInt[1]));
@@ -62,6 +72,7 @@ public class RelatasCorrection extends Activity {
 		ritmo.setText(String.valueOf(valueFloat[4]));
 		observacoes.setText(valueString[0]);
 		detalhes.setText(valueString[1]);
+		totalDePalavras.setText(String.valueOf(valueInt[6]));
 
 		Toast.makeText(getApplicationContext(),String.valueOf(valueInt[0]),Toast.LENGTH_SHORT).show();
 		Toast.makeText(getApplicationContext(),String.valueOf(valueLong[0]),Toast.LENGTH_SHORT).show();

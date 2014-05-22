@@ -121,5 +121,7 @@ pediram-me para fazer um poema, e fízi-o.\n</string>
     <string name="title_activity_resumo_submissoes">Resumo Submissoes</string>
     <string name="resumo">Resumo</string>
     <string name="title_activity_relatas_correction">RelatasCorrection</string>
+    <string name="ZeroValues">0</string>
+    <string name="ZeroValuesStr">empty</string>
 
 </resources>
