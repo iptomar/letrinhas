@@ -1,6 +1,7 @@
 package com.letrinhas05;
 
 import java.io.File;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -9,6 +10,8 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
@@ -16,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Chronometer;
@@ -24,22 +28,37 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.letrinhas05.BaseDados.LetrinhasDB;
+import com.letrinhas05.ClassesObjs.TesteMultimedia;
 import com.letrinhas05.R;
 import com.letrinhas05.util.SystemUiHider;
 import com.letrinhas05.util.Teste;
 
 public class Teste_Imagem extends Activity {
 
-				// flags para verificar os diversos estados do teste
-				boolean modo, gravado, recording, playing;
-				// objetos
-				ImageButton record, play, voltar, cancelar, avancar, hip1, hip2, hip3;		
-				Chronometer chrono;
-				private MediaRecorder gravador;
-				private MediaPlayer reprodutor = new MediaPlayer();
-				private String endereco;
-				Teste[] lista;
-				TextView auxiliar;
+			// flags para verificar os diversos estados do teste
+			boolean modo, gravado, recording, playing;
+			// objetos
+			ImageButton record, play, voltar, cancelar, avancar, hipotese1, hipotese2, hipotese3, exeTeste;
+			int ntesteMultimedia, idTesteAtual;
+			Chronometer chrono;
+			private MediaRecorder gravador;
+			private MediaPlayer reprodutor = new MediaPlayer();
+			private String endereco;
+			Teste[] lista;
+			TextView auxiliar;
+			LetrinhasDB db;
+			TesteMultimedia testeMultimedia;
+			Integer[] image;
+			int[] testesID, correctOption,iDs;
+			String[] conteudoQuestao;
+			String[] opcao1;
+			String[] opcao2;
+			String[] opcao3;
+			String[] Nomes;
+			String[] fotoNome;
+			
+			
 				/**
 				 * Whether or not the system UI should be auto-hidden after
 				 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -95,19 +114,8 @@ public class Teste_Imagem extends Activity {
 							});
 					// buscar os parametros
 					Bundle b = getIntent().getExtras();
-					// Compor novamnete e lista de testes
-					int lstID[] = b.getIntArray("ListaID");
-					int[] lstTipo = b.getIntArray("ListaTipo");
-					String[] lstTitulo = b.getStringArray("ListaTitulo");
-					//
-					lista = new Teste[lstID.length];
-					for (int i = 0; i < lstTitulo.length; i++) {
-						lista[i] = new Teste(lstID[i], lstTipo[i], lstTitulo[i]);
-					}
-					modo = b.getBoolean("Modo");
-					// Consultar a BD para preencher o conteúdo....
-					((TextView) findViewById(R.id.textCabecalho)).setText(lista[0].getTitulo());
-					((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
+					inicia(b);
+					
 					endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + b.getString("Professor") + "/" + b.getString("Aluno") + "/" + lista[0].getTitulo() + ".3gpp";
 					// descontar este teste da lista.
 					Teste[] aux = new Teste[lista.length - 1];
@@ -119,16 +127,101 @@ public class Teste_Imagem extends Activity {
 						((TableLayout) findViewById(R.id.txtControlo)).setVisibility(View.INVISIBLE);
 					} 
 					record = (ImageButton) findViewById(R.id.txtRecord);
-					play = (ImageButton) findViewById(R.id.txtDemo);
+					play = (ImageButton) findViewById(R.id.txtPlay);
 					play.setVisibility(View.INVISIBLE);
 					voltar = (ImageButton) findViewById(R.id.txtVoltar);
 					cancelar = (ImageButton) findViewById(R.id.txtCancel);
 					avancar = (ImageButton) findViewById(R.id.txtAvaliar);
-					/*hip1 = (ImageButton) findViewById(R.id.hipotese1);
-					hip2 = (ImageButton) findViewById(R.id.hipotese2);
-					hip3 = (ImageButton) findViewById(R.id.hipotese3);*/
+					hipotese1 = (ImageButton) findViewById(R.id.hipotese1);
+					hipotese2 = (ImageButton) findViewById(R.id.hipotese2);
+					hipotese3 = (ImageButton) findViewById(R.id.hipotese3);
+					//exeTeste = (ImageButton) findViewById(R.id.exeTeste);
 					escutaBotoes();
+					//makeTeste();
 				}
+
+				/**
+				 * método para iniciar os componetes, que dependem do conteudo passado
+				 * por parametros (extras)
+				 * 
+				 * @param b Bundle, contém informação da activity anterior
+				 */
+				public void inicia (Bundle b){
+					// Compor novamente e lista de testes
+					testesID = b.getIntArray("ListaID");
+					// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
+					Nomes = b.getStringArray("Nomes");
+					// int's - idEscola, idProfessor, idTurma, idAluno
+					iDs = b.getIntArray("IDs");
+
+					/** Consultar a BD para preencher o conteï¿½do.... */
+					LetrinhasDB bd = new LetrinhasDB(this);
+					testeMultimedia =  (TesteMultimedia) bd.getTesteById(testesID[0]);
+					Log.d("Debug-Iniciar(b)", "testesID->"+String.valueOf(testesID[0])+" teste->"+testeMultimedia.getTexto());
+					Log.d("Debug-getTitulo()", testeMultimedia.getTitulo());
+					String[] yo = testeMultimedia.getConteudoQuestao().split("[ ]");
+					String opcao1[] = testeMultimedia.getOpcao1().split("[ ]");
+					String opcao2[] = testeMultimedia.getOpcao2().split("[ ]");
+					String opcao3[] = testeMultimedia.getOpcao3().split("[ ]");
+					
+					String image1 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/MultimediaTest/" + opcao1;
+					String image2 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/MultimediaTest/" + opcao2;
+					String image3 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/MultimediaTest/" + opcao3;
+ 					
+					Bitmap bitmap1 = BitmapFactory.decodeFile(image1);
+					Bitmap bitmap2 = BitmapFactory.decodeFile(image2);
+					Bitmap bitmap3 = BitmapFactory.decodeFile(image3);
+										
+					
+					String yo2 = "";
+					((TextView) findViewById(R.id.textCabecalho)).setText(testeMultimedia.getTitulo());
+					for(int i = 0; i<yo.length;i++){
+						yo2 += yo[i]+"\n";
+					}
+					((TextView) findViewById(R.id.ConteudoQuest)).setText(yo2);
+					
+					hipotese1.setImageBitmap(bitmap1);
+					hipotese2.setImageBitmap(bitmap2);
+					hipotese3.setImageBitmap(bitmap3);
+
+					// **********************************************************************************************
+
+					idTesteAtual = testesID[0];
+					// descontar este teste da lista.
+					int[] aux = new int[testesID.length - 1];
+					for (int i = 1; i < testesID.length; i++) {
+						aux[i - 1] = testesID[i];
+					}
+					testesID = aux;
+				}
+				
+				
+				/**private void makeTeste() {
+					
+					
+					Bundle b = getIntent().getExtras();
+					
+					// Cria o objecto da base de dados
+					db = new LetrinhasDB(this);
+					testeMultimedia = db.getAllTesteMultimedia();
+					ntesteMultimedia = testeMultimedia.size();
+					opcao1 = new String [ntesteMultimedia];
+					opcao2 = new String [ntesteMultimedia];
+					opcao3 = new String [ntesteMultimedia];
+					correctOption = new int [ntesteMultimedia];
+					
+					
+					
+					for(int i = 0; i < ntesteMultimedia; i++){
+						conteudoQuestao[i] = testeMultimedia.get(i).getConteudoQuestao();
+						opcao1[i] = testeMultimedia.get(i).getOpcao1();
+						opcao2[i] = testeMultimedia.get(i).getOpcao2();
+						opcao3[i] = testeMultimedia.get(i).getOpcao3();
+						correctOption[i] = testeMultimedia.get(i).getCorrectOption();
+						
+					}
+					
+				}*/
 
 				@Override
 				protected void onPostCreate(Bundle savedInstanceState) {
@@ -224,7 +317,27 @@ public class Teste_Imagem extends Activity {
 							finish();
 						}
 					});
+					hipotese1.setOnClickListener(new View.OnClickListener() {	
+						@Override
+						public void onClick(View v) {
+							
+						}
+					});
+					hipotese2.setOnClickListener(new View.OnClickListener() {	
+						@Override
+						public void onClick(View v) {
+							
+						}
+					});
+					hipotese3.setOnClickListener(new View.OnClickListener() {	
+						@Override
+						public void onClick(View v) {
+							
+						}
+					});
 				}
+				
+				
 				int minuto, segundo;
 				/**
 				 * Serve para começar ou parar o recording do audio
