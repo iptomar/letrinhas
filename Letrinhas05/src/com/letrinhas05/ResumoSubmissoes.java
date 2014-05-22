@@ -23,29 +23,30 @@ import android.widget.Toast;
 
 /**
  * Listar o hitorico de submissoes do teste executado do aluno atual
- *   
+ * 
  * @author Thiago
- *
+ * 
  */
 public class ResumoSubmissoes extends Activity {
-	
+
 	protected static final int PARADO = 0;
 	int testeID, alunoID;
 	Button continuar;
+	boolean playing;
+	MediaPlayer reprodutor;
+	private Handler play_handler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.resumo_submissoes);
 
-		ImageView img = (ImageView) findViewById(R.id.resOuvir);
-		img.setVisibility(View.INVISIBLE);
-		Button btn =  (Button) findViewById(R.id.resBtnParar);
-		btn.setVisibility(View.INVISIBLE);
-
 		// buscar os parametros */
 		Bundle b = getIntent().getExtras();
 		inicia(b);
+
+		Button btn = (Button) findViewById(R.id.resBtnParar);
+		btn.setVisibility(View.INVISIBLE);
 
 	}
 
@@ -66,7 +67,8 @@ public class ResumoSubmissoes extends Activity {
 		LetrinhasDB bd = new LetrinhasDB(this);
 		Teste teste = bd.getTesteById(testeID);
 
-		List<CorrecaoTesteLeitura> crt = bd.getAllCorrecaoTesteLeitura_ByIDaluno_TestID(alunoID, testeID);
+		List<CorrecaoTesteLeitura> crt = bd
+				.getAllCorrecaoTesteLeitura_ByIDaluno_TestID(alunoID, testeID);
 
 		// Painel Dinamico
 		// objetos do XML
@@ -76,15 +78,15 @@ public class ResumoSubmissoes extends Activity {
 		ll.removeView(btOriginal);
 
 		// Contruir os botoes
-		for (int i = 0; i < crt.size(); i++){
+		for (int i = 0; i < crt.size(); i++) {
 			// criar o botao
 			Button btIn = new Button(this);
 			// copiar os parametros de layout
 			btIn.setLayoutParams(btOriginal.getLayoutParams());
 			// copiar a imagem do botao original
-			btIn.setCompoundDrawables(null, null,
+			btIn.setCompoundDrawablesWithIntrinsicBounds(null, null,
 					btOriginal.getCompoundDrawablesRelative()[2], null);
-			btIn.setText("" + crt.get(i).getDataExecucao());//crtAux[i].getDataExecucao());
+			btIn.setText("" + crt.get(i).getDataExecucao());// crtAux[i].getDataExecucao());
 			final String audioUrl = crt.get(i).getAudiourl();
 
 			// o que o botao vai fazer...
@@ -102,6 +104,15 @@ public class ResumoSubmissoes extends Activity {
 		TextView txt = ((TextView) findViewById(R.id.rsTituloTeste));
 		txt.setText(teste.getTitulo());
 
+		Button stop = (Button)findViewById(R.id.resBtnParar);
+		stop.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				play(null);
+			}
+		});
+		
+		
 		continuar = (Button) findViewById(R.id.rsAvancar);
 		continuar.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -114,71 +125,87 @@ public class ResumoSubmissoes extends Activity {
 
 	@SuppressLint("HandlerLeak")
 	private void play(String audioUrl) {
-		ScrollView sv = (ScrollView) findViewById(R.id.svResumo);
-		sv.setVisibility(View.INVISIBLE);
-		ImageView img = (ImageView) findViewById(R.id.resOuvir);
-		img.setVisibility(View.VISIBLE);
-		Button btn =  (Button) findViewById(R.id.resBtnParar);
-		btn.setVisibility(View.VISIBLE);
-		
-		
-		continuar.setEnabled(false);
-		final ScrollView llF = sv;
-		final ImageView imgF = img;
-		final Button btnF = btn;
-		
-		final Button btt = continuar;
-		final Handler play_handler;
-		try {
-
-			final MediaPlayer reprodutor = new MediaPlayer();
-			reprodutor.setDataSource(audioUrl);
-			reprodutor.prepare();
-			reprodutor.start();
-			Toast.makeText(getApplicationContext(), "A reproduzir.",
-					Toast.LENGTH_SHORT).show();
-
-			// espetar aqui uma thread, para quando isto pare
-			// habilitar novamente a vista
+		if (!playing) {
+			ScrollView sv = (ScrollView) findViewById(R.id.svResumo);
+			sv.setVisibility(View.INVISIBLE);
+			Button btn = (Button) findViewById(R.id.resBtnParar);
+			btn.setVisibility(View.VISIBLE);
+			continuar.setVisibility(View.INVISIBLE);
 			
+			final ScrollView llF = sv;
+			;
+			final Button btnF = btn;
+
+			final Button btt = continuar;
+			try {
+
+				reprodutor = new MediaPlayer();
+				reprodutor.setDataSource(audioUrl);
+				reprodutor.prepare();
+				reprodutor.start();
+				Toast.makeText(getApplicationContext(), "A reproduzir.",
+						Toast.LENGTH_SHORT).show();
+
+				// espetar aqui uma thread, para quando isto pare
+				// habilitar novamente a vista
+
 				play_handler = new Handler() {
-				public void handleMessage(Message msg) {
-					switch (msg.what) {
-					case PARADO:
-						llF.setVisibility(View.VISIBLE);
-						imgF.setVisibility(View.INVISIBLE);
-						btnF.setVisibility(View.INVISIBLE);
-						btt.setEnabled(true);
-						try {
-							reprodutor.stop();
-							reprodutor.release();
-							Toast.makeText(getApplicationContext(),
-									"Fim da reproducao.", Toast.LENGTH_SHORT)
-									.show();
-						} catch (Exception ex) {
+					public void handleMessage(Message msg) {
+						switch (msg.what) {
+						case PARADO:
+							llF.setVisibility(View.VISIBLE);
+							btnF.setVisibility(View.INVISIBLE);
+							btt.setVisibility(View.VISIBLE);
+							try {
+								reprodutor.stop();
+								reprodutor.release();
+								Toast.makeText(getApplicationContext(),
+										"Fim da reproducao.",
+										Toast.LENGTH_SHORT).show();
+								playing=false;
+							} catch (Exception ex) {
+							}
+							break;
+						default:
+							break;
 						}
-						break;
-					default:
-						break;
 					}
-				}
-			};
+				};
 
-			new Thread(new Runnable() {
-				public void run() {
-					while (reprodutor.isPlaying())
-						;
-					Message msg = new Message();
-					msg.what = PARADO;
-					play_handler.sendMessage(msg);
-				}
-			}).start();
+				new Thread(new Runnable() {
+					public void run() {
+						while (reprodutor.isPlaying())
+							;
+						Message msg = new Message();
+						msg.what = PARADO;
+						play_handler.sendMessage(msg);
+					}
+				}).start();
 
-		} catch (Exception ex) {
-			Toast.makeText(getApplicationContext(),
-					"Erro na reproducao.\n" + ex.getMessage(),
-					Toast.LENGTH_SHORT).show();
+				playing = true;
+			} catch (Exception ex) {
+				Toast.makeText(getApplicationContext(),
+						"Erro na reproducao.\n" + ex.getMessage(),
+						Toast.LENGTH_SHORT).show();
+			}
+		} else {
+			ScrollView sv = (ScrollView) findViewById(R.id.svResumo);
+			sv.setVisibility(View.VISIBLE);
+			Button btn = (Button) findViewById(R.id.resBtnParar);
+			btn.setVisibility(View.INVISIBLE);
+			continuar.setVisibility(View.VISIBLE);
+
+			playing = false;
+			try {
+				reprodutor.stop();
+				reprodutor.release();
+				Toast.makeText(getApplicationContext(),
+						"Reprodução interrompida.", Toast.LENGTH_SHORT).show();
+			} catch (Exception ex) {
+				Toast.makeText(getApplicationContext(),
+						"Erro na reprodução.\n" + ex.getMessage(),
+						Toast.LENGTH_SHORT).show();
+			}
 		}
-
 	}
 }

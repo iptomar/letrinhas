@@ -80,7 +80,7 @@
         android:src="@drawable/cancelar" />
 
     <TextView
-        android:id="@+id/txtTexto"
+        android:id="@+id/ConteudoQuest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -121,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/textCabecalho"
-        android:layout_below="@+id/txtTexto"
+        android:layout_below="@+id/ConteudoQuest"
         android:layout_marginRight="19dp"
         android:layout_marginTop="117dp"
         android:src="@drawable/smiletriste" />
@@ -130,7 +130,7 @@
         android:id="@+id/hipotese1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtTexto"
+        android:layout_alignLeft="@+id/ConteudoQuest"
         android:layout_alignTop="@+id/hipotese2"
         android:layout_marginLeft="21dp"
         android:src="@drawable/smile" />

@@ -41,7 +41,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Teste_Texto_Prof extends Activity {
+public class Correcao_Texto_Prof extends Activity {
 
 	// flags para verificar os diversos estados do teste
 			boolean modo, gravado, recording, playing;

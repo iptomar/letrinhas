@@ -36,7 +36,7 @@ import android.widget.Toast;
 /**
  * 
  * @author Thiago
- *
+ * 
  */
 public class Teste_Texto_Aluno extends Activity {
 
@@ -118,8 +118,8 @@ public class Teste_Texto_Aluno extends Activity {
 		// buscar os parametros
 		Bundle b = getIntent().getExtras();
 		inicia(b);
-		
-		//atribuir os botões
+
+		// atribuir os botões
 		record = (Button) findViewById(R.id.txtRecord);
 		demo = (Button) findViewById(R.id.txtDemo);
 		play = (Button) findViewById(R.id.txtPlay);
@@ -130,14 +130,15 @@ public class Teste_Texto_Aluno extends Activity {
 
 		escutaBotoes();
 	}
-	
+
 	/**
-	 * método para iniciar os componetes, que dependem do conteudo passado
-	 * por parametros (extras)
+	 * método para iniciar os componetes, que dependem do conteudo passado por
+	 * parametros (extras)
 	 * 
-	 * @param b Bundle, contém informação da activity anterior
+	 * @param b
+	 *            Bundle, contém informação da activity anterior
 	 */
-	public void inicia(Bundle b){
+	public void inicia(Bundle b) {
 		// Compor novamente e lista de testes
 		testesID = b.getIntArray("ListaID");
 		// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
@@ -147,11 +148,12 @@ public class Teste_Texto_Aluno extends Activity {
 
 		/** Consultar a BD para preencher o conteï¿½do.... */
 		LetrinhasDB bd = new LetrinhasDB(this);
-		teste =  bd.getTesteLeituraById(testesID[0]);
+		teste = bd.getTesteLeituraById(testesID[0]);
 
 		((TextView) findViewById(R.id.textCabecalho))
 				.setText(teste.getTitulo());
-		((TextView) findViewById(R.id.txtTexto)).setText(teste.getConteudoTexto());
+		((TextView) findViewById(R.id.txtTexto)).setText(teste
+				.getConteudoTexto());
 
 		// **********************************************************************************************
 
@@ -163,7 +165,7 @@ public class Teste_Texto_Aluno extends Activity {
 		fileName = getCurrentTimeStamp() + ".3gpp";
 
 		audio = Environment.getExternalStorageDirectory().getAbsolutePath()
-				+ "/School-Data/ReadingTests/"+teste.getProfessorAudioUrl();
+				+ "/School-Data/ReadingTests/" + teste.getProfessorAudioUrl();
 
 		// descontar este teste da lista.
 		int[] aux = new int[testesID.length - 1];
@@ -171,7 +173,7 @@ public class Teste_Texto_Aluno extends Activity {
 			aux[i - 1] = testesID[i];
 		}
 		testesID = aux;
-		
+
 	}
 
 	/**
@@ -311,12 +313,12 @@ public class Teste_Texto_Aluno extends Activity {
 			}
 		});
 	}
-	
-	public void elimina(){
+
+	public void elimina() {
 		File file = new File(endereco);
 		if (file.exists()) {
 			file.delete();
-		}		
+		}
 	}
 
 	int minuto, segundo;
@@ -476,7 +478,7 @@ public class Teste_Texto_Aluno extends Activity {
 				Toast.makeText(getApplicationContext(),
 						"Erro na reprodução.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
-				
+
 				img.setImageResource(R.drawable.play);
 				play.setCompoundDrawablesWithIntrinsicBounds(null,
 						img.getDrawable(), null, null);
@@ -572,7 +574,7 @@ public class Teste_Texto_Aluno extends Activity {
 				Toast.makeText(getApplicationContext(),
 						"Erro na reprodução da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
-				
+
 				img.setImageResource(R.drawable.palyoff);
 				demo.setCompoundDrawablesWithIntrinsicBounds(null,
 						img.getDrawable(), null, null);
@@ -607,11 +609,11 @@ public class Teste_Texto_Aluno extends Activity {
 	}
 
 	/**
-	 * Prepara a finalizacao da activity, descobrindo qual o proximo teste
-	 * a realizar Este metodo devera ser usado em todas as paginas de teste.
+	 * Prepara a finalizacao da activity, descobrindo qual o proximo teste a
+	 * realizar Este metodo devera ser usado em todas as paginas de teste.
 	 */
 	private void finaliza() {
-		
+
 		if (testesID.length != 0) {
 			// enviar o parametro de modo
 			Bundle wrap = new Bundle();
@@ -678,7 +680,6 @@ public class Teste_Texto_Aluno extends Activity {
 		finish();
 	}
 
-	
 	public void submit() {
 		CorrecaoTesteLeitura ctl = new CorrecaoTesteLeitura();
 		File file = new File(endereco + fileName);
@@ -686,9 +687,9 @@ public class Teste_Texto_Aluno extends Activity {
 			Toast.makeText(getApplicationContext(), "Não gravou nada",
 					Toast.LENGTH_SHORT).show();
 		} else {
-			
+
 			long time = System.currentTimeMillis() / 1000;
-			
+
 			String aux = idTesteAtual + iDs[3] + time + "";
 			ctl.setIdCorrrecao(Long.parseLong(aux));
 			ctl.setAudiourl(endereco + fileName);
@@ -697,41 +698,20 @@ public class Teste_Texto_Aluno extends Activity {
 			ctl.setEstado(0);
 			ctl.setTestId(idTesteAtual);
 			ctl.setIdEstudante(iDs[3]);
-			Toast.makeText(getApplicationContext(),
-					"audio: " + ctl.getAudiourl(), Toast.LENGTH_SHORT).show();
-			Toast.makeText(getApplicationContext(),
-					"data: " + getCurrentTimeStamp(), Toast.LENGTH_SHORT)
-					.show();
-			Toast.makeText(getApplicationContext(),
-					"ID Aluno: " + String.valueOf(ctl.getIdEstudante()),
-					Toast.LENGTH_SHORT).show();
-			Toast.makeText(getApplicationContext(),
-					"Id Teste: "+String.valueOf(ctl.getTestId()), Toast.LENGTH_SHORT).show();
-
 			LetrinhasDB bd = new LetrinhasDB(this);
 			bd.addNewItemCorrecaoTesteLeitura(ctl);
 
-			List<CorrecaoTeste> data1 = bd.getAllCorrecaoTeste();
-			Log.d("CheckInserts: ", "***********Testes******************");
-			for (CorrecaoTeste cn : data1) {
-				String logs = "Id: " + cn.getIdCorrrecao() + ", idEstudante: "
-						+ cn.getIdEstudante() + "  , estado: " + cn.getEstado()
-						+ "  , testeId: " + cn.getTestId() + "  , tipo: "
-						+ cn.getTipo() + "  , data: " + cn.getDataExecucao();
-				// Writing Contacts to log
-				Log.d("CheckInserts: ", logs);
-			}
-			 finaliza();
-			 
-			 Bundle wrap = new Bundle();
-				wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
-				wrap.putInt("IDAluno", iDs[3]); //id do aluno
-				// listar submissões anteriores do mesmo teste
-				 Intent it = new Intent(getApplicationContext(),
-				 ResumoSubmissoes.class);
-				 it.putExtras(wrap);
-				 startActivity(it);
-				 
+			finaliza();
+
+			Bundle wrap = new Bundle();
+			wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
+			wrap.putInt("IDAluno", iDs[3]); // id do aluno
+			// listar submissões anteriores do mesmo teste
+			Intent it = new Intent(getApplicationContext(),
+					ResumoSubmissoes.class);
+			it.putExtras(wrap);
+			startActivity(it);
+
 		}
 	}
 

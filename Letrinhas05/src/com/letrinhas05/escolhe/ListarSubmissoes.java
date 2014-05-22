@@ -10,7 +10,7 @@ import com.letrinhas05.ClassesObjs.Estudante;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.Teste_Palavras_Prof;
 import com.letrinhas05.Teste_Poema_Prof;
-import com.letrinhas05.Teste_Texto_Prof;
+import com.letrinhas05.Correcao_Texto_Prof;
 import com.letrinhas05.util.SystemUiHider;
 
 import android.annotation.SuppressLint;
@@ -261,7 +261,7 @@ public class ListarSubmissoes extends Activity {
 						Intent it;
 						switch (tipo){
 						case 0://texto
-							it= new Intent(getApplicationContext(),Teste_Texto_Prof.class);
+							it= new Intent(getApplicationContext(),Correcao_Texto_Prof.class);
 							it.putExtras(wrap);
 							startActivity(it);
 							break;
