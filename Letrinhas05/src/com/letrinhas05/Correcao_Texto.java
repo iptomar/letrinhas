@@ -149,6 +149,7 @@ public class Correcao_Texto extends Activity {
 				
 				//tiulo do teste
 				((TextView) findViewById(R.id.textCabecalho)).setText(s);
+				((TextView) findViewById(R.id.txtTexto)).setText(teste.getConteudoTexto());
 				
 				//Estudate, para ier burcar o seu nome
 				Estudante aluno = bd.getEstudanteById(crt.getIdEstudante()); 
