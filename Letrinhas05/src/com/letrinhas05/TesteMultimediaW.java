@@ -31,7 +31,7 @@ public class TesteMultimediaW  extends Activity  {
     int tipo, idTesteAtual;
     String[] Nomes;
     int[] iDs, testesID;
-
+    LinearLayout line;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -59,7 +59,7 @@ public class TesteMultimediaW  extends Activity  {
 
         ImageButton btnVoltar = (ImageButton) findViewById(R.id.btnVoltarTestMult);
 
-        LinearLayout line = (LinearLayout) findViewById(R.id.linearTestMultw);
+        line = (LinearLayout) findViewById(R.id.linearTestMultw);
 
         txtCabeTituloMul = (TextView) findViewById(R.id.txtCabeTituloTextMult);
          imgTitulo = (ImageView) findViewById(R.id.imgTituloTextMult);
@@ -100,20 +100,32 @@ public class TesteMultimediaW  extends Activity  {
 
         txtCabeTituloMul.setText(teste.getTexto());
 
+
+        line.removeAllViews();
+        ImageView img1Vtitulo= new ImageView(imgTitulo.getContext());
+        TextView txtVTitulo = new TextView(txtTitulo.getContext());
+
        if (teste.getContentIsUrl() == 1){
            String imageInSD = Environment.getExternalStorageDirectory()
                    .getAbsolutePath() + "/School-Data/MultimediaTest/" + teste.getConteudoQuestao();
            Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-           imgTitulo.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
-                   100, false));
-           imgTitulo.setVisibility(View.VISIBLE);
+           img1Vtitulo.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 440,
+                   440, false));
+           img1Vtitulo.setVisibility(View.VISIBLE);
+           LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(440, 440);
+           img1Vtitulo.setLayoutParams(layoutParams);
+
+           line.addView(img1Vtitulo);
        }
         else
        {
-           txtTitulo.setText(teste.getConteudoQuestao());
-           txtTitulo.setVisibility(View.VISIBLE);
-
+           txtVTitulo.setText(teste.getConteudoQuestao());
+           txtVTitulo.setVisibility(View.VISIBLE);
+           txtVTitulo.setTextSize(42);
+           line.addView(txtVTitulo);
        }
+
+
 
 
         if (teste.getOpcao1IsUrl() == 1)
