@@ -24,7 +24,7 @@ import com.letrinhas05.util.Teste;
  */
 public class TesteMultimediaW  extends Activity  {
 
-        TesteMultimedia teste;
+    TesteMultimedia teste;
     TextView txtTitulo, txtCabeTituloMul;
     ImageView imgTitulo;
     Button bntOpcao1, bntOpcao2 ,bntOpcao3;
@@ -81,10 +81,6 @@ public class TesteMultimediaW  extends Activity  {
         });
 
     }
-
-
-
-
 
 
     public void inicia(Bundle b) {
@@ -184,13 +180,6 @@ public class TesteMultimediaW  extends Activity  {
             bntOpcao3.setText(teste.getOpcao3());
         }
 
-
-
-
-
-
-
-
 //
 //        ((TextView) findViewById(R.id.txtTexto)).setText(teste
 //                .getConteudoTexto());
@@ -215,9 +204,5 @@ public class TesteMultimediaW  extends Activity  {
 //        testesID = aux;
 
     }
-
-
-
-
 
 }
