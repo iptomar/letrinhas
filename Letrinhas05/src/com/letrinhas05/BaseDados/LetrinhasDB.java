@@ -675,7 +675,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
      * @id recebe o id da Correcao
      * Retorna um objecto que contem CorrecaoTesteLeitura preenchido
      */
-    public CorrecaoTesteLeitura getCorrecaoTesteLeirutaById(int id) {
+    public CorrecaoTesteLeitura getCorrecaoTesteLeirutaById(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABELA_TESTE,
                 new String[]{CORRT_ID, CORRT_IDTESTE, CORRT_IDALUNO,CORRT_DATAEXEC,  CORRT_TIPO, CORRT_ESTADO },
@@ -686,7 +686,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
         CorrecaoTesteLeitura testeLeir = new CorrecaoTesteLeitura();
-        testeLeir.setIdCorrrecao( cursor.getInt(0));
+        testeLeir.setIdCorrrecao( cursor.getLong(0));
         testeLeir.setTestId( cursor.getInt(1));
         testeLeir.setIdEstudante( cursor.getInt(2));
         testeLeir.setDataExecucao( cursor.getLong(3));
