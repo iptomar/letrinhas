@@ -12,6 +12,7 @@ import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.ClassesObjs.TesteLeitura;
 import com.letrinhas05.util.SystemUiHider;
+
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
@@ -22,6 +23,7 @@ import android.os.Message;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -684,8 +686,20 @@ public class Teste_Texto extends Activity {
 		CorrecaoTesteLeitura ctl = new CorrecaoTesteLeitura();
 		File file = new File(endereco + fileName);
 		if (!file.exists()) {
-			Toast.makeText(getApplicationContext(), "Não gravou nada",
-					Toast.LENGTH_SHORT).show();
+			android.app.AlertDialog alerta;
+			// Cria o gerador do AlertDialog
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			// define o titulo
+			builder.setTitle("Letrinhas 03");
+			// define a mensagem
+			builder.setMessage(" Ainda nao executou a gravacao da leitura!\n"
+					+ " Faca-o antes de submeter.");
+			// define um botï¿½o como positivo
+			builder.setPositiveButton("OK", null);
+			// cria o AlertDialog
+			alerta = builder.create();
+			// Mostra
+			alerta.show();
 		} else {
 
 			long time = System.currentTimeMillis() / 1000;
