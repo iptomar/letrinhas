@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ public class RelatasCorrection extends Activity {
 	float[] valueFloat;
 	String[] valueString;
 	TextView testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas, dataExecucao, idCorrrecao, numPalavrasMin, precisao, velocidade, expressividade, ritmo, observacoes, detalhes, totalDePalavras;
+	ImageButton next;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,6 +59,7 @@ public class RelatasCorrection extends Activity {
 		observacoes = (TextView) findViewById(R.id.observacoes);
 		detalhes = (TextView) findViewById(R.id.detalhes);
 		totalDePalavras = (TextView) findViewById(R.id.totalDePalavras);
+		next = (ImageButton) findViewById(R.id.next);
 		
 		testId.setText(String.valueOf(valueInt[0]));
 		idEstudante.setText(String.valueOf(valueInt[1]));
@@ -78,6 +82,12 @@ public class RelatasCorrection extends Activity {
 		Toast.makeText(getApplicationContext(),String.valueOf(valueLong[0]),Toast.LENGTH_SHORT).show();
 		Toast.makeText(getApplicationContext(),String.valueOf(valueFloat[0]),Toast.LENGTH_SHORT).show();
 		Toast.makeText(getApplicationContext(),valueString[0],Toast.LENGTH_SHORT).show();
+		next.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+			}
+		});
 		
 	}
 
