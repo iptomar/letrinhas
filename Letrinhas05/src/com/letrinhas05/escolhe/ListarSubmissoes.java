@@ -9,8 +9,8 @@ import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.Estudante;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.Teste_Palavras_Prof;
-import com.letrinhas05.Teste_Poema_Prof;
-import com.letrinhas05.Correcao_Texto_Prof;
+import com.letrinhas05.Correcao_Poema;
+import com.letrinhas05.Correcao_Texto;
 import com.letrinhas05.util.SystemUiHider;
 
 import android.annotation.SuppressLint;
@@ -174,20 +174,24 @@ public class ListarSubmissoes extends Activity {
 					cont++;
 				}
 			}
-			//Destaque do aluno selecionado
+			//*Destaque do aluno selecionado
 			CorrecaoTeste ctAux2[]= new CorrecaoTeste[cont];
 			cont=0;
 			for (int i = 0; i < ctAux.length; i++) {
-				//vai para o array, no sentido acesdente 
+				
 				if(ctAux[i].getIdEstudante()==iDs[3]){
 					ctAux2[cont]=ctAux[i];
-					cont++;					
-				}else{//vai para o array, no sentido acesdente
-					ctAux2[ctAux.length-cont-1]=ctAux[i];
-					cont++;					
-				}				
+					cont++;
+				}
 			}		
-			ctAux=ctAux2;			
+			for (int i = 0; i < ctAux.length; i++) {
+				
+				if(ctAux[i].getIdEstudante()!=iDs[3]){
+					ctAux2[cont]=ctAux[i];
+					cont++;
+				}
+			}	
+			ctAux=ctAux2;		
 
 			// Agora vou construir os botoes com a informacao necessaria:
 			for (int i = 0; i < ctAux.length; i++) {
@@ -206,7 +210,7 @@ public class ListarSubmissoes extends Activity {
 				title += ""
 						+ DateUtils.formatSameDayTime(
 								ctAux[i].getDataExecucao(),
-								System.currentTimeMillis(), 3, 1);// 3=short; 1=long
+								System.currentTimeMillis(), 1, 1);// 3=short; 1=long
 				//********************************************************************
 				
 				// colocar toda a string no botao
@@ -253,7 +257,7 @@ public class ListarSubmissoes extends Activity {
 				
 				
 				
-				final int idTeste = ctAux[i].getTestId();
+				final long idCorrecao = ctAux[i].getIdCorrrecao();
 				final int tipo = ctAux[i].getTipo();
 				//alterar os parametros para o teste..
 				iDs[2]=aluno.getIdTurma();
@@ -270,12 +274,11 @@ public class ListarSubmissoes extends Activity {
 						Bundle wrap = new Bundle();
 						wrap.putStringArray("Nomes",Nomes);
 						wrap.putIntArray("IDs",iDs);
-						wrap.putInt("ID_teste",idTeste); 
-						
+						wrap.putLong("ID_Correcao",idCorrecao); 
 						Intent it;
 						switch (tipo){
 						case 0://texto
-							it= new Intent(getApplicationContext(),Correcao_Texto_Prof.class);
+							it= new Intent(getApplicationContext(),Correcao_Texto.class);
 							it.putExtras(wrap);
 							startActivity(it);
 							break;
@@ -291,7 +294,7 @@ public class ListarSubmissoes extends Activity {
 
 							break;
 						case 3://poemas
-                            it= new Intent(getApplicationContext(),Teste_Poema_Prof.class);
+                            it= new Intent(getApplicationContext(),Correcao_Poema.class);
                             it.putExtras(wrap);
                             startActivity(it);
                             break;

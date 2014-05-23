@@ -528,7 +528,7 @@ public class Teste_Palavras_Aluno extends Activity{
 					switch (tipo) {
 					case 0:
 						// lan�ar a nova activity do tipo texto,
-						Intent it = new Intent(getApplicationContext(),Teste_Texto_Aluno.class);
+						Intent it = new Intent(getApplicationContext(),Teste_Texto.class);
 						it.putExtras(wrap);
 						startActivity(it);
 						break;

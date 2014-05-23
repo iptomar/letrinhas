@@ -39,7 +39,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Teste_Poema_Aluno extends Activity {
+public class Teste_Poema extends Activity {
 
 				TesteLeitura teste;
 				// flags para verificar os diversos estados do teste
@@ -89,7 +89,7 @@ public class Teste_Poema_Aluno extends Activity {
 	 			 @Override
 	 			 protected void onCreate(Bundle savedInstanceState) {
 	 			 	super.onCreate(savedInstanceState);
-	 			 	setContentView(R.layout.teste_poema_aluno);
+	 			 	setContentView(R.layout.teste_poema);
 	 			 	//ecrã em landscape para poema
 	 			 	int currentOrientation = getResources().getConfiguration().ORIENTATION_PORTRAIT;
 	 			 	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -316,7 +316,7 @@ public class Teste_Poema_Aluno extends Activity {
 						public void onClick(View view) {
 							chrono.stop();
 							//isto depois tem de ir para outra página
-							Intent it = new Intent(Teste_Poema_Aluno.this,PaginaInicial.class);
+							Intent it = new Intent(Teste_Poema.this,PaginaInicial.class);
 							startActivity(it);
 						}
 					});
@@ -329,7 +329,7 @@ public class Teste_Poema_Aluno extends Activity {
 							if(recording){
 								gravador.stop();
 							}
-							Intent it = new Intent(Teste_Poema_Aluno.this,PaginaInicial.class);
+							Intent it = new Intent(Teste_Poema.this,PaginaInicial.class);
 							startActivity(it);
 						}
 					});
@@ -457,7 +457,7 @@ public class Teste_Poema_Aluno extends Activity {
 									case 0:
 										// lanï¿½ar a nova activity do tipo texto,
 										Intent it = new Intent(getApplicationContext(),
-												Teste_Texto_Aluno.class);
+												Teste_Texto.class);
 										it.putExtras(wrap);
 
 										startActivity(it);

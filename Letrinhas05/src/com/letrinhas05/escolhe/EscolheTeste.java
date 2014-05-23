@@ -368,7 +368,7 @@ public class EscolheTeste extends Activity {
 			case 0: // lan�ar a nova activity do tipo texto leitura,
 
 				Intent it = new Intent(getApplicationContext(),
-						Teste_Texto_Aluno.class);
+						Teste_Texto.class);
 				it.putExtras(wrap);
 
 				startActivity(it);
@@ -395,7 +395,7 @@ public class EscolheTeste extends Activity {
 			case 3: // lancar a nova activity do tipo poema, e o seu
 					// conteudo
 				Intent ipp = new Intent(getApplicationContext(),
-						Teste_Poema_Aluno.class);
+						Teste_Poema.class);
 				ipp.putExtras(wrap);
 
 				startActivity(ipp);

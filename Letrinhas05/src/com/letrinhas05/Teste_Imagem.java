@@ -556,7 +556,7 @@ public class Teste_Imagem extends Activity {
 						case 0:
 							// lançar a nova activity do tipo texto,
 							// iniciar a pagina 2 (escolher teste)
-							Intent it = new Intent(getApplicationContext(),Teste_Texto_Aluno.class);
+							Intent it = new Intent(getApplicationContext(),Teste_Texto.class);
 							it.putExtras(wrap);
 							startActivity(it);
 							break;
@@ -568,7 +568,7 @@ public class Teste_Imagem extends Activity {
 							break;
 						case 2: // lançar a nova activity do tipo Poema, e o seu conteúdo
 							//
-							Intent ipm = new Intent(getApplicationContext(),Teste_Poema_Aluno.class);
+							Intent ipm = new Intent(getApplicationContext(),Teste_Poema.class);
 							ipm.putExtras(wrap);
 							startActivity(ipm);
 							break;

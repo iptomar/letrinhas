@@ -38,7 +38,7 @@ import com.letrinhas05.util.Avaliacao;
 import com.letrinhas05.util.SystemUiHider;
 import com.letrinhas05.util.Teste;
 
-public class Teste_Poema_Prof extends Activity {
+public class Correcao_Poema extends Activity {
 
 	// flags para verificar os diversos estados do teste
 			boolean modo, gravado, recording, playing;
@@ -85,7 +85,7 @@ public class Teste_Poema_Prof extends Activity {
 			@Override
 			protected void onCreate(Bundle savedInstanceState) {
 				super.onCreate(savedInstanceState);
-				setContentView(R.layout.activity_teste__texto__aluno);
+				setContentView(R.layout.teste_texto);
 				
 				//new line faz a rota��o do ecr�n 180 graus
 				int currentOrientation = getResources().getConfiguration().ORIENTATION_PORTRAIT;
@@ -839,7 +839,7 @@ public class Teste_Poema_Prof extends Activity {
 
 						// iniciar a pagina 2 (escolher teste)
 						Intent it = new Intent(getApplicationContext(),
-								Teste_Texto_Aluno.class);
+								Teste_Texto.class);
 						it.putExtras(wrap);
 
 						startActivity(it);
@@ -857,7 +857,7 @@ public class Teste_Poema_Prof extends Activity {
 					case 2: // lan�ar a nova activity do tipo Poema, e o seu conte�do
 						//
 						Intent ipm = new Intent(getApplicationContext(),
-								Teste_Poema_Prof.class);
+								Correcao_Poema.class);
 						ipm.putExtras(wrap);
 
 						startActivity(ipm);

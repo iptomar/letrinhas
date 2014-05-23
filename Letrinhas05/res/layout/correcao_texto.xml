@@ -8,7 +8,7 @@
     android:paddingLeft="30sp"
     android:paddingRight="30sp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.letrinhas05.Correcao_Texto_Prof" >
+    tools:context="com.letrinhas05.Correcao_Texto" >
 
     <TextView
         android:id="@+id/textCabecalho"
@@ -22,22 +22,119 @@
         android:textSize="50sp"
         android:textStyle="bold" />
 
-    <ImageButton
-        android:id="@+id/txtRecord"
+    <Button
+        android:id="@+id/txtPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/textCabecalho"
         android:contentDescription="@string/Recording"
-        android:src="@drawable/record" />
+        android:drawableTop="@drawable/play"
+        android:text="@string/play" />
+
+    <ScrollView
+        android:id="@+id/txtTela"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/pbText"
+        android:layout_alignLeft="@+id/textCabecalho"
+        android:layout_below="@+id/txtPlay"
+        android:layout_marginLeft="21dp"
+        android:layout_toLeftOf="@+id/txtControlo"
+        android:background="#ccccff"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp" >
+
+        <LinearLayout
+            android:id="@+id/llTexto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txtTexto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:textColor="#303030"
+                android:textIsSelectable="true"
+                android:textSize="35sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textRodape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtVoltar"
+        android:layout_toRightOf="@+id/txtVoltar"
+        android:text="@string/letrinhas"
+        android:textColor="#5ddfff"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/txtAvaliar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/entrar"
+        android:drawableTop="@drawable/valido"
+        android:text="@string/avaliar" />
+
+    <Button
+        android:id="@+id/txtCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/txtTela"
+        android:contentDescription="@string/sair"
+        android:drawableTop="@drawable/cancelar"
+        android:text="@string/apagar" />
+
+    <Button
+        android:id="@+id/txtVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/voltar"
+        android:drawableTop="@drawable/voltar"
+        android:text="@string/voltar" />
+
+    <ProgressBar
+        android:id="@+id/pbText"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtVoltar"
+        android:layout_alignLeft="@+id/txtTela"
+        android:layout_toLeftOf="@+id/txtCancel" />
+
+    <Chronometer
+        android:id="@+id/cromTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#000000"
+        android:gravity="right"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:textColor="#50ff50"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <TableLayout
         android:id="@+id/txtControlo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtTela"
-        android:layout_alignRight="@+id/txtRecord"
-        android:layout_alignTop="@+id/txtTela"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:paddingLeft="10dp" >
 
         <TableRow
@@ -64,12 +161,12 @@
                 android:textStyle="bold" />
         </TableRow>
 
-       <TableRow
+        <TableRow
             android:id="@+id/tableRow5"
             android:layout_width="fill_parent"
             android:layout_height="12sp"
             android:background="#505050" >
-			
+
             <TextView
                 android:id="@+id/lgdmin"
                 android:layout_width="wrap_content"
@@ -78,8 +175,6 @@
                 android:text="@string/min"
                 android:textColor="#eeeeee"
                 android:textStyle="bold" />
-
-           
         </TableRow>
 
         <TableRow
@@ -94,12 +189,11 @@
                 android:text="@string/pontErrada"
                 android:textSize="25sp"
                 android:textStyle="bold" />
-
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow7"
-           android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
             <ImageButton
@@ -314,99 +408,14 @@
         </TableRow>
     </TableLayout>
 
-    <ScrollView
-        android:id="@+id/txtTela"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/txtVoltar"
-        android:layout_alignLeft="@+id/textCabecalho"
-        android:layout_below="@+id/textCabecalho"
-        android:layout_marginLeft="21dp"
-        android:layout_toLeftOf="@+id/txtControlo"
-        android:background="#ccccff"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp" >
-
-        <LinearLayout
-            android:id="@+id/llTexto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/txtTexto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="fill"
-                android:textIsSelectable="true"
-                android:textColor="#303030"
-                android:textSize="35sp" />
-
-        </LinearLayout>
-    </ScrollView>
-
-    <ImageButton
-        android:id="@+id/txtAvaliar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textRodape"
-        android:layout_alignRight="@+id/txtControlo"
-        android:contentDescription="@string/entrar"
-        android:src="@drawable/valido" />
-
-    <ImageButton
+    <Button
         android:id="@+id/txtDemo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtRecord"
-        android:layout_toLeftOf="@+id/txtRecord"
+        android:layout_alignLeft="@+id/txtControlo"
+        android:layout_alignParentTop="true"
         android:contentDescription="@string/play"
-        android:src="@drawable/palyoff" />
-
-    <ImageButton
-        android:id="@+id/txtCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtDemo"
-        android:layout_alignTop="@+id/txtAvaliar"
-        android:contentDescription="@string/sair"
-        android:src="@drawable/cancelar" />
-
-    <Chronometer
-        android:id="@+id/cromTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtDemo"
-        android:layout_alignTop="@+id/txtDemo"
-        android:layout_toLeftOf="@+id/txtControlo"
-        android:background="#000000"
-        android:gravity="right"
-        android:paddingLeft="10sp"
-        android:paddingRight="10sp"
-        android:textColor="#50ff50"
-        android:textSize="40sp"
-        android:textStyle="bold" />
-
-    <ImageButton
-        android:id="@+id/txtVoltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtTela"
-        android:layout_alignParentBottom="true"
-        android:contentDescription="@string/voltar"
-        android:src="@drawable/voltar" />
-
-    <TextView
-        android:id="@+id/textRodape"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtVoltar"
-        android:layout_toRightOf="@+id/txtVoltar"
-        android:text="@string/letrinhas"
-        android:textColor="#5ddfff"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:drawableTop="@drawable/palyoff"
+        android:text="@string/demo" />
 
 </RelativeLayout>

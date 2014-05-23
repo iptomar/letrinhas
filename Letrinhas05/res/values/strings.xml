@@ -125,5 +125,7 @@
     <string name="botao">Botao</string>
     <string name="ZeroValues">0</string>
     <string name="ZeroValuesStr">empty</string>
+    <string name="apagar">apagar</string>
+    <string name="avaliar">avaliar</string>
 
 </resources>

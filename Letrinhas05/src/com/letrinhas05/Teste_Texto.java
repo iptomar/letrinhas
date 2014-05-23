@@ -38,7 +38,7 @@ import android.widget.Toast;
  * @author Thiago
  * 
  */
-public class Teste_Texto_Aluno extends Activity {
+public class Teste_Texto extends Activity {
 
 	// flags para verificar os diversos estados do teste
 	boolean gravado, recording, playing;
@@ -75,7 +75,7 @@ public class Teste_Texto_Aluno extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_teste__texto__aluno);
+		setContentView(R.layout.teste_texto);
 
 		// new line faz a rotacao do ecran 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
@@ -631,7 +631,7 @@ public class Teste_Texto_Aluno extends Activity {
 			case 0:
 				// lan�ar a nova activity do tipo texto,
 				Intent it = new Intent(getApplicationContext(),
-						Teste_Texto_Aluno.class);
+						Teste_Texto.class);
 				it.putExtras(wrap);
 
 				startActivity(it);

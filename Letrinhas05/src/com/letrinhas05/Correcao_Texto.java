@@ -6,8 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import com.letrinhas05.R;
+import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.BaseDados.NetworkUtils;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
+import com.letrinhas05.ClassesObjs.Estudante;
+import com.letrinhas05.ClassesObjs.TesteLeitura;
 import com.letrinhas05.util.Avaliacao;
 import com.letrinhas05.util.SystemUiHider;
 import com.letrinhas05.util.Utils;
@@ -28,6 +31,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.text.Spannable;
+import android.text.format.DateUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
@@ -41,9 +45,12 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Correcao_Texto_Prof extends Activity {
+public class Correcao_Texto extends Activity {
 
 			boolean  playing;
+			LetrinhasDB bd = new LetrinhasDB(this);
+			int iDs[];
+			String Nomes[], demoUrl, audioUrl;
 
 			// objetos
 			ImageButton play, voltar, cancelar, avancar;
@@ -55,7 +62,6 @@ public class Correcao_Texto_Prof extends Activity {
 			String avaliacao;
 
 			private MediaPlayer reprodutor = new MediaPlayer();
-			private String fileName;
 
 			/**
 			 * Whether or not the system UI should be auto-hidden after
@@ -121,13 +127,32 @@ public class Correcao_Texto_Prof extends Activity {
 
 				// buscar os parametros
 				Bundle b = getIntent().getExtras();
-				//String[] ss = 
-			//	Log.d("Texto", b.getStringArray("ListaTexto").toString());
-				// Compor novamente e lista de testes
-				int lstID[] = b.getIntArray("ListaID");
-				int[] lstTipo = b.getIntArray("ListaTipo");
-				String[] lstTitulo = b.getStringArray("ListaTitulo");
-				String[] lstTexto = b.getStringArray("ListaTexto");
+				
+				// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
+				Nomes = b.getStringArray("Nomes");
+				// int's - idEscola, idProfessor, idTurma, idAluno
+				iDs = b.getIntArray("IDs");
+				long idCorrecao = b.getLong("ID_Correcao"); 
+				
+				//correcao para buscar o id do teste, titulo e o endereço do audio do aluno
+				CorrecaoTesteLeitura crt = new CorrecaoTesteLeitura();//bd.get
+				
+				//Teste para buscar o texto, titulo e o endereço da demonstração
+				TesteLeitura teste = bd.getTesteLeituraById(crt.getTestId());
+				
+				String s= teste.getTitulo() + " - ";
+				// timeStamp ***** Nao sei bem se esta funciona ****************************+
+				s += ""	+ DateUtils.formatSameDayTime(
+								crt.getDataExecucao(),
+								System.currentTimeMillis(), 1, 1);// 3=short; 1=long
+				//********************************************************************
+				((TextView) findViewById(R.id.textCabecalho)).setText(s);
+				
+				//Estudante 
+				
+				((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
+				
+				
 /*				array = b.getStringArray("Storage");
 //				id = lstID;
 //				tipo = lstTipo;
@@ -143,10 +168,10 @@ public class Correcao_Texto_Prof extends Activity {
 				/**####################################################################################
 				// **********************************************************************************************
 				/ Consultar a BD para preencher o conteï¿½do....*/
-				((TextView) findViewById(R.id.textCabecalho)).setText(lstTitulo[0]);
-				((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
+			//	((TextView) findViewById(R.id.textCabecalho)).setText(lstTitulo[0]);
+			//	((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
 				//texto = getResources().getText(R.string.exemploTexto).toString();
-				Log.d("Texto", lstTexto[0]);
+		//		Log.d("Texto", lstTexto[0]);
 	//			texto = lstTexto[0];
 				// **********************************************************************************************
 
@@ -174,7 +199,7 @@ public class Correcao_Texto_Prof extends Activity {
 //					chrono.setVisibility(View.INVISIBLE);
 //				}
 
-				record = (ImageButton) findViewById(R.id.txtRecord);
+				
 				play = (ImageButton) findViewById(R.id.txtDemo);
 				play.setVisibility(View.INVISIBLE);
 				voltar = (ImageButton) findViewById(R.id.txtVoltar);

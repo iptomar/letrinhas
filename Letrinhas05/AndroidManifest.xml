@@ -52,7 +52,7 @@
             android:label="@string/title_activity_autenticacao" >
         </activity>
         <activity
-            android:name="com.letrinhas05.Teste_Texto_Aluno"
+            android:name="com.letrinhas05.Teste_Texto"
             android:label="@string/title_activity_teste_texto"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
@@ -65,7 +65,7 @@
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas05.Correcao_Texto_Prof"
+            android:name="com.letrinhas05.Correcao_Texto"
             android:label="@string/title_activity_teste_texto"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
@@ -83,7 +83,7 @@
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas05.Teste_Poema_Aluno"
+            android:name="com.letrinhas05.Teste_Poema"
             android:label="@string/title_activity_teste__poema"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
