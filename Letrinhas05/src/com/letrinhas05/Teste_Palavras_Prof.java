@@ -130,7 +130,9 @@ public class Teste_Palavras_Prof extends Activity{
 					Log.d("Debug-url", g[x]+" awehfe "+x);
 					x++;
 				}
-				
+				Log.d("Debug-id_teste", String.valueOf(id_teste));
+
+				Log.d("Debug-uuidAudio", uuidAudio);
 				
 				text = db.getTesteLeituraById(id_teste).getTexto();
 				Log.d("Debug-text",text);

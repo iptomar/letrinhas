@@ -59,7 +59,7 @@ public class RelatasCorrection extends Activity {
 		observacoes = (TextView) findViewById(R.id.observacoes);
 		detalhes = (TextView) findViewById(R.id.detalhes);
 		totalDePalavras = (TextView) findViewById(R.id.totalDePalavras);
-		next = (ImageButton) findViewById(R.id.next);
+		//next = (ImageButton) findViewById(R.id.next);
 		
 		testId.setText(String.valueOf(valueInt[0]));
 		idEstudante.setText(String.valueOf(valueInt[1]));
@@ -82,12 +82,12 @@ public class RelatasCorrection extends Activity {
 		Toast.makeText(getApplicationContext(),String.valueOf(valueLong[0]),Toast.LENGTH_SHORT).show();
 		Toast.makeText(getApplicationContext(),String.valueOf(valueFloat[0]),Toast.LENGTH_SHORT).show();
 		Toast.makeText(getApplicationContext(),valueString[0],Toast.LENGTH_SHORT).show();
-		next.setOnClickListener(new View.OnClickListener() {
+		/*next.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				finish();
 			}
-		});
+		});*/
 		
 	}
 
