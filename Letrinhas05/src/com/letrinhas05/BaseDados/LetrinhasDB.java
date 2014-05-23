@@ -677,7 +677,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
      */
     public CorrecaoTesteLeitura getCorrecaoTesteLeirutaById(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABELA_TESTE,
+        Cursor cursor = db.query(TABELA_CORRECAOTESTE,
                 new String[]{CORRT_ID, CORRT_IDTESTE, CORRT_IDALUNO,CORRT_DATAEXEC,  CORRT_TIPO, CORRT_ESTADO },
                 CORRT_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null
