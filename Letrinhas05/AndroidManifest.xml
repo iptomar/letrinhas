@@ -62,7 +62,7 @@
                 android:configChanges="orientation|keyboardHidden|screenSize"
                 android:label="@string/title_activity_teste__imagem"
                 android:screenOrientation="landscape"
-                android:theme="@style/FullscreenTheme" >
+                android:theme="@style/AppTheme" >
         </activity>
         <activity
             android:name="com.letrinhas05.Teste_Imagem"
