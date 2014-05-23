@@ -569,6 +569,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 cursor.getString(4), cursor.getString(5), cursor.getString(6),
                  cursor.getString(7), cursor.getInt(8));
         // return o Item ja carregado com os dados
+        cursor.close();
         db.close();
         return prof;
     }
@@ -595,6 +596,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 cursor.getString(3),
                 cursor.getInt(4));
         // return o Item ja carregado com os dados
+        cursor.close();
         db.close();
         return est;
     }
@@ -620,6 +622,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                     cursor.getString(2));
         }
         // return o Item ja carregado com os dados
+        cursor.close();
         db.close();
         return sist;
     }
@@ -661,9 +664,63 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         testeLeitura.setConteudoTexto(  cursor2.getString(0));
         testeLeitura.setProfessorAudioUrl(cursor2.getString(1));
         // return o Item ja carregado com os dados
+        cursor.close();
         db.close();
         return testeLeitura;
     }
+
+
+    /**
+     * Buscar Um Campo da CorrecaoTesteLeitura Pelo ID
+     * @id recebe o id da Correcao
+     * Retorna um objecto que contem CorrecaoTesteLeitura preenchido
+     */
+    public CorrecaoTesteLeitura getCorrecaoTesteLeirutaById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABELA_TESTE,
+                new String[]{CORRT_ID, CORRT_IDTESTE, CORRT_IDALUNO,CORRT_DATAEXEC,  CORRT_TIPO, CORRT_ESTADO },
+                CORRT_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null
+        );
+        ////// Se existir dados comeca a preencher o Objecto CorrecaoTesteLeitura
+        if (cursor != null)
+            cursor.moveToFirst();
+        CorrecaoTesteLeitura testeLeir = new CorrecaoTesteLeitura();
+        testeLeir.setIdCorrrecao( cursor.getInt(0));
+        testeLeir.setTestId( cursor.getInt(1));
+        testeLeir.setIdEstudante( cursor.getInt(2));
+        testeLeir.setDataExecucao( cursor.getLong(3));
+        testeLeir.setTipo( cursor.getInt(4));
+        testeLeir.setEstado( cursor.getInt(5));
+        cursor.close();
+
+        Cursor cursor2 = db.query(TABELA_CORRECAOTESTELEITURA,
+                new String[]{CORRTLEIT_AUDIOURL, CORRTLEIT_OBSERVACOES, CORRTLEIT_NUMPALAVRASPORMIN,CORRTLEIT_NUMPALAVRASCORRET,
+                        CORRTLEIT_NUMPALAVRASINCORRE, CORRTLEIT_PRECISAO, CORRTLEIT_VELOCIDADE, CORRTLEIT_EXPRESSIVIDADE,  CORRTLEIT_RITMO, CORRTLEIT_DETALHES},
+                CORRTLEIT_IDCORRECAO + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null
+        );
+        ////// Se existir dados comeca a preencher o Objecto Estudante
+        if (cursor2 != null)
+            cursor2.moveToFirst();
+        testeLeir.setAudiourl(cursor2.getString(0));
+        testeLeir.setObservacoes(cursor2.getString(1));
+        testeLeir.setNumPalavrasMin(cursor2.getFloat(2));
+        testeLeir.setNumPalavCorretas(cursor2.getInt(3));
+        testeLeir.setNumPalavIncorretas(cursor2.getInt(4));
+        testeLeir.setPrecisao(cursor2.getFloat(5));
+        testeLeir.setVelocidade(cursor2.getFloat(6));
+        testeLeir.setExpressividade(cursor2.getFloat(7));
+        testeLeir.setRitmo(cursor2.getFloat(8));
+        testeLeir.setDetalhes(cursor2.getString(9));
+        cursor2.close();
+        // return o Item ja carregado com os dados
+        db.close();
+        return testeLeir;
+    }
+
+
+
 
 
     /**
@@ -695,6 +752,12 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.close();
         return teste;
     }
+
+
+
+
+
+
 
     /**
      * Buscar Um Campo turma pelo o id
