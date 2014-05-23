@@ -135,7 +135,7 @@ public class Correcao_Texto extends Activity {
 				long idCorrecao = b.getLong("ID_Correcao"); 
 				
 				//correcao para buscar o id do teste, titulo e o endereço do audio do aluno
-				CorrecaoTesteLeitura crt = new CorrecaoTesteLeitura();//bd.get
+				CorrecaoTesteLeitura crt = bd.getCorrecaoTesteLeirutaById(idCorrecao);
 				
 				//Teste para buscar o texto, titulo e o endereço da demonstração
 				TesteLeitura teste = bd.getTesteLeituraById(crt.getTestId());
@@ -146,11 +146,14 @@ public class Correcao_Texto extends Activity {
 								crt.getDataExecucao(),
 								System.currentTimeMillis(), 1, 1);// 3=short; 1=long
 				//********************************************************************
+				
+				//tiulo do teste
 				((TextView) findViewById(R.id.textCabecalho)).setText(s);
 				
-				//Estudante 
+				//Estudate, para ier burcar o seu nome
+				Estudante aluno = bd.getEstudanteById(crt.getIdEstudante()); 
 				
-				((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
+				((TextView) findViewById(R.id.textRodape)).setText(aluno.getNome());
 				
 				
 /*				array = b.getStringArray("Storage");
