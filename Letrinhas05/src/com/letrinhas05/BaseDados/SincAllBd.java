@@ -377,10 +377,10 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 				testeMultimedia.setTipos(1);
 				// /////////CONJUNTO DE IFS QUE VAI ANALISAR SE VAI GUARDAR
 				// FICHEIROS NA SDCARD/////////
+                testeMultimedia.setContentIsUrl(c.getInt("contentIsUrl"));
 
 				if (c.getInt("contentIsUrl") == 1) {
-					testeMultimedia.setConteudoQuestao("IMG-CONTENT"
-							+ c.getInt("id") + ".jpg");
+					testeMultimedia.setConteudoQuestao("IMG-CONTENT"+ c.getInt("id") + ".jpg");
 					Utils.saveFileSD(
 							"MultimediaTest",
 							"IMG-CONTENT" + c.getInt("id") + ".jpg",
@@ -390,10 +390,10 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 					testeMultimedia.setConteudoQuestao(c
 							.getString("questionContent"));
 
-				testeMultimedia.setContentIsUrl(c.getInt("contentIsUrl"));
+
 
 				if (c.getInt("option1IsUrl") == 1) {
-					testeMultimedia.setConteudoQuestao("IMG-OPTION1-"
+					testeMultimedia.setOpcao1("IMG-OPTION1-"
 							+ c.getInt("id") + ".jpg");
 					Utils.saveFileSD(
 							"MultimediaTest",
@@ -401,10 +401,10 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 							NetworkUtils.getFile(URlString
 									+ c.getString("option1")));
 				} else
-					testeMultimedia.setConteudoQuestao(c.getString("option1"));
+					testeMultimedia.setOpcao1(c.getString("option1"));
 
 				if (c.getInt("option2IsUrl") == 1) {
-					testeMultimedia.setConteudoQuestao("IMG-OPTION2-"
+					testeMultimedia.setOpcao2("IMG-OPTION2-"
 							+ c.getInt("id") + ".jpg");
 					Utils.saveFileSD(
 							"MultimediaTest",
@@ -412,10 +412,12 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 							NetworkUtils.getFile(URlString
 									+ c.getString("option2")));
 				} else
-					testeMultimedia.setConteudoQuestao(c.getString("option2"));
+					testeMultimedia.setOpcao2(c.getString("option2"));
+
+
 
 				if (c.getInt("option3IsUrl") == 1) {
-					testeMultimedia.setConteudoQuestao("IMG-OPTION3-"
+					testeMultimedia.setOpcao3("IMG-OPTION3-"
 							+ c.getInt("id") + ".jpg");
 					Utils.saveFileSD(
 							"MultimediaTest",
@@ -423,10 +425,12 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 							NetworkUtils.getFile(URlString
 									+ c.getString("option3")));
 				} else
-					testeMultimedia.setConteudoQuestao(c.getString("option3"));
+					testeMultimedia.setOpcao3(c.getString("option3"));
+
+
 				testeMultimedia.setOpcao1IsUrl(c.getInt("option1IsUrl"));
-				testeMultimedia.setOpcao1IsUrl(c.getInt("option2IsUrl"));
-				testeMultimedia.setOpcao1IsUrl(c.getInt("option3IsUrl"));
+				testeMultimedia.setOpcao2IsUrl(c.getInt("option2IsUrl"));
+				testeMultimedia.setOpcao3IsUrl(c.getInt("option3IsUrl"));
 				testeMultimedia.setCorrectOption(c.getInt("correctOption"));
 				arrTestesMultimedia[i] = testeMultimedia;
 			}
@@ -714,8 +718,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
 		for (TesteMultimedia cn : dados2) {
 			String cenas = "getIdTeste:" + cn.getIdTeste()
 					+ ", getConteudoQuestao: " + cn.getConteudoQuestao()
-					+ ", getContentIsUrl: " + cn.getContentIsUrl() + ", ge: "
-					+ cn.getConteudoQuestao() + ", getOpcao1: "
+					+ ", getContentIsUrl: " + cn.getContentIsUrl() + ", "+ ", getOpcao1: "
 					+ cn.getOpcao1() + ", getOpcao1IsUrl: "
 					+ cn.getOpcao1IsUrl() + ", getOpcao2: " + cn.getOpcao2()
 					+ ", getOpcao2IsUrl: " + cn.getOpcao2IsUrl()

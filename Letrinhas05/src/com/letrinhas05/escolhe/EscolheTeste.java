@@ -27,9 +27,9 @@ import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.util.SystemUiHider;
 
 /**
- * 
+ *
  * @author Thiago
- * 
+ *
  */
 public class EscolheTeste extends Activity {
     ////Variaveis
@@ -40,395 +40,395 @@ public class EscolheTeste extends Activity {
     protected int[]  idTestes, ids;
     protected LetrinhasDB ldb;
 
-	protected int idArea, idTipo; // ////IDaREA IDTIPO DE TESTE
-	protected String nomeDsiciplina;
-	/**
-	 * Whether or not the system UI should be auto-hidden after
-	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-	 */
-	private static final boolean AUTO_HIDE = true;
-	/**
-	 * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-	 * user interaction before hiding the system UI.
-	 */
-	private static final int AUTO_HIDE_DELAY_MILLIS = 1000;
-	/*********************************************************************
-	 * The flags to pass to {@link SystemUiHider#getInstance}.
-	 */
-	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
-	/**
-	 * The instance of the {@link SystemUiHider} for this activity.
-	 */
-	private SystemUiHider mSystemUiHider;
+    protected int idArea, idTipo; // ////IDaREA IDTIPO DE TESTE
+    protected String nomeDsiciplina;
+    /**
+     * Whether or not the system UI should be auto-hidden after
+     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
+     */
+    private static final boolean AUTO_HIDE = true;
+    /**
+     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
+     * user interaction before hiding the system UI.
+     */
+    private static final int AUTO_HIDE_DELAY_MILLIS = 1000;
+    /*********************************************************************
+     * The flags to pass to {@link SystemUiHider#getInstance}.
+     */
+    private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+    /**
+     * The instance of the {@link SystemUiHider} for this activity.
+     */
+    private SystemUiHider mSystemUiHider;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.escolhe_teste);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.escolhe_teste);
 
-		// recebe o parametro de modo
-		Bundle b = getIntent().getExtras();
-		ids = b.getIntArray("IDs");
-		Nomes = b.getStringArray("Nomes");
-		alunoId = ids[3];
-		idArea = b.getInt("idDisciplina");
-		idTipo = b.getInt("TipoTesteid");
-		nomeDsiciplina = b.getString("Disiciplina");
-		
-		Log.e("CENAS", idArea + " " + idTipo); // Error
-		//disciplina
-		TextView tvd= ((TextView)findViewById(R.id.escTDisciplina));
-		tvd.setText(b.getString("Disciplina"));
-		ImageView imgD = new ImageView(this);
-		switch(idArea){
-		case 1:
-			imgD.setImageResource(R.drawable.pt);// Portugu�s
-			break;
-		case 2:
-			imgD.setImageResource(R.drawable.mat);// Matem�tica
-			break;
-		case 3:
-			imgD.setImageResource(R.drawable.estmeio);// Estudo do meio
-			break;
-		case 4:
-			imgD.setImageResource(R.drawable.en);// English
-			break;
-		}
-		tvd.setCompoundDrawables(null, null, imgD.getDrawable(), null);
-		
-		//tipo
-		 imgD = (ImageView)findViewById(R.id.escTivTipo);
-		 switch (idTipo){
-		 case 0:
-			 imgD.setImageResource(R.drawable.textos);
-			 break;
-		 case 1:
-			 imgD.setImageResource(R.drawable.imags);
-			 break;
-		 case 2:
-			 imgD.setImageResource(R.drawable.palavras);
-			 break;
-		 }
-		
+        // recebe o parametro de modo
+        Bundle b = getIntent().getExtras();
+        ids = b.getIntArray("IDs");
+        Nomes = b.getStringArray("Nomes");
+        alunoId = ids[3];
+        idArea = b.getInt("idDisciplina");
+        idTipo = b.getInt("TipoTesteid");
+        nomeDsiciplina = b.getString("Disiciplina");
 
-		volt = (Button) findViewById(R.id.escTVoltar);
-		exect = (Button) findViewById(R.id.ibComecar);
+        Log.e("CENAS", idArea + " " + idTipo); // Error
+        //disciplina
+        TextView tvd= ((TextView)findViewById(R.id.escTDisciplina));
+        tvd.setText(b.getString("Disciplina"));
+        ImageView imgD = new ImageView(this);
+        switch(idArea){
+            case 1:
+                imgD.setImageResource(R.drawable.pt);// Portugu�s
+                break;
+            case 2:
+                imgD.setImageResource(R.drawable.mat);// Matem�tica
+                break;
+            case 3:
+                imgD.setImageResource(R.drawable.estmeio);// Estudo do meio
+                break;
+            case 4:
+                imgD.setImageResource(R.drawable.en);// English
+                break;
+        }
+        tvd.setCompoundDrawables(null, null, imgD.getDrawable(), null);
 
-		// new line faz a rota��o do ecr�n em 180 graus
-		int currentOrientation = getResources().getConfiguration().orientation;
-		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-		} else {
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-		}
+        //tipo
+        imgD = (ImageView)findViewById(R.id.escTivTipo);
+        switch (idTipo){
+            case 0:
+                imgD.setImageResource(R.drawable.textos);
+                break;
+            case 1:
+                imgD.setImageResource(R.drawable.imags);
+                break;
+            case 2:
+                imgD.setImageResource(R.drawable.palavras);
+                break;
+        }
 
-		// esconder o title************************************************+
-		final View contentView = findViewById(R.id.escTeste);
 
-		// Set up an instance of SystemUiHider to control the system UI for
-		// this activity.
-		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
-				HIDER_FLAGS);
-		mSystemUiHider.setup();
-		mSystemUiHider
-				.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
-					// Cached values.
-					int mShortAnimTime;
+        volt = (Button) findViewById(R.id.escTVoltar);
+        exect = (Button) findViewById(R.id.ibComecar);
 
-					@Override
-					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-					public void onVisibilityChange(boolean visible) {
-						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-							if (mShortAnimTime == 0) {
-								mShortAnimTime = getResources().getInteger(
-										android.R.integer.config_shortAnimTime);
-							}
-						}
+        // new line faz a rota��o do ecr�n em 180 graus
+        int currentOrientation = getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        } else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        }
 
-						if (visible && AUTO_HIDE) {
-							// Schedule a hide().
-							delayedHide(AUTO_HIDE_DELAY_MILLIS);
-						}
-					}
-				});
+        // esconder o title************************************************+
+        final View contentView = findViewById(R.id.escTeste);
 
-		/************************************************************************
-		 * Cria��o de um painel din�mico para os bot�es de sele��o dos testes
-		 * existentes.
-		 */
+        // Set up an instance of SystemUiHider to control the system UI for
+        // this activity.
+        mSystemUiHider = SystemUiHider.getInstance(this, contentView,
+                HIDER_FLAGS);
+        mSystemUiHider.setup();
+        mSystemUiHider
+                .setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
+                    // Cached values.
+                    int mShortAnimTime;
 
-		ldb = new LetrinhasDB(this);
-		// if getAllTesteByAreaIdAndTwoTypes
-		List<Teste> dados;
-		if (idTipo == 0)
-			//texto e poemas
-			dados = ldb.getAllTesteByAreaIdAndTwoTypes(idArea, idTipo, 3);
-		else
-			//imagens ou lista
-			dados = ldb.getAllTesteByAreaIdAndType(idArea, idTipo);
-		
-		
-		array = new String[dados.size()];
-		titulo = new String[dados.size()];
-		idTestes = new int[dados.size()];
-		for (Teste cn : dados) {
-			// String storage =
-			// cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
-			String storage = cn.getIdTeste() + "," + cn.getTitulo().toString()
-					+ "," + cn.getTexto().toString() + "," + cn.getTipo();
-			Log.d("letrinhas-Store", storage.toString());
-			array[numero] = storage.toString();
-			Log.d("letrinhas-Array", array[numero].toString());
-			titulo[numero] = cn.getTitulo();
-			Log.d("letrinhas-Titulo", titulo[numero].toString());
-			idTestes[numero] = cn.getIdTeste();
-			Log.d("letrinhas-ID", String.valueOf(idTestes[numero]));
-			numero++;
-		}
-		// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                    @Override
+                    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+                    public void onVisibilityChange(boolean visible) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+                            if (mShortAnimTime == 0) {
+                                mShortAnimTime = getResources().getInteger(
+                                        android.R.integer.config_shortAnimTime);
+                            }
+                        }
 
-		// Painel din�mico
-		// ****************************************************
-		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
-		// Bot�o original que existe por defeni��o
-		ToggleButton tg1 = (ToggleButton) findViewById(R.id.escTtbtn);
-		// Se existirem testes no reposit�rio correspondentes, cria o n� de
-		// bot�es referentes ao n� de testes existentes
-		if (0 < numero) {
-			int i = 0;
-			teste = titulo[i].toString();
-			Log.d("Texto-Apenas", teste + " int:" + numero);
-			// Atribuo o primeiro t�tulo ao primeiro bot�o
-			// ********************************+
-			// texto por defeito
-			tg1.setText(teste);
-			// texto se n�o seleccionado = "titulo do teste sem numera��o"
-			tg1.setTextOff(teste);
-			// texto se seleccionado = "titulo do teste com numera��o"
-			tg1.setTextOn((i + 1) + " - " + teste);
-			i++;
+                        if (visible && AUTO_HIDE) {
+                            // Schedule a hide().
+                            delayedHide(AUTO_HIDE_DELAY_MILLIS);
+                        }
+                    }
+                });
 
-			// Resto do t�tulos
-			while (i < numero) {
-				// um novo bot�o
-				ToggleButton tg = new ToggleButton(getBaseContext());
-				// copiar os parametros de layout do 1� bot�o
-				tg.setLayoutParams(tg1.getLayoutParams());
-				tg.setTextSize(tg1.getTextSize());
-				teste = titulo[i].toString();
-				// texto por defeito
-				tg.setText(teste);
-				// texto se n�o seleccionado =
-				// "titulo do teste sem numera��o"
-				tg.setTextOff(teste);
-				// texto se seleccionado = "titulo do teste com numera��o"
-				tg.setTextOn((i + 1) + " - " + teste);
-				// inserir no scroll view
-				ll.addView(tg);
-				i++;
-			}
-		} else {
-			// esconder os bot�es
-			tg1.setVisibility(View.INVISIBLE);
-			exect.setVisibility(View.INVISIBLE);
+        /************************************************************************
+         * Cria��o de um painel din�mico para os bot�es de sele��o dos testes
+         * existentes.
+         */
 
-			android.app.AlertDialog alerta;
-			// Cria o gerador do AlertDialog
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			// define o titulo
-			builder.setTitle("Letrinhas 03");
-			// define a mensagem
-			builder.setMessage("N�o foram encontrados testes no reposit�rio");
-			// define um bot�o como positivo
-			builder.setPositiveButton("OK", null);
-			// cria o AlertDialog
-			alerta = builder.create();
-			// Mostra
-			alerta.show();
+        ldb = new LetrinhasDB(this);
+        // if getAllTesteByAreaIdAndTwoTypes
+        List<Teste> dados;
+        if (idTipo == 0)
+            //texto e poemas
+            dados = ldb.getAllTesteByAreaIdAndTwoTypes(idArea, idTipo, 3);
+        else
+            //imagens ou lista
+            dados = ldb.getAllTesteByAreaIdAndType(idArea, idTipo);
 
-		}
 
-		escutaBotoes();
-	}
+        array = new String[dados.size()];
+        titulo = new String[dados.size()];
+        idTestes = new int[dados.size()];
+        for (Teste cn : dados) {
+            // String storage =
+            // cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
+            String storage = cn.getIdTeste() + "," + cn.getTitulo().toString()
+                    + "," + cn.getTexto().toString() + "," + cn.getTipo();
+            Log.d("letrinhas-Store", storage.toString());
+            array[numero] = storage.toString();
+            Log.d("letrinhas-Array", array[numero].toString());
+            titulo[numero] = cn.getTitulo();
+            Log.d("letrinhas-Titulo", titulo[numero].toString());
+            idTestes[numero] = cn.getIdTeste();
+            Log.d("letrinhas-ID", String.valueOf(idTestes[numero]));
+            numero++;
+        }
+        // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
+        // Painel din�mico
+        // ****************************************************
+        LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
+        // Bot�o original que existe por defeni��o
+        ToggleButton tg1 = (ToggleButton) findViewById(R.id.escTtbtn);
+        // Se existirem testes no reposit�rio correspondentes, cria o n� de
+        // bot�es referentes ao n� de testes existentes
+        if (0 < numero) {
+            int i = 0;
+            teste = titulo[i].toString();
+            Log.d("Texto-Apenas", teste + " int:" + numero);
+            // Atribuo o primeiro t�tulo ao primeiro bot�o
+            // ********************************+
+            // texto por defeito
+            tg1.setText(teste);
+            // texto se n�o seleccionado = "titulo do teste sem numera��o"
+            tg1.setTextOff(teste);
+            // texto se seleccionado = "titulo do teste com numera��o"
+            tg1.setTextOn((i + 1) + " - " + teste);
+            i++;
 
-		// Trigger the initial hide() shortly after the activity has been
-		// created, to briefly hint to the user that UI controls
-		// are available.
-		delayedHide(1000);
-	}
+            // Resto do t�tulos
+            while (i < numero) {
+                // um novo bot�o
+                ToggleButton tg = new ToggleButton(getBaseContext());
+                // copiar os parametros de layout do 1� bot�o
+                tg.setLayoutParams(tg1.getLayoutParams());
+                tg.setTextSize(tg1.getTextSize());
+                teste = titulo[i].toString();
+                // texto por defeito
+                tg.setText(teste);
+                // texto se n�o seleccionado =
+                // "titulo do teste sem numera��o"
+                tg.setTextOff(teste);
+                // texto se seleccionado = "titulo do teste com numera��o"
+                tg.setTextOn((i + 1) + " - " + teste);
+                // inserir no scroll view
+                ll.addView(tg);
+                i++;
+            }
+        } else {
+            // esconder os bot�es
+            tg1.setVisibility(View.INVISIBLE);
+            exect.setVisibility(View.INVISIBLE);
 
-	/**
-	 * Touch listener to use for in-layout UI controls to delay hiding the
-	 * system UI. This is to prevent the jarring behavior of controls going away
-	 * while interacting with activity UI.
-	 */
-	View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-		@Override
-		public boolean onTouch(View view, MotionEvent motionEvent) {
-			if (AUTO_HIDE) {
-				delayedHide(AUTO_HIDE_DELAY_MILLIS);
-			}
-			return false;
-		}
-	};
+            android.app.AlertDialog alerta;
+            // Cria o gerador do AlertDialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            // define o titulo
+            builder.setTitle("Letrinhas 03");
+            // define a mensagem
+            builder.setMessage("N�o foram encontrados testes no reposit�rio");
+            // define um bot�o como positivo
+            builder.setPositiveButton("OK", null);
+            // cria o AlertDialog
+            alerta = builder.create();
+            // Mostra
+            alerta.show();
 
-	Handler mHideHandler = new Handler();
-	Runnable mHideRunnable = new Runnable() {
-		@Override
-		public void run() {
-			mSystemUiHider.hide();
-		}
-	};
+        }
 
-	/**
-	 * Schedules a call to hide() in [delay] milliseconds, canceling any
-	 * previously scheduled calls.
-	 */
-	private void delayedHide(int delayMillis) {
-		mHideHandler.removeCallbacks(mHideRunnable);
-		mHideHandler.postDelayed(mHideRunnable, delayMillis);
-	}
+        escutaBotoes();
+    }
 
-	/**
-	 * Procedimento para veirficar os bot�es
-	 * 
-	 * @author Thiago
-	 */
-	private void escutaBotoes() {
-		exect.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				executarTestes();
-			}
-		});
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
 
-		volt.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {// sair da aplica��o
-				finish();
-			}
-		});
-	}
+        // Trigger the initial hide() shortly after the activity has been
+        // created, to briefly hint to the user that UI controls
+        // are available.
+        delayedHide(1000);
+    }
 
-	/**
-	 * Procedimento para executar os testes selecionados, um de cada vez sequ�ncialmente
-	 * 
-	 * @author Thiago
-	 */
-	public void executarTestes() {
-		LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
-		// contar o numero de elementos (testes)
-		int nElements = ll.getChildCount();
+    /**
+     * Touch listener to use for in-layout UI controls to delay hiding the
+     * system UI. This is to prevent the jarring behavior of controls going away
+     * while interacting with activity UI.
+     */
+    View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (AUTO_HIDE) {
+                delayedHide(AUTO_HIDE_DELAY_MILLIS);
+            }
+            return false;
+        }
+    };
 
-		int j = 0;
-		// contar quantos e quais foram selecionados
-		for (int i = 0; i < nElements; i++) {
-			// verificar se o teste est� ativo
-			if (((ToggleButton) ll.getChildAt(i)).isChecked()) {
-				j++;
-			}
-		}
-		Toast.makeText(getApplicationContext(), j + " Testes seleccionados",
-				Toast.LENGTH_SHORT).show();
+    Handler mHideHandler = new Handler();
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
+        }
+    };
 
-		// Copiar os id's dos testes seleccionados para uma lista auxiliar
-		int[] lstID = new int[j];
-		j = 0;
-		for (int i = 0; i <idTestes.length; i++) {
-			if (((ToggleButton) ll.getChildAt(i)).isChecked()) {
-				lstID[j] = idTestes[i];
-				j++;
-			}
-		}
+    /**
+     * Schedules a call to hide() in [delay] milliseconds, canceling any
+     * previously scheduled calls.
+     */
+    private void delayedHide(int delayMillis) {
+        mHideHandler.removeCallbacks(mHideRunnable);
+        mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
 
-		iniciar(lstID);
-	}
+    /**
+     * Procedimento para veirficar os bot�es
+     *
+     * @author Thiago
+     */
+    private void escutaBotoes() {
+        exect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                executarTestes();
+            }
+        });
 
-	
-	public void iniciar(int[] lstID) {
-		// iniciar os testes....
-		// Se existir items seleccionados arranca com os testes,
-		if (0 < lstID.length) {
-			
-			// enviar os parametros
-			Bundle wrap = new Bundle();
+        volt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {// sair da aplica��o
+                finish();
+            }
+        });
+    }
 
-			wrap.putIntArray("ListaID", lstID);//id's dos testes selecionados
-			wrap.putStringArray("Nomes", Nomes);
-			wrap.putIntArray("IDs", ids);
+    /**
+     * Procedimento para executar os testes selecionados, um de cada vez sequ�ncialmente
+     *
+     * @author Thiago
+     */
+    public void executarTestes() {
+        LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
+        // contar o numero de elementos (testes)
+        int nElements = ll.getChildCount();
 
-			//consuta � base de dados o tipo do primeiro teste a executar
-			tipo = ldb.getTesteById(lstID[0]).getTipo();
-			
-			switch (tipo) {
-			case 0: // lan�ar a nova activity do tipo texto leitura,
+        int j = 0;
+        // contar quantos e quais foram selecionados
+        for (int i = 0; i < nElements; i++) {
+            // verificar se o teste est� ativo
+            if (((ToggleButton) ll.getChildAt(i)).isChecked()) {
+                j++;
+            }
+        }
+        Toast.makeText(getApplicationContext(), j + " Testes seleccionados",
+                Toast.LENGTH_SHORT).show();
 
-				Intent it = new Intent(getApplicationContext(),
-						Teste_Texto.class);
-				it.putExtras(wrap);
+        // Copiar os id's dos testes seleccionados para uma lista auxiliar
+        int[] lstID = new int[j];
+        j = 0;
+        for (int i = 0; i <idTestes.length; i++) {
+            if (((ToggleButton) ll.getChildAt(i)).isChecked()) {
+                lstID[j] = idTestes[i];
+                j++;
+            }
+        }
 
-				startActivity(it);
+        iniciar(lstID);
+    }
 
-				break;
-			case 1:// lancar a nova activity do tipo multimedia, e o seu
-					// conteudo
-				Intent ip = new Intent(getApplicationContext(),
-						Teste_Imagem.class);
-				ip.putExtras(wrap);
 
-				startActivity(ip);
+    public void iniciar(int[] lstID) {
+        // iniciar os testes....
+        // Se existir items seleccionados arranca com os testes,
+        if (0 < lstID.length) {
 
-				break;
-			case 2: // lancar a nova activity do tipo LIsta, e o seu
-					// conteudo
-				Intent ipm = new Intent(getApplicationContext(),
-						Teste_Palavras_Aluno.class);
-				ipm.putExtras(wrap);
+            // enviar os parametros
+            Bundle wrap = new Bundle();
 
-				startActivity(ipm);
+            wrap.putIntArray("ListaID", lstID);//id's dos testes selecionados
+            wrap.putStringArray("Nomes", Nomes);
+            wrap.putIntArray("IDs", ids);
 
-				break;
-			case 3: // lancar a nova activity do tipo poema, e o seu
-					// conteudo
-				Intent ipp = new Intent(getApplicationContext(),
-						Teste_Poema.class);
-				ipp.putExtras(wrap);
+            //consuta � base de dados o tipo do primeiro teste a executar
+            tipo = ldb.getTesteById(lstID[0]).getTipo();
 
-				startActivity(ipp);
-				break;
-			default:
-				Toast.makeText(getApplicationContext(),
-						" - Tipo nao defenido", Toast.LENGTH_SHORT).show();
-				// retirar o teste errado e continuar
+            switch (tipo) {
+                case 0: // lan�ar a nova activity do tipo texto leitura,
+
+                    Intent it = new Intent(getApplicationContext(),
+                            Teste_Texto.class);
+                    it.putExtras(wrap);
+
+                    startActivity(it);
+
+                    break;
+                case 1:// lancar a nova activity do tipo multimedia, e o seu
+                    // conteudo
+                    Intent ip = new Intent(getApplicationContext(),
+                            TesteMultimediaW.class);
+                    ip.putExtras(wrap);
+
+                    startActivity(ip);
+
+                    break;
+                case 2: // lancar a nova activity do tipo LIsta, e o seu
+                    // conteudo
+                    Intent ipm = new Intent(getApplicationContext(),
+                            Teste_Palavras_Aluno.class);
+                    ipm.putExtras(wrap);
+
+                    startActivity(ipm);
+
+                    break;
+                case 3: // lancar a nova activity do tipo poema, e o seu
+                    // conteudo
+                    Intent ipp = new Intent(getApplicationContext(),
+                            Teste_Poema.class);
+                    ipp.putExtras(wrap);
+
+                    startActivity(ipp);
+                    break;
+                default:
+                    Toast.makeText(getApplicationContext(),
+                            " - Tipo nao defenido", Toast.LENGTH_SHORT).show();
+                    // retirar o teste errado e continuar
 
 				/*
 				 * int k = 0; Teste aux[] = new Teste[lista.length - 1]; for
 				 * (int i = 1; i < lista.length; i++) { aux[k] = lista[i]; k++;
 				 * } lista = aux; iniciar(lista.length);
 				 */
-				break;
-			}
+                    break;
+            }
 
-		} else {// senao avisa que nao existe nada seleccionado
-			android.app.AlertDialog alerta;
-			// Cria o gerador do AlertDialog
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			// define o titulo
-			builder.setTitle("Letrinhas 05");
-			// define a mensagem
-			builder.setMessage("N�o existem testes seleccionados!");
-			// define um botao como positivo
-			builder.setPositiveButton("OK", null);
-			// cria o AlertDialog
-			alerta = builder.create();
-			// Mostra
-			alerta.show();
-		}
+        } else {// senao avisa que nao existe nada seleccionado
+            android.app.AlertDialog alerta;
+            // Cria o gerador do AlertDialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            // define o titulo
+            builder.setTitle("Letrinhas 05");
+            // define a mensagem
+            builder.setMessage("N�o existem testes seleccionados!");
+            // define um botao como positivo
+            builder.setPositiveButton("OK", null);
+            // cria o AlertDialog
+            alerta = builder.create();
+            // Mostra
+            alerta.show();
+        }
 
-	}
+    }
 
 }

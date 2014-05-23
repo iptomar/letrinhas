@@ -665,9 +665,70 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         testeLeitura.setProfessorAudioUrl(cursor2.getString(1));
         // return o Item ja carregado com os dados
         cursor.close();
+        cursor2.close();
         db.close();
         return testeLeitura;
     }
+
+    /**
+     * Buscar Um Campo TesteMultimedia pelo o id
+     * @id recebe o id
+     * Retorna um objecto que contem TesteMultimedia preenchido
+     */
+    public TesteMultimedia getTesteMultimediaById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABELA_TESTE,
+                new String[]{TEST_ID, TEST_AREAID, TEST_PROFESSORID,
+                        TEST_TITULO, TEST_TEXTO,TEST_DATAINSERCAO, TEST_GRAU, TEST_TIPO },
+                TEST_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null
+        );
+        ////// Se existir dados comeca a preencher o Objecto Estudante
+        if (cursor != null)
+            cursor.moveToFirst();
+        TesteMultimedia testeMultimedia = new TesteMultimedia();
+        testeMultimedia.setIdTeste(  cursor.getInt(0));
+        testeMultimedia.setAreaId(  cursor.getInt(1));
+        testeMultimedia.setProfessorId(  cursor.getInt(2));
+        testeMultimedia.setTitulo(  cursor.getString(3));
+        testeMultimedia.setTexto(  cursor.getString(4));
+        testeMultimedia.setDataInsercaoTeste(  cursor.getLong(5));
+        testeMultimedia.setGrauEscolar(  cursor.getInt(6));
+        testeMultimedia.setTipos(  cursor.getInt(7));
+
+        Cursor cursor2 = db.query(TABELA_TESTEMULTIMEDIA,
+                new String[]{TESTM_CONTEUDOQUESTAO, TESTM_CONTEUDOISURL, TESTM_OPCAO1, TESTM_OPCAO1ISURL, TESTM_OPCAO2,
+                        TESTM_OPCAO2ISURL, TESTM_OPCAO3, TESTM_OPCAO3ISURL, TESTM_OPCAOCORRETA},
+                TESTM_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null
+        );
+        ////// Se existir dados comeca a preencher o Objecto Estudante
+        if (cursor2 != null)
+            cursor2.moveToFirst();
+        testeMultimedia.setConteudoQuestao(cursor2.getString(0));
+        testeMultimedia.setContentIsUrl(cursor2.getInt(1));
+        testeMultimedia.setOpcao1(cursor2.getString(2));
+        testeMultimedia.setOpcao1IsUrl(cursor2.getInt(3));
+        testeMultimedia.setOpcao2(cursor2.getString(4));
+        testeMultimedia.setOpcao2IsUrl(cursor2.getInt(5));
+        testeMultimedia.setOpcao3(cursor2.getString(6));
+        testeMultimedia.setOpcao3IsUrl(cursor2.getInt(7));
+        testeMultimedia.setCorrectOption(cursor2.getInt(8));
+        // return o Item ja carregado com os dados
+        cursor.close();
+        cursor2.close();
+        db.close();
+        return testeMultimedia;
+    }
+
+
+
+
+
+
+
+
+
 
 
     /**
