@@ -148,16 +148,44 @@ public class Teste_Palavras_Aluno extends Activity{
 				teste =  bd.getTesteLeituraById(testesID[0]);
 				Log.d("Debug-Iniciar(b)", "testesID->"+String.valueOf(testesID[0])+" teste->"+teste.getTexto());
 				Log.d("Debug-getTitulo()", teste.getTitulo());
-				String[] yo = teste.getTexto().split("[ ]");
-				String yo2 = "";
-				((TextView) findViewById(R.id.textTitulo)).setText(teste.getTitulo());
-				for(int i = 0; i<yo.length;i++){
-					yo2 += yo[i]+"\n";
+				
+				
+				// ordenação do texto nas três colunas de forma a preencher toda de seguida a 1º e só depois passa para as outras
+				int lenght;
+				String[] ar = teste.getTexto().split("[ ]");
+				String[] restoVal = new String[2];
+				lenght = ar.length/3;
+				if(ar.length%3 == 2){
+					restoVal[0] = "1";
+					restoVal[1] = "1";
+				}else if(ar.length%3 == 1){
+					restoVal[0] = "1";
+					restoVal[1] = "0";
+				}else if(ar.length%3 == 0){
+					restoVal[0] = "0";
+					restoVal[1] = "0";
 				}
-				((TextView) findViewById(R.id.TextView01)).setText(yo2);
-				((TextView) findViewById(R.id.TextView02)).setText(yo2);
-				((TextView) findViewById(R.id.TextView03)).setText(yo2);
+				String[] texto = new String[lenght+Integer.parseInt(restoVal[0])], texto1 = new String[lenght+Integer.parseInt(restoVal[1])], texto2 = new String[lenght];
+				int var=0,var1=0,resto,support=0,support1=0;
+				for(int i=0;i<((ar.length)/3)+Integer.parseInt(restoVal[0]);i++){
+					texto[i] = ar[i];
+					var=i;
+				}
+				resto = ar.length - (ar.length)/3;
+				for(int j = var+1;j<resto+Integer.parseInt(restoVal[1]);j++){
+					texto1[support] = ar[j];
+					var1=j;
+					support++;
+				}
+				for(int k = var1+1;k<ar.length;k++){
+					texto2[support1] = ar[k];
+					support1++;
+				}
 
+				((TextView) findViewById(R.id.textTitulo)).setText(teste.getTitulo());
+				fillTextColumn(R.id.TextView01, texto);
+				fillTextColumn(R.id.TextView02, texto1);
+				fillTextColumn(R.id.TextView03, texto2);
 				// **********************************************************************************************
 
 				idTesteAtual = testesID[0];
@@ -167,6 +195,21 @@ public class Teste_Palavras_Aluno extends Activity{
 					aux[i - 1] = testesID[i];
 				}
 				testesID = aux;
+			}
+			
+			/**
+			 * Controi a coluna com o texto que lhe é disponivel
+			 * @param textView
+			 * @param text
+			 * @author Dario
+			 */
+			public void fillTextColumn(int textView, String[] text){
+				Log.d("Debug-text.length",String.valueOf(text.length));
+				String yo="";
+				for(int i = 0; i<text.length;i++){
+					yo += text[i]+"\n";
+				}	
+				((TextView) findViewById(textView)).setText(yo);
 			}
 			
 			@Override

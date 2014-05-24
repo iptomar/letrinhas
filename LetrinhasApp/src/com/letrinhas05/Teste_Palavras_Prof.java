@@ -37,7 +37,7 @@ import com.letrinhas05.util.SystemUiHider;
 import com.letrinhas05.util.Teste;
 
 public class Teste_Palavras_Prof extends Activity{
-			boolean playing;
+			boolean playing,flag;
 			// objetos
 			ImageButton play, voltar, cancelar, avancar;
 			int plvErradas=0,id_teste, totalDePalavras=0;
@@ -150,9 +150,43 @@ public class Teste_Palavras_Prof extends Activity{
 				Log.d("Debug-pathAudio", endereco);
 				valueWord = (TextView) findViewById(R.id.ValueWord);
 				valueWord.setText("0");
-				initSetup(getResources(), R.id.txtScroll, R.id.ToggleButton, R.id.lllayer);
-				initSetup(getResources(), R.id.txtScroll1, R.id.ToggleButton1, R.id.lllayer1);
-				initSetup(getResources(), R.id.txtScroll2, R.id.ToggleButton2, R.id.lllayer2);
+				
+				// ordenação do texto nas três colunas de forma a preencher toda de seguida a 1º e só depois passa para as outras
+				int lenght;
+				String[] ar = text.split("[ ]");
+				String[] restoVal = new String[2];
+				lenght = ar.length/3;
+				if(ar.length%3 == 2){
+					restoVal[0] = "1";
+					restoVal[1] = "1";
+				}else if(ar.length%3 == 1){
+					restoVal[0] = "1";
+					restoVal[1] = "0";
+				}else if(ar.length%3 == 0){
+					restoVal[0] = "0";
+					restoVal[1] = "0";
+				}
+				String[] text = new String[lenght+Integer.parseInt(restoVal[0])], text1 = new String[lenght+Integer.parseInt(restoVal[1])], text2 = new String[lenght];
+				int var=0,var1=0,resto,support=0,support1=0;
+				for(int i=0;i<((ar.length)/3)+Integer.parseInt(restoVal[0]);i++){
+					text[i] = ar[i];
+					var=i;
+				}
+				resto = ar.length - (ar.length)/3;
+				for(int j = var+1;j<resto+Integer.parseInt(restoVal[1]);j++){
+					text1[support] = ar[j];
+					var1=j;
+					support++;
+				}
+				for(int k = var1+1;k<ar.length;k++){
+					text2[support1] = ar[k];
+					support1++;
+				}
+				initSetup(getResources(), R.id.txtScroll, R.id.ToggleButton, R.id.lllayer,text);
+				initSetup(getResources(), R.id.txtScroll1, R.id.ToggleButton1, R.id.lllayer1,text1);
+				initSetup(getResources(), R.id.txtScroll2, R.id.ToggleButton2, R.id.lllayer2,text2);
+				// **********************************************************************************************
+				
 				play = (ImageButton) findViewById(R.id.txtVoicePlay);
 				voltar = (ImageButton) findViewById(R.id.txtVoltar);
 				cancelar = (ImageButton) findViewById(R.id.txtCancel);
@@ -218,7 +252,24 @@ public class Teste_Palavras_Prof extends Activity{
 					@Override
 					public void onClick(View view) {
 						// voltar para pag inicial
-						startAvalia();
+						if(flag==true){
+							startAvalia();
+						}else{
+							android.app.AlertDialog alerta;
+							// Cria o gerador do AlertDialog
+							AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+							// define o titulo
+							builder.setTitle("Letrinhas 05");
+							// define a mensagem
+							builder.setMessage(" Não correu o som, tem de o fazer pelo menos uma vez!");
+							// define um botão como positivo
+							builder.setPositiveButton("OK", null);
+							// cria o AlertDialog
+							alerta = builder.create();
+							// Mostra
+							alerta.show();
+						}
+						
 					}
 				});
 				voltar.setOnClickListener(new View.OnClickListener() {
@@ -336,6 +387,7 @@ public class Teste_Palavras_Prof extends Activity{
 										horas   = (int)((dur/ (1000*60*60)) % 24);
 										String time = horas+":"+minutos+":"+segundos;
 										Log.d("Debug-mediaPlayerTime", time);
+										flag=true;
 										reprodutor.release();
 										Toast.makeText(getApplicationContext(),"Fim da reprodução.",Toast.LENGTH_SHORT).show();
 									} catch (Exception ex) {
@@ -368,6 +420,7 @@ public class Teste_Palavras_Prof extends Activity{
 						horas   = (int)((dur/ (1000*60*60)) % 24);
 						String time = horas+":"+minutos+":"+segundos;
 						Log.d("Debug-mediaPlayerTime", time);
+						flag = true;
 						reprodutor.release();
 
 						Toast.makeText(getApplicationContext(),"Reprodução interrompida.", Toast.LENGTH_SHORT).show();
@@ -412,8 +465,7 @@ public class Teste_Palavras_Prof extends Activity{
 			/**
 			 * este metodo irá criar o primeiro butão, que irá servir de modelo para os restantes
 			 */
-			public void initSetup(Resources res,int list, int toggle, int layout){
-				String[] ar = text.split("[ ]");
+			public void initSetup(Resources res,int list, int toggle, int layout, String[] ar){
 				ToggleButton tg = (ToggleButton) findViewById(toggle);
 				tg.setTextColor(Color.DKGRAY);
 				tg.setBackgroundColor(Color.DKGRAY);
