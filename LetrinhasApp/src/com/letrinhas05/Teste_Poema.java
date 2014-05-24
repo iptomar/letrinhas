@@ -519,7 +519,9 @@ public class Teste_Poema extends Activity {
 									
 									String aux = idTesteAtual + iDs[3] + time + "";
 									ctl.setIdCorrrecao(Long.parseLong(aux));
-									ctl.setAudiourl(filePath + fileName);
+									String[] yo = filePath.split("School-Data");
+									ctl.setAudiourl("/School-Data" + yo[1] + fileName);
+									Log.d("Debug-Text_Poema", "/School-Data" + yo[1] + fileName);
 									ctl.setDataExecucao(time);
 									ctl.setTipo(0);// pois estou num teste texto
 									ctl.setEstado(0);

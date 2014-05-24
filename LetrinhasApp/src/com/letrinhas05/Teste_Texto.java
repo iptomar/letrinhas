@@ -12,6 +12,7 @@ import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.ClassesObjs.TesteLeitura;
 import com.letrinhas05.util.SystemUiHider;
+
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
@@ -692,7 +693,9 @@ public class Teste_Texto extends Activity {
 
 			String aux = idTesteAtual + iDs[3] + time + "";
 			ctl.setIdCorrrecao(Long.parseLong(aux));
-			ctl.setAudiourl(endereco + fileName);
+			String[] yo = endereco.split("School-Data");
+			ctl.setAudiourl("/School-Data" + yo[1] + fileName);
+			Log.d("Debug-Text_texto", "/School-Data" + yo[1] + fileName);
 			ctl.setDataExecucao(time);
 			ctl.setTipo(0);// pois estou num teste texto
 			ctl.setEstado(0);
