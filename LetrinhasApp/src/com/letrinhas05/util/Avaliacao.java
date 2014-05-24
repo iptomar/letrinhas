@@ -13,6 +13,12 @@ public class Avaliacao {
 		this.totalDePalavras = totalDePalavras;
 		this.TotalDeSinaisPontuacao = TotalDeSinaisPontuacao;
 	}
+	
+	public Avaliacao(int totalDePalavras, int TotalDeSinaisPontuacao, int plvErradas) {
+		this.totalDePalavras = totalDePalavras;
+		this.TotalDeSinaisPontuacao = TotalDeSinaisPontuacao;
+		this.plvErradas = plvErradas;
+	}
 
 	public void decPalErrada() {
 		if (plvErradas != 0) {
