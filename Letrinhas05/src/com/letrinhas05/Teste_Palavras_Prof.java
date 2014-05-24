@@ -1,6 +1,8 @@
 package com.letrinhas05;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -33,6 +35,7 @@ import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.escolhe.ListarSubmissoes;
+import com.letrinhas05.util.Avaliacao;
 import com.letrinhas05.util.SystemUiHider;
 import com.letrinhas05.util.Teste;
 
@@ -53,7 +56,10 @@ public class Teste_Palavras_Prof extends Activity{
 			int testId=0, idEstudante=0, tipo=0, estado=0, numPalavCorretas=0, numPalavIncorretas=0;
 			long dataExecucao=0, idCorrrecao=0;
 			float numPalavrasMin=0, precisao=0, velocidade=0, expressividade=0, ritmo=0;
+			double milisegundos; 
+			int segundos, minutos, horas;
 			String observacoes="empty", detalhes="empty";
+			Avaliacao eval;
 			
 			/**
 			 * Whether or not the system UI should be auto-hidden after
@@ -124,7 +130,9 @@ public class Teste_Palavras_Prof extends Activity{
 					Log.d("Debug-url", g[x]+" awehfe "+x);
 					x++;
 				}
-				
+				Log.d("Debug-id_teste", String.valueOf(id_teste));
+
+				Log.d("Debug-uuidAudio", uuidAudio);
 				
 				text = db.getTesteLeituraById(id_teste).getTexto();
 				Log.d("Debug-text",text);
@@ -153,7 +161,6 @@ public class Teste_Palavras_Prof extends Activity{
 				cancelar = (ImageButton) findViewById(R.id.txtCancel);
 				avancar = (ImageButton) findViewById(R.id.txtAvaliar);
 				escutaBotoes();
-				submit();
 			}
 
 			@Override
@@ -259,7 +266,7 @@ public class Teste_Palavras_Prof extends Activity{
 				ctl.setObservacoes(valueString1[0]);
 				ctl.setDetalhes(valueString1[1]);
 				//db.addNewItemCorrecaoTesteLeitura(ctl);
-					
+
 				List<CorrecaoTeste> data1 = db.getAllCorrecaoTeste();
 				Log.d("CheckInserts: ", "***********Testes******************");
 				for (CorrecaoTeste cn : data1) {
@@ -270,23 +277,22 @@ public class Teste_Palavras_Prof extends Activity{
 					// Writing Contacts to log
 					Log.d("CheckInserts: ", logs);
 				}
-			//	finaliza();
+
 				Bundle wrap = new Bundle();
 				numPalavIncorretas = plvErradas;
-				numPalavCorretas = totalDePalavras - plvErradas;
 				//int[] -> testId, idEstudante, tipo, estado,numPalavCorretas, numPalavIncorretas, totalDePalavras
 				int[] valueInt = {testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas, totalDePalavras};
 				Log.d("Debug-valueInt[0]", String.valueOf(valueInt[0]));
 				wrap.putIntArray("ints", valueInt);
-				
+
 				//long[] -> dataExecucao, idCorrrecao
 				long[] valueLong = {dataExecucao, idCorrrecao};
 				wrap.putLongArray("longs", valueLong);
-				
+
 				//float[] -> numPalavrasMin, precisao, velocidade, expressividade, ritmo
 				float[] valueFloat = {numPalavrasMin, precisao, velocidade, expressividade, ritmo};
 				wrap.putFloatArray("floats", valueFloat);
-				
+
 				//String[] -> observacoes, detalhes
 				String[] valueString = {observacoes, detalhes};
 				wrap.putStringArray("strings", valueString);
@@ -298,7 +304,7 @@ public class Teste_Palavras_Prof extends Activity{
 				 it.putExtras(wrap);
 				 startActivity(it);
 			}
-			
+
 			private final int PARADO = 2;
 			private Handler play_handler;
 			/**
@@ -327,6 +333,12 @@ public class Teste_Palavras_Prof extends Activity{
 									playing = false;
 									try {
 										reprodutor.stop();
+										double dur = reprodutor.getDuration();
+										segundos  = (int)(dur/ 1000) % 60 ;
+										minutos  = (int)((dur/ (1000*60)) % 60);
+										horas   = (int)((dur/ (1000*60*60)) % 24);
+										String time = horas+":"+minutos+":"+segundos;
+										Log.d("Debug-mediaPlayerTime", time);
 										reprodutor.release();
 										Toast.makeText(getApplicationContext(),"Fim da reprodução.",Toast.LENGTH_SHORT).show();
 									} catch (Exception ex) {
@@ -353,6 +365,12 @@ public class Teste_Palavras_Prof extends Activity{
 					playing = false;
 					try {
 						reprodutor.stop();
+						double dur = reprodutor.getDuration();
+						segundos  = (int)(dur/ 1000) % 60 ;
+						minutos  = (int)((dur/ (1000*60)) % 60);
+						horas   = (int)((dur/ (1000*60*60)) % 24);
+						String time = horas+":"+minutos+":"+segundos;
+						Log.d("Debug-mediaPlayerTime", time);
 						reprodutor.release();
 
 						Toast.makeText(getApplicationContext(),"Reprodução interrompida.", Toast.LENGTH_SHORT).show();
@@ -361,6 +379,7 @@ public class Teste_Palavras_Prof extends Activity{
 					}
 				}
 			}
+
 			/**
 			 * Este metodo servirá para iniciar a avaliação
 			 */
@@ -370,7 +389,11 @@ public class Teste_Palavras_Prof extends Activity{
 						// uma pop-up ou activity para determinar o valor de
 						// exprecividade da leitura
 						// usar a classe Avaliação para calcular os resultados.
-					//	finaliza();
+						eval = new Avaliacao(totalDePalavras, 0, plvErradas);
+						numPalavCorretas = eval.palavrasCertas();
+						velocidade = eval.VL(minutos, segundos);
+						precisao = eval.PL();
+						numPalavrasMin = eval.PLM(minutos, segundos);
 						submit();
 					} else {
 						android.app.AlertDialog alerta;
@@ -386,10 +409,9 @@ public class Teste_Palavras_Prof extends Activity{
 						alerta = builder.create();
 						// Mostra
 						alerta.show();
-						//submit();
 					}
 			}
-			
+
 			/**
 			 * este metodo irá criar o primeiro butão, que irá servir de modelo para os restantes
 			 */
@@ -426,7 +448,7 @@ public class Teste_Palavras_Prof extends Activity{
 				}	
 				Log.d("Debug-totalDePalavras", String.valueOf(totalDePalavras));
 			}
-			
+
 			/**
 			 * Esta metodo serve para a criação de todos os outros butões
 			 * @param teste
@@ -460,4 +482,4 @@ public class Teste_Palavras_Prof extends Activity{
 		        tg.setTextOff(teste[i]);
 				ll.addView(tg);
 			}
-		}
+}

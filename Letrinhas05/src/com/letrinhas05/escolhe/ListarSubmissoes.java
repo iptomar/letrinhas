@@ -258,6 +258,7 @@ public class ListarSubmissoes extends Activity {
 				
 				
 				final long idCorrecao = ctAux[i].getIdCorrrecao();
+				final int idTeste = ctAux[i].getTestId();
 				final int tipo = ctAux[i].getTipo();
 				//alterar os parametros para o teste..
 				iDs[2]=aluno.getIdTurma();
@@ -274,6 +275,7 @@ public class ListarSubmissoes extends Activity {
 						Bundle wrap = new Bundle();
 						wrap.putStringArray("Nomes",Nomes);
 						wrap.putIntArray("IDs",iDs);
+						wrap.putInt("ID_teste",idTeste);
 						wrap.putLong("ID_Correcao",idCorrecao); 
 						Intent it;
 						switch (tipo){

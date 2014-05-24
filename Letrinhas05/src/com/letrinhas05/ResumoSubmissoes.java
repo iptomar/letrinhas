@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -87,7 +88,7 @@ public class ResumoSubmissoes extends Activity {
 			btIn.setCompoundDrawablesWithIntrinsicBounds(null, null,
 					btOriginal.getCompoundDrawablesRelative()[2], null);
 			btIn.setText("" + crt.get(i).getDataExecucao());// crtAux[i].getDataExecucao());
-			final String audioUrl = crt.get(i).getAudiourl();
+			final String audioUrl = Environment.getExternalStorageDirectory().getAbsolutePath() + crt.get(i).getAudiourl();
 
 			// o que o botao vai fazer...
 			btIn.setOnClickListener(new View.OnClickListener() {
