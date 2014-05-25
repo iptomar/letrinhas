@@ -8,13 +8,15 @@ package com.letrinhas05.util;
 public class Avaliacao {
 	private int totalDePalavras, TotalDeSinaisPontuacao;
 	private int plvErradas, pontua, vacil, fragment, silabs, repeti;
+	public String obs, detalhes;
 
 	public Avaliacao(int totalDePalavras, int TotalDeSinaisPontuacao) {
 		this.totalDePalavras = totalDePalavras;
 		this.TotalDeSinaisPontuacao = TotalDeSinaisPontuacao;
 	}
-	
-	public Avaliacao(int totalDePalavras, int TotalDeSinaisPontuacao, int plvErradas) {
+
+	public Avaliacao(int totalDePalavras, int TotalDeSinaisPontuacao,
+			int plvErradas) {
 		this.totalDePalavras = totalDePalavras;
 		this.TotalDeSinaisPontuacao = TotalDeSinaisPontuacao;
 		this.plvErradas = plvErradas;
@@ -104,6 +106,7 @@ public class Avaliacao {
 	}
 
 	public String calcula(int minutos, int segundos) {
+		obs = "Tempo de Leitura (em segundos): " + (minutos * 60 + segundos);
 		String resultado = "==========Avaliação============\n"
 				+ "Tempo de Leitura (em segundos): "
 				+ (minutos * 60 + segundos) + "\n";
@@ -116,36 +119,18 @@ public class Avaliacao {
 				+ "\n";
 		resultado += "Expressividade: " + Expressividade() + "\n";
 		resultado += "Ritmo: " + Ritmo() + "\n\n";
-		resultado += "===============================\n" + "Detalhes\n"
-				+ "===============================\n" + "Tempo: "
-				+ minutos
-				+ ":"
-				+ segundos
-				+ "\n"
-				+ "Total de Palavras no texto: "
-				+ totalDePalavras
-				+ "\n"
+		detalhes = "Tempo: " + minutos + ":" + segundos + "\n"
+				+ "Total de Palavras no texto: " + totalDePalavras + "\n"
 				+ "Total de sinais de pontuação no texto: "
-				+ TotalDeSinaisPontuacao
-				+ "\n"
-				+ "Palavras lidas incorretamente: "
-				+ plvErradas
-				+ "\n"
-				+ "Sinais de pontuação desrespeitados: "
-				+ pontua
-				+ "\n"
-				+ "Vacilações: "
-				+ vacil
-				+ "\n"
-				+ "Fragmentações: "
-				+ fragment
-				+ "\n"
-				+ "Silabações: "
-				+ silabs
-				+ "\n"
-				+ "Repetições: "
+				+ TotalDeSinaisPontuacao + "\n"
+				+ "Palavras lidas incorretamente: " + plvErradas + "\n"
+				+ "Sinais de pontuação desrespeitados: " + pontua + "\n"
+				+ "Vacilações: " + vacil + "\n" + "Fragmentações: " + fragment
+				+ "\n" + "Silabações: " + silabs + "\n" + "Repetições: "
 				+ repeti + "\n";
 
+		resultado += "===============================\n" + "Detalhes\n"
+				+ "===============================\n" + detalhes;
 		return resultado;
 	}
 
@@ -157,7 +142,7 @@ public class Avaliacao {
 	public float PLM(int minuts, int segundos) {
 		float minutos = minuts;
 		float sess = 60;
-		// 
+		//
 		minutos += (segundos / sess);
 		//
 		float plm = (totalDePalavras / minutos);
@@ -174,9 +159,9 @@ public class Avaliacao {
 	 * @author Dário
 	 */
 	public float PL() {
-		float d = palavrasCertas()*100;
+		float d = palavrasCertas() * 100;
 		float t = totalDePalavras;
-		d= (d/t);
+		d = (d / t);
 		return d;
 	}
 
@@ -188,7 +173,7 @@ public class Avaliacao {
 	public float VL(int minuts, int segundos) {
 		float minutos = minuts;
 		float sess = 60;
-		// 
+		//
 		minutos += (segundos / sess);
 		//
 		float vl = (palavrasCertas() / minutos);

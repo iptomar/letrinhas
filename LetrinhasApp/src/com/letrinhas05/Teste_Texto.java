@@ -52,7 +52,6 @@ public class Teste_Texto extends Activity {
 	private String endereco, audio, fileName;
 	Context context;
 
-	
 	int tipo, idTesteAtual;
 	String[] Nomes;
 	int[] iDs, testesID;
@@ -81,8 +80,8 @@ public class Teste_Texto extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.teste_texto);
 
-		context=this;
-		
+		context = this;
+
 		// new line faz a rotacao do ecran 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -302,6 +301,20 @@ public class Teste_Texto extends Activity {
 				builder.setTitle("Letrinhas");
 				// define a mensagem
 				builder.setMessage("Tens a certeza que queres abandonar este teste?");
+<<<<<<< HEAD
+				// define os botoes
+				builder.setNegativeButton("Não", null);
+
+				builder.setPositiveButton("Sim",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								elimina();
+								finaliza();
+							}
+						});
+=======
 				// define os botoes 
 				builder.setNegativeButton("Nï¿½o",null);
 				
@@ -312,12 +325,13 @@ public class Teste_Texto extends Activity {
 						finaliza();
 					}
 				});
+>>>>>>> refs/remotes/origin/master
 
 				// cria o AlertDialog
 				alerta = builder.create();
 				// Mostra
 				alerta.show();
-				
+
 			}
 		});
 
@@ -331,6 +345,19 @@ public class Teste_Texto extends Activity {
 				builder.setTitle("Letrinhas");
 				// define a mensagem
 				builder.setMessage("Confirmas a submissao deste teste?");
+<<<<<<< HEAD
+				// define os botoes
+				builder.setNegativeButton("Não", null);
+
+				builder.setPositiveButton("Sim",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								submit();
+							}
+						});
+=======
 				// define os botoes 
 				builder.setNegativeButton("Nï¿½o",null);
 				
@@ -340,6 +367,7 @@ public class Teste_Texto extends Activity {
 						submit();
 					}
 				});
+>>>>>>> refs/remotes/origin/master
 				// cria o AlertDialog
 				alerta = builder.create();
 				// Mostra
@@ -351,7 +379,7 @@ public class Teste_Texto extends Activity {
 		voltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				
+
 				android.app.AlertDialog alerta;
 				// Cria o gerador do AlertDialog
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -360,6 +388,20 @@ public class Teste_Texto extends Activity {
 				// define a mensagem
 				builder.setMessage("Tens a certeza que queres voltar para a listagem dos testes\n"
 						+ "E abandonar este?");
+<<<<<<< HEAD
+				// define os botoes
+				builder.setNegativeButton("Não", null);
+
+				builder.setPositiveButton("Sim",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								elimina();
+								finish();
+							}
+						});
+=======
 				// define os botoes 
 				builder.setNegativeButton("Nï¿½o",null);
 				
@@ -370,11 +412,12 @@ public class Teste_Texto extends Activity {
 						finish();
 					}
 				});
+>>>>>>> refs/remotes/origin/master
 				// cria o AlertDialog
 				alerta = builder.create();
 				// Mostra
 				alerta.show();
-				
+
 			}
 		});
 	}
@@ -576,6 +619,21 @@ public class Teste_Texto extends Activity {
 
 	}
 
+	@Override
+	protected void onDestroy() {
+		try {
+			gravador.stop();
+			gravador.release();
+		} catch (Exception ex) {
+		}
+		try {
+			reprodutor.stop();
+			reprodutor.release();
+		} catch (Exception ex) {
+		}
+		super.onDestroy();
+	}
+
 	@SuppressLint("HandlerLeak")
 	private void startDemo() {
 		if (!playing) {
@@ -763,7 +821,7 @@ public class Teste_Texto extends Activity {
 			alerta = builder.create();
 			// Mostra
 			alerta.show();
-			
+
 		} else {
 
 			long time = System.currentTimeMillis() / 1000;

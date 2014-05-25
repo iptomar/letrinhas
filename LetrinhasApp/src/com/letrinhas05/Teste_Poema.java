@@ -558,6 +558,21 @@ public class Teste_Poema extends Activity {
 		}
 
 	}
+	
+	@Override
+	protected void onDestroy() {
+		try {
+			gravador.stop();
+			gravador.release();
+		} catch (Exception ex) {
+		}
+		try {
+			reprodutor.stop();
+			reprodutor.release();
+		} catch (Exception ex) {
+		}
+		super.onDestroy();
+	}
 
 	@SuppressLint("HandlerLeak")
 	private void startDemo() {
