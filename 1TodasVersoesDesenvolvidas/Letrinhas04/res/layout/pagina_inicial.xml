@@ -5,7 +5,7 @@
     android:background="#0099cc"
     android:screenOrientation="landscape"
     android:configChanges="orientation|keyboardHidden|screenSize"
-    tools:context="com.letrinhas04.PaginaInicial" >
+    tools:context="com.letrinhas05.PaginaInicial" >
 
    <!--
          The primary full-screen view. This can be replaced with whatever view
@@ -92,10 +92,10 @@
             android:src="@drawable/letrinhas" />
 
         <Button
-            android:id="@+id/experiment"
+            android:id="@+id/btnSincManual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/exepriment" />
+            android:text="Sinc Manual" />
         <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
