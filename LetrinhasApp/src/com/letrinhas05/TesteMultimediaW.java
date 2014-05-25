@@ -15,20 +15,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.*;
 import com.letrinhas05.BaseDados.LetrinhasDB;
-import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteMultimedia;
-import com.letrinhas05.ClassesObjs.TesteLeitura;
+import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.ClassesObjs.TesteMultimedia;
-import com.letrinhas05.escolhe.EscolheEscola;
 import com.letrinhas05.util.SystemUiHider;
-import com.letrinhas05.util.Teste;
 
 import java.io.File;
 
@@ -37,7 +31,7 @@ import java.io.File;
  */
 public class TesteMultimediaW  extends Activity  {
 
-    TesteMultimedia teste;
+    TesteMultimedia testeM;
     TextView  txtCabeTituloMul;
     Button bntOpcao1, bntOpcao2 ,bntOpcao3;
     int tipo, idTesteAtual, opcaoCerta;
@@ -120,7 +114,7 @@ public class TesteMultimediaW  extends Activity  {
 
                 context = this;
         //////////////////////////////////////////////////////////////////////
-
+        inicia(getIntent().getExtras());
 
         // Botao de voltar
         btnVoltar.setOnClickListener(new View.OnClickListener() {
@@ -167,12 +161,11 @@ public class TesteMultimediaW  extends Activity  {
                 submit(3);
             }
         }); // Botao de Opcao 3
-        inicia(getIntent().getExtras());
+
     }
 
 
     public void inicia(Bundle b) {
-        // Compor novamente e lista de testes
         testesID = b.getIntArray("ListaID");
         // String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
         Nomes = b.getStringArray("Nomes");
@@ -182,24 +175,24 @@ public class TesteMultimediaW  extends Activity  {
 
         /** Consultar a BD para preencher o conte�do.... */
         LetrinhasDB bd = new LetrinhasDB(this);
-        teste = bd.getTesteMultimediaById(testesID[0]);
+        testeM = bd.getTesteMultimediaById(testesID[0]);
 
         ((TextView) findViewById(R.id.textCabecalhoTestMultimedia))
-                .setText(teste.getTitulo());
+                .setText(testeM.getTitulo());
 
-        txtCabeTituloMul.setText(teste.getTexto());
+        txtCabeTituloMul.setText(testeM.getTexto());
 
-        idTesteAtual = teste.getIdTeste();
-        opcaoCerta = teste.getCorrectOption();
+        idTesteAtual = testeM.getIdTeste();
+        opcaoCerta = testeM.getCorrectOption();
 
         line.removeAllViews();
         ImageView img1Vtitulo= new ImageView(this);
         TextView txtVTitulo = new TextView(this);
         txtVTitulo.setTextColor(Color.rgb(0, 0, 0));
 
-       if (teste.getContentIsUrl() == 1){
+       if (testeM.getContentIsUrl() == 1){
            String imageInSD = Environment.getExternalStorageDirectory()
-                   .getAbsolutePath() + "/School-Data/MultimediaTest/" + teste.getConteudoQuestao();
+                   .getAbsolutePath() + "/School-Data/MultimediaTest/" + testeM.getConteudoQuestao();
            Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
            img1Vtitulo.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 445,
                    445, false));
@@ -209,16 +202,16 @@ public class TesteMultimediaW  extends Activity  {
        }
         else
        {
-           txtVTitulo.setText(teste.getConteudoQuestao());
+           txtVTitulo.setText(testeM.getConteudoQuestao());
            txtVTitulo.setTextSize(40);
            line.addView(txtVTitulo);
        }
 
-        if (teste.getOpcao1IsUrl() == 1)
+        if (testeM.getOpcao1IsUrl() == 1)
         {
 
             String imageInSD = Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() + "/School-Data/MultimediaTest/" + teste.getOpcao1();
+                    .getAbsolutePath() + "/School-Data/MultimediaTest/" + testeM.getOpcao1();
             Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
             ImageView imageView = new ImageView(this);
             // ajustar o tamanho da imagem
@@ -232,14 +225,14 @@ public class TesteMultimediaW  extends Activity  {
         {
             bntOpcao1.setCompoundDrawablesWithIntrinsicBounds(null,
                     null, null, null);
-            bntOpcao1.setText(teste.getOpcao1());
+            bntOpcao1.setText(testeM.getOpcao1());
         }
 
-        if (teste.getOpcao2IsUrl() == 1)
+        if (testeM.getOpcao2IsUrl() == 1)
         {
 
             String imageInSD = Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() + "/School-Data/MultimediaTest/" + teste.getOpcao2();
+                    .getAbsolutePath() + "/School-Data/MultimediaTest/" + testeM.getOpcao2();
             Bitmap bitmap2 = BitmapFactory.decodeFile(imageInSD);
             ImageView imageView2 = new ImageView(this);
             // ajustar o tamanho da imagem
@@ -253,13 +246,13 @@ public class TesteMultimediaW  extends Activity  {
         {
             bntOpcao2.setCompoundDrawablesWithIntrinsicBounds(null,
                     null, null, null);
-            bntOpcao2.setText(teste.getOpcao2());
+            bntOpcao2.setText(testeM.getOpcao2());
         }
 
-        if (teste.getOpcao3IsUrl() == 1)
+        if (testeM.getOpcao3IsUrl() == 1)
         {
             String imageInSD = Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() + "/School-Data/MultimediaTest/" + teste.getOpcao3();
+                    .getAbsolutePath() + "/School-Data/MultimediaTest/" + testeM.getOpcao3();
             Bitmap bitmap3 = BitmapFactory.decodeFile(imageInSD);
             ImageView imageView3 = new ImageView(this);
             // ajustar o tamanho da imagem
@@ -273,9 +266,15 @@ public class TesteMultimediaW  extends Activity  {
         {
             bntOpcao3.setCompoundDrawablesWithIntrinsicBounds(null,
                     null, null, null);
-            bntOpcao3.setText(teste.getOpcao3());
+            bntOpcao3.setText(testeM.getOpcao3());
         }
 
+        // descontar este teste da lista.
+        int[] aux = new int[testesID.length - 1];
+        for (int i = 1; i < testesID.length; i++) {
+            aux[i - 1] = testesID[i];
+        }
+        testesID = aux;
 
     }
 
@@ -303,8 +302,6 @@ public class TesteMultimediaW  extends Activity  {
             public void onClick(DialogInterface dialog, int which) {
 
  ////////////////////////////////////////////////////////////////////////////////
-
-
                 long time = System.currentTimeMillis() / 1000;
                 String aux = idTesteAtual + iDs[3] + time + "";
                 ctM.setIdCorrrecao(Long.parseLong(aux));
@@ -320,14 +317,13 @@ public class TesteMultimediaW  extends Activity  {
                 Bundle wrap = new Bundle();
                 wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
                 wrap.putInt("IDAluno", iDs[3]); // id do aluno
+                wrap.putInt("TipoTeste", 1); // id do aluno
                 // listar submiss�es anteriores do mesmo teste
                 Intent it = new Intent(getApplicationContext(),
                         ResumoSubmissoes.class);
                 it.putExtras(wrap);
                 startActivity(it);
     /////////////////////////////////////////////////////////////////
-
-
             }
         });
         // cria o AlertDialog
@@ -355,7 +351,7 @@ public class TesteMultimediaW  extends Activity  {
 
             // identifico o tipo do pr�ximo teste
             LetrinhasDB bd = new LetrinhasDB(this);
-            com.letrinhas05.ClassesObjs.Teste tst = bd.getTesteById(testesID[0]);
+            Teste tst = bd.getTesteById(testesID[0]);
             tipo = tst.getTipo();
 
             switch (tipo) {
@@ -392,7 +388,7 @@ public class TesteMultimediaW  extends Activity  {
                     startActivity(ipp);
                     break;
                 default:
-                    Toast.makeText(getApplicationContext(), " - Tipo nao defenido",
+                    Toast.makeText(getApplicationContext(), " - Tipo n�o defenido",
                             Toast.LENGTH_SHORT).show();
                     // retirar o teste errado e continuar
 

@@ -786,6 +786,7 @@ public class Teste_Texto extends Activity {
 			Bundle wrap = new Bundle();
 			wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
 			wrap.putInt("IDAluno", iDs[3]); // id do aluno
+            wrap.putInt("TipoTeste", 0); // id do aluno
 			// listar submiss�es anteriores do mesmo teste
 			Intent it = new Intent(getApplicationContext(),
 					ResumoSubmissoes.class);

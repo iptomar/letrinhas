@@ -1,7 +1,11 @@
 package com.letrinhas05;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import com.letrinhas05.ClassesObjs.CorrecaoTesteMultimedia;
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
@@ -33,6 +37,7 @@ public class ResumoSubmissoes extends Activity {
 
 	protected static final int PARADO = 0;
 	int testeID, alunoID;
+    int tipoTeste;
 	Button continuar;
 	boolean playing;
 	MediaPlayer reprodutor;
@@ -42,14 +47,11 @@ public class ResumoSubmissoes extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.resumo_submissoes);
-
 		// buscar os parametros */
 		Bundle b = getIntent().getExtras();
 		inicia(b);
-
 		Button btn = (Button) findViewById(R.id.resBtnParar);
 		btn.setVisibility(View.INVISIBLE);
-
 	}
 
 	/**
@@ -64,65 +66,110 @@ public class ResumoSubmissoes extends Activity {
 		//
 		testeID = b.getInt("IDTeste");
 		alunoID = b.getInt("IDAluno");
+        tipoTeste = b.getInt("TipoTeste");
 
 		/** Consultar a BD para preencher o conteudo.... */
 		LetrinhasDB bd = new LetrinhasDB(this);
 		Teste teste = bd.getTesteById(testeID);
 
-		List<CorrecaoTesteLeitura> crt = bd
-				.getAllCorrecaoTesteLeitura_ByIDaluno_TestID(alunoID, testeID);
 
-		// Painel Dinamico
-		// objetos do XML
-		LinearLayout ll = (LinearLayout) findViewById(R.id.llResumo);
-		Button btOriginal = (Button) findViewById(R.id.rsBtnOriginal);
-		// remove o botao original do layerlayout
-		ll.removeView(btOriginal);
+        if (tipoTeste == 1)
+        {
+            List<CorrecaoTesteMultimedia> crt = bd
+                    .getAllCorrecaoTesteMultime_ByIDaluno_TestID(alunoID, testeID);
 
-		// Contruir os botoes
-		for (int i = 0; i < crt.size(); i++) {
-			// criar o botao
-			Button btIn = new Button(this);
-			// copiar os parametros de layout
-			btIn.setLayoutParams(btOriginal.getLayoutParams());
-			// copiar a imagem do botao original
-			btIn.setCompoundDrawablesWithIntrinsicBounds(null, null,
-					btOriginal.getCompoundDrawablesRelative()[2], null);
-			btIn.setText("" + crt.get(i).getDataExecucao());// crtAux[i].getDataExecucao());
-			final String audioUrl = Environment.getExternalStorageDirectory().getAbsolutePath() + crt.get(i).getAudiourl();
+            // Painel Dinamico
+            // objetos do XML
+            LinearLayout ll = (LinearLayout) findViewById(R.id.llResumo);
+            Button btOriginal = (Button) findViewById(R.id.rsBtnOriginal);
+            // remove o botao original do layerlayout
+            ll.removeView(btOriginal);
 
-			// o que o botao vai fazer...
-			btIn.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					play(audioUrl);
-				}
+            // Contruir os botoes
+            for (int i = 0; i < crt.size(); i++) {
+                // criar o botao
+                Button btIn = new Button(this);
+                // copiar os parametros de layout
+                btIn.setLayoutParams(btOriginal.getLayoutParams());
+                // copiar a imagem do botao original
+                btIn.setCompoundDrawablesWithIntrinsicBounds(null, null,
+                        btOriginal.getCompoundDrawablesRelative()[2], null);
 
-			});
+                long timestamp = Long.parseLong(crt.get(i).getDataExecucao()+"") * 1000;
+                String resultadoTeste = "";
+                if (crt.get(i).getOpcaoEscolhida() == crt.get(i).getCerta())
+                    resultadoTeste = "(Acertou)";
+                else
+                    resultadoTeste = "(Errou)";
 
-			ll.addView(btIn);
-		}
+                btIn.setText(getDate(timestamp) + " - " +resultadoTeste);// crtAux[i].getDataExecucao());
+                ll.addView(btIn);
+            }
 
-		TextView txt = ((TextView) findViewById(R.id.rsTituloTeste));
-		txt.setText(teste.getTitulo());
+            TextView txt = ((TextView) findViewById(R.id.rsTituloTeste));
+            txt.setText(teste.getTitulo());
+            continuar = (Button) findViewById(R.id.rsAvancar);
+            continuar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+        }
+        else
+        {
 
-		Button stop = (Button)findViewById(R.id.resBtnParar);
-		stop.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				play(null);
-			}
-		});
-		
-		
-		continuar = (Button) findViewById(R.id.rsAvancar);
-		continuar.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				finish();
-			}
-		});
+            List<CorrecaoTesteLeitura> crt = bd
+                    .getAllCorrecaoTesteLeitura_ByIDaluno_TestID(alunoID, testeID);
 
+            // Painel Dinamico
+            // objetos do XML
+            LinearLayout ll = (LinearLayout) findViewById(R.id.llResumo);
+            Button btOriginal = (Button) findViewById(R.id.rsBtnOriginal);
+            // remove o botao original do layerlayout
+            ll.removeView(btOriginal);
+
+            // Contruir os botoes
+            for (int i = 0; i < crt.size(); i++) {
+                // criar o botao
+                Button btIn = new Button(this);
+                // copiar os parametros de layout
+                btIn.setLayoutParams(btOriginal.getLayoutParams());
+                // copiar a imagem do botao original
+                btIn.setCompoundDrawablesWithIntrinsicBounds(null, null,
+                        btOriginal.getCompoundDrawablesRelative()[2], null);
+                long timestamp = Long.parseLong(crt.get(i).getDataExecucao()+"") * 1000;
+                btIn.setText("" +   getDate(timestamp));// crtAux[i].getDataExecucao());
+                final String audioUrl = Environment.getExternalStorageDirectory().getAbsolutePath() + crt.get(i).getAudiourl();
+                // o que o botao vai fazer...
+                btIn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        play(audioUrl);
+                    }
+
+                });
+
+                ll.addView(btIn);
+            }
+
+            TextView txt = ((TextView) findViewById(R.id.rsTituloTeste));
+            txt.setText(teste.getTitulo());
+            Button stop = (Button)findViewById(R.id.resBtnParar);
+            stop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    play(null);
+                }
+            });
+            continuar = (Button) findViewById(R.id.rsAvancar);
+            continuar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+        }
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -202,12 +249,23 @@ public class ResumoSubmissoes extends Activity {
 				reprodutor.stop();
 				reprodutor.release();
 				Toast.makeText(getApplicationContext(),
-						"Reprodução interrompida.", Toast.LENGTH_SHORT).show();
+						"Reproduï¿½ï¿½o interrompida.", Toast.LENGTH_SHORT).show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reprodução.\n" + ex.getMessage(),
+						"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
+    private String getDate(long timeStamp){
+
+        try{
+            DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date netDate = (new Date(timeStamp));
+            return sdf.format(netDate);
+        }
+        catch(Exception ex){
+            return "xx";
+        }
+    }
 }
