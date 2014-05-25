@@ -31,14 +31,14 @@ import java.io.File;
  */
 public class TesteMultimediaW  extends Activity  {
 
-    TesteMultimedia testeM;
-    TextView  txtCabeTituloMul;
-    Button bntOpcao1, bntOpcao2 ,bntOpcao3;
-    int tipo, idTesteAtual, opcaoCerta;
-    String[] Nomes;
-    int[] iDs, testesID;
-    LinearLayout line;
-    Context context;
+    protected TesteMultimedia testeM;
+    protected TextView  txtCabeTituloMul;
+    protected Button bntOpcao1, bntOpcao2 ,bntOpcao3;
+    protected int tipo, idTesteAtual, opcaoCerta;
+    protected String[] Nomes;
+    protected int[] iDs, testesID;
+    protected LinearLayout line;
+    protected Context context;
 
 
     /**
@@ -73,8 +73,6 @@ public class TesteMultimediaW  extends Activity  {
         bntOpcao1 = (Button) findViewById(R.id.btnOpcao1Mult);
         bntOpcao2 = (Button) findViewById(R.id.btnOpcao2Mult);
         bntOpcao3 = (Button) findViewById(R.id.btnOpcao3Mult);
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////
         // new line faz a rotacao do ecran 180 graus
         int currentOrientation = getResources().getConfiguration().orientation;
@@ -83,10 +81,8 @@ public class TesteMultimediaW  extends Activity  {
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
-//
         // / esconder o title************************************************+
         final View contentView = findViewById(R.id.testMulayoutrincipal);
-
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
         mSystemUiHider = SystemUiHider.getInstance(this, contentView,
@@ -164,7 +160,10 @@ public class TesteMultimediaW  extends Activity  {
 
     }
 
-
+    /**
+     * Inicia toda a atividade preenche variaveis e carrega a janela de acordo com o tipo de campos
+     * @param b Bundle da janela anterior
+     */
     public void inicia(Bundle b) {
         testesID = b.getIntArray("ListaID");
         // String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
@@ -177,19 +176,19 @@ public class TesteMultimediaW  extends Activity  {
         LetrinhasDB bd = new LetrinhasDB(this);
         testeM = bd.getTesteMultimediaById(testesID[0]);
 
-        ((TextView) findViewById(R.id.textCabecalhoTestMultimedia))
-                .setText(testeM.getTitulo());
-
+        ////////////Preencher DADOS///////////
+        ((TextView) findViewById(R.id.textCabecalhoTestMultimedia)).setText(testeM.getTitulo());
         txtCabeTituloMul.setText(testeM.getTexto());
-
         idTesteAtual = testeM.getIdTeste();
         opcaoCerta = testeM.getCorrectOption();
-
+        ////////////lIMPAR A LinearLayout/////////////////////
         line.removeAllViews();
         ImageView img1Vtitulo= new ImageView(this);
         TextView txtVTitulo = new TextView(this);
         txtVTitulo.setTextColor(Color.rgb(0, 0, 0));
-
+        /////////////////////////////////////////////////////////////////////////////
+        //////////verifica qual o tipo de de Opcao2/////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////
        if (testeM.getContentIsUrl() == 1){
            String imageInSD = Environment.getExternalStorageDirectory()
                    .getAbsolutePath() + "/School-Data/MultimediaTest/" + testeM.getConteudoQuestao();
@@ -207,6 +206,8 @@ public class TesteMultimediaW  extends Activity  {
            line.addView(txtVTitulo);
        }
 
+        /////////////////////////////////////////////////////////////////////////////
+        //////////verifica qual o tipo de de Opcao1/////////////////////////////////
         if (testeM.getOpcao1IsUrl() == 1)
         {
 
@@ -228,6 +229,8 @@ public class TesteMultimediaW  extends Activity  {
             bntOpcao1.setText(testeM.getOpcao1());
         }
 
+        /////////////////////////////////////////////////////////////////////////////
+        //////////verifica qual o tipo de de Opcao2/////////////////////////////////
         if (testeM.getOpcao2IsUrl() == 1)
         {
 
@@ -249,6 +252,8 @@ public class TesteMultimediaW  extends Activity  {
             bntOpcao2.setText(testeM.getOpcao2());
         }
 
+        /////////////////////////////////////////////////////////////////////////////
+        //////////verifica qual o tipo de de Opcao3/////////////////////////////////
         if (testeM.getOpcao3IsUrl() == 1)
         {
             String imageInSD = Environment.getExternalStorageDirectory()
@@ -268,7 +273,6 @@ public class TesteMultimediaW  extends Activity  {
                     null, null, null);
             bntOpcao3.setText(testeM.getOpcao3());
         }
-
         // descontar este teste da lista.
         int[] aux = new int[testesID.length - 1];
         for (int i = 1; i < testesID.length; i++) {
@@ -278,12 +282,11 @@ public class TesteMultimediaW  extends Activity  {
 
     }
 
-
-
-
-
+    /**
+     * Submete o teste na bd e  termina a actividade
+     * @param opcaoEscolhida opcao escolhida pelo aluno
+     */
     public void submit(int opcaoEscolhida) {
-
        final CorrecaoTesteMultimedia ctM = new CorrecaoTesteMultimedia();
        final LetrinhasDB bd = new LetrinhasDB(this);
        final int opcaoEscolh = opcaoEscolhida;
@@ -332,9 +335,6 @@ public class TesteMultimediaW  extends Activity  {
         alerta.show();
     }
 
-
-
-
     /**
      * Prepara a finalizacao da activity, descobrindo qual o proximo teste a
      * realizar Este metodo devera ser usado em todas as paginas de teste.
@@ -344,11 +344,9 @@ public class TesteMultimediaW  extends Activity  {
         if (testesID.length != 0) {
             // enviar o parametro de modo
             Bundle wrap = new Bundle();
-
             wrap.putIntArray("ListaID", testesID);// id's dos testes
             wrap.putStringArray("Nomes", Nomes);
             wrap.putIntArray("IDs", iDs);
-
             // identifico o tipo do pr�ximo teste
             LetrinhasDB bd = new LetrinhasDB(this);
             Teste tst = bd.getTesteById(testesID[0]);
@@ -416,7 +414,6 @@ public class TesteMultimediaW  extends Activity  {
         // are available.
         delayedHide(1000);
     }
-
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
@@ -439,7 +436,6 @@ public class TesteMultimediaW  extends Activity  {
             mSystemUiHider.hide();
         }
     };
-
     /**
      * Schedules a call to hide() in [delay] milliseconds, canceling any
      * previously scheduled calls.

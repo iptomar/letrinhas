@@ -1611,7 +1611,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         //     Utils.deleteAllFileFolder("MultimediaTest");
     }
 
-    public void deleteCorrecçãoLeituraByid(int idCorrecao){
+    public void deleteCorrecçãoLeituraByid(long idCorrecao){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABELA_CORRECAOTESTE + " WHERE "+CORRT_ID + " = "+idCorrecao);
         db.execSQL("DELETE FROM " + TABELA_CORRECAOTESTELEITURA + " WHERE "+CORRTLEIT_IDCORRECAO + " = "+idCorrecao);
