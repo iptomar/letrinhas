@@ -30,7 +30,7 @@ import android.widget.Toast;
 /**
  * Listar o hitorico de submissoes do teste executado do aluno atual
  * 
- * @author Alex
+ * @author Thiago
  * 
  */
 public class ResumoSubmissoes extends Activity {

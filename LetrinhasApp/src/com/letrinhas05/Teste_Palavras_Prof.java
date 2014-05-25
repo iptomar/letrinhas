@@ -82,7 +82,7 @@ public class Teste_Palavras_Prof extends Activity{
 			protected void onCreate(Bundle savedInstanceState) {
 				super.onCreate(savedInstanceState);
 				setContentView(R.layout.teste_palavras_prof);
-				//new line faz a rotação do ecrãn 180 graus
+				//new line faz a rotaï¿½ï¿½o do ecrï¿½n 180 graus
 				int currentOrientation = getResources().getConfiguration().orientation;
 				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -144,7 +144,7 @@ public class Teste_Palavras_Prof extends Activity{
 					Log.d("Debug-ids",String.valueOf(ids[i]));
 				}
 				Log.d("Debug-id_teste",String.valueOf(id_teste));
-				// Consultar a BD para preencher o conteúdo....
+				// Consultar a BD para preencher o conteï¿½do....
 				//((TextView) findViewById(R.id.textCabecalho)).setText(lista[0].getTitulo());
 				//((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
 				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + uuidAudio;
@@ -152,7 +152,7 @@ public class Teste_Palavras_Prof extends Activity{
 				valueWord = (TextView) findViewById(R.id.ValueWord);
 				valueWord.setText("0");
 				
-				// ordenação do texto nas três colunas de forma a preencher toda de seguida a 1º e só depois passa para as outras
+				// ordenaï¿½ï¿½o do texto nas trï¿½s colunas de forma a preencher toda de seguida a 1ï¿½ e sï¿½ depois passa para as outras
 				int lenght;
 				String[] ar = text.split("[ ]");
 				String[] restoVal = new String[2];
@@ -262,8 +262,8 @@ public class Teste_Palavras_Prof extends Activity{
 							// define o titulo
 							builder.setTitle("Letrinhas 05");
 							// define a mensagem
-							builder.setMessage(" Não correu o som, tem de o fazer pelo menos uma vez!");
-							// define um botão como positivo
+							builder.setMessage(" Nï¿½o correu o som, tem de o fazer pelo menos uma vez!");
+							// define um botï¿½o como positivo
 							builder.setPositiveButton("OK", null);
 							// cria o AlertDialog
 							alerta = builder.create();
@@ -289,7 +289,7 @@ public class Teste_Palavras_Prof extends Activity{
 			 * xdgh
 			 * dnyx<
 			 * dm
-			 * @author Dário
+			 * @author Dï¿½rio
 			 */
 			public void submit(){
 				ctl = new CorrecaoTesteLeitura();
@@ -310,8 +310,8 @@ public class Teste_Palavras_Prof extends Activity{
 				ctl.setNumPalavrasMin(valueFloat1[0]);
 				ctl.setPrecisao(valueFloat1[1]);
 				ctl.setVelocidade(valueFloat1[2]);
-				ctl.setExpressividade(valueFloat1[3]);
-				ctl.setRitmo(valueFloat1[4]);
+				ctl.setExpressividade(valueInt1[3]);
+				ctl.setRitmo(valueInt1[4]);
 				ctl.setObservacoes(valueString1[0]);
 				ctl.setDetalhes(valueString1[1]);
 				//db.addNewItemCorrecaoTesteLeitura(ctl);
@@ -347,7 +347,7 @@ public class Teste_Palavras_Prof extends Activity{
 				wrap.putStringArray("strings", valueString);
 				//wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
 				//wrap.putInt("IDAluno", iDs[3]); //id do aluno
-				// listar submissões anteriores do mesmo teste
+				// listar submissï¿½es anteriores do mesmo teste
 				 Intent it = new Intent(getApplicationContext(),
 				 RelatasCorrection.class);
 				 it.putExtras(wrap);
@@ -357,9 +357,9 @@ public class Teste_Palavras_Prof extends Activity{
 			private final int PARADO = 2;
 			private Handler play_handler;
 			/**
-			 * serve para a aplicação reproduzir ou parar o som
+			 * serve para a aplicaï¿½ï¿½o reproduzir ou parar o som
 			 * 
-			 * @author Dário Jorge
+			 * @author Dï¿½rio Jorge
 			 */
 			@SuppressLint("HandlerLeak")
 			private void startPlay() {
@@ -390,7 +390,7 @@ public class Teste_Palavras_Prof extends Activity{
 										Log.d("Debug-mediaPlayerTime", time);
 										flag=true;
 										reprodutor.release();
-										Toast.makeText(getApplicationContext(),"Fim da reprodução.",Toast.LENGTH_SHORT).show();
+										Toast.makeText(getApplicationContext(),"Fim da reproduï¿½ï¿½o.",Toast.LENGTH_SHORT).show();
 									} catch (Exception ex) {
 									}
 									break;
@@ -408,7 +408,7 @@ public class Teste_Palavras_Prof extends Activity{
 							}
 						}).start();
 					} catch (Exception ex) {
-						Toast.makeText(getApplicationContext(),"Erro na reprodução.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
 					}
 				} else {
 					play.setImageResource(R.drawable.palyoff);
@@ -424,22 +424,22 @@ public class Teste_Palavras_Prof extends Activity{
 						flag = true;
 						reprodutor.release();
 
-						Toast.makeText(getApplicationContext(),"Reprodução interrompida.", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Reproduï¿½ï¿½o interrompida.", Toast.LENGTH_SHORT).show();
 					} catch (Exception ex) {
-						Toast.makeText(getApplicationContext(),"Erro na reprodução.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
 
 			/**
-			 * Este metodo servirá para iniciar a avaliação
+			 * Este metodo servirï¿½ para iniciar a avaliaï¿½ï¿½o
 			 */
 			private void startAvalia() {
 					File file = new File(endereco);
-					if (file.exists()) { // se já fez uma gravação
+					if (file.exists()) { // se jï¿½ fez uma gravaï¿½ï¿½o
 						// uma pop-up ou activity para determinar o valor de
 						// exprecividade da leitura
-						// usar a classe Avaliação para calcular os resultados.
+						// usar a classe Avaliaï¿½ï¿½o para calcular os resultados.
 						eval = new Avaliacao(totalDePalavras, 0, plvErradas);
 						numPalavCorretas = eval.palavrasCertas();
 						velocidade = eval.VL(minutos, segundos);
@@ -453,8 +453,8 @@ public class Teste_Palavras_Prof extends Activity{
 						// define o titulo
 						builder.setTitle("Letrinhas 05");
 						// define a mensagem
-						builder.setMessage(" Não existe o ficheiro audio!");
-						// define um botão como positivo
+						builder.setMessage(" Nï¿½o existe o ficheiro audio!");
+						// define um botï¿½o como positivo
 						builder.setPositiveButton("OK", null);
 						// cria o AlertDialog
 						alerta = builder.create();
@@ -464,7 +464,7 @@ public class Teste_Palavras_Prof extends Activity{
 			}
 
 			/**
-			 * este metodo irá criar o primeiro butão, que irá servir de modelo para os restantes
+			 * este metodo irï¿½ criar o primeiro butï¿½o, que irï¿½ servir de modelo para os restantes
 			 */
 			public void initSetup(Resources res,int list, int toggle, int layout, String[] ar){
 				ToggleButton tg = (ToggleButton) findViewById(toggle);
@@ -491,7 +491,7 @@ public class Teste_Palavras_Prof extends Activity{
 		        tg.setTextOn(ar[0]);
 		        tg.setTextOff(ar[0]);
 				LinearLayout ll = (LinearLayout) findViewById(layout);
-		        // Resto do títulos
+		        // Resto do tï¿½tulos
 				for(int i = 1; i<ar.length;i++){
 					buttonSetUp(ar,i,ll,tg);
 					totalDePalavras = (i*3)+3;
@@ -500,7 +500,7 @@ public class Teste_Palavras_Prof extends Activity{
 			}
 
 			/**
-			 * Esta metodo serve para a criação de todos os outros butões
+			 * Esta metodo serve para a criaï¿½ï¿½o de todos os outros butï¿½es
 			 * @param teste
 			 * @param i
 			 * @param ll

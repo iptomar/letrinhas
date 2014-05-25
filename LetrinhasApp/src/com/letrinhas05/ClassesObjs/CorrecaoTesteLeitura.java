@@ -15,15 +15,15 @@ public class CorrecaoTesteLeitura extends CorrecaoTeste {
     protected int numPalavIncorretas;
     protected float precisao;
     protected float velocidade;
-    protected float expressividade;
-    protected float ritmo;
+    protected int expressividade;
+    protected int ritmo;
     protected String detalhes;
     
     public CorrecaoTesteLeitura(){
     	
     }
 
-    public CorrecaoTesteLeitura(long idCorrrecao, int testId, int idEstudante, long dataExecucao, int tipo ,int estado,String audiourl, int numPalavCorretas, String observacoes, float numPalavrasMin, float precisao, float velocidade, int numPalavIncorretas, float expressividade, float ritmo, String detalhes) {
+    public CorrecaoTesteLeitura(long idCorrrecao, int testId, int idEstudante, long dataExecucao, int tipo ,int estado,String audiourl, int numPalavCorretas, String observacoes, float numPalavrasMin, float precisao, float velocidade, int numPalavIncorretas, int expressividade, int ritmo, String detalhes) {
         super(idCorrrecao, testId, idEstudante, dataExecucao, tipo, estado);
         this.setAudiourl(audiourl);
         this.setNumPalavCorretas(numPalavCorretas);
@@ -97,7 +97,7 @@ public class CorrecaoTesteLeitura extends CorrecaoTeste {
         return expressividade;
     }
 
-    public void setExpressividade(float expressividade) {
+    public void setExpressividade(int expressividade) {
         this.expressividade = expressividade;
     }
 
@@ -105,7 +105,7 @@ public class CorrecaoTesteLeitura extends CorrecaoTeste {
         return ritmo;
     }
 
-    public void setRitmo(float ritmo) {
+    public void setRitmo(int ritmo) {
         this.ritmo = ritmo;
     }
 

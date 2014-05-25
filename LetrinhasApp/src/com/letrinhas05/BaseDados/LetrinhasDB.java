@@ -771,8 +771,8 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         testeLeir.setNumPalavIncorretas(cursor2.getInt(4));
         testeLeir.setPrecisao(cursor2.getFloat(5));
         testeLeir.setVelocidade(cursor2.getFloat(6));
-        testeLeir.setExpressividade(cursor2.getFloat(7));
-        testeLeir.setRitmo(cursor2.getFloat(8));
+        testeLeir.setExpressividade(cursor2.getInt(7));
+        testeLeir.setRitmo(cursor2.getInt(8));
         testeLeir.setDetalhes(cursor2.getString(9));
         cursor2.close();
         // return o Item ja carregado com os dados
@@ -1190,8 +1190,8 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 corrtesteLeit.setNumPalavCorretas(cursor.getInt(9));
                 corrtesteLeit.setNumPalavIncorretas(cursor.getInt(10));
                 corrtesteLeit.setVelocidade(cursor.getFloat(11));
-                corrtesteLeit.setExpressividade(cursor.getFloat(12));
-                corrtesteLeit.setRitmo(cursor.getFloat(13));
+                corrtesteLeit.setExpressividade(cursor.getInt(12));
+                corrtesteLeit.setRitmo(cursor.getInt(13));
                 corrtesteLeit.setDetalhes(cursor.getString(14));
                 // Adicionar os os items da base de dados a lista
                 listcorrecaoTestes.add(corrtesteLeit);
@@ -1493,7 +1493,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     public void updateCorrecaoTesteLeitura(int idCorrecao, long dataAlteracao, String observacoes,
                                           float numPalavrasorMin, int numPalavrasCorr, int numPalavrasInc,
                                           float precisao, float velocidade,
-                                          float expressividade,float ritmo, float detalhes) {
+                                          int expressividade,int ritmo, String detalhes) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(CORRT_ESTADO, 1 ); /// Estado corrigido
