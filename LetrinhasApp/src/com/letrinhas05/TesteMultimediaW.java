@@ -7,9 +7,11 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -36,6 +38,8 @@ public class TesteMultimediaW  extends Activity  {
     String[] Nomes;
     int[] iDs, testesID;
     LinearLayout line;
+
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -47,7 +51,7 @@ public class TesteMultimediaW  extends Activity  {
      */
     private static final int AUTO_HIDE_DELAY_MILLIS = 1000;
     /*********************************************************************
-     * The flags to pass to {@link com.letrinhas05.util.SystemUiHider#getInstance}.
+     * The flags to pass to {@link SystemUiHider#getInstance}.
      */
     private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
     /**
@@ -71,8 +75,58 @@ public class TesteMultimediaW  extends Activity  {
         bntOpcao2 = (Button) findViewById(R.id.btnOpcao2Mult);
         bntOpcao3 = (Button) findViewById(R.id.btnOpcao3Mult);
 
+
+        // new line faz a rotacao do ecran 180 graus
+        int currentOrientation = getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        } else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        }
+
+        // / esconder o title************************************************+
+        final View contentView = findViewById(R.id.layoutTestMultimediaP);
+
+        // Set up an instance of SystemUiHider to control the system UI for
+        // this activity.
+        mSystemUiHider = SystemUiHider.getInstance(this, contentView,
+                HIDER_FLAGS);
+        mSystemUiHider.setup();
+        mSystemUiHider
+                .setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
+                    // Cached values.
+                    int mShortAnimTime;
+
+                    @Override
+                    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+                    public void onVisibilityChange(boolean visible) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+                            if (mShortAnimTime == 0) {
+                                mShortAnimTime = getResources().getInteger(
+                                        android.R.integer.config_shortAnimTime);
+                            }
+                        }
+
+                        if (visible && AUTO_HIDE) {
+                            // Schedule a hide().
+                            delayedHide(AUTO_HIDE_DELAY_MILLIS);
+                        }
+                    }
+                });
+
+
+
+
+
+
+
         Bundle b = getIntent().getExtras();
         inicia(b);
+
+
+
+
+
 
         // Botao de voltar
         btnVoltar.setOnClickListener(new View.OnClickListener() {
@@ -131,24 +185,22 @@ public class TesteMultimediaW  extends Activity  {
         line.removeAllViews();
         ImageView img1Vtitulo= new ImageView(this);
         TextView txtVTitulo = new TextView(this);
+        txtVTitulo.setTextColor(Color.rgb(0, 0, 0));
 
        if (teste.getContentIsUrl() == 1){
            String imageInSD = Environment.getExternalStorageDirectory()
                    .getAbsolutePath() + "/School-Data/MultimediaTest/" + teste.getConteudoQuestao();
            Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
            img1Vtitulo.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 445,
-                   440, false));
-           img1Vtitulo.setVisibility(View.VISIBLE);
-           LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(440, 440);
+                   445, false));
+           LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(445, 445);
            img1Vtitulo.setLayoutParams(layoutParams);
-
            line.addView(img1Vtitulo);
        }
         else
        {
            txtVTitulo.setText(teste.getConteudoQuestao());
-           txtVTitulo.setVisibility(View.VISIBLE);
-           txtVTitulo.setTextSize(42);
+           txtVTitulo.setTextSize(40);
            line.addView(txtVTitulo);
        }
 
@@ -162,7 +214,7 @@ public class TesteMultimediaW  extends Activity  {
             ImageView imageView = new ImageView(this);
             // ajustar o tamanho da imagem
             imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
-                    200, 200, false));
+                    210, 210, false));
             // enviar para o bot�o
             bntOpcao1.setCompoundDrawablesWithIntrinsicBounds(null,
                     imageView.getDrawable(), null, null);
@@ -183,7 +235,7 @@ public class TesteMultimediaW  extends Activity  {
             ImageView imageView2 = new ImageView(this);
             // ajustar o tamanho da imagem
             imageView2.setImageBitmap(Bitmap.createScaledBitmap(bitmap2,
-                    200, 200, false));
+                    210, 210, false));
             // enviar para o bot�o
             bntOpcao2.setCompoundDrawablesWithIntrinsicBounds(null,
                     imageView2.getDrawable(), null, null);
@@ -205,7 +257,7 @@ public class TesteMultimediaW  extends Activity  {
             ImageView imageView3 = new ImageView(this);
             // ajustar o tamanho da imagem
             imageView3.setImageBitmap(Bitmap.createScaledBitmap(bitmap3,
-                    200, 200, false));
+                    210, 210, false));
             // enviar para o bot�o
             bntOpcao3.setCompoundDrawablesWithIntrinsicBounds(null,
                     imageView3.getDrawable(), null, null);
@@ -217,28 +269,6 @@ public class TesteMultimediaW  extends Activity  {
             bntOpcao3.setText(teste.getOpcao3());
         }
 
-//
-//        ((TextView) findViewById(R.id.txtTexto)).setText(teste
-//                .getConteudoTexto());
-//
-//        // **********************************************************************************************
-//
-//        idTesteAtual = testesID[0];
-//        endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
-//                + "/School-Data/submits/" + iDs[0] + "/" + iDs[1] + "/"
-//                + iDs[2] + "/" + iDs[3] + "/" + "/" + testesID[0] + "/";
-//
-//        fileName = getCurrentTimeStamp() + ".3gpp";
-//
-//        audio = Environment.getExternalStorageDirectory().getAbsolutePath()
-//                + "/School-Data/ReadingTests/" + teste.getProfessorAudioUrl();
-//
-//        // descontar este teste da lista.
-//        int[] aux = new int[testesID.length - 1];
-//        for (int i = 1; i < testesID.length; i++) {
-//            aux[i - 1] = testesID[i];
-//        }
-//        testesID = aux;
 
     }
 
@@ -348,6 +378,22 @@ public class TesteMultimediaW  extends Activity  {
         }
         //
         finish();
+    }
+
+    Handler mHideHandler = new Handler();
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
+        }
+    };
+    /**
+     * Schedules a call to hide() in [delay] milliseconds, canceling any
+     * previously scheduled calls.
+     */
+    private void delayedHide(int delayMillis) {
+        mHideHandler.removeCallbacks(mHideRunnable);
+        mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
 }
