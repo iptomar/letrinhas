@@ -14,6 +14,9 @@ public class CorrecaoTesteMultimedia extends CorrecaoTeste {
         this.certa = certa;
     }
 
+    public CorrecaoTesteMultimedia() {
+    }
+
     public int getOpcaoEscolhida() {
         return opcaoEscolhida;
     }

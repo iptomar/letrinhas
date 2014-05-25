@@ -125,7 +125,7 @@ public class Teste_Texto extends Activity {
 		Bundle b = getIntent().getExtras();
 		inicia(b);
 
-		// atribuir os botões
+		// atribuir os botï¿½es
 		record = (Button) findViewById(R.id.txtRecord);
 		demo = (Button) findViewById(R.id.txtDemo);
 		play = (Button) findViewById(R.id.txtPlay);
@@ -138,11 +138,11 @@ public class Teste_Texto extends Activity {
 	}
 
 	/**
-	 * método para iniciar os componetes, que dependem do conteudo passado por
+	 * mï¿½todo para iniciar os componetes, que dependem do conteudo passado por
 	 * parametros (extras)
 	 * 
 	 * @param b
-	 *            Bundle, contém informação da activity anterior
+	 *            Bundle, contï¿½m informaï¿½ï¿½o da activity anterior
 	 */
 	public void inicia(Bundle b) {
 		// Compor novamente e lista de testes
@@ -196,7 +196,7 @@ public class Teste_Texto extends Activity {
 																		// todays
 																		// date
 			for (int i = 0; i < currentTimeStamp.length(); i++) {
-				// descarto tudo o que não é um numero
+				// descarto tudo o que nï¿½o ï¿½ um numero
 				if (currentTimeStamp.charAt(i) >= '0'
 						&& currentTimeStamp.charAt(i) < '9') {
 					aux += currentTimeStamp.charAt(i);
@@ -303,7 +303,7 @@ public class Teste_Texto extends Activity {
 				// define a mensagem
 				builder.setMessage("Tens a certeza que queres abandonar este teste?");
 				// define os botoes 
-				builder.setNegativeButton("Não",null);
+				builder.setNegativeButton("Nï¿½o",null);
 				
 				builder.setPositiveButton("Sim",new DialogInterface.OnClickListener() {
 					@Override
@@ -332,7 +332,7 @@ public class Teste_Texto extends Activity {
 				// define a mensagem
 				builder.setMessage("Confirmas a submissao deste teste?");
 				// define os botoes 
-				builder.setNegativeButton("Não",null);
+				builder.setNegativeButton("Nï¿½o",null);
 				
 				builder.setPositiveButton("Sim",new DialogInterface.OnClickListener() {
 					@Override
@@ -361,7 +361,7 @@ public class Teste_Texto extends Activity {
 				builder.setMessage("Tens a certeza que queres voltar para a listagem dos testes\n"
 						+ "E abandonar este?");
 				// define os botoes 
-				builder.setNegativeButton("Não",null);
+				builder.setNegativeButton("Nï¿½o",null);
 				
 				builder.setPositiveButton("Sim",new DialogInterface.OnClickListener() {
 					@Override
@@ -458,7 +458,7 @@ public class Teste_Texto extends Activity {
 				gravador.stop();
 				gravador.release();
 				Toast.makeText(getApplicationContext(),
-						"Gravação efetuada com sucesso!", Toast.LENGTH_SHORT)
+						"Gravaï¿½ï¿½o efetuada com sucesso!", Toast.LENGTH_SHORT)
 						.show();
 				Toast.makeText(getApplicationContext(),
 						"Tempo de leitura: " + minuto + ":" + segundo,
@@ -466,7 +466,7 @@ public class Teste_Texto extends Activity {
 
 			} catch (Exception e) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na gravação.\n" + e.getMessage(),
+						"Erro na gravaï¿½ï¿½o.\n" + e.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -518,7 +518,7 @@ public class Teste_Texto extends Activity {
 								reprodutor.stop();
 								reprodutor.release();
 								Toast.makeText(getApplicationContext(),
-										"Fim da reprodução.",
+										"Fim da reproduï¿½ï¿½o.",
 										Toast.LENGTH_SHORT).show();
 							} catch (Exception ex) {
 							}
@@ -541,7 +541,7 @@ public class Teste_Texto extends Activity {
 
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reprodução.\n" + ex.getMessage(),
+						"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 
 				img.setImageResource(R.drawable.play);
@@ -566,10 +566,10 @@ public class Teste_Texto extends Activity {
 				reprodutor.stop();
 				reprodutor.release();
 				Toast.makeText(getApplicationContext(),
-						"Reprodução interrompida.", Toast.LENGTH_SHORT).show();
+						"Reproduï¿½ï¿½o interrompida.", Toast.LENGTH_SHORT).show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reprodução.\n" + ex.getMessage(),
+						"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -593,7 +593,7 @@ public class Teste_Texto extends Activity {
 				reprodutor.prepare();
 				reprodutor.start();
 				Toast.makeText(getApplicationContext(),
-						"A reproduzir Demonstração.", Toast.LENGTH_SHORT)
+						"A reproduzir Demonstraï¿½ï¿½o.", Toast.LENGTH_SHORT)
 						.show();
 
 				final ImageView img2 = new ImageView(this);
@@ -614,7 +614,7 @@ public class Teste_Texto extends Activity {
 								reprodutor.stop();
 								reprodutor.release();
 								Toast.makeText(getApplicationContext(),
-										"Fim da reprodução da demo.",
+										"Fim da reproduï¿½ï¿½o da demo.",
 										Toast.LENGTH_SHORT).show();
 							} catch (Exception ex) {
 							}
@@ -637,7 +637,7 @@ public class Teste_Texto extends Activity {
 
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reprodução da demo.\n" + ex.getMessage(),
+						"Erro na reproduï¿½ï¿½o da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 
 				img.setImageResource(R.drawable.palyoff);
@@ -662,11 +662,11 @@ public class Teste_Texto extends Activity {
 				reprodutor.stop();
 				reprodutor.release();
 				Toast.makeText(getApplicationContext(),
-						"Reprodução da demo interrompida.", Toast.LENGTH_SHORT)
+						"Reproduï¿½ï¿½o da demo interrompida.", Toast.LENGTH_SHORT)
 						.show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reprodução da demo.\n" + ex.getMessage(),
+						"Erro na reproduï¿½ï¿½o da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -687,7 +687,7 @@ public class Teste_Texto extends Activity {
 			wrap.putStringArray("Nomes", Nomes);
 			wrap.putIntArray("IDs", iDs);
 
-			// identifico o tipo do próximo teste
+			// identifico o tipo do prï¿½ximo teste
 			LetrinhasDB bd = new LetrinhasDB(this);
 			Teste tst = bd.getTesteById(testesID[0]);
 			tipo = tst.getTipo();
@@ -704,7 +704,7 @@ public class Teste_Texto extends Activity {
 				break;
 			case 1:// lanï¿½ar a nova activity do tipo imagem
 				Intent ip = new Intent(getApplicationContext(),
-						Teste_Imagem.class);
+                        TesteMultimediaW.class);
 				ip.putExtras(wrap);
 
 				startActivity(ip);
@@ -726,7 +726,7 @@ public class Teste_Texto extends Activity {
 				startActivity(ipp);
 				break;
 			default:
-				Toast.makeText(getApplicationContext(), " - Tipo não defenido",
+				Toast.makeText(getApplicationContext(), " - Tipo nï¿½o defenido",
 						Toast.LENGTH_SHORT).show();
 				// retirar o teste errado e continuar
 
@@ -756,7 +756,7 @@ public class Teste_Texto extends Activity {
 			// define o titulo
 			builder.setTitle("Letrinhas");
 			// define a mensagem
-			builder.setMessage("Para Avançar e avaliar, necessitas de fazer uma gravação da tua letura!");
+			builder.setMessage("Para Avanï¿½ar e avaliar, necessitas de fazer uma gravaï¿½ï¿½o da tua letura!");
 			// define um botï¿½o como positivo
 			builder.setPositiveButton("OK", null);
 			// cria o AlertDialog
@@ -786,7 +786,7 @@ public class Teste_Texto extends Activity {
 			Bundle wrap = new Bundle();
 			wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
 			wrap.putInt("IDAluno", iDs[3]); // id do aluno
-			// listar submissões anteriores do mesmo teste
+			// listar submissï¿½es anteriores do mesmo teste
 			Intent it = new Intent(getApplicationContext(),
 					ResumoSubmissoes.class);
 			it.putExtras(wrap);

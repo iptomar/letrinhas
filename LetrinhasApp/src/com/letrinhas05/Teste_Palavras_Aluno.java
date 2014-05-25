@@ -39,7 +39,7 @@ public class Teste_Palavras_Aluno extends Activity{
 			boolean modo, gravado, recording, playing;
 			// objetos
 			ImageButton record, play, voltar, cancelar, avancar,voicePlay;
-			// variaveis contadoras para a avaliação
+			// variaveis contadoras para a avaliaï¿½ï¿½o
 			int numero=0,nTestes,testeId;
 			private MediaRecorder gravador;
 			private MediaPlayer reprodutor = new MediaPlayer();
@@ -76,7 +76,7 @@ public class Teste_Palavras_Aluno extends Activity{
 				super.onCreate(savedInstanceState);
 				setContentView(R.layout.teste_palavras_aluno);
 				db = new LetrinhasDB(this);
-				//new line faz a rotação do ecrãn 180 graus
+				//new line faz a rotaï¿½ï¿½o do ecrï¿½n 180 graus
 				int currentOrientation = getResources().getConfiguration().orientation;
 				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -131,10 +131,10 @@ public class Teste_Palavras_Aluno extends Activity{
 			}
 
 			/**
-			 * método para iniciar os componetes, que dependem do conteudo passado
+			 * mï¿½todo para iniciar os componetes, que dependem do conteudo passado
 			 * por parametros (extras)
 			 * 
-			 * @param b Bundle, contém informação da activity anterior
+			 * @param b Bundle, contï¿½m informaï¿½ï¿½o da activity anterior
 			 */
 			public void inicia(Bundle b){
 				// Compor novamente e lista de testes
@@ -151,7 +151,7 @@ public class Teste_Palavras_Aluno extends Activity{
 				Log.d("Debug-getTitulo()", teste.getTitulo());
 				
 				
-				// ordenação do texto nas três colunas de forma a preencher toda de seguida a 1º e só depois passa para as outras
+				// ordenaï¿½ï¿½o do texto nas trï¿½s colunas de forma a preencher toda de seguida a 1ï¿½ e sï¿½ depois passa para as outras
 				int lenght;
 				String[] ar = teste.getTexto().split("[ ]");
 				String[] restoVal = new String[2];
@@ -199,7 +199,7 @@ public class Teste_Palavras_Aluno extends Activity{
 			}
 			
 			/**
-			 * Controi a coluna com o texto que lhe é disponivel
+			 * Controi a coluna com o texto que lhe ï¿½ disponivel
 			 * @param textView
 			 * @param text
 			 * @author Dario
@@ -259,7 +259,7 @@ public class Teste_Palavras_Aluno extends Activity{
 				gravador.setAudioSource(MediaRecorder.AudioSource.MIC);
 				gravador.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 				gravador.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-				// construir as pastas caso necessário
+				// construir as pastas caso necessï¿½rio
 				File file = new File(endereco);
 				if (file.getParent() != null && !file.getParentFile().exists()) {
 					file.getParentFile().mkdirs();
@@ -290,8 +290,8 @@ public class Teste_Palavras_Aluno extends Activity{
 				cancelar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						// salta a avaliação e vai para o próximo teste descurando a
-						// gravação gerada
+						// salta a avaliaï¿½ï¿½o e vai para o prï¿½ximo teste descurando a
+						// gravaï¿½ï¿½o gerada
 						/*File file = new File(endereco);
 						if (file.exists()) {
 							file.delete();
@@ -340,13 +340,13 @@ public class Teste_Palavras_Aluno extends Activity{
 			 * xdgh
 			 * dnyx
 			 * dm
-			 * @author Dário
+			 * @author Dï¿½rio
 			 */
 			public void submit(){
 				ctl = new CorrecaoTesteLeitura();
 				File file = new File(endereco);
 				if(!file.exists()){
-					Toast.makeText(getApplicationContext(),"Não gravou nada",Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),"Nï¿½o gravou nada",Toast.LENGTH_SHORT).show();
 				}else{
 					long time = System.currentTimeMillis() / 1000;
 					String aux = idTesteAtual + iDs[3] + time + "";
@@ -378,7 +378,7 @@ public class Teste_Palavras_Aluno extends Activity{
 					Bundle wrap = new Bundle();
 					wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
 					wrap.putInt("IDAluno", iDs[3]); //id do aluno
-					// listar submissões anteriores do mesmo teste
+					// listar submissï¿½es anteriores do mesmo teste
 					 Intent it = new Intent(getApplicationContext(),
 					 ResumoSubmissoes.class);
 					 it.putExtras(wrap);
@@ -395,9 +395,9 @@ public class Teste_Palavras_Aluno extends Activity{
 			
 			int minuto, segundo;
 			/**
-			 * Serve para começar ou parar o recording do audio
+			 * Serve para comeï¿½ar ou parar o recording do audio
 			 * 
-			 * @author Dário Jorge
+			 * @author Dï¿½rio Jorge
 			 */
 			@SuppressLint("HandlerLeak")
 			private void startGrava() {
@@ -462,7 +462,7 @@ public class Teste_Palavras_Aluno extends Activity{
 							}
 						}).start();
 					} catch (Exception e) {
-						Toast.makeText(getApplicationContext(),"Erro na gravação.\n" + e.getMessage(),Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Erro na gravaï¿½ï¿½o.\n" + e.getMessage(),Toast.LENGTH_SHORT).show();
 					}
 				} else {
 					record.setImageResource(R.drawable.record);
@@ -474,19 +474,19 @@ public class Teste_Palavras_Aluno extends Activity{
 					try {
 						gravador.stop();
 						gravador.release();
-						Toast.makeText(getApplicationContext(),"Gravação efetuada com sucesso!", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Gravaï¿½ï¿½o efetuada com sucesso!", Toast.LENGTH_SHORT).show();
 						Toast.makeText(getApplicationContext(),"Tempo de leitura: " + minuto + ":" + segundo,Toast.LENGTH_LONG).show();
 					} catch (Exception e) {
-						Toast.makeText(getApplicationContext(),"Erro na gravação.\n" + e.getMessage(),Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Erro na gravaï¿½ï¿½o.\n" + e.getMessage(),Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
 			private final int PARADO = 2;
 			private Handler play_handler;
 			/**
-			 * serve para a aplicação reproduzir ou parar o som
+			 * serve para a aplicaï¿½ï¿½o reproduzir ou parar o som
 			 * 
-			 * @author Dário Jorge
+			 * @author Dï¿½rio Jorge
 			 */
 			@SuppressLint("HandlerLeak")
 			private void startPlay(String path) {
@@ -519,7 +519,7 @@ public class Teste_Palavras_Aluno extends Activity{
 									try {
 										reprodutor.stop();
 										reprodutor.release();
-										Toast.makeText(getApplicationContext(),"Fim da reprodução.",Toast.LENGTH_SHORT).show();
+										Toast.makeText(getApplicationContext(),"Fim da reproduï¿½ï¿½o.",Toast.LENGTH_SHORT).show();
 									} catch (Exception ex) {
 									}
 									break;
@@ -537,7 +537,7 @@ public class Teste_Palavras_Aluno extends Activity{
 							}
 						}).start();
 					} catch (Exception ex) {
-						Toast.makeText(getApplicationContext(),"Erro na reprodução.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
 					}
 				} else {
 					play.setImageResource(R.drawable.palyoff);
@@ -547,9 +547,9 @@ public class Teste_Palavras_Aluno extends Activity{
 						reprodutor.stop();
 						reprodutor.release();
 
-						Toast.makeText(getApplicationContext(),"Reprodução interrompida.", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Reproduï¿½ï¿½o interrompida.", Toast.LENGTH_SHORT).show();
 					} catch (Exception ex) {
-						Toast.makeText(getApplicationContext(),"Erro na reprodução.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
@@ -565,7 +565,7 @@ public class Teste_Palavras_Aluno extends Activity{
 					wrap.putIntArray("ListaID", testesID);// id's dos testes
 					wrap.putStringArray("Nomes", Nomes);
 					wrap.putIntArray("IDs", iDs);
-					// identifico o tipo do próximo teste
+					// identifico o tipo do prï¿½ximo teste
 					LetrinhasDB bd = new LetrinhasDB(this);
 					Teste tst = bd.getTesteById(testesID[0]);
 					tipo = tst.getTipo();
@@ -577,7 +577,7 @@ public class Teste_Palavras_Aluno extends Activity{
 						startActivity(it);
 						break;
 					case 1:// lanï¿½ar a nova activity do tipo imagem
-						Intent ip = new Intent(getApplicationContext(),Teste_Imagem.class);
+						Intent ip = new Intent(getApplicationContext(),TesteMultimediaW.class);
 						ip.putExtras(wrap);
 						startActivity(ip);
 						break;
@@ -592,7 +592,7 @@ public class Teste_Palavras_Aluno extends Activity{
 						startActivity(ipp);
 						break;
 					default:
-						Toast.makeText(getApplicationContext(), " - Tipo não defenido",Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), " - Tipo nï¿½o defenido",Toast.LENGTH_SHORT).show();
 						// retirar o teste errado e continuar
 						// descontar este teste da lista.
 						int[] aux = new int[testesID.length - 1];

@@ -5,7 +5,6 @@ import java.util.List;
 import com.letrinhas05.Correcao_Poema;
 import com.letrinhas05.Correcao_Texto;
 import com.letrinhas05.R;
-import com.letrinhas05.Teste_Imagem;
 import com.letrinhas05.Teste_Palavras_Prof;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
@@ -284,9 +283,9 @@ public class ListarSubmissoes extends Activity {
 							startActivity(it);
 							break;
 						case 1://multimedia (imagens)
-							it= new Intent(getApplicationContext(),Teste_Imagem.class);
-							it.putExtras(wrap);
-							startActivity(it);
+//							it= new Intent(getApplicationContext(),Teste_Imagem.class);
+//							it.putExtras(wrap);
+//							startActivity(it);
 							break;
 						case 2://lista
                             it= new Intent(getApplicationContext(),Teste_Palavras_Prof.class);
