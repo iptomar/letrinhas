@@ -2,6 +2,9 @@ package com.letrinhas05;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -13,7 +16,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.*;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
@@ -38,6 +44,7 @@ public class TesteMultimediaW  extends Activity  {
     String[] Nomes;
     int[] iDs, testesID;
     LinearLayout line;
+    Context context;
 
 
     /**
@@ -65,17 +72,16 @@ public class TesteMultimediaW  extends Activity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teste_multimedia_w);
 
+        ////////////////////////Aceder a objectos visuais da Janela//////////////////////////////////////////7
         ImageButton btnVoltar = (ImageButton) findViewById(R.id.btnVoltarTestMult);
-
         line = (LinearLayout) findViewById(R.id.linearTestMultw);
-
         txtCabeTituloMul = (TextView) findViewById(R.id.txtCabeTituloTextMult);
-
-         bntOpcao1 = (Button) findViewById(R.id.btnOpcao1Mult);
+        bntOpcao1 = (Button) findViewById(R.id.btnOpcao1Mult);
         bntOpcao2 = (Button) findViewById(R.id.btnOpcao2Mult);
         bntOpcao3 = (Button) findViewById(R.id.btnOpcao3Mult);
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////
         // new line faz a rotacao do ecran 180 graus
         int currentOrientation = getResources().getConfiguration().orientation;
         if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -83,9 +89,9 @@ public class TesteMultimediaW  extends Activity  {
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
-
+//
         // / esconder o title************************************************+
-        final View contentView = findViewById(R.id.layoutTestMultimediaP);
+        final View contentView = findViewById(R.id.testMulayoutrincipal);
 
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
@@ -96,7 +102,6 @@ public class TesteMultimediaW  extends Activity  {
                 .setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
                     // Cached values.
                     int mShortAnimTime;
-
                     @Override
                     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
                     public void onVisibilityChange(boolean visible) {
@@ -106,7 +111,6 @@ public class TesteMultimediaW  extends Activity  {
                                         android.R.integer.config_shortAnimTime);
                             }
                         }
-
                         if (visible && AUTO_HIDE) {
                             // Schedule a hide().
                             delayedHide(AUTO_HIDE_DELAY_MILLIS);
@@ -114,50 +118,56 @@ public class TesteMultimediaW  extends Activity  {
                     }
                 });
 
-
-
-
-
-
-
-        Bundle b = getIntent().getExtras();
-        inicia(b);
-
-
-
-
+                context = this;
+        //////////////////////////////////////////////////////////////////////
 
 
         // Botao de voltar
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                android.app.AlertDialog alerta;
+                // Cria o gerador do AlertDialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                // define o titulo
+                builder.setTitle("Letrinhas - AVISO");
+                // define a mensagem
+                builder.setMessage("Tem a certeza que deseja sair deste teste?");
+                // define os botoes
+                builder.setNegativeButton("Nao",null);
+                builder.setPositiveButton("Sim",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                // cria o AlertDialog
+                alerta = builder.create();
+                // Mostra
+                alerta.show();
             }
         });
 
-
+        // Botoes de Opcao
         bntOpcao1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 submit(1);
             }
-        });
+        }); // Botao de Opcao 1
         bntOpcao2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 submit(2);
             }
-        });
+        }); // Botao de Opcao 2
         bntOpcao3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 submit(3);
             }
-        });
-
-
-
+        }); // Botao de Opcao 3
+        inicia(getIntent().getExtras());
     }
 
 
@@ -204,7 +214,6 @@ public class TesteMultimediaW  extends Activity  {
            line.addView(txtVTitulo);
        }
 
-
         if (teste.getOpcao1IsUrl() == 1)
         {
 
@@ -247,10 +256,8 @@ public class TesteMultimediaW  extends Activity  {
             bntOpcao2.setText(teste.getOpcao2());
         }
 
-
         if (teste.getOpcao3IsUrl() == 1)
         {
-
             String imageInSD = Environment.getExternalStorageDirectory()
                     .getAbsolutePath() + "/School-Data/MultimediaTest/" + teste.getOpcao3();
             Bitmap bitmap3 = BitmapFactory.decodeFile(imageInSD);
@@ -278,31 +285,55 @@ public class TesteMultimediaW  extends Activity  {
 
     public void submit(int opcaoEscolhida) {
 
-        CorrecaoTesteMultimedia ctM = new CorrecaoTesteMultimedia();
-        LetrinhasDB bd = new LetrinhasDB(this);
+       final CorrecaoTesteMultimedia ctM = new CorrecaoTesteMultimedia();
+       final LetrinhasDB bd = new LetrinhasDB(this);
+       final int opcaoEscolh = opcaoEscolhida;
 
-            long time = System.currentTimeMillis() / 1000;
-            String aux = idTesteAtual + iDs[3] + time + "";
-            ctM.setIdCorrrecao(Long.parseLong(aux));
-            ctM.setIdEstudante(iDs[3]);
-            ctM.setTestId(idTesteAtual);
-            ctM.setTipo(1);// pois estou num teste Multimedia
-            ctM.setEstado(0);
-            ctM.setDataExecucao(time);
-            ctM.setOpcaoEscolhida(opcaoEscolhida);
-            ctM.setCerta(opcaoCerta);
-            bd.addNewItemCorrecaoTesteMultimedia(ctM);
+        android.app.AlertDialog alerta;
+        // Cria o gerador do AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        // define o titulo
+        builder.setTitle("CONFIRMAR");
+        // define a mensagem
+        builder.setMessage("Deseja escolher essa Opcao?");
+        // define os botoes
+        builder.setNegativeButton("Nao",null);
+        builder.setPositiveButton("Sim",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-            finaliza();
+ ////////////////////////////////////////////////////////////////////////////////
 
-            Bundle wrap = new Bundle();
-            wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
-            wrap.putInt("IDAluno", iDs[3]); // id do aluno
-            // listar submiss�es anteriores do mesmo teste
-            Intent it = new Intent(getApplicationContext(),
-                    ResumoSubmissoes.class);
-            it.putExtras(wrap);
-            startActivity(it);
+
+                long time = System.currentTimeMillis() / 1000;
+                String aux = idTesteAtual + iDs[3] + time + "";
+                ctM.setIdCorrrecao(Long.parseLong(aux));
+                ctM.setIdEstudante(iDs[3]);
+                ctM.setTestId(idTesteAtual);
+                ctM.setTipo(1);// pois estou num teste Multimedia
+                ctM.setEstado(0);
+                ctM.setDataExecucao(time);
+                ctM.setOpcaoEscolhida(opcaoEscolh);
+                ctM.setCerta(opcaoCerta);
+                bd.addNewItemCorrecaoTesteMultimedia(ctM);
+                finaliza();
+                Bundle wrap = new Bundle();
+                wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
+                wrap.putInt("IDAluno", iDs[3]); // id do aluno
+                // listar submiss�es anteriores do mesmo teste
+                Intent it = new Intent(getApplicationContext(),
+                        ResumoSubmissoes.class);
+                it.putExtras(wrap);
+                startActivity(it);
+    /////////////////////////////////////////////////////////////////
+
+
+            }
+        });
+        // cria o AlertDialog
+        alerta = builder.create();
+        // Mostra
+        alerta.show();
     }
 
 
@@ -361,7 +392,7 @@ public class TesteMultimediaW  extends Activity  {
                     startActivity(ipp);
                     break;
                 default:
-                    Toast.makeText(getApplicationContext(), " - Tipo n�o defenido",
+                    Toast.makeText(getApplicationContext(), " - Tipo nao defenido",
                             Toast.LENGTH_SHORT).show();
                     // retirar o teste errado e continuar
 
@@ -380,6 +411,31 @@ public class TesteMultimediaW  extends Activity  {
         finish();
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        // Trigger the initial hide() shortly after the activity has been
+        // created, to briefly hint to the user that UI controls
+        // are available.
+        delayedHide(1000);
+    }
+
+    /**
+     * Touch listener to use for in-layout UI controls to delay hiding the
+     * system UI. This is to prevent the jarring behavior of controls going away
+     * while interacting with activity UI.
+     */
+    View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (AUTO_HIDE) {
+                delayedHide(AUTO_HIDE_DELAY_MILLIS);
+            }
+            return false;
+        }
+    };
+
     Handler mHideHandler = new Handler();
     Runnable mHideRunnable = new Runnable() {
         @Override
@@ -387,6 +443,7 @@ public class TesteMultimediaW  extends Activity  {
             mSystemUiHider.hide();
         }
     };
+
     /**
      * Schedules a call to hide() in [delay] milliseconds, canceling any
      * previously scheduled calls.
@@ -395,5 +452,6 @@ public class TesteMultimediaW  extends Activity  {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+
 
 }

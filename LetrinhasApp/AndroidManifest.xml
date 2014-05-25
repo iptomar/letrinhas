@@ -62,7 +62,7 @@
                 android:configChanges="orientation|keyboardHidden|screenSize"
                 android:label="@string/title_activity_teste__imagem"
                 android:screenOrientation="landscape"
-                android:theme="@style/AppTheme" >
+                android:theme="@style/FullscreenTheme"  >
         </activity>
         <activity
             android:name="com.letrinhas05.Correcao_Texto"
