@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.*;
+
+import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.TesteLeitura;
 import com.letrinhas05.ClassesObjs.TesteMultimedia;

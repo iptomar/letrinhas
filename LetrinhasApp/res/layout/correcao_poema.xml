@@ -8,9 +8,9 @@
     android:paddingLeft="30sp"
     android:paddingRight="30sp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.letrinhas05.Teste_Poema" >
+    tools:context="com.letrinhas05.Correcao_Poema" >
 
-    <TextView
+  <TextView
         android:id="@+id/textCabecalho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,15 +19,16 @@
         android:drawableLeft="@drawable/logo2"
         android:text="@string/title_activity_teste__poema"
         android:textColor="#5ddfff"
-        android:textSize="50sp"
+        android:textSize="45sp"
         android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/txtTela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/pbText"
         android:layout_alignLeft="@+id/textCabecalho"
-        android:layout_below="@+id/textCabecalho"
+        android:layout_alignTop="@+id/txtDemo"
         android:layout_marginLeft="21dp"
         android:layout_toLeftOf="@+id/txtControlo"
         android:background="#ccccff"
@@ -44,22 +45,53 @@
 
             <TextView
                 android:id="@+id/txtTexto"
-                android:layout_width="501dp"
-                android:layout_height="978dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="fill"
                 android:text="@string/ExemploPoema"
+                android:textColor="#303030"
                 android:textIsSelectable="true"
-                android:textSize="35sp" />
+                android:textSize="30sp" />
 
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/textRodape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtVoltar"
+        android:layout_toRightOf="@+id/txtVoltar"
+        android:text="@string/letrinhas"
+        android:textColor="#5ddfff"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/txtVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/voltar"
+        android:drawableTop="@drawable/voltar"
+        android:text="@string/voltar" />
+
+    <ProgressBar
+        android:id="@+id/pbText"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtVoltar"
+        android:layout_alignLeft="@+id/txtTela"
+        android:layout_toLeftOf="@+id/txtCancel" />
 
     <TableLayout
         android:id="@+id/txtControlo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textCabecalho"
+        android:layout_centerVertical="true"
         android:paddingLeft="10dp" >
 
         <TableRow
@@ -333,85 +365,58 @@
         </TableRow>
     </TableLayout>
 
-    <TextView
-        android:id="@+id/textRodape"
+    <Button
+        android:id="@+id/txtDemo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtTela"
-        android:layout_below="@+id/txtTela"
-        android:text="@string/letrinhas"
-        android:textColor="#5ddfff"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:layout_alignRight="@+id/txtCancel"
+        android:layout_below="@+id/textCabecalho"
+        android:contentDescription="@string/play"
+        android:drawableTop="@drawable/palyoff"
+        android:text="@string/demo" />
+
+    <Button
+        android:id="@+id/txtPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textCabecalho"
+        android:contentDescription="@string/Recording"
+        android:drawableTop="@drawable/play"
+        android:text="@string/play" />
+
+    <Button
+        android:id="@+id/txtAvaliar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/entrar"
+        android:drawableTop="@drawable/valido"
+        android:text="@string/avaliar" />
+
+    <Button
+        android:id="@+id/txtCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtControlo"
+        android:layout_alignTop="@+id/txtAvaliar"
+        android:contentDescription="@string/sair"
+        android:drawableTop="@drawable/cancelar"
+        android:text="@string/apagar" />
 
     <Chronometer
         android:id="@+id/cromTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textCabecalho"
-        android:layout_alignBottom="@+id/textCabecalho"
-        android:layout_alignRight="@+id/txtControlo"
-        android:background="#000000"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#507050"
         android:gravity="right"
         android:paddingLeft="10sp"
         android:paddingRight="10sp"
         android:textColor="#50ff50"
         android:textSize="40sp"
         android:textStyle="bold" />
-
-    <ImageButton
-        android:id="@+id/txtVoltar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignLeft="@+id/txtCancel"
-        android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
-        android:contentDescription="@string/voltar"
-        android:scaleType="fitCenter"
-        android:src="@drawable/voltar" />
-
-    <ImageButton
-        android:id="@+id/txtCancel"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_above="@+id/txtVoltar"
-        android:layout_alignLeft="@+id/txtAvaliar"
-        android:background="#FFFFFF"
-        android:contentDescription="@string/sair"
-        android:scaleType="fitCenter"
-        android:src="@drawable/cancelar" />
-
-    <ImageButton
-        android:id="@+id/txtAvaliar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_above="@+id/txtCancel"
-        android:layout_alignLeft="@+id/txtDemo"
-        android:background="#FFFFFF"
-        android:contentDescription="@string/entrar"
-        android:scaleType="fitCenter"
-        android:src="@drawable/valido" />
-
-    <ImageButton
-        android:id="@+id/txtDemo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_above="@+id/txtAvaliar"
-        android:layout_alignLeft="@+id/play"
-        android:background="#FFFFFF"
-        android:contentDescription="@string/play"
-        android:scaleType="fitCenter"
-        android:src="@drawable/palyoff" />
-
-    <ImageButton
-        android:id="@+id/play"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_above="@+id/txtDemo"
-        android:layout_toLeftOf="@+id/cromTxt"
-        android:background="#FFFFFF"
-        android:contentDescription="@string/play"
-        android:scaleType="fitCenter"
-        android:src="@drawable/play" />
 
 </RelativeLayout>

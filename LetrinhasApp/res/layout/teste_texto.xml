@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.letrinhas05.Teste_Texto" >
 
-    <TextView
+   <TextView
         android:id="@+id/textCabecalho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:id="@+id/txtTela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtDemo"
+        android:layout_above="@+id/txtCancel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textCabecalho"
@@ -51,7 +51,6 @@
                 android:textColor="#303030"
                 android:textIsSelectable="true"
                 android:textSize="35sp" />
-
         </LinearLayout>
     </ScrollView>
 
@@ -67,36 +66,11 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/txtDemo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="20sp"
-        android:layout_alignTop="@+id/txtRecord"
-        android:layout_toRightOf="@+id/txtRecord"
-        android:contentDescription="@string/play"
-        android:drawableTop="@drawable/palyoff"
-        android:text="@string/demo" />
-
-    <Button
-        android:id="@+id/txtRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="40sp"
-        android:layout_marginRight="20sp"
-        android:layout_toRightOf="@+id/textRodape"
-        android:contentDescription="@string/Recording"
-        android:drawableTop="@drawable/record"
-        android:text="@string/iniciar" />
-
-    <Button
         android:id="@+id/txtVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/txtRecord"
         android:contentDescription="@string/voltar"
         android:drawableTop="@drawable/voltar"
         android:text="@string/voltar" />
@@ -106,7 +80,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignTop="@+id/txtDemo"
         android:layout_toLeftOf="@+id/txtAvaliar"
         android:contentDescription="@string/sair"
         android:drawableTop="@drawable/cancelar"
@@ -123,15 +96,46 @@
         android:drawableTop="@drawable/valido"
         android:text="@string/avancar" />
 
-    <Button
-        android:id="@+id/txtPlay"
+    <LinearLayout
+        android:id="@+id/txtBarra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignTop="@+id/txtDemo"
-        android:layout_toRightOf="@+id/txtDemo"
-        android:contentDescription="@string/play"
-        android:drawableTop="@drawable/play"
-        android:text="@string/play" />
+        android:layout_alignTop="@+id/txtVoltar"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/txtRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20sp"
+            style="@style/ButtonBarButton"
+            android:contentDescription="@string/Recording"
+            android:drawableTop="@drawable/record"
+            android:text="@string/iniciar" />
+
+        <Button
+            android:id="@+id/txtDemo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            style="@style/ButtonBarButton"
+            android:layout_marginRight="20sp"
+            android:layout_marginLeft="20sp"
+            android:contentDescription="@string/play"
+            android:drawableTop="@drawable/palyoff"
+            android:text="@string/demo" />
+
+        <Button
+            android:id="@+id/txtPlay"
+            style="@style/ButtonBarButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20sp"
+            android:contentDescription="@string/play"
+            android:drawableTop="@drawable/play"
+            android:text="@string/play" />
+
+    </LinearLayout>
 
 </RelativeLayout>

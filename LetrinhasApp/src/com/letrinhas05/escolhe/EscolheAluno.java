@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.Estudante;

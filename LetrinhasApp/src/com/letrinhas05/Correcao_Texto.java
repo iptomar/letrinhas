@@ -38,9 +38,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,13 +51,15 @@ public class Correcao_Texto extends Activity {
 
 			boolean  playing;
 			LetrinhasDB bd = new LetrinhasDB(this);
-			int iDs[];
+			int iDs[], minuto, segundo;
 			String Nomes[], demoUrl, audioUrl;
 
 			// objetos
-			ImageButton play, voltar, cancelar, avancar;
-			TextView pnt, vcl, frg, slb, rpt, pErr;
+			Button play, pDemo, voltar, cancelar, avancar;
+			ImageButton p1, p2, v1, v2, f1, f2, s1, s2, r1, r2;
+			TextView pnt, vcl, frg, slb, rpt, pErr, texto;
 			Chronometer chrono;
+			ProgressBar pbDuracao;
 
 			// Objeto controlador para a avaliacao
 			Avaliacao avaliador;
@@ -144,73 +148,65 @@ public class Correcao_Texto extends Activity {
 				// timeStamp ***** Nao sei bem se esta funciona ****************************+
 				s += ""	+ DateUtils.formatSameDayTime(
 								crt.getDataExecucao(),
-								System.currentTimeMillis(), 1, 1);// 3=short; 1=long
+								System.currentTimeMillis(), 3, 1);// 3=short; 1=long
 				//********************************************************************
 				
 				//tiulo do teste
 				((TextView) findViewById(R.id.textCabecalho)).setText(s);
-				((TextView) findViewById(R.id.txtTexto)).setText(teste.getConteudoTexto());
+				//coteudo do teste
+				texto =((TextView) findViewById(R.id.txtTexto));
+				texto.setText(teste.getConteudoTexto());
 				
-				//Estudate, para ier burcar o seu nome
+				//endereco da demonstracao
+				demoUrl=  Environment.getExternalStorageDirectory().getAbsolutePath()
+						+ "/School-Data/ReadingTests/" + teste.getProfessorAudioUrl();
+				//endereco da gravacao do aluno
+				audioUrl = Environment.getExternalStorageDirectory().getAbsolutePath()
+						+ crt.getAudiourl();
+				
+				//progressbar de posicao temporal do audio
+				pbDuracao = (ProgressBar)findViewById(R.id.pbText);
+				try{
+					reprodutor.setDataSource(audioUrl);
+					pbDuracao.setMax(reprodutor.getDuration());	
+					segundo = (reprodutor.getDuration()/1000)%60;
+					minuto =  (reprodutor.getDuration()/1000)/60;
+				}catch(Exception ex){}
+				
+				
+				//Estudate, para ir buscar o seu nome
 				Estudante aluno = bd.getEstudanteById(crt.getIdEstudante()); 
 				
 				((TextView) findViewById(R.id.textRodape)).setText(aluno.getNome());
 				
 				
-/*				array = b.getStringArray("Storage");
-//				id = lstID;
-//				tipo = lstTipo;
-//				titulo = lstTitulo;
-				texto0 = lstTexto;
-				/*lista = new Teste[lstID.length];
-				for (int i = 0; i < lstTitulo.length; i++) {
-					lista[i] = new Teste(lstID[i], lstTipo[i], lstTitulo[i]);
-				}*/
-
-//				modo = b.getBoolean("Modo");
-
-				/**####################################################################################
-				// **********************************************************************************************
-				/ Consultar a BD para preencher o conteï¿½do....*/
-			//	((TextView) findViewById(R.id.textCabecalho)).setText(lstTitulo[0]);
-			//	((TextView) findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
-				//texto = getResources().getText(R.string.exemploTexto).toString();
-		//		Log.d("Texto", lstTexto[0]);
-	//			texto = lstTexto[0];
-				// **********************************************************************************************
-
-//				endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
-//						+ "/" + b.getString("Professor") + "/" + b.getString("Aluno")
-//						+ "/" + lstTitulo[0] + ".3gpp";
-
-/*		        pastas = "/" + b.getString("Professor") + "/" + b.getString("Aluno")+ "/";
-		        fileName = lstTitulo[0] + ".3gpp";
-				// descontar este teste da lista.
-				String[] aux = new String[array.length-1];
-				for (int i = 1; i < array.length; i++) {
-					aux[i - 1] = array[i];
-				}
-				array = aux;
-
-
+				
 				chrono = (Chronometer) findViewById(R.id.cromTxt);
+				chrono.setText(n2d(minuto)+":"+n2d(segundo));
 				
-//				if (modo) {// estï¿½ em modo professor
-					setCorreccao();
-//				} else { // estï¿½ em modo aluno
-//					((TableLayout) findViewById(R.id.txtControlo))
-//							.setVisibility(View.INVISIBLE);
-//					chrono.setVisibility(View.INVISIBLE);
-//				}
-
 				
-				play = (ImageButton) findViewById(R.id.txtDemo);
-				play.setVisibility(View.INVISIBLE);
-				voltar = (ImageButton) findViewById(R.id.txtVoltar);
-				cancelar = (ImageButton) findViewById(R.id.txtCancel);
-				avancar = (ImageButton) findViewById(R.id.txtAvaliar);
+				
+				pDemo = (Button) findViewById(R.id.txtDemo);
+				play = (Button) findViewById(R.id.txtPlay);
+				voltar = (Button) findViewById(R.id.txtVoltar);
+				cancelar = (Button) findViewById(R.id.txtCancel);
+				avancar = (Button) findViewById(R.id.txtAvaliar);
 
-				escutaBotoes();*/
+				setCorreccao();
+				escutaBotoes();
+			}
+
+			//método para acrescentar um 0 nas casas das dezenas, 
+			//caso o númer seja inferior a 10
+			private String n2d(int n) {
+				String num;
+				if(n/10==0){
+					num="0"+n;					
+				}
+				else{
+					num=""+n;
+				}
+				return num;
 			}
 
 			@Override
@@ -255,31 +251,12 @@ public class Correcao_Texto extends Activity {
 				mHideHandler.postDelayed(mHideRunnable, delayMillis);
 			}
 
-			public void setUp() {
-//				if (modo) {// estï¿½ em modo professor
-//					setCorreccao();
-/*				}
 
-				gravador = new MediaRecorder();
-				gravador.setAudioSource(MediaRecorder.AudioSource.MIC);
-				gravador.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-				gravador.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-
-				// construir as pastas caso necessï¿½rio
-				File file = new File(endereco);
-				if (file.getParent() != null && !file.getParentFile().exists()) {
-					file.getParentFile().mkdirs();
-				}
-
-				gravador.setOutputFile(endereco);*/
-
-			}
-/*
 			private void escutaBotoes() {
-				record.setOnClickListener(new View.OnClickListener() {
+				pDemo.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						startGrava();
+						//startGrava();
 					}
 
 				});
@@ -287,7 +264,7 @@ public class Correcao_Texto extends Activity {
 				play.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						startPlay();
+						//startPlay();
 					}
 
 				});
@@ -295,22 +272,13 @@ public class Correcao_Texto extends Activity {
 				cancelar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						// salta a avaliaï¿½ï¿½o e vai para o prï¿½ximo teste descurando a
-						// gravaï¿½ï¿½o gerada
-						File file = new File(endereco);
-						if (file.exists()) {
-							file.delete();
-						}
-						finaliza();
+						
 					}
 				});
 
 				avancar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						// voltar para pag inicial
-
-		              //////////////////  sendToServer();
 						//startAvalia();
 					}
 
@@ -338,7 +306,7 @@ public class Correcao_Texto extends Activity {
 
 
 
-			int minuto, segundo;
+			
 
 			/**
 			 * Serve para comeï¿½ar ou parar o recording do audio
@@ -562,13 +530,13 @@ public class Correcao_Texto extends Activity {
 					}
 				}
 	
-			}
+			}*/
 
 			/**
-			 * Procedimento para ativar a selecï¿½ï¿½o das palavras erradas no texto e o
+			 * Procedimento para ativar a seleccao das palavras erradas no texto e o
 			 * painel de controlo de erros.
 			 */
-			/*private void setCorreccao() {
+			private void setCorreccao() {
 				// Painel de controlo:
 				ImageButton p1, p2, v1, v2, f1, f2, s1, s2, r1, r2;
 	
@@ -583,20 +551,17 @@ public class Correcao_Texto extends Activity {
 				r1 = (ImageButton) findViewById(R.id.txtRepMen);
 				r2 = (ImageButton) findViewById(R.id.txtRepMais);
 	
-				pnt = (TextView) findViewById(R.id.textView9);
-				vcl = (TextView) findViewById(R.id.escTDisciplina);
-				frg = (TextView) findViewById(R.id.TextView02);
-				slb = (TextView) findViewById(R.id.TextView03);
-				rpt = (TextView) findViewById(R.id.TextView06);
-				pErr = (TextView) findViewById(R.id.TextView07);
+				pnt = (TextView) findViewById(R.id.txtPontuacao);
+				vcl = (TextView) findViewById(R.id.txtVacilacao);
+				frg = (TextView) findViewById(R.id.txtFagmentacao);
+				slb = (TextView) findViewById(R.id.txtSilabacao);
+				rpt = (TextView) findViewById(R.id.txtRepeticao);
+				pErr = (TextView) findViewById(R.id.txtPErrada);
 	
-				// texto
-				TextView txt = ((TextView) findViewById(R.id.txtTexto));
-				txt.setText(texto);
-				txt.setTextColor(Color.rgb(30, 30, 30));
-				// objeto para avaliaï¿½ï¿½o
+				// objeto para avaliacao
 	
-				// necessitamos de contar no texto, o nï¿½ de palavras e o nï¿½ de pontuaï¿½ï¿½o
+				// necessitamos de contar no texto, o n. de palavras
+				// de sinais de pontuaï¿½ï¿½o
 				avaliador = new Avaliacao(contaPalavras(), contaSinais());
 				pnt.setText("" + avaliador.getPontua());
 				vcl.setText("" + avaliador.getVacil());
@@ -606,7 +571,7 @@ public class Correcao_Texto extends Activity {
 				pErr.setText("" + avaliador.getPlvErradas());
 	
 				// ativar os controlos
-				// violaï¿½ï¿½o da pontuaï¿½ï¿½o
+				// violacao da pontuacao
 				p1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -621,7 +586,7 @@ public class Correcao_Texto extends Activity {
 						pnt.setText("" + avaliador.getPontua());
 					}
 				});
-				// ocorrï¿½ncia de vacilaï¿½ï¿½es
+				// ocorrencia de vacilacoes
 				v1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -636,7 +601,7 @@ public class Correcao_Texto extends Activity {
 						vcl.setText("" + avaliador.getVacil());
 					}
 				});
-				// ocorrï¿½ncia de fragmentaï¿½ï¿½es
+				// ocorrencia de fragmentacoes
 				f1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -651,7 +616,7 @@ public class Correcao_Texto extends Activity {
 						frg.setText("" + avaliador.getFragment());
 					}
 				});
-				// ocorrï¿½ncia de silabaï¿½ï¿½es
+				// ocorrencia de silabacoes
 				s1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -666,7 +631,7 @@ public class Correcao_Texto extends Activity {
 						slb.setText("" + avaliador.getSilabs());
 					}
 				});
-				// ocorrï¿½ncia de repetiï¿½ï¿½es
+				// ocorrencia de repeticoes
 				r1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -695,9 +660,9 @@ public class Correcao_Texto extends Activity {
 			private int contaSinais() {
 				boolean flag = false;
 				int sinal = 0;
-				// percorre todo o texto e conta os sinais vï¿½lidos
-				for (int i = 0; i < texto.length(); i++) {
-					switch (texto.charAt(i)) {// procuro os sinais possiveis
+				// percorre todo o texto e conta os sinais validos
+				for (int i = 0; i < texto.getText().length(); i++) {
+					switch (texto.getText().charAt(i)) {// procuro os sinais possiveis
 					// se encontrar um, ativo uma flag
 					case '!':
 						flag = true;
@@ -718,38 +683,39 @@ public class Correcao_Texto extends Activity {
 						flag = true;
 						break;
 					default:
-						if (flag) {// se nï¿½o for um sinal e a flag estiver ativa, ï¿½
-									// porque passei por uma
-							// secï¿½ï¿½o de pontuaï¿½ï¿½o e incremento o nï¿½ de sinais e
+						if (flag) {// se nao for um sinal e a flag estiver ativa, 
+								   // entao passei por uma
+							// seccao de pontuacao e incremento o num de sinais e
 							// desativo a flag
 							sinal++;
 							flag = false;
 						}
 					}
 				}
-				// podendo ser o ultimo caracter do texto um sinal (o que ï¿½ o mais
-				// provï¿½vel), verifico novamente
-				// a flag e valido a pontuaï¿½ï¿½o, caso esta seja verdade
+				// podendo ser o ultimo caracter do texto um sinal (o que e o mais
+				// provavel), verifico novamente
+				// a flag e valido a pontuacao, caso esta seja verdade
 				if (flag) {
 					sinal++;
 				}
-				return sinal; // devolvo o nï¿½ de pontuaï¿½ï¿½es existentes no texto
+				return sinal; // devolvo o num de pontuacoes existentes no texto
 			}
 
 			private int contaPalavras() {
 				boolean flag = false;
 				int palavras = 0;
 				// percorre todo o texto e conta as palavras e outros caracteres
-				// agregados ï¿½s palavras
-				for (int i = 0; i < texto.length(); i++) {
+				// agregados as palavras
+				for (int i = 0; i < texto.getText().length(); i++) {
 					// procura um caracter que corresponda a uma letra
-					if (('A' <= texto.charAt(i) && texto.charAt(i) <= 'Z')
-							|| ('a' <= texto.charAt(i) && texto.charAt(i) <= 'z')
-							|| (128 <= texto.charAt(i) && texto.charAt(i) <= 237))
+					if (('A' <= texto.getText().charAt(i) && texto.getText().charAt(i) <= 'Z')
+							|| ('a' <= texto.getText().charAt(i) && texto.getText().charAt(i) <= 'z')
+							|| (128 <= texto.getText().charAt(i) && texto.getText().charAt(i) <= 237))
 						flag = true;
 					else {
 						if (flag) {
-							if (texto.charAt(i) != '-') {//aqui elimina-se a hipotese de hï¿½fen (-)
+							if (texto.getText().charAt(i) != '-') {
+								//aqui elimina-se a hipotese de hï¿½fen (-)
 								palavras++;
 								flag = false;
 							}
@@ -768,7 +734,7 @@ public class Correcao_Texto extends Activity {
 			 * 
 			 * @author Jorge
 			 */
-			/*public void marcaPalavra() {
+			public void marcaPalavra() {
 	
 				/*
 				 * final TextView textozico = (TextView) findViewById(R.id.txtTexto);
@@ -782,7 +748,7 @@ public class Correcao_Texto extends Activity {
 				 */
 	
 				// Mostrar Popup se caregou no ecra
-	/*			final TextView textozico = (TextView) findViewById(R.id.txtTexto);
+				final TextView textozico = texto;
 				textozico.performLongClick();
 				final int startSelection = textozico.getSelectionStart();
 				final int endSelection = textozico.getSelectionEnd();
@@ -818,7 +784,7 @@ public class Correcao_Texto extends Activity {
 								pErr.setText("" + avaliador.getPlvErradas());
 							} else {
 								Toast toast = Toast.makeText(getApplicationContext(),
-										"Nï¿½o existem palavras erradas",
+										"No existem palavras erradas",
 										Toast.LENGTH_SHORT);
 								toast.show();
 							}

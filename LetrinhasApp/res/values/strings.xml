@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Letrinhas05</string>
+    <string name="app_name">I.P.T.Letrinhas</string>
     <string name="entrar">Entrar</string>
-    <string name="letrinhas">Letrinhas 0.5 </string>
+    <string name="letrinhas">Letrinhas</string>
     <string name="Recording">A gravar</string>
     <string name="start">Começar</string>
     <string name="stop">Parar</string>

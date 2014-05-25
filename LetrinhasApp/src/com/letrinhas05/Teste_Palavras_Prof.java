@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;

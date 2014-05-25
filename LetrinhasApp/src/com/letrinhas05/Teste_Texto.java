@@ -3,11 +3,9 @@ package com.letrinhas05;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
-import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.ClassesObjs.TesteLeitura;
@@ -23,6 +21,9 @@ import android.os.Message;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -49,7 +50,9 @@ public class Teste_Texto extends Activity {
 	private MediaRecorder gravador;
 	private MediaPlayer reprodutor = new MediaPlayer();
 	private String endereco, audio, fileName;
+	Context context;
 
+	
 	int tipo, idTesteAtual;
 	String[] Nomes;
 	int[] iDs, testesID;
@@ -78,6 +81,8 @@ public class Teste_Texto extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.teste_texto);
 
+		context=this;
+		
 		// new line faz a rotacao do ecran 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -290,18 +295,55 @@ public class Teste_Texto extends Activity {
 		cancelar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// salta a avaliacao e vai para o proximo teste descurando
-				// a gravacao gerada
-				elimina();
-				finaliza();
+				android.app.AlertDialog alerta;
+				// Cria o gerador do AlertDialog
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				// define o titulo
+				builder.setTitle("Letrinhas");
+				// define a mensagem
+				builder.setMessage("Tens a certeza que queres abandonar este teste?");
+				// define os botoes 
+				builder.setNegativeButton("Não",null);
+				
+				builder.setPositiveButton("Sim",new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						elimina();
+						finaliza();
+					}
+				});
+
+				// cria o AlertDialog
+				alerta = builder.create();
+				// Mostra
+				alerta.show();
+				
 			}
 		});
 
 		avancar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// executa uma submissão
-				submit();
+				android.app.AlertDialog alerta;
+				// Cria o gerador do AlertDialog
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				// define o titulo
+				builder.setTitle("Letrinhas");
+				// define a mensagem
+				builder.setMessage("Confirmas a submissao deste teste?");
+				// define os botoes 
+				builder.setNegativeButton("Não",null);
+				
+				builder.setPositiveButton("Sim",new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						submit();
+					}
+				});
+				// cria o AlertDialog
+				alerta = builder.create();
+				// Mostra
+				alerta.show();
 			}
 
 		});
@@ -309,8 +351,30 @@ public class Teste_Texto extends Activity {
 		voltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				elimina();
-				finish();
+				
+				android.app.AlertDialog alerta;
+				// Cria o gerador do AlertDialog
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				// define o titulo
+				builder.setTitle("Letrinhas");
+				// define a mensagem
+				builder.setMessage("Tens a certeza que queres voltar para a listagem dos testes\n"
+						+ "E abandonar este?");
+				// define os botoes 
+				builder.setNegativeButton("Não",null);
+				
+				builder.setPositiveButton("Sim",new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						elimina();
+						finish();
+					}
+				});
+				// cria o AlertDialog
+				alerta = builder.create();
+				// Mostra
+				alerta.show();
+				
 			}
 		});
 	}
@@ -685,8 +749,21 @@ public class Teste_Texto extends Activity {
 		CorrecaoTesteLeitura ctl = new CorrecaoTesteLeitura();
 		File file = new File(endereco + fileName);
 		if (!file.exists()) {
-			Toast.makeText(getApplicationContext(), "Não gravou nada",
-					Toast.LENGTH_SHORT).show();
+
+			android.app.AlertDialog alerta;
+			// Cria o gerador do AlertDialog
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			// define o titulo
+			builder.setTitle("Letrinhas");
+			// define a mensagem
+			builder.setMessage("Para Avançar e avaliar, necessitas de fazer uma gravação da tua letura!");
+			// define um botï¿½o como positivo
+			builder.setPositiveButton("OK", null);
+			// cria o AlertDialog
+			alerta = builder.create();
+			// Mostra
+			alerta.show();
+			
 		} else {
 
 			long time = System.currentTimeMillis() / 1000;

@@ -2,6 +2,7 @@ package com.letrinhas05;
 
 import java.util.List;
 
+import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.Teste;

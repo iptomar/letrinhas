@@ -19,18 +19,8 @@
         android:drawableLeft="@drawable/logo2"
         android:text="@string/title_activity_teste_texto"
         android:textColor="#5ddfff"
-        android:textSize="50sp"
+        android:textSize="45sp"
         android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/txtPlay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textCabecalho"
-        android:contentDescription="@string/Recording"
-        android:drawableTop="@drawable/play"
-        android:text="@string/play" />
 
     <ScrollView
         android:id="@+id/txtTela"
@@ -38,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/pbText"
         android:layout_alignLeft="@+id/textCabecalho"
-        android:layout_below="@+id/txtPlay"
+        android:layout_alignTop="@+id/txtDemo"
         android:layout_marginLeft="21dp"
         android:layout_toLeftOf="@+id/txtControlo"
         android:background="#ccccff"
@@ -59,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="fill"
                 android:textColor="#303030"
+                android:text="@string/ExemploTexto"
                 android:textIsSelectable="true"
                 android:textSize="35sp" />
 
@@ -75,26 +66,6 @@
         android:textColor="#5ddfff"
         android:textSize="30sp"
         android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/txtAvaliar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:contentDescription="@string/entrar"
-        android:drawableTop="@drawable/valido"
-        android:text="@string/avaliar" />
-
-    <Button
-        android:id="@+id/txtCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/txtTela"
-        android:contentDescription="@string/sair"
-        android:drawableTop="@drawable/cancelar"
-        android:text="@string/apagar" />
 
     <Button
         android:id="@+id/txtVoltar"
@@ -115,13 +86,54 @@
         android:layout_alignLeft="@+id/txtTela"
         android:layout_toLeftOf="@+id/txtCancel" />
 
+    <Button
+        android:id="@+id/txtDemo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/txtCancel"
+        android:layout_below="@+id/textCabecalho"
+        android:contentDescription="@string/play"
+        android:drawableTop="@drawable/palyoff"
+        android:text="@string/demo" />
+
+    <Button
+        android:id="@+id/txtPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textCabecalho"
+        android:contentDescription="@string/Recording"
+        android:drawableTop="@drawable/play"
+        android:text="@string/play" />
+
+    <Button
+        android:id="@+id/txtAvaliar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/txtCancel"
+        android:contentDescription="@string/entrar"
+        android:drawableTop="@drawable/valido"
+        android:text="@string/avaliar" />
+
+    <Button
+        android:id="@+id/txtCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtControlo"
+        android:layout_below="@+id/pbText"
+        android:contentDescription="@string/sair"
+        android:drawableTop="@drawable/cancelar"
+        android:text="@string/apagar" />
+
     <Chronometer
         android:id="@+id/cromTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="#000000"
+        android:background="#507050"
         android:gravity="right"
         android:paddingLeft="10sp"
         android:paddingRight="10sp"
@@ -133,8 +145,8 @@
         android:id="@+id/txtControlo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtTela"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
         android:paddingLeft="10dp" >
 
         <TableRow
@@ -152,7 +164,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/TextView07"
+                android:id="@+id/txtPErrada"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/numer"
@@ -205,7 +217,7 @@
                 android:src="@drawable/menos" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/txtPontuacao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -251,7 +263,7 @@
                 android:src="@drawable/menos" />
 
             <TextView
-                android:id="@+id/escTDisciplina"
+                android:id="@+id/txtVacilacao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -297,7 +309,7 @@
                 android:src="@drawable/menos" />
 
             <TextView
-                android:id="@+id/TextView02"
+                android:id="@+id/txtFagmentacao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -343,7 +355,7 @@
                 android:src="@drawable/menos" />
 
             <TextView
-                android:id="@+id/TextView03"
+                android:id="@+id/txtSilabacao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -389,7 +401,7 @@
                 android:src="@drawable/menos" />
 
             <TextView
-                android:id="@+id/TextView06"
+                android:id="@+id/txtRepeticao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -407,15 +419,5 @@
                 android:src="@drawable/mais" />
         </TableRow>
     </TableLayout>
-
-    <Button
-        android:id="@+id/txtDemo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtControlo"
-        android:layout_alignParentTop="true"
-        android:contentDescription="@string/play"
-        android:drawableTop="@drawable/palyoff"
-        android:text="@string/demo" />
 
 </RelativeLayout>

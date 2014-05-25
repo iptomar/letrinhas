@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+
 import com.letrinhas05.PaginaInicial;
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;

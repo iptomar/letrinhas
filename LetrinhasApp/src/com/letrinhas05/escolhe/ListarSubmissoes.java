@@ -2,15 +2,15 @@ package com.letrinhas05.escolhe;
 
 import java.util.List;
 
+import com.letrinhas05.Correcao_Poema;
+import com.letrinhas05.Correcao_Texto;
 import com.letrinhas05.R;
 import com.letrinhas05.Teste_Imagem;
+import com.letrinhas05.Teste_Palavras_Prof;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.Estudante;
 import com.letrinhas05.ClassesObjs.Teste;
-import com.letrinhas05.Teste_Palavras_Prof;
-import com.letrinhas05.Correcao_Poema;
-import com.letrinhas05.Correcao_Texto;
 import com.letrinhas05.util.SystemUiHider;
 
 import android.annotation.SuppressLint;
@@ -210,7 +210,7 @@ public class ListarSubmissoes extends Activity {
 				title += ""
 						+ DateUtils.formatSameDayTime(
 								ctAux[i].getDataExecucao(),
-								System.currentTimeMillis(), 1, 1);// 3=short; 1=long
+								System.currentTimeMillis(), 3, 1);// 3=short; 1=long
 				//********************************************************************
 				
 				// colocar toda a string no botao
@@ -226,13 +226,12 @@ public class ListarSubmissoes extends Activity {
 					imgTip.setImageResource(R.drawable.imags);// multimedia
 					break;
 				case 2:
-					imgTip.setImageResource(R.drawable.textos);// poema
-					break;
-				case 3:
 					imgTip.setImageResource(R.drawable.palavras);// palavras
 					break;
+				case 3:
+					imgTip.setImageResource(R.drawable.textos);//poema
+					break;
 				}
-
 				// colocar a foto do aluno
 				if (aluno.getNomefoto() != null) {
 					String imageInSD = Environment
@@ -317,7 +316,7 @@ public class ListarSubmissoes extends Activity {
 			// Cria o gerador do AlertDialog
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			// define o titulo
-			builder.setTitle("Letrinhas 03");
+			builder.setTitle("Letrinhas");
 			// define a mensagem
 			builder.setMessage("Nao foram encontradas submissoes no repositorio");
 			// define um bot�o como positivo
