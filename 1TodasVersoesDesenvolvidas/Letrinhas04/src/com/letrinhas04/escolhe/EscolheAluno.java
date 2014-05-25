@@ -79,7 +79,7 @@ public class EscolheAluno extends Activity {
 		FotoProf = b.getString("foto_Professor");
 		((TextView) findViewById(R.id.tvAlProf)).setText(Professor);
 
-		ImageView imageView = ((ImageView) findViewById(R.id.ivAlProfessor));
+		ImageView imageView = ((ImageView) findViewById(R.id.ivDProfessor));
 		if (FotoProf != null) {
 			String imageInSD = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/School-Data/Professors/" + FotoProf;

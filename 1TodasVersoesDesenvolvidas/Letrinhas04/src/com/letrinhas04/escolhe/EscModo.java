@@ -67,7 +67,7 @@ public class EscModo extends Activity {
 
 		// se professor tem uma foto, usa-se
 		if (FotoProf != null) {
-			ImageView imageView = ((ImageView) findViewById(R.id.ivMProfessor));
+			ImageView imageView = ((ImageView) findViewById(R.id.imgProfEscmODO));
 			String imageInSD = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/School-Data/Professors/" + FotoProf;
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);

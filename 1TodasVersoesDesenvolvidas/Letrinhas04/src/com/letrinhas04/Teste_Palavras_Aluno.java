@@ -153,7 +153,9 @@ public class Teste_Palavras_Aluno extends Activity{
 				record = (ImageButton) findViewById(R.id.txtRecord);
 				play = (ImageButton) findViewById(R.id.txtPlay);
 				play.setVisibility(View.INVISIBLE);
-				voicePlay = (ImageButton) findViewById(R.id.voicePlay);
+			
+				//	voicePlay = (ImageButton) findViewById(R.id.voicePlay);
+				
 				voltar = (ImageButton) findViewById(R.id.txtVoltar);
 				cancelar = (ImageButton) findViewById(R.id.txtCancel);
 				avancar = (ImageButton) findViewById(R.id.txtAvaliar);

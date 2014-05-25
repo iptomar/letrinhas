@@ -135,7 +135,7 @@ public class EscolheEscola extends Activity {
 					}
 				});
 
-		volt = (Button) findViewById(R.id.btnVoltar);
+		volt = (Button) findViewById(R.id.btnVoltarEscolherEscola);
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da ativity
