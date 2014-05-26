@@ -1503,17 +1503,17 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 new String[] { String.valueOf(idCorrecao) });
         ///////////////////////////////////////////////////////////
         ContentValues values2 = new ContentValues();
-        values.put(CORRTLEIT_OBSERVACOES, observacoes );
-        values.put(CORRTLEIT_NUMPALAVRASPORMIN, numPalavrasorMin );
-        values.put(CORRTLEIT_NUMPALAVRASINCORRE, numPalavrasCorr );
-        values.put(CORRTLEIT_NUMPALAVRASINCORRE, numPalavrasInc );
-        values.put(CORRTLEIT_PRECISAO, precisao );
-        values.put(CORRTLEIT_PRECISAO, velocidade );
-        values.put(CORRTLEIT_EXPRESSIVIDADE, expressividade );
-        values.put(CORRTLEIT_RITMO, ritmo );
-        values.put(CORRTLEIT_DETALHES, detalhes );
+        values2.put(CORRTLEIT_OBSERVACOES, observacoes );
+        values2.put(CORRTLEIT_NUMPALAVRASPORMIN, numPalavrasorMin );
+        values2.put(CORRTLEIT_NUMPALAVRASINCORRE, numPalavrasCorr );
+        values2.put(CORRTLEIT_NUMPALAVRASINCORRE, numPalavrasInc );
+        values2.put(CORRTLEIT_PRECISAO, precisao );
+        values2.put(CORRTLEIT_PRECISAO, velocidade );
+        values2.put(CORRTLEIT_EXPRESSIVIDADE, expressividade );
+        values2.put(CORRTLEIT_RITMO, ritmo );
+        values2.put(CORRTLEIT_DETALHES, detalhes );
         // Actualizar registos na Base de dados
-        db.update(TABELA_CORRECAOTESTELEITURA, values, CORRTLEIT_IDCORRECAO + " = ?",
+        db.update(TABELA_CORRECAOTESTELEITURA, values2, CORRTLEIT_IDCORRECAO + " = ?",
                 new String[] { String.valueOf(idCorrecao) });
     }
 
