@@ -27,7 +27,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -310,6 +309,7 @@ public class Teste_Texto extends Activity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
+								stopPlayRec();
 								elimina();
 								finaliza();
 							}
@@ -340,6 +340,7 @@ public class Teste_Texto extends Activity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
+								stopPlayRec();
 								submit();
 							}
 						});
@@ -371,9 +372,11 @@ public class Teste_Texto extends Activity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
+								stopPlayRec();								
 								elimina();
 								finish();
 							}
+
 						});
 				// cria o AlertDialog
 				alerta = builder.create();
@@ -384,6 +387,34 @@ public class Teste_Texto extends Activity {
 		});
 	}
 
+	//forçar a paragem da reprodução e gravação do audio!
+	private void stopPlayRec() {
+		if(recording){
+			gravador.stop();
+			gravador.release();
+		}
+		if(playing){
+			reprodutor.stop();
+			reprodutor.release();
+		}	
+	}
+	
+	
+	//temos de manter o onDestroy, devido a existir a possibilidade de fazer finhish() através da barra de sistema!
+	@Override
+	protected void onDestroy() {
+		if(recording){
+			gravador.stop();
+			gravador.release();
+		}
+		if(playing){
+			reprodutor.stop();
+			reprodutor.release();
+		}	
+		super.onDestroy();
+	}
+	
+	
 	public void elimina() {
 		File file = new File(endereco);
 		if (file.exists()) {
@@ -463,15 +494,15 @@ public class Teste_Texto extends Activity {
 				gravador.stop();
 				gravador.release();
 				Toast.makeText(getApplicationContext(),
-						"Gravaï¿½ï¿½o efetuada com sucesso!", Toast.LENGTH_SHORT)
-						.show();
+						"Gravacao efetuada com sucesso!",
+						Toast.LENGTH_SHORT).show();
 				Toast.makeText(getApplicationContext(),
 						"Tempo de leitura: " + minuto + ":" + segundo,
 						Toast.LENGTH_LONG).show();
 
 			} catch (Exception e) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na gravaï¿½ï¿½o.\n" + e.getMessage(),
+						"Erro na gravacao.\n" + e.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -523,7 +554,7 @@ public class Teste_Texto extends Activity {
 								reprodutor.stop();
 								reprodutor.release();
 								Toast.makeText(getApplicationContext(),
-										"Fim da reproduï¿½ï¿½o.",
+										"Fim da reproducao.",
 										Toast.LENGTH_SHORT).show();
 							} catch (Exception ex) {
 							}
@@ -546,7 +577,7 @@ public class Teste_Texto extends Activity {
 
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),
+						"Erro na reproducao.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 
 				img.setImageResource(R.drawable.play);
@@ -571,30 +602,16 @@ public class Teste_Texto extends Activity {
 				reprodutor.stop();
 				reprodutor.release();
 				Toast.makeText(getApplicationContext(),
-						"Reproduï¿½ï¿½o interrompida.", Toast.LENGTH_SHORT).show();
+						"Reproducao interrompida.", Toast.LENGTH_SHORT).show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),
+						"Erro na reproducao.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
 
 	}
 
-	@Override
-	protected void onDestroy() {
-		try {
-			gravador.stop();
-			gravador.release();
-		} catch (Exception ex) {
-		}
-		try {
-			reprodutor.stop();
-			reprodutor.release();
-		} catch (Exception ex) {
-		}
-		super.onDestroy();
-	}
 
 	@SuppressLint("HandlerLeak")
 	private void startDemo() {
@@ -613,7 +630,7 @@ public class Teste_Texto extends Activity {
 				reprodutor.prepare();
 				reprodutor.start();
 				Toast.makeText(getApplicationContext(),
-						"A reproduzir Demonstraï¿½ï¿½o.", Toast.LENGTH_SHORT)
+						"A reproduzir Demonstracao.", Toast.LENGTH_SHORT)
 						.show();
 
 				final ImageView img2 = new ImageView(this);
@@ -634,7 +651,7 @@ public class Teste_Texto extends Activity {
 								reprodutor.stop();
 								reprodutor.release();
 								Toast.makeText(getApplicationContext(),
-										"Fim da reproduï¿½ï¿½o da demo.",
+										"Fim da reproducao da demo.",
 										Toast.LENGTH_SHORT).show();
 							} catch (Exception ex) {
 							}
@@ -657,7 +674,7 @@ public class Teste_Texto extends Activity {
 
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproduï¿½ï¿½o da demo.\n" + ex.getMessage(),
+						"Erro na reproducao da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 
 				img.setImageResource(R.drawable.palyoff);
@@ -682,11 +699,11 @@ public class Teste_Texto extends Activity {
 				reprodutor.stop();
 				reprodutor.release();
 				Toast.makeText(getApplicationContext(),
-						"Reproduï¿½ï¿½o da demo interrompida.", Toast.LENGTH_SHORT)
-						.show();
+						"Reproducao da demo interrompida.",
+						Toast.LENGTH_SHORT).show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproduï¿½ï¿½o da demo.\n" + ex.getMessage(),
+						"Erro na reproducao da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -724,7 +741,7 @@ public class Teste_Texto extends Activity {
 				break;
 			case 1:// lanï¿½ar a nova activity do tipo imagem
 				Intent ip = new Intent(getApplicationContext(),
-                        TesteMultimediaW.class);
+						TesteMultimediaW.class);
 				ip.putExtras(wrap);
 
 				startActivity(ip);
@@ -746,8 +763,8 @@ public class Teste_Texto extends Activity {
 				startActivity(ipp);
 				break;
 			default:
-				Toast.makeText(getApplicationContext(), " - Tipo nï¿½o defenido",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),
+						" - Tipo nï¿½o defenido", Toast.LENGTH_SHORT).show();
 				// retirar o teste errado e continuar
 
 				// descontar este teste da lista.
@@ -765,6 +782,7 @@ public class Teste_Texto extends Activity {
 		finish();
 	}
 
+	@SuppressLint("ShowToast")
 	public void submit() {
 		CorrecaoTesteLeitura ctl = new CorrecaoTesteLeitura();
 		File file = new File(endereco + fileName);
@@ -787,26 +805,30 @@ public class Teste_Texto extends Activity {
 		} else {
 
 			long time = System.currentTimeMillis() / 1000;
-
-			String aux = idTesteAtual + iDs[3] + time + "";
-			ctl.setIdCorrrecao(Long.parseLong(aux));
-			String[] yo = endereco.split("School-Data");
-			ctl.setAudiourl("/School-Data" + yo[1] + fileName);
-			ctl.setDataExecucao(time);
-			ctl.setTipo(0);// pois estou num teste texto
-			ctl.setEstado(0);
-			ctl.setTestId(idTesteAtual);
-			ctl.setIdEstudante(iDs[3]);
-			LetrinhasDB bd = new LetrinhasDB(this);
-			bd.addNewItemCorrecaoTesteLeitura(ctl);
-
+			try {
+				String aux = idTesteAtual + iDs[3] + time + "";
+				ctl.setIdCorrrecao(Long.parseLong(aux));
+				String[] yo = endereco.split("School-Data");
+				ctl.setAudiourl("/School-Data" + yo[1] + fileName);
+				
+				ctl.setDataExecucao(time);
+				ctl.setTipo(0);// pois estou num teste texto
+				ctl.setEstado(0);
+				ctl.setTestId(idTesteAtual);
+				ctl.setIdEstudante(iDs[3]);
+				LetrinhasDB bd = new LetrinhasDB(this);
+				bd.addNewItemCorrecaoTesteLeitura(ctl);
+			} catch (Exception ex) {
+				Toast.makeText(this, "Falha no INSERT da BD!",
+						Toast.LENGTH_SHORT);
+			}
 			finaliza();
 
 			Bundle wrap = new Bundle();
 			wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
 			wrap.putInt("IDAluno", iDs[3]); // id do aluno
-            wrap.putInt("TipoTeste", 0); // id do aluno
-			// listar submissï¿½es anteriores do mesmo teste
+			wrap.putInt("TipoTeste", 0); // id do aluno
+			// listar submissoes anteriores do mesmo teste
 			Intent it = new Intent(getApplicationContext(),
 					ResumoSubmissoes.class);
 			it.putExtras(wrap);

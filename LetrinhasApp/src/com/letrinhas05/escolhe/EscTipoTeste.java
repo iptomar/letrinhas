@@ -226,7 +226,7 @@ public class EscTipoTeste extends Activity {
 				wrap.putInt("idDisciplina", idDisciplina);
 				wrap.putString("Disciplina", disciplina);
 				wrap.putInt("TipoTesteid", 1);
-				wrap.putString("TipoTeste","Interpretação atraves de Imagens");
+				wrap.putString("TipoTeste","Interpretacao atraves de Imagens");
 				Intent inten = new Intent(EscTipoTeste.this, EscolheTeste.class);
                 inten.putExtras(wrap);
 				startActivity(inten);

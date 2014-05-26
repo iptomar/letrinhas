@@ -178,11 +178,11 @@ public class EscolheTeste extends Activity {
                     + "," + cn.getTexto().toString() + "," + cn.getTipo();
             Log.d("letrinhas-Store", storage.toString());
             array[numero] = storage.toString();
-            Log.d("letrinhas-Array", array[numero].toString());
+          
             titulo[numero] = cn.getTitulo();
-            Log.d("letrinhas-Titulo", titulo[numero].toString());
+            
             idTestes[numero] = cn.getIdTeste();
-            Log.d("letrinhas-ID", String.valueOf(idTestes[numero]));
+           
             numero++;
         }
         // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -197,7 +197,7 @@ public class EscolheTeste extends Activity {
         if (0 < numero) {
             int i = 0;
             teste = titulo[i].toString();
-            Log.d("Texto-Apenas", teste + " int:" + numero);
+            
             // Atribuo o primeiro t�tulo ao primeiro bot�o
             // ********************************+
             // texto por defeito
@@ -238,7 +238,7 @@ public class EscolheTeste extends Activity {
             // define o titulo
             builder.setTitle("Letrinhas 03");
             // define a mensagem
-            builder.setMessage("N�o foram encontrados testes no reposit�rio");
+            builder.setMessage("Nao foram encontrados testes no repositorio");
             // define um bot�o como positivo
             builder.setPositiveButton("OK", null);
             // cria o AlertDialog
@@ -332,8 +332,7 @@ public class EscolheTeste extends Activity {
                 j++;
             }
         }
-        Toast.makeText(getApplicationContext(), j + " Testes seleccionados",
-                Toast.LENGTH_SHORT).show();
+        
 
         // Copiar os id's dos testes seleccionados para uma lista auxiliar
         int[] lstID = new int[j];
@@ -420,7 +419,7 @@ public class EscolheTeste extends Activity {
             // define o titulo
             builder.setTitle("Letrinhas 05");
             // define a mensagem
-            builder.setMessage("N�o existem testes seleccionados!");
+            builder.setMessage("Nao existem testes seleccionados!");
             // define um botao como positivo
             builder.setPositiveButton("OK", null);
             // cria o AlertDialog

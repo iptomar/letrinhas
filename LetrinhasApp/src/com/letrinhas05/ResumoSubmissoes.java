@@ -20,10 +20,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,8 +85,8 @@ public class ResumoSubmissoes extends Activity {
                 // copiar os parametros de layout
                 btIn.setLayoutParams(btOriginal.getLayoutParams());
                 // copiar a imagem do botao original
-                btIn.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                        btOriginal.getCompoundDrawablesRelative()[2], null);
+               // btIn.setCompoundDrawablesWithIntrinsicBounds(null, null,
+                 //       btOriginal.getCompoundDrawablesRelative()[2], null);
                 String resultadoTeste = "";
                 if (crt.get(i).getOpcaoEscolhida() == crt.get(i).getCerta())
                     resultadoTeste = "(Acertou)";
@@ -125,10 +123,8 @@ public class ResumoSubmissoes extends Activity {
                 Button btIn = new Button(this);
                 // copiar os parametros de layout
                 btIn.setLayoutParams(btOriginal.getLayoutParams());
-                // copiar a imagem do botao original
-                btIn.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                        btOriginal.getCompoundDrawablesRelative()[2], null);
-                btIn.setText("" +   getDate(crt.get(i).getDataExecucao()));// crtAux[i].getDataExecucao());
+                
+                btIn.setText("" +   getDate(crt.get(i).getDataExecucao()));
                 final String audioUrl = Environment.getExternalStorageDirectory().getAbsolutePath() + crt.get(i).getAudiourl();
                 // o que o botao vai fazer...
                 btIn.setOnClickListener(new View.OnClickListener() {
@@ -247,13 +243,31 @@ public class ResumoSubmissoes extends Activity {
 			}
 		}
 	}
+	
+	// forçar a paragem da reprodução do audio!
+		private void stopPlay() {
+			if (playing) {
+				reprodutor.stop();
+				reprodutor.release();
+			}
+		}
+
+		// temos de manter o onDestroy, devido a existir a possibilidade de fazer
+		// finhish() através da barra de sistema!
+		@Override
+		protected void onDestroy() {
+			stopPlay();
+			super.onDestroy();
+		}
+
 
     /**
      * Funcao importante que transforma um TimeStamp em uma data com hora
      * @param timeStamp timestamp a converter
      * @return retorna uma string
      */
-    private String getDate(long timeStamp){
+    @SuppressLint("SimpleDateFormat")
+	private String getDate(long timeStamp){
         try{
             long timeStampCorrigido = timeStamp * 1000;
             DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

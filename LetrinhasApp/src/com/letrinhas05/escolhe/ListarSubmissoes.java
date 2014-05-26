@@ -1,5 +1,8 @@
 package com.letrinhas05.escolhe;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.letrinhas05.Correcao_Poema;
@@ -24,7 +27,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.text.format.DateUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -205,12 +207,9 @@ public class ListarSubmissoes extends Activity {
 				// titulo do teste
 				Teste tst = bd.getTesteById(ctAux[i].getTestId());
 				title += tst.getTitulo() + " - ";
-				// timeStamp ***** Nao sei bem se esta funciona ****************************+
+
 				title += ""
-						+ DateUtils.formatSameDayTime(
-								ctAux[i].getDataExecucao(),
-								System.currentTimeMillis(), 3, 1);// 3=short; 1=long
-				//********************************************************************
+						+ getDate(ctAux[i].getDataExecucao());
 				
 				// colocar toda a string no botao
 				btIn.setText(title);
@@ -328,6 +327,24 @@ public class ListarSubmissoes extends Activity {
 		}
 
 	}
+
+	/**
+     * Funcao importante que transforma um TimeStamp em uma data com hora
+     * @param timeStamp timestamp a converter
+     * @return retorna uma string
+     */
+    @SuppressLint("SimpleDateFormat")
+	private String getDate(long timeStamp){
+        try{
+            long timeStampCorrigido = timeStamp * 1000;
+            DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date netDate = (new Date(timeStampCorrigido));
+            return sdf.format(netDate);
+        }
+        catch(Exception ex){
+            return "0";
+        }
+    }
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {

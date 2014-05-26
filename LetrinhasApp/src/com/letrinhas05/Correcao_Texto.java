@@ -1,22 +1,19 @@
 package com.letrinhas05;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
-import com.letrinhas05.BaseDados.NetworkUtils;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.Estudante;
 import com.letrinhas05.ClassesObjs.TesteLeitura;
 import com.letrinhas05.util.Avaliacao;
 import com.letrinhas05.util.SystemUiHider;
-import com.letrinhas05.util.Utils;
 
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,10 +29,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.text.Spannable;
-import android.text.format.DateUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -45,7 +39,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +48,7 @@ public class Correcao_Texto extends Activity {
 	LetrinhasDB bd = new LetrinhasDB(this);
 	CorrecaoTesteLeitura crt;
 	int iDs[], minuto, segundo;
-	String Nomes[], demoUrl, audioUrl;
+	String Nomes[], demoUrl, audioUrl, s;
 
 	// objetos
 	Button play, pDemo, voltar, cancelar, avancar;
@@ -148,13 +141,9 @@ public class Correcao_Texto extends Activity {
 		// Teste para buscar o texto, titulo e o endereço da demonstração
 		TesteLeitura teste = bd.getTesteLeituraById(crt.getTestId());
 
-		String s = teste.getTitulo() + " - ";
-		// timeStamp ***** Nao sei bem se esta funciona
-		// ****************************+
-		s += ""
-				+ DateUtils.formatSameDayTime(crt.getDataExecucao(),
-						System.currentTimeMillis(), 3, 1);// 3=short; 1=long
-		// ********************************************************************
+		s = teste.getTitulo() + " - ";
+		
+		s += ""	+ getDate(crt.getDataExecucao());
 
 		// tiulo do teste
 		((TextView) findViewById(R.id.textCabecalho)).setText(s);
@@ -197,6 +186,25 @@ public class Correcao_Texto extends Activity {
 		escutaBotoes();
 	}
 
+	/**
+     * Funcao importante que transforma um TimeStamp em uma data com hora
+     * @param timeStamp timestamp a converter
+     * @return retorna uma string
+     */
+    @SuppressLint("SimpleDateFormat")
+	private String getDate(long timeStamp){
+        try{
+            long timeStampCorrigido = timeStamp * 1000;
+            DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date netDate = (new Date(timeStampCorrigido));
+            return sdf.format(netDate);
+        }
+        catch(Exception ex){
+            return "0";
+        }
+    }
+
+	
 	// método para acrescentar um 0 nas casas das dezenas,
 	// caso o númer seja inferior a 10
 	private String n2d(int n) {
@@ -207,16 +215,6 @@ public class Correcao_Texto extends Activity {
 			num = "" + n;
 		}
 		return num;
-	}
-
-	@Override
-	protected void onDestroy() {
-		try {
-			reprodutor.stop();
-			reprodutor.release();
-		} catch (Exception ex) {
-		}
-		super.onDestroy();
 	}
 
 	@Override
@@ -299,13 +297,33 @@ public class Correcao_Texto extends Activity {
 			@Override
 			public void onClick(View view) {
 				// voltar para pag inicial
+				stopPlay();
 				finish();
 			}
 		});
 	}
 
+	// forçar a paragem da reprodução do audio!
+	private void stopPlay() {
+		if (playing) {
+			reprodutor.stop();
+			reprodutor.release();
+		}
+	}
+
+	// temos de manter o onDestroy, devido a existir a possibilidade de fazer
+	// finhish() através da barra de sistema!
+	@Override
+	protected void onDestroy() {
+		if (playing) {
+			reprodutor.stop();
+			reprodutor.release();
+		}
+		super.onDestroy();
+	}
+
 	private final int PARADO = 2, ANDANDO = 1;
-	private int tSegundo= segundo, tMinuto=minuto;
+	private int tSegundo = segundo, tMinuto = minuto;
 	private Handler play_handler, play_handler2;
 
 	/**
@@ -461,7 +479,7 @@ public class Correcao_Texto extends Activity {
 					public void handleMessage(Message msg) {
 						switch (msg.what) {
 						case ANDANDO:
-							
+
 							pbDuracao.setProgress(reprodutor
 									.getCurrentPosition());
 							chrono.setText(n2d(tMinuto) + ":" + n2d(tSegundo));
@@ -532,7 +550,7 @@ public class Correcao_Texto extends Activity {
 			reprodutor.prepare();
 			pbDuracao.setMax(reprodutor.getDuration());
 			pbDuracao.setProgress(0);
-			
+
 		} catch (Exception ex) {
 		}
 		tSegundo = segundo;
@@ -540,21 +558,55 @@ public class Correcao_Texto extends Activity {
 		chrono.setText(n2d(tMinuto) + ":" + n2d(tSegundo));
 	}
 
-	
-	  private void startAvalia() { 
-		  // inicia a avaliaCAo 
-		  avaliador.calcula(minuto, segundo);
-		  long time = System.currentTimeMillis() / 1000;
-		  bd.updateCorrecaoTesteLeitura(crt.getIdCorrrecao(), time, avaliador.obs,
-				  avaliador.PLM(minuto, segundo), avaliador.palavrasCertas(),
-				  avaliador.getPlvErradas(), avaliador.PL(), avaliador.VL(minuto, segundo),
-				  avaliador.Expressividade(),avaliador.Ritmo()
-				  , avaliador.detalhes);
-		  
-		  
-		  finish();
-		 }
-	
+	@SuppressLint("ShowToast")
+	private void startAvalia() {
+		android.app.AlertDialog alerta;
+		// Cria o gerador do AlertDialog
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		// define o titulo
+		builder.setTitle("Letrinhas");
+		// define a mensagem
+		builder.setMessage("Tem a certeza que quer eliminar esta submissao?");
+
+		// define os botoes
+		builder.setNegativeButton("Não", null);
+
+		builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				stopPlay();
+				// inicia a avaliaCAo
+				String resultado = avaliador.calcula(minuto, segundo);
+				long time = System.currentTimeMillis() / 1000;
+				try {
+					bd.updateCorrecaoTesteLeitura(crt.getIdCorrrecao(), time,
+							avaliador.obs, avaliador.PLM(minuto, segundo),
+							avaliador.palavrasCertas(),
+							avaliador.getPlvErradas(), avaliador.PL(),
+							avaliador.VL(minuto, segundo),
+							avaliador.Expressividade(), avaliador.Ritmo(),
+							avaliador.detalhes);
+				} catch (Exception ex) {
+				}
+
+				// teste do resultado!
+				Bundle wrap = new Bundle();
+				wrap.putString("teste", s);// titulo do teste + data
+				wrap.putString("Avaliac", resultado); // descritivo do resultado
+				// listar submissoes anteriores do mesmo teste
+				Intent it = new Intent(getApplicationContext(), Resultado.class);
+				it.putExtras(wrap);
+				startActivity(it);
+
+				finish();
+			}
+		});
+		// cria o AlertDialog
+		alerta = builder.create();
+		// Mostra
+		alerta.show();
+	}
+
 	private void cancelAvaliacao() {
 		android.app.AlertDialog alerta;
 		// Cria o gerador do AlertDialog
@@ -567,20 +619,19 @@ public class Correcao_Texto extends Activity {
 		// define os botoes
 		builder.setNegativeButton("Não", null);
 
-		builder.setPositiveButton("Sim",
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog,
-							int which) {
-						elimina();						
-					}
-				});
+		builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				stopPlay();
+				elimina();
+			}
+		});
 		// cria o AlertDialog
 		alerta = builder.create();
 		// Mostra
 		alerta.show();
 	}
-	
+
 	public void elimina() {
 		File file = new File(audioUrl);
 		if (file.exists()) {
@@ -788,9 +839,9 @@ public class Correcao_Texto extends Activity {
 	}
 
 	/******************************************************
-	 * ***************** Marcar a palvra errada no texto *** A melhorar,
-	 * deverï¿½ contabilizar correctamente a palavra, e desmarcar se repetir a
-	 * selecï¿½ï¿½o da palavra.
+	 * ***************** Marcar a palvra errada no texto *** A melhorar, devera
+	 * contabilizar correctamente a palavra, e desmarcar se repetir a selecao da
+	 * palavra.
 	 * 
 	 * @author Jorge
 	 */
