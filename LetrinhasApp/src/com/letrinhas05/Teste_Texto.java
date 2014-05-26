@@ -300,12 +300,8 @@ public class Teste_Texto extends Activity {
 				builder.setTitle("Letrinhas");
 				// define a mensagem
 				builder.setMessage("Tens a certeza que queres abandonar este teste?");
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/master
 				// define os botoes
-				builder.setNegativeButton("N�o", null);
+				builder.setNegativeButton("Nao", null);
 
 				builder.setPositiveButton("Sim",
 						new DialogInterface.OnClickListener() {
@@ -317,10 +313,6 @@ public class Teste_Texto extends Activity {
 								finaliza();
 							}
 						});
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/master
 				// cria o AlertDialog
 				alerta = builder.create();
 				// Mostra
@@ -340,7 +332,7 @@ public class Teste_Texto extends Activity {
 				// define a mensagem
 				builder.setMessage("Confirmas a submissao deste teste?");
 				// define os botoes
-				builder.setNegativeButton("N�o", null);
+				builder.setNegativeButton("Nao", null);
 
 				builder.setPositiveButton("Sim",
 						new DialogInterface.OnClickListener() {
