@@ -91,11 +91,6 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/letrinhas" />
 
-        <Button
-            android:id="@+id/btnSincManual"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sinc Manual" />
         <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
@@ -110,6 +105,11 @@
                 android:text=" "
                 android:id="@+id/txtMsg" android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="50dp" android:textSize="30dp"/>
+        <ImageButton
+                android:layout_width="90sp"
+                android:layout_height="90sp"
+                android:id="@+id/btnSettingsMenuP" android:layout_gravity="right|top" android:src="@drawable/settings"
+                android:background="@android:color/transparent"/>
 
     </FrameLayout>
 

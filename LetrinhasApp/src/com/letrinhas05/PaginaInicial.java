@@ -4,6 +4,9 @@ import java.util.List;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -34,10 +37,11 @@ import com.letrinhas05.util.SystemUiHider;
  */
 public class PaginaInicial extends Activity {
     //Variaveis
-	public Button bentrar, btnSincManual; // botoes para aceder ao menu
-    public ImageButton btnSair;// botao para sair da app
+	public Button bentrar; // botoes para aceder ao menu
+    public ImageButton btnSair, btnSettings;// botao para sair da app
     public ProgressBar progBar;
     public TextView txtViewMSG;
+    public Context context;
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -80,11 +84,11 @@ public class PaginaInicial extends Activity {
         findViewById(R.id.bEntrar1).setOnTouchListener(mDelayHideTouchListener);
         bentrar = (Button) findViewById(R.id.bEntrar1);
         btnSair = (ImageButton) findViewById(R.id.iBSair);
-        btnSincManual = (Button) findViewById(R.id.btnSincManual);
+        btnSettings = (ImageButton) findViewById(R.id.btnSettingsMenuP);
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
 
-
+        context = this;
 		        // new line faz a rotacao do ecren em 180 graus
 				int currentOrientation = getResources().getConfiguration().orientation;
 				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -193,10 +197,28 @@ public class PaginaInicial extends Activity {
 			}
 		});
 
-        btnSincManual.setOnClickListener(new View.OnClickListener() {
+        btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sincBd();
+                android.app.AlertDialog alerta;
+                // Cria o gerador do AlertDialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                // define o titulo
+                builder.setTitle("Definicoes");
+                // define a mensagem
+                builder.setMessage("Escolha a opcao!");
+                // define os botoes
+                builder.setNegativeButton("Cancelar",null);
+                builder.setPositiveButton("Sinc Manual",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        sincBd();
+                    }
+                });
+                // cria o AlertDialog
+                alerta = builder.create();
+                // Mostra
+                alerta.show();
             }
         });
         btnSair.setOnClickListener(new View.OnClickListener() {
