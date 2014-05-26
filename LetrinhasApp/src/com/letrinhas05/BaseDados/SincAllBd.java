@@ -63,6 +63,9 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         lerSynTestesLista(strings[0]);
         mActivity.progBar.setProgress(77);
 
+        lerSynTestesPoema(strings[0]);
+        mActivity.progBar.setProgress(82);
+
         lerSynTestesMultimedia(strings[0]);
         mActivity.progBar.setProgress(100);
         return null;
@@ -320,6 +323,50 @@ public class SincAllBd extends AsyncTask<String, String, String> {
                 arrTestesLeitura[i] = testeleitura;
             }
             guardarTestesLeituraListaBD(arrTestesLeitura);
+        } catch (Exception e) {
+            Log.d("ERRO",
+                    "ERRO DE SINC TESTES LEITURATesteLista TALVEZ SERVIDOR EM BAIXO");
+            msg += " TestesLista ||";
+        }
+    }
+
+
+    protected void lerSynTestesPoema(String URlString) {
+        String url = URlString + "Api/Tests/All?type=3"; // // type 0 -> leitura | 1 ->
+        // multimédia | 2 -> lista
+        // | 3 -> poema
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        JSONArray tests = JSONParser.getJSONArray(url, params);
+        try {
+            TesteLeitura[] arrTestesLeitura = new TesteLeitura[tests.length()];
+            // For (loop)looping atraves de todos os Testes
+            for (int i = 0; i < tests.length(); i++) {
+                TesteLeitura testeleitura = new TesteLeitura();
+                JSONObject c = tests.getJSONObject(i);
+                // /////// Preencher um objecto do tipo teste com a informaçao
+                // ///////////////
+                testeleitura.setIdTeste(c.getInt("id"));
+                testeleitura.setAreaId(c.getInt("areaId"));
+                testeleitura.setProfessorId(c.getInt("professorId"));
+                testeleitura.setTitulo(c.getString("title"));
+                testeleitura.setTexto(c.getString("mainText"));
+                testeleitura.setDataInsercaoTeste(c.getLong("creationDate"));
+                testeleitura.setGrauEscolar(c.getInt("grade"));
+                testeleitura.setTipos(3);
+                // //////////////////
+                testeleitura.setConteudoTexto(c.getString("textContent"));
+                testeleitura.setProfessorAudioUrl("SOM" + c.getInt("id")
+                        + ".mp3");
+                Utils.saveFileSD(
+                        "ReadingTests",
+                        "SOM" + c.getInt("id") + ".mp3",
+                        NetworkUtils.getFile(URlString
+                                + c.getString("professorAudioUrl"))
+                );
+                arrTestesLeitura[i] = testeleitura;
+            }
+            guardarTestesPoemaBD(arrTestesLeitura);
         } catch (Exception e) {
             Log.d("ERRO",
                     "ERRO DE SINC TESTES LEITURATesteLista TALVEZ SERVIDOR EM BAIXO");
@@ -627,6 +674,51 @@ public class SincAllBd extends AsyncTask<String, String, String> {
             Log.d("BDDADOS: ", cenas);
         }
     }
+
+    /**
+     * Guarda um array de ObJECTOS testesLeitura na Base de dados
+     *
+     * @param testeLeitura Array com testesLeitura para se guardar
+     */
+    public void guardarTestesPoemaBD(TesteLeitura... testeLeitura) {
+        LetrinhasDB db = new LetrinhasDB(context);
+        //   db.deleteAllItemsTests();
+        // db.deleteAllItemsTestsLeitura();
+        Log.d("DB", "Inserir Dados na base de dados dos TESTES ..");
+        for (int i = 0; i < testeLeitura.length; i++) {
+            db.addNewItemTestesLeitura(testeLeitura[i]);
+        }
+        db.close();
+        Log.d("DB", "Tudo inserido nas Testes");
+        // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
+        // CONTEUDO DA TABELA//////////////
+        List<Teste> dados = db.getAllTeste();
+        Log.d("BDDADOS: ",
+                "*********Tabela Testes---- + testes Leitura POEMAS********************");
+        for (Teste cn : dados) {
+            String logs = "getIdTeste:   " + cn.getIdTeste() + ",getTitulo:   "
+                    + cn.getTitulo() + ",getTexto:    " + cn.getTexto()
+                    + ", getDataInsercaoTeste:    " + cn.getDataInsercaoTeste()
+                    + ", getGrauEscolar:    " + cn.getGrauEscolar()
+                    + ", getTipo:    " + cn.getTipo();
+
+            // Writing Contacts to log
+
+            Log.d("BDDADOS: ", logs);
+        }
+        // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
+        // CONTEUDO DA TABELA//////////////
+        List<TesteLeitura> dados2 = db.getAllTesteLeitura();
+        Log.d("BDDADOS: ", "\n*********testesPOEMA********************");
+        for (TesteLeitura cn : dados2) {
+            String cenas = "getIdTeste:" + cn.getIdTeste()
+                    + ", getConteudoTexto: " + cn.getConteudoTexto()
+                    + ", getProfessorAudioUrl: " + cn.getProfessorAudioUrl();
+            // Writing Contacts to log
+            Log.d("BDDADOS: ", cenas);
+        }
+    }
+
 
 
     /**
