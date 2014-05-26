@@ -794,25 +794,11 @@ public class Correcao_Texto extends Activity {
 	 */
 	public void marcaPalavra() {
 
-		/*
-		 * final TextView textozico = (TextView) findViewById(R.id.txtTexto);
-		 * textozico.performLongClick(); final int startSelection =
-		 * textozico.getSelectionStart(); final int endSelection =
-		 * textozico.getSelectionEnd(); plvErradas++; Spannable WordtoSpan =
-		 * (Spannable) textozico.getText(); ForegroundColorSpan cor = new
-		 * ForegroundColorSpan(Color.RED); WordtoSpan.setSpan(cor,
-		 * startSelection, endSelection, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		 * textozico.setText(WordtoSpan); pErr.setText("" + plvErradas);
-		 */
-
 		// Mostrar Popup se caregou no ecra
 		final TextView textozico = texto;
 		textozico.performLongClick();
 		final int startSelection = textozico.getSelectionStart();
 		final int endSelection = textozico.getSelectionEnd();
-		// final String selectedText =
-		// textozico.getText().toString().substring(startSelection,
-		// endSelection);
 
 		PopupMenu menu = new PopupMenu(getApplicationContext(), textozico);
 		menu.getMenuInflater().inflate(R.menu.menu, menu.getMenu());
@@ -855,73 +841,5 @@ public class Correcao_Texto extends Activity {
 		menu.show();
 
 	}
-
-	/**
-	 * Prepara a finaliza��o da activity, descobrindo qual o pr�ximo teste
-	 * a realizar Este m�todo dever� ser usado em todas as paginas de teste.
-	 */
-	/*
-	 * private void finaliza() { if (array.length != 0) { // Decompor o array de
-	 * teste, para poder enviar por parametros int[] lstID = new
-	 * int[array.length]; int[] lstTipo = new int[array.length]; String[]
-	 * lstTitulo = new String[array.length]; String[] lstTexto = new
-	 * String[array.length]; for (int i = 0; i < array.length-1; i++) { lstID[i]
-	 * = id[i]; lstTipo[i] = tipo[i]; lstTitulo[i] = titulo[i]; lstTexto[i] =
-	 * texto0[i]; } // enviar o parametro de modo Bundle wrap = new Bundle();
-	 * wrap.putBoolean("Modo", modo);
-	 * 
-	 * // teste, a depender das informa��es da BD //
-	 * ***********************************************************+
-	 * wrap.putString("Aluno", "EI3C-Tiago Fernandes");
-	 * wrap.putString("Professor", "ESTT-Antonio Manso");
-	 * wrap.putIntArray("ListaID", lstID); wrap.putIntArray("ListaTipo",
-	 * lstTipo); wrap.putStringArray("ListaTitulo", lstTitulo);
-	 * wrap.putStringArray("ListaTexto", lstTexto);
-	 * 
-	 * // identifico o tipo de teste switch (lstTipo[0]) { case 0: // lan�ar a
-	 * nova activity do tipo texto,
-	 * 
-	 * // iniciar a pagina 2 (escolher teste) Intent it = new
-	 * Intent(getApplicationContext(), Teste_Texto_Aluno.class);
-	 * it.putExtras(wrap);
-	 * 
-	 * startActivity(it);
-	 * 
-	 * break; case 1:// lan�ar a nova activity do tipo Palavras, e o seu
-	 * conte�do // Intent ip = new Intent(getApplicationContext(),
-	 * Teste_Palavras_Aluno.class); ip.putExtras(wrap);
-	 * 
-	 * startActivity(ip);
-	 * 
-	 * break; case 2: // lan�ar a nova activity do tipo Poema, e o seu
-	 * conte�do // Intent ipm = new Intent(getApplicationContext(),
-	 * Teste_Poema_Prof.class); ipm.putExtras(wrap);
-	 * 
-	 * startActivity(ipm);
-	 * 
-	 * break; case 3: // lan�ar a nova activity do tipo imagem, e o seu
-	 * conte�do // // Intent it = new Intent(getApplicationContext(), //
-	 * Teste_Texto.class); // it.putExtras(wrap);
-	 * 
-	 * // startActivity(it); break; default:
-	 * Toast.makeText(getApplicationContext(), " - Tipo n�o defenido",
-	 * Toast.LENGTH_SHORT).show(); // retirar o teste errado e continuar
-	 * 
-	 * int k = 0; String aux[] = new String[array.length - 1]; for (int i = 1; i
-	 * < array.length; i++) { aux[k] = array[i]; k++; } array = aux; finaliza();
-	 * break; }
-	 * 
-	 * } //se existir resultados de uma avalia��o, apresenta o resultado.
-	 * if(avaliacao!=null){ //resultado Bundle wrap = new Bundle();
-	 * wrap.putString("Avaliac",avaliacao); //aluno e titulo do teste
-	 * wrap.putString
-	 * ("teste",((TextView)findViewById(R.id.textRodape)).getText() +"\n"
-	 * +((TextView)findViewById(R.id.textCabecalho)).getText());
-	 * 
-	 * // iniciar a pagina de resultado Intent av = new
-	 * Intent(getApplicationContext(), Resultado.class); av.putExtras(wrap);
-	 * 
-	 * startActivity(av); } finish(); }
-	 */
 
 }
