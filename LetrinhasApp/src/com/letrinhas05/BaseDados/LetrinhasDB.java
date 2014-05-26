@@ -252,8 +252,8 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + CORRTLEIT_NUMPALAVRASINCORRE + " INT,"
                 + CORRTLEIT_PRECISAO + " REAL,"
                 + CORRTLEIT_VELOCIDADE + " REAL,"
-                + CORRTLEIT_EXPRESSIVIDADE + " REAL,"
-                + CORRTLEIT_RITMO + " REAL,"
+                + CORRTLEIT_EXPRESSIVIDADE + " INT,"
+                + CORRTLEIT_RITMO + " INT,"
                 + CORRTLEIT_DETALHES + " TEXT)";
         db.execSQL(createTableString);
 
@@ -510,7 +510,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         valuesCorrecaoTestesLeitura.put(CORRTLEIT_DETALHES, correcaoTesteLeitura.getDetalhes());                   // Inserir na tabela o campo detalhes
         // Inserir LINHAS:
         db.insert(TABELA_CORRECAOTESTELEITURA, null, valuesCorrecaoTestesLeitura);
-        //  db.close(); // Fechar a conecao a Base de dados
+        db.close(); // Fechar a conecao a Base de dados
     }
 
     /**
@@ -535,7 +535,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         valuesCorrecaoTestesMultimedia.put(CORRTMULTIMEDIA_CERTA, correcaoTesteMultimedia.getCerta());                  // Inserir na tabela o campo certa?
         // Inserir LINHAS:
         db.insert(TABELA_CORRECAOMULTIMEDIA, null, valuesCorrecaoTestesMultimedia);
-        //  db.close(); // Fechar a conecao a Base de dados
+          db.close(); // Fechar a conecao a Base de dados
     }
 
 
@@ -1491,7 +1491,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
      * @param ritmo   ritmo
      * @param detalhes detalhes
      */
-    public void updateCorrecaoTesteLeitura(int idCorrecao, long dataAlteracao, String observacoes,
+    public void updateCorrecaoTesteLeitura(long idCorrecao, long dataAlteracao, String observacoes,
                                           float numPalavrasorMin, int numPalavrasCorr, int numPalavrasInc,
                                           float precisao, float velocidade,
                                           int expressividade,int ritmo, String detalhes) {
