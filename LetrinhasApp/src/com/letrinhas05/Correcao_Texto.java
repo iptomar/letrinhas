@@ -26,6 +26,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -553,8 +554,38 @@ public class Correcao_Texto extends Activity {
 		 }
 	
 	private void cancelAvaliacao() {
-		// TODO Auto-generated method stub
-		
+		android.app.AlertDialog alerta;
+		// Cria o gerador do AlertDialog
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		// define o titulo
+		builder.setTitle("Letrinhas");
+		// define a mensagem
+		builder.setMessage("Tem a certeza que quer eliminar esta submissao?");
+
+		// define os botoes
+		builder.setNegativeButton("Não", null);
+
+		builder.setPositiveButton("Sim",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog,
+							int which) {
+						elimina();						
+					}
+				});
+		// cria o AlertDialog
+		alerta = builder.create();
+		// Mostra
+		alerta.show();
+	}
+	
+	public void elimina() {
+		File file = new File(audioUrl);
+		if (file.exists()) {
+			bd.deleteCorrecaoLeituraByid(crt.getIdCorrrecao());
+			file.delete();
+		}
+		finish();
 	}
 
 	/**

@@ -301,7 +301,7 @@ public class Teste_Texto extends Activity {
 				builder.setTitle("Letrinhas");
 				// define a mensagem
 				builder.setMessage("Tens a certeza que queres abandonar este teste?");
-<<<<<<< HEAD
+
 				// define os botoes
 				builder.setNegativeButton("Não", null);
 
@@ -314,19 +314,6 @@ public class Teste_Texto extends Activity {
 								finaliza();
 							}
 						});
-=======
-				// define os botoes 
-				builder.setNegativeButton("Nï¿½o",null);
-				
-				builder.setPositiveButton("Sim",new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						elimina();
-						finaliza();
-					}
-				});
->>>>>>> refs/remotes/origin/master
-
 				// cria o AlertDialog
 				alerta = builder.create();
 				// Mostra
@@ -345,7 +332,6 @@ public class Teste_Texto extends Activity {
 				builder.setTitle("Letrinhas");
 				// define a mensagem
 				builder.setMessage("Confirmas a submissao deste teste?");
-<<<<<<< HEAD
 				// define os botoes
 				builder.setNegativeButton("Não", null);
 
@@ -357,17 +343,6 @@ public class Teste_Texto extends Activity {
 								submit();
 							}
 						});
-=======
-				// define os botoes 
-				builder.setNegativeButton("Nï¿½o",null);
-				
-				builder.setPositiveButton("Sim",new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						submit();
-					}
-				});
->>>>>>> refs/remotes/origin/master
 				// cria o AlertDialog
 				alerta = builder.create();
 				// Mostra
@@ -388,7 +363,6 @@ public class Teste_Texto extends Activity {
 				// define a mensagem
 				builder.setMessage("Tens a certeza que queres voltar para a listagem dos testes\n"
 						+ "E abandonar este?");
-<<<<<<< HEAD
 				// define os botoes
 				builder.setNegativeButton("Não", null);
 
@@ -401,18 +375,6 @@ public class Teste_Texto extends Activity {
 								finish();
 							}
 						});
-=======
-				// define os botoes 
-				builder.setNegativeButton("Nï¿½o",null);
-				
-				builder.setPositiveButton("Sim",new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						elimina();
-						finish();
-					}
-				});
->>>>>>> refs/remotes/origin/master
 				// cria o AlertDialog
 				alerta = builder.create();
 				// Mostra
