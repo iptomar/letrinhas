@@ -68,7 +68,7 @@ public class ResumoSubmissoes extends Activity {
 		/** Consultar a BD para preencher o conteudo.... */
 		LetrinhasDB bd = new LetrinhasDB(this);
 		Teste teste = bd.getTesteById(testeID);
-        //////////VERIFICA SE É UM TESTE MULTIMEDIA///////////////////
+        //////////VERIFICA SE e UM TESTE MULTIMEDIA///////////////////
         if (tipoTeste == 1)
         {
             List<CorrecaoTesteMultimedia> crt = bd

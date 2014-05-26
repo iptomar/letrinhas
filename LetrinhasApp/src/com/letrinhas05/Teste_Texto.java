@@ -776,7 +776,7 @@ public class Teste_Texto extends Activity {
 			// define o titulo
 			builder.setTitle("Letrinhas");
 			// define a mensagem
-			builder.setMessage("Para Avan�ar e avaliar, necessitas de fazer uma grava��o da tua letura!");
+			builder.setMessage("Para Avancar e avaliar, necessitas de fazer uma gravacao da tua leitura!");
 			// define um bot�o como positivo
 			builder.setPositiveButton("OK", null);
 			// cria o AlertDialog
@@ -792,7 +792,6 @@ public class Teste_Texto extends Activity {
 			ctl.setIdCorrrecao(Long.parseLong(aux));
 			String[] yo = endereco.split("School-Data");
 			ctl.setAudiourl("/School-Data" + yo[1] + fileName);
-			Log.d("Debug-Text_texto", "/School-Data" + yo[1] + fileName);
 			ctl.setDataExecucao(time);
 			ctl.setTipo(0);// pois estou num teste texto
 			ctl.setEstado(0);

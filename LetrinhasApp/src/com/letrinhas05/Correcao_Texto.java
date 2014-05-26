@@ -550,6 +550,8 @@ public class Correcao_Texto extends Activity {
 				  avaliador.getPlvErradas(), avaliador.PL(), avaliador.VL(minuto, segundo),
 				  avaliador.Expressividade(),avaliador.Ritmo()
 				  , avaliador.detalhes);
+		  
+		  
 		  finish();
 		 }
 	
