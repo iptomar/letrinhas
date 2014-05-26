@@ -1470,6 +1470,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 		values.put(SIS_NOME, sistema.getNome()); // Actualizar campo nome
 		values.put(SIS_VALOR, sistema.getValor()); // Actualizar campo valor
 		// Actualizar registos na Base de dados
+        db.close();
 		return db.update(TABELA_SISTEMA, values, SIS_NOME + " = ?",
 				new String[] { String.valueOf(sistema.getNome()) });
 	}
@@ -1515,6 +1516,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         // Actualizar registos na Base de dados
         db.update(TABELA_CORRECAOTESTELEITURA, values2, CORRTLEIT_IDCORRECAO + " = ?",
                 new String[] { String.valueOf(idCorrecao) });
+        db.close();
     }
 
                                      //*************************//
