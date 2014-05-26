@@ -89,7 +89,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="escolherTurma">Escolher Turma</string>
     <string name="escolherAluno">Escolher Aluno</string>
-    <string name="escolherModo">Escolher modo</string>
+    <string name="escolherModo">Menu</string>
     <string name="realizarTeste">Realizar teste(s)</string>
     <string name="corrigirTeste">Corrigir teste(s)</string>
     <string name="title_activity_escolhe_tipo_teste">Escolher Tipo de Teste</string>
@@ -127,5 +127,7 @@
     <string name="ZeroValuesStr">empty</string>
     <string name="apagar">apagar</string>
     <string name="avaliar">avaliar</string>
+    <string name="listarResut">Ver Resultados</string>
+    <string name="verResut">Ver Resultados</string>
 
 </resources>

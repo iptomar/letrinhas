@@ -92,7 +92,7 @@
             style="@style/ButtonBarButton"
             android:layout_width="200sp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="100sp"
+            android:layout_marginRight="@dimen/act70"
             android:drawableTop="@drawable/boy"
             android:text="@string/realizarTeste"
             android:textSize="30sp"
@@ -103,11 +103,24 @@
             style="@style/ButtonBarButton"
             android:layout_width="200sp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100sp"
+            android:layout_marginRight="@dimen/act70"
+            android:layout_marginLeft="@dimen/act70"
             android:drawableTop="@drawable/docentes"
             android:text="@string/corrigirTeste"
             android:textSize="30sp"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btVerResult"
+            style="@style/ButtonBarButton"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/act70"
+            android:drawableTop="@drawable/index"
+            android:text="@string/verResut"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <TextView
