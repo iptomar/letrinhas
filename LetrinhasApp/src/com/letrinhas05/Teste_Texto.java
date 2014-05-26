@@ -756,7 +756,7 @@ public class Teste_Texto extends Activity {
 				break;
 			case 3: // lan�ar a nova activity do tipo poema
 				Intent ipp = new Intent(getApplicationContext(),
-						Teste_Palavras_Aluno.class);
+						Teste_Poema.class);
 				ipp.putExtras(wrap);
 
 				startActivity(ipp);

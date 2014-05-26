@@ -42,7 +42,6 @@ import android.widget.Toast;
  */
 public class Teste_Poema extends Activity {
 
-
 	// flags para verificar os diversos estados do teste
 	boolean gravado, recording, playing;
 	TesteLeitura teste;
@@ -53,7 +52,6 @@ public class Teste_Poema extends Activity {
 	private String endereco, audio, fileName;
 	Context context;
 
-	
 	int tipo, idTesteAtual;
 	String[] Nomes;
 	int[] iDs, testesID;
@@ -82,8 +80,8 @@ public class Teste_Poema extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.teste_poema);
 
-		context=this;
-		
+		context = this;
+
 		// new line faz a rotacao do ecran 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -303,30 +301,53 @@ public class Teste_Poema extends Activity {
 				builder.setTitle("Letrinhas");
 				// define a mensagem
 				builder.setMessage("Tens a certeza que queres abandonar este teste?");
-				// define os botoes 
-				builder.setNegativeButton("Nï¿½o",null);
-				
-				builder.setPositiveButton("Sim",new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						elimina();
-						finaliza();
-					}
-				});
+				// define os botoes
+				builder.setNegativeButton("Nao", null);
 
+				builder.setPositiveButton("Sim",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								stopPlayRec();
+								elimina();
+								finaliza();
+							}
+						});
 				// cria o AlertDialog
 				alerta = builder.create();
 				// Mostra
 				alerta.show();
-				
+
 			}
 		});
 
 		avancar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// executa uma submissï¿½o
-				submit();
+				android.app.AlertDialog alerta;
+				// Cria o gerador do AlertDialog
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				// define o titulo
+				builder.setTitle("Letrinhas");
+				// define a mensagem
+				builder.setMessage("Confirmas a submissao deste teste?");
+				// define os botoes
+				builder.setNegativeButton("Nao", null);
+
+				builder.setPositiveButton("Sim",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								stopPlayRec();
+								submit();
+							}
+						});
+				// cria o AlertDialog
+				alerta = builder.create();
+				// Mostra
+				alerta.show();
 			}
 
 		});
@@ -334,7 +355,7 @@ public class Teste_Poema extends Activity {
 		voltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				
+
 				android.app.AlertDialog alerta;
 				// Cria o gerador do AlertDialog
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -343,25 +364,57 @@ public class Teste_Poema extends Activity {
 				// define a mensagem
 				builder.setMessage("Tens a certeza que queres voltar para a listagem dos testes\n"
 						+ "E abandonar este?");
-				// define os botoes 
-				builder.setNegativeButton("Nï¿½o",null);
-				
-				builder.setPositiveButton("Sim",new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						elimina();
-						finish();
-					}
-				});
+				// define os botoes
+				builder.setNegativeButton("Nï¿½o", null);
+
+				builder.setPositiveButton("Sim",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								stopPlayRec();								
+								elimina();
+								finish();
+							}
+
+						});
 				// cria o AlertDialog
 				alerta = builder.create();
 				// Mostra
 				alerta.show();
-				
+
 			}
 		});
 	}
 
+	//forçar a paragem da reprodução e gravação do audio!
+	private void stopPlayRec() {
+		if(recording){
+			gravador.stop();
+			gravador.release();
+		}
+		if(playing){
+			reprodutor.stop();
+			reprodutor.release();
+		}	
+	}
+	
+	
+	//temos de manter o onDestroy, devido a existir a possibilidade de fazer finhish() através da barra de sistema!
+	@Override
+	protected void onDestroy() {
+		if(recording){
+			gravador.stop();
+			gravador.release();
+		}
+		if(playing){
+			reprodutor.stop();
+			reprodutor.release();
+		}	
+		super.onDestroy();
+	}
+	
+	
 	public void elimina() {
 		File file = new File(endereco);
 		if (file.exists()) {
@@ -441,15 +494,15 @@ public class Teste_Poema extends Activity {
 				gravador.stop();
 				gravador.release();
 				Toast.makeText(getApplicationContext(),
-						"Gravaï¿½ï¿½o efetuada com sucesso!", Toast.LENGTH_SHORT)
-						.show();
+						"Gravacao efetuada com sucesso!",
+						Toast.LENGTH_SHORT).show();
 				Toast.makeText(getApplicationContext(),
 						"Tempo de leitura: " + minuto + ":" + segundo,
 						Toast.LENGTH_LONG).show();
 
 			} catch (Exception e) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na gravaï¿½ï¿½o.\n" + e.getMessage(),
+						"Erro na gravacao.\n" + e.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -501,7 +554,7 @@ public class Teste_Poema extends Activity {
 								reprodutor.stop();
 								reprodutor.release();
 								Toast.makeText(getApplicationContext(),
-										"Fim da reproduï¿½ï¿½o.",
+										"Fim da reproducao.",
 										Toast.LENGTH_SHORT).show();
 							} catch (Exception ex) {
 							}
@@ -524,7 +577,7 @@ public class Teste_Poema extends Activity {
 
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),
+						"Erro na reproducao.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 
 				img.setImageResource(R.drawable.play);
@@ -549,30 +602,16 @@ public class Teste_Poema extends Activity {
 				reprodutor.stop();
 				reprodutor.release();
 				Toast.makeText(getApplicationContext(),
-						"Reproduï¿½ï¿½o interrompida.", Toast.LENGTH_SHORT).show();
+						"Reproducao interrompida.", Toast.LENGTH_SHORT).show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),
+						"Erro na reproducao.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
 
 	}
-	
-	@Override
-	protected void onDestroy() {
-		try {
-			gravador.stop();
-			gravador.release();
-		} catch (Exception ex) {
-		}
-		try {
-			reprodutor.stop();
-			reprodutor.release();
-		} catch (Exception ex) {
-		}
-		super.onDestroy();
-	}
+
 
 	@SuppressLint("HandlerLeak")
 	private void startDemo() {
@@ -591,7 +630,7 @@ public class Teste_Poema extends Activity {
 				reprodutor.prepare();
 				reprodutor.start();
 				Toast.makeText(getApplicationContext(),
-						"A reproduzir Demonstraï¿½ï¿½o.", Toast.LENGTH_SHORT)
+						"A reproduzir Demonstracao.", Toast.LENGTH_SHORT)
 						.show();
 
 				final ImageView img2 = new ImageView(this);
@@ -612,7 +651,7 @@ public class Teste_Poema extends Activity {
 								reprodutor.stop();
 								reprodutor.release();
 								Toast.makeText(getApplicationContext(),
-										"Fim da reproduï¿½ï¿½o da demo.",
+										"Fim da reproducao da demo.",
 										Toast.LENGTH_SHORT).show();
 							} catch (Exception ex) {
 							}
@@ -635,7 +674,7 @@ public class Teste_Poema extends Activity {
 
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproduï¿½ï¿½o da demo.\n" + ex.getMessage(),
+						"Erro na reproducao da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 
 				img.setImageResource(R.drawable.palyoff);
@@ -660,11 +699,11 @@ public class Teste_Poema extends Activity {
 				reprodutor.stop();
 				reprodutor.release();
 				Toast.makeText(getApplicationContext(),
-						"Reproduï¿½ï¿½o da demo interrompida.", Toast.LENGTH_SHORT)
-						.show();
+						"Reproducao da demo interrompida.",
+						Toast.LENGTH_SHORT).show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproduï¿½ï¿½o da demo.\n" + ex.getMessage(),
+						"Erro na reproducao da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -718,14 +757,14 @@ public class Teste_Poema extends Activity {
 				break;
 			case 3: // lanï¿½ar a nova activity do tipo poema
 				Intent ipp = new Intent(getApplicationContext(),
-						Teste_Palavras_Aluno.class);
+						Teste_Poema.class);
 				ipp.putExtras(wrap);
 
 				startActivity(ipp);
 				break;
 			default:
-				Toast.makeText(getApplicationContext(), " - Tipo nï¿½o defenido",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),
+						" - Tipo nï¿½o defenido", Toast.LENGTH_SHORT).show();
 				// retirar o teste errado e continuar
 
 				// descontar este teste da lista.
@@ -743,6 +782,7 @@ public class Teste_Poema extends Activity {
 		finish();
 	}
 
+	@SuppressLint("ShowToast")
 	public void submit() {
 		CorrecaoTesteLeitura ctl = new CorrecaoTesteLeitura();
 		File file = new File(endereco + fileName);
@@ -754,38 +794,41 @@ public class Teste_Poema extends Activity {
 			// define o titulo
 			builder.setTitle("Letrinhas");
 			// define a mensagem
-			builder.setMessage("Para Avanï¿½ar e avaliar, necessitas de fazer uma gravaï¿½ï¿½o da tua letura!");
+			builder.setMessage("Para Avancar e avaliar, necessitas de fazer uma gravacao da tua leitura!");
 			// define um botï¿½o como positivo
 			builder.setPositiveButton("OK", null);
 			// cria o AlertDialog
 			alerta = builder.create();
 			// Mostra
 			alerta.show();
-			
+
 		} else {
 
 			long time = System.currentTimeMillis() / 1000;
-
-			String aux = idTesteAtual + iDs[3] + time + "";
-			ctl.setIdCorrrecao(Long.parseLong(aux));
-			String[] yo = endereco.split("School-Data");
-			ctl.setAudiourl("/School-Data" + yo[1] + fileName);
-			Log.d("Debug-Text_texto", "/School-Data" + yo[1] + fileName);
-			ctl.setDataExecucao(time);
-			ctl.setTipo(0);// pois estou num teste texto
-			ctl.setEstado(0);
-			ctl.setTestId(idTesteAtual);
-			ctl.setIdEstudante(iDs[3]);
-			LetrinhasDB bd = new LetrinhasDB(this);
-			bd.addNewItemCorrecaoTesteLeitura(ctl);
-
+			try {
+				String aux = idTesteAtual + iDs[3] + time + "";
+				ctl.setIdCorrrecao(Long.parseLong(aux));
+				String[] yo = endereco.split("School-Data");
+				ctl.setAudiourl("/School-Data" + yo[1] + fileName);
+				
+				ctl.setDataExecucao(time);
+				ctl.setTipo(3);// pois estou num teste texto
+				ctl.setEstado(0);
+				ctl.setTestId(idTesteAtual);
+				ctl.setIdEstudante(iDs[3]);
+				LetrinhasDB bd = new LetrinhasDB(this);
+				bd.addNewItemCorrecaoTesteLeitura(ctl);
+			} catch (Exception ex) {
+				Toast.makeText(this, "Falha no INSERT da BD!",
+						Toast.LENGTH_SHORT);
+			}
 			finaliza();
 
 			Bundle wrap = new Bundle();
 			wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
 			wrap.putInt("IDAluno", iDs[3]); // id do aluno
-            wrap.putInt("TipoTeste", 3); // id do aluno
-			// listar submissï¿½es anteriores do mesmo teste
+			wrap.putInt("TipoTeste", 3); // id do aluno
+			// listar submissoes anteriores do mesmo teste
 			Intent it = new Intent(getApplicationContext(),
 					ResumoSubmissoes.class);
 			it.putExtras(wrap);
