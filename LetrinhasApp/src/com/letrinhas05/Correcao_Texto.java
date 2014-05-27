@@ -3,6 +3,7 @@ package com.letrinhas05;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.letrinhas05.R;
@@ -49,6 +50,10 @@ public class Correcao_Texto extends Activity {
 	CorrecaoTesteLeitura crt;
 	int iDs[], minuto, segundo;
 	String Nomes[], demoUrl, audioUrl, s;
+	int PalavrasErr = 0;
+	int RetirarSeleccao = 0;
+	boolean EscreverNaLista = true;
+	ArrayList<Integer> ListaPalavrasErradas = new ArrayList<Integer>();
 
 	// objetos
 	Button play, pDemo, voltar, cancelar, avancar;
@@ -86,7 +91,8 @@ public class Correcao_Texto extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.correcao_texto);
-
+		ListaPalavrasErradas.add(-1);
+		
 		// new line faz a rotaï¿½ï¿½o do ecrï¿½n 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -845,54 +851,49 @@ public class Correcao_Texto extends Activity {
 	 * 
 	 * @author Jorge
 	 */
-	public void marcaPalavra() {
+	public void marcaPalavra() { // Marcar Palavra Errada
 
-		// Mostrar Popup se caregou no ecra
-		final TextView textozico = texto;
-		textozico.performLongClick();
-		final int startSelection = textozico.getSelectionStart();
-		final int endSelection = textozico.getSelectionEnd();
+		// Associar a variavél TextoLido a Textview que contém o texto
+		final TextView TextoLido = texto;
+		TextoLido.performLongClick();
+		
+		// Variáveis que contem o inicio e o fim da palavra que foi selecionada
+		final int startSelection = TextoLido.getSelectionStart();
+		final int endSelection = TextoLido.getSelectionEnd();
 
-		PopupMenu menu = new PopupMenu(getApplicationContext(), textozico);
-		menu.getMenuInflater().inflate(R.menu.menu, menu.getMenu());
-		menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-			@Override
-			public boolean onMenuItemClick(MenuItem item) {
-				// Mostrar palavra seleccionada na textbox
-				switch (item.getItemId()) {
-				case R.id.PalavraErrada:
-					avaliador.incPalErrada();
-					pErr.setText("" + avaliador.getPlvErradas());
-					Spannable WordtoSpan = (Spannable) textozico.getText();
-					ForegroundColorSpan cor = new ForegroundColorSpan(Color.RED);
-					WordtoSpan.setSpan(cor, startSelection, endSelection,
-							Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-					textozico.setText(WordtoSpan);
-					break;
-				case R.id.CancelarSeleccao:
-					if (avaliador.getPlvErradas() > 0) {
-						Spannable WordtoCancelSpan = (Spannable) textozico
-								.getText();
-						ForegroundColorSpan corCancelar = new ForegroundColorSpan(
-								Color.BLACK);
-						WordtoCancelSpan.setSpan(corCancelar, startSelection,
-								endSelection,
-								Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-						textozico.setText(WordtoCancelSpan);
-						avaliador.decPalErrada();
-						pErr.setText("" + avaliador.getPlvErradas());
-					} else {
-						Toast toast = Toast.makeText(getApplicationContext(),
-								"No existem palavras erradas",
-								Toast.LENGTH_SHORT);
-						toast.show();
-					}
-				}
-				return true;
-			}
-		});
-		menu.show();
-
+		//Definição do Span para pintar a palavra seleccionada
+		Spannable WordtoSpan =  (Spannable)TextoLido.getText();
+        ForegroundColorSpan cor = new ForegroundColorSpan(Color.BLACK);
+        
+        //ciclo "for" que percorre a lista de palavras onde contem as 
+        //cordenadas da palavra que foi seleccionada
+        // no inicio foi colocado o valor -1 para o array ter alguma coisa
+        
+        for(int i=0; i<ListaPalavrasErradas.size();i++){
+        	//"if" que verifica se a cordenada inicial da palavra seleccionada 
+        	// está inserida no array, se sim guarda o valor da posição
+        	if(ListaPalavrasErradas.get(i) == startSelection){
+        		EscreverNaLista = false;
+        		RetirarSeleccao = i;
+        	}
+        }
+        //Se acima for falso, coloca o Span a preto e adiciona ao ArrayList
+        if (EscreverNaLista == false){
+        	cor = new ForegroundColorSpan(Color.BLACK);
+        	EscreverNaLista = true;
+        	ListaPalavrasErradas.remove(RetirarSeleccao);
+        	ListaPalavrasErradas.remove(RetirarSeleccao);
+        	PalavrasErr--;
+      // se for verdadeiro, coloca o span a vermelho e adiciona as cordenadas ao array
+        }else{ 
+        	cor = new ForegroundColorSpan(Color.RED);
+    		ListaPalavrasErradas.add(startSelection);
+            ListaPalavrasErradas.add(endSelection);
+            PalavrasErr++;
+        }
+        // Pinta a palavra da respectiva cor
+        WordtoSpan.setSpan(cor, startSelection, endSelection, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);        
+        TextoLido.setText(WordtoSpan);
 	}
 
 }
