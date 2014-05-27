@@ -369,8 +369,8 @@ public class SincAllBd extends AsyncTask<String, String, String> {
             guardarTestesPoemaBD(arrTestesLeitura);
         } catch (Exception e) {
             Log.d("ERRO",
-                    "ERRO DE SINC TESTES LEITURATesteLista TALVEZ SERVIDOR EM BAIXO");
-            msg += " TestesLista ||";
+                    "ERRO DE SINC TESTES POEMA TALVEZ SERVIDOR EM BAIXO");
+            msg += " TestesPoema ||";
         }
     }
 
