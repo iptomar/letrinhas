@@ -144,7 +144,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        Log.d("db", "A criar tabela " + TABELA_PROFESSORES);
         /// Construir a Tabela Professores
         String createTableString = "CREATE TABLE " + TABELA_PROFESSORES + "("
                 + PROF_IDPROFS + " INTEGER PRIMARY KEY,"
@@ -157,7 +156,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + PROF_FOTO + " TEXT, "
                 + PROF_ESTADO + " INTEGER )";
         db.execSQL(createTableString);
-        Log.d("db", "A criar tabela " + TABELA_ESCOLAS);
+        Log.d("db", "Criada Tabela " + TABELA_PROFESSORES);
 
         //////// Construir a Tabela Escolas //////////////////
         createTableString = "CREATE TABLE " + TABELA_ESCOLAS + "("
@@ -165,6 +164,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + " INTEGER," + ESC_MORADA + " TEXT, " + ESC_LOGOTIPO
                 + " TEXT )";
         db.execSQL(createTableString);
+        Log.d("db", "Criada Tabela " + TABELA_ESCOLAS);
 
 ////////Construir a Tabela Estudante //////////////////
         createTableString = "CREATE TABLE " + TABELA_ESTUDANTE + "("
@@ -174,6 +174,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + EST_FOTO + " TEXT,"
                 + EST_ESTADO + " INTEGER" + ")";
         db.execSQL(createTableString);
+        Log.d("db", "Criada Tabela " + TABELA_ESTUDANTE);
 
         ////////Construir a Tabela Turmas //////////////////
         createTableString = "CREATE TABLE " + TABELA_TURMAS + "("
@@ -183,6 +184,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + TUR_NOME + " TEXT,"
                 + TUR_ANOLETIVO + " TEXT" + ")";
         db.execSQL(createTableString);
+        Log.d("db", "Criada Tabela " + TABELA_TURMAS);
 
         //Construir a Tabela Sistema //////////////////
         createTableString = "CREATE TABLE " + TABELA_SISTEMA + "("
@@ -190,6 +192,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + SIS_NOME + " TEXT,"
                 + SIS_VALOR + " TEXT )";
         db.execSQL(createTableString);
+        Log.d("db", "Criada Tabela " + TABELA_SISTEMA);
 
         //Construir a Tabela Teste //////////////////
         createTableString = "CREATE TABLE " + TABELA_TESTE + "("
@@ -202,6 +205,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + TEST_GRAU + " INT,"
                 + TEST_TIPO + " INT)";
         db.execSQL(createTableString);
+        Log.d("db", "Criada Tabela " + TABELA_TESTE);
 
         //Construir a Tabela TesteLeitura //////////////////
         createTableString = "CREATE TABLE " + TABELA_TESTELEITURA + "("
@@ -209,7 +213,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + TESTL_TEXTO + " TEXT,"
                 + TESTL_SOMPROFESSOR + " TEXT)";
         db.execSQL(createTableString);
-
+        Log.d("db", "Criada Tabela " + TABELA_TESTELEITURA);
 
         //Construir a Tabela TesteMultimedia //////////////////
         createTableString = "CREATE TABLE " + TABELA_TESTEMULTIMEDIA + "("
@@ -224,6 +228,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + TESTM_OPCAO3ISURL + " INT,"
                 + TESTM_OPCAOCORRETA + " INT )";
         db.execSQL(createTableString);
+        Log.d("db", "Criada Tabela " + TABELA_TESTEMULTIMEDIA);
 
         //Construir a Tabela TurmaProf //////////////////
         createTableString = "CREATE TABLE " + TABELA_TURMAPROFESSOR + "("
@@ -231,6 +236,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + TURPROF_IDPROFESSOR + " INTEGER NOT NULL," +
                 "PRIMARY KEY ("+ TURPROF_IDTURMA +", "+ TURPROF_IDPROFESSOR +"))";
         db.execSQL(createTableString);
+        Log.d("db", "Criada Tabela " + TABELA_TURMAPROFESSOR);
 
         //Construir a Tabela CorrecaoTeste //////////////////
         createTableString = "CREATE TABLE " + TABELA_CORRECAOTESTE + "("
@@ -241,6 +247,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + CORRT_TIPO + " INT,"
                 + CORRT_ESTADO + " INT)";
         db.execSQL(createTableString);
+        Log.d("db", "Criada Tabela " + TABELA_CORRECAOTESTE);
 
         //Construir a Tabela CorrecaoTesteLeitura //////////////////
         createTableString = "CREATE TABLE " + TABELA_CORRECAOTESTELEITURA + "("
@@ -256,6 +263,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + CORRTLEIT_RITMO + " INT,"
                 + CORRTLEIT_DETALHES + " TEXT)";
         db.execSQL(createTableString);
+        Log.d("db", "Criada Tabela " + TABELA_CORRECAOTESTELEITURA);
 
         //Construir a Tabela CorrecaoTesteMultimedia //////////////////
         createTableString = "CREATE TABLE " + TABELA_CORRECAOMULTIMEDIA + "("
@@ -263,18 +271,18 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + CORRTMULTIMEDIA_OPCAOESCOL + " INT,"
                 + CORRTMULTIMEDIA_CERTA + " INT)";
         db.execSQL(createTableString);
-
+        Log.d("db", "Criada Tabela " + TABELA_CORRECAOMULTIMEDIA);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         Log.d("db", "No onUpgrade.");
         // Apagar tabelas antigas existentes
         db.execSQL("DROP TABLE IF EXISTS " + TABELA_PROFESSORES);
         // Create tables again
         this.onCreate(db);
     }
+
 ///////////////////////////////////////////////////////////////////////////////////////
 /////////////////// Operacoes CRUD(Create, Read, Update, Delete) //////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -304,7 +312,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         // Inserir LINHAS:
         Utils.saveFileSD("Professors", UrlimgEscola, prof.getFoto());
         db.insert(TABELA_PROFESSORES, null, values);
-        //	db.close(); // Fechar a conecao a Base de dados
+        db.close(); // Fechar a conecao a Base de dados
     }
 
     /**
@@ -321,10 +329,9 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         values.put(ESC_LOGOTIPO, UrlimgEscola);  // Inserir na tabela campo logotipo
         values.put(ESC_MORADA, escola.getMorada());     // Inserir na tabela campo morada
         // Inserir LINHAS:
-
         Utils.saveFileSD("Schools", UrlimgEscola, escola.getLogotipo());
         db.insert(TABELA_ESCOLAS, null, values);
-        //	db.close(); // Fechar a conecao a Base de dados
+        db.close(); // Fechar a conecao a Base de dados
     }
 
     /**
@@ -344,7 +351,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         // Inserir LINHAS:
         Utils.saveFileSD("Students", UrlimgEstudante, estudante.getFoto());
         db.insert(TABELA_ESTUDANTE, null, values);
-        //	db.close(); // Fechar a conecao a Base de dados
+        db.close(); // Fechar a conecao a Base de dados
     }
 
     /**
@@ -362,7 +369,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         values.put(TUR_ANOLETIVO, turma.getAnoLetivo());     // Inserir na tabela ano letivo
         // Inserir LINHAS
         db.insert(TABELA_TURMAS, null, values);
-        //	db.close(); // Fechar a conecao a Base de dados
+        db.close(); // Fechar a conecao a Base de dados
     }
 
     /**
@@ -377,7 +384,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         values.put(TURPROF_IDPROFESSOR, turmaProfessor.getIdProfessor());   // Inserir na tabela campo IdProfessor
         // Inserir LINHAS
         db.insert(TABELA_TURMAPROFESSOR, null, values);
-        //	db.close(); // Fechar a conecao a Base de dados
+        db.close(); // Fechar a conecao a Base de dados
     }
 
     /**
@@ -393,7 +400,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         values.put(SIS_VALOR, sistema.getValor());         // Inserir na tabela o campo valor
         // Inserir LINHAS:
         db.insert(TABELA_SISTEMA, null, values);
-      //  db.close(); // Fechar a conecao a Base de dados
+        db.close(); // Fechar a conecao a Base de dados
     }
 
     /**
@@ -414,7 +421,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         values.put(TEST_TIPO, teste.getTipo());         // Inserir na tabela o campo Tipo
         // Inserir LINHAS:
         db.insert(TABELA_TESTE, null, values);
-       // db.close(); // Fechar a conecao a Base de dados
+        db.close(); // Fechar a conecao a Base de dados
     }
 
 
@@ -442,7 +449,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         valuesTestLeitura.put(TESTL_SOMPROFESSOR, teste.getProfessorAudioUrl());         // Inserir na tabela o campo somProfessor
         // Inserir LINHAS:
         db.insert(TABELA_TESTELEITURA, null, valuesTestLeitura);
-      //  db.close(); // Fechar a conecao a Base de dados
+        db.close(); // Fechar a conecao a Base de dados
     }
 
 
@@ -477,7 +484,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         valuesTestMultimedia.put(TESTM_OPCAOCORRETA, testeM.getCorrectOption());        // Inserir na tabela o campo CorrectOption
         // Inserir LINHAS:
         db.insert(TABELA_TESTEMULTIMEDIA, null, valuesTestMultimedia);
-      //  db.close(); // Fechar a conecao a Base de dados
+        db.close(); // Fechar a conecao a Base de dados
     }
 
     /**
@@ -535,7 +542,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         valuesCorrecaoTestesMultimedia.put(CORRTMULTIMEDIA_CERTA, correcaoTesteMultimedia.getCerta());                  // Inserir na tabela o campo certa?
         // Inserir LINHAS:
         db.insert(TABELA_CORRECAOMULTIMEDIA, null, valuesCorrecaoTestesMultimedia);
-          db.close(); // Fechar a conecao a Base de dados
+        db.close(); // Fechar a conecao a Base de dados
     }
 
 
@@ -695,7 +702,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         testeMultimedia.setDataInsercaoTeste(  cursor.getLong(5));
         testeMultimedia.setGrauEscolar(  cursor.getInt(6));
         testeMultimedia.setTipos(  cursor.getInt(7));
-
         Cursor cursor2 = db.query(TABELA_TESTEMULTIMEDIA,
                 new String[]{TESTM_CONTEUDOQUESTAO, TESTM_CONTEUDOISURL, TESTM_OPCAO1, TESTM_OPCAO1ISURL, TESTM_OPCAO2,
                         TESTM_OPCAO2ISURL, TESTM_OPCAO3, TESTM_OPCAO3ISURL, TESTM_OPCAOCORRETA},
@@ -722,15 +728,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
-
-
-
-
-
     /**
      * Buscar Um Campo da CorrecaoTesteLeitura Pelo ID
      * @id recebe o id da Correcao
@@ -754,7 +751,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         testeLeir.setTipo( cursor.getInt(4));
         testeLeir.setEstado( cursor.getInt(5));
         cursor.close();
-
         Cursor cursor2 = db.query(TABELA_CORRECAOTESTELEITURA,
                 new String[]{CORRTLEIT_AUDIOURL, CORRTLEIT_OBSERVACOES, CORRTLEIT_NUMPALAVRASPORMIN,CORRTLEIT_NUMPALAVRASCORRET,
                         CORRTLEIT_NUMPALAVRASINCORRE, CORRTLEIT_PRECISAO, CORRTLEIT_VELOCIDADE, CORRTLEIT_EXPRESSIVIDADE,  CORRTLEIT_RITMO, CORRTLEIT_DETALHES},
@@ -810,15 +806,10 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         teste.setGrauEscolar(  cursor.getInt(6));
         teste.setTipos(  cursor.getInt(7));
         // return o Item ja carregado com os dados
+        cursor.close();
         db.close();
         return teste;
     }
-
-
-
-
-
-
 
     /**
      * Buscar Um Campo turma pelo o id
@@ -843,6 +834,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         turma.setNome(  cursor.getString(3));
         turma.setAnoLetivo(  cursor.getString(4));
         // return o Item ja carregado com os dados
+        cursor.close();
         db.close();
         return turma;
     }
@@ -878,6 +870,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listProfessores.add(prof);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listProfessores;
@@ -911,6 +904,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listProfessores.add(prof);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listProfessores;
@@ -939,6 +933,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         // return a lista com todos os items da base de dados
+        cursor.close();
         db.close();
         return listEscolas;
     }
@@ -967,6 +962,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         // return a lista com todos os items da base de dados
+        cursor.close();
         db.close();
         return listTurmas;
     }
@@ -992,6 +988,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         // return a lista com todos os items da base de dados
+        cursor.close();
         db.close();
         return listTurmasProf;
     }
@@ -1023,6 +1020,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         // return a lista com todos os items da base de dados
+        cursor.close();
         db.close();
         return listTurmas;
     }
@@ -1050,6 +1048,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listEstudantes.add(estudante);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listEstudantes;
@@ -1080,6 +1079,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listEstudantes.add(estudante);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listEstudantes;
@@ -1106,6 +1106,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listSistema.add(sistema);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listSistema;
@@ -1135,6 +1136,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listcorrecaoTestes.add(corrteste);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listcorrecaoTestes;
@@ -1197,6 +1199,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listcorrecaoTestes.add(corrtesteLeit);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listcorrecaoTestes;
@@ -1244,6 +1247,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listcorrecaoTestes.add(corrtesteMult);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listcorrecaoTestes;
@@ -1289,6 +1293,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listcorrecaoTestes.add(corrteste);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listcorrecaoTestes;
@@ -1320,6 +1325,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listTeste.add(teste);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listTeste;
@@ -1354,6 +1360,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listTeste.add(teste);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listTeste;
@@ -1389,6 +1396,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listTeste.add(teste);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listTeste;
@@ -1415,6 +1423,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listTeste.add(teste);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listTeste;
@@ -1449,6 +1458,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 listTesteMultimedia.add(teste);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         // return a lista com todos os items da base de dados
         return listTesteMultimedia;
@@ -1464,15 +1474,15 @@ public class LetrinhasDB extends SQLiteOpenHelper {
      * Actualizar um registo unico da Tabela Sistema
      * @sistema Objecto com os dados a actualizar
      */
-	public int updateSistemaItem(Sistema sistema) {
+	public void updateSistemaItem(Sistema sistema) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(SIS_NOME, sistema.getNome()); // Actualizar campo nome
 		values.put(SIS_VALOR, sistema.getValor()); // Actualizar campo valor
 		// Actualizar registos na Base de dados
-        db.close();
-		return db.update(TABELA_SISTEMA, values, SIS_NOME + " = ?",
+	     db.update(TABELA_SISTEMA, values, SIS_NOME + " = ?",
 				new String[] { String.valueOf(sistema.getNome()) });
+        db.close();
 	}
 
 

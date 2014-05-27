@@ -486,7 +486,6 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         for (int i = 0; i < profs.length; i++) {
             db.addNewItemProf(profs[i]);
         }
-        db.close();
         Log.d("DB", "Tudo inserido nos Professores");
         // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
         // CONTEUDO DA TABELA//////////////
@@ -516,7 +515,6 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         for (int i = 0; i < escolas.length; i++) {
             db.addNewItemEscolas(escolas[i]);
         }
-        db.close();
         Log.d("DB", "Tudo inserido nas Escolas");
         // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
         // CONTEUDO DA TABELA//////////////
@@ -543,7 +541,6 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         for (int i = 0; i < turmas.length; i++) {
             db.addNewItemTurmas(turmas[i]);
         }
-        db.close();
         Log.d("DB", "Tudo inserido nas Turmas");
         // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
         // CONTEUDO DA TABELA//////////////
@@ -571,7 +568,6 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         for (int i = 0; i < estudantes.length; i++) {
             db.addNewItemEstudante(estudantes[i]);
         }
-        db.close();
         Log.d("DB", "Tudo inserido nas Estudantes");
         // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
         // CONTEUDO DA TABELA//////////////
@@ -599,7 +595,6 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         for (int i = 0; i < testeLeitura.length; i++) {
             db.addNewItemTestesLeitura(testeLeitura[i]);
         }
-        db.close();
         Log.d("DB", "Tudo inserido nas Testes");
         // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
         // CONTEUDO DA TABELA//////////////
@@ -644,7 +639,6 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         for (int i = 0; i < testeLeitura.length; i++) {
             db.addNewItemTestesLeitura(testeLeitura[i]);
         }
-        db.close();
         Log.d("DB", "Tudo inserido nas Testes");
         // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
         // CONTEUDO DA TABELA//////////////
@@ -688,7 +682,6 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         for (int i = 0; i < testeLeitura.length; i++) {
             db.addNewItemTestesLeitura(testeLeitura[i]);
         }
-        db.close();
         Log.d("DB", "Tudo inserido nas Testes");
         // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
         // CONTEUDO DA TABELA//////////////
@@ -733,7 +726,6 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         for (int i = 0; i < turmaProfessors.length; i++) {
             db.addNewItemTurmasProfessor(turmaProfessors[i]);
         }
-        db.close();
         // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
         // CONTEUDO DA TABELA//////////////
         List<TurmaProfessor> dados = db.getAllTurmasProfessores();
@@ -761,7 +753,6 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         for (int i = 0; i < testeMultimedias.length; i++) {
             db.addNewItemTestesMultimedia(testeMultimedias[i]);
         }
-        db.close();
         // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
         // CONTEUDO DA TABELA//////////////
         List<Teste> dados = db.getAllTeste();

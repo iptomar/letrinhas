@@ -37,9 +37,7 @@ public class TesteMultimediaW  extends Activity  {
     protected int tipo, idTesteAtual, opcaoCerta;
     protected String[] Nomes;
     protected int[] iDs, testesID;
-    protected LinearLayout line;
     protected Context context;
-
 
     /**
      * Whether or not the system UI should be auto-hidden after
@@ -68,7 +66,6 @@ public class TesteMultimediaW  extends Activity  {
 
         ////////////////////////Aceder a objectos visuais da Janela//////////////////////////////////////////7
         ImageButton btnVoltar = (ImageButton) findViewById(R.id.btnVoltarTestMult);
-        line = (LinearLayout) findViewById(R.id.linearTestMultw);
         txtCabeTituloMul = (TextView) findViewById(R.id.txtCabeTituloTextMult);
         bntOpcao1 = (Button) findViewById(R.id.btnOpcao1Mult);
         bntOpcao2 = (Button) findViewById(R.id.btnOpcao2Mult);
@@ -181,75 +178,55 @@ public class TesteMultimediaW  extends Activity  {
         txtCabeTituloMul.setText(testeM.getTexto());
         idTesteAtual = testeM.getIdTeste();
         opcaoCerta = testeM.getCorrectOption();
-        ////////////lIMPAR A LinearLayout/////////////////////
-        line.removeAllViews();
-        ImageView img1Vtitulo= new ImageView(this);
-        TextView txtVTitulo = new TextView(this);
-        txtVTitulo.setTextColor(Color.rgb(0, 0, 0));
         /////////////////////////////////////////////////////////////////////////////
-        //////////verifica qual o tipo de de Opcao2/////////////////////////////////
+        //////////verifica qual o tipo de conteudoPergunta/////////////////////////////////
         /////////////////////////////////////////////////////////////////////////
        if (testeM.getContentIsUrl() == 1){
            String imageInSD = Environment.getExternalStorageDirectory()
                    .getAbsolutePath() + "/School-Data/MultimediaTest/" + testeM.getConteudoQuestao();
-           Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-           img1Vtitulo.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 445,
-                   445, false));
-           LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(445, 445);
-           img1Vtitulo.setLayoutParams(layoutParams);
-           line.addView(img1Vtitulo);
+           Bitmap bitmap2 = BitmapFactory.decodeFile(imageInSD);
+           ImageView  bt2img = (ImageView) findViewById(R.id.imgPerguntaTestM);
+           bt2img.setImageBitmap(Bitmap.createScaledBitmap(bitmap2,300, 300, false));
+
        }
         else
        {
-           txtVTitulo.setText(testeM.getConteudoQuestao());
-           txtVTitulo.setTextSize(40);
-           line.addView(txtVTitulo);
+           TextView  txt1 = (TextView) findViewById(R.id.txtPerguntaTestM);
+           txt1.setText(testeM.getConteudoQuestao());
        }
 
         /////////////////////////////////////////////////////////////////////////////
         //////////verifica qual o tipo de de Opcao1/////////////////////////////////
         if (testeM.getOpcao1IsUrl() == 1)
         {
-
             String imageInSD = Environment.getExternalStorageDirectory()
                     .getAbsolutePath() + "/School-Data/MultimediaTest/" + testeM.getOpcao1();
-            Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-            ImageView imageView = new ImageView(this);
-            // ajustar o tamanho da imagem
-            imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
+            Bitmap bitmap2 = BitmapFactory.decodeFile(imageInSD);
+            ImageView  bt2img = (ImageView) findViewById(R.id.btnOpcao1IMG);
+            bt2img.setImageBitmap(Bitmap.createScaledBitmap(bitmap2,
                     210, 210, false));
-            // enviar para o bot�o
-            bntOpcao1.setCompoundDrawablesWithIntrinsicBounds(null,
-                    imageView.getDrawable(), null, null);
-          }
+        }
         else
         {
-            bntOpcao1.setCompoundDrawablesWithIntrinsicBounds(null,
-                    null, null, null);
-            bntOpcao1.setText(testeM.getOpcao1());
+            TextView  txt1 = (TextView) findViewById(R.id.btnOpcao1TXT);
+            txt1.setText(testeM.getOpcao1());
         }
 
         /////////////////////////////////////////////////////////////////////////////
         //////////verifica qual o tipo de de Opcao2/////////////////////////////////
         if (testeM.getOpcao2IsUrl() == 1)
         {
-
             String imageInSD = Environment.getExternalStorageDirectory()
                     .getAbsolutePath() + "/School-Data/MultimediaTest/" + testeM.getOpcao2();
             Bitmap bitmap2 = BitmapFactory.decodeFile(imageInSD);
-            ImageView imageView2 = new ImageView(this);
-            // ajustar o tamanho da imagem
-            imageView2.setImageBitmap(Bitmap.createScaledBitmap(bitmap2,
+            ImageView  bt2img = (ImageView) findViewById(R.id.btnOpcao2IMG);
+            bt2img.setImageBitmap(Bitmap.createScaledBitmap(bitmap2,
                     210, 210, false));
-            // enviar para o bot�o
-            bntOpcao2.setCompoundDrawablesWithIntrinsicBounds(null,
-                    imageView2.getDrawable(), null, null);
         }
         else
         {
-            bntOpcao2.setCompoundDrawablesWithIntrinsicBounds(null,
-                    null, null, null);
-            bntOpcao2.setText(testeM.getOpcao2());
+            TextView  txt2 = (TextView) findViewById(R.id.btnOpcao2TXT);
+            txt2.setText(testeM.getOpcao2());
         }
 
         /////////////////////////////////////////////////////////////////////////////
@@ -258,21 +235,17 @@ public class TesteMultimediaW  extends Activity  {
         {
             String imageInSD = Environment.getExternalStorageDirectory()
                     .getAbsolutePath() + "/School-Data/MultimediaTest/" + testeM.getOpcao3();
-            Bitmap bitmap3 = BitmapFactory.decodeFile(imageInSD);
-            ImageView imageView3 = new ImageView(this);
-            // ajustar o tamanho da imagem
-            imageView3.setImageBitmap(Bitmap.createScaledBitmap(bitmap3,
+            Bitmap bitmap2 = BitmapFactory.decodeFile(imageInSD);
+            ImageView  bt2img = (ImageView) findViewById(R.id.btnOpcao3IMG);
+            bt2img.setImageBitmap(Bitmap.createScaledBitmap(bitmap2,
                     210, 210, false));
-            // enviar para o bot�o
-            bntOpcao3.setCompoundDrawablesWithIntrinsicBounds(null,
-                    imageView3.getDrawable(), null, null);
         }
         else
         {
-            bntOpcao3.setCompoundDrawablesWithIntrinsicBounds(null,
-                    null, null, null);
-            bntOpcao3.setText(testeM.getOpcao3());
+            TextView  txt3 = (TextView) findViewById(R.id.btnOpcao3TXT);
+            txt3.setText(testeM.getOpcao3());
         }
+
         // descontar este teste da lista.
         int[] aux = new int[testesID.length - 1];
         for (int i = 1; i < testesID.length; i++) {
