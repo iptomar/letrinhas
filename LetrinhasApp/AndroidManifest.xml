@@ -57,12 +57,12 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
         </activity>
-         <activity
-                android:name="com.letrinhas05.TesteMultimediaW"
-                android:configChanges="orientation|keyboardHidden|screenSize"
-                android:label="@string/title_activity_teste__imagem"
-                android:screenOrientation="landscape"
-                android:theme="@style/FullscreenTheme"  >
+        <activity
+            android:name="com.letrinhas05.TesteMultimediaW"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_teste__imagem"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name="com.letrinhas05.Correcao_Texto"
@@ -70,7 +70,6 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" >
         </activity>
-        
         <activity
             android:name="com.letrinhas05.Correcao_Poema"
             android:label="@string/title_activity_teste__poema"
@@ -148,8 +147,7 @@
             android:name="com.letrinhas05.ResumoSubmissoes"
             android:label="@string/title_activity_resumo_submissoes" >
         </activity>
-
-         <activity
+        <activity
             android:name="com.letrinhas05.Resultado"
             android:label="@string/title_activity_resultado" >
         </activity>
@@ -158,6 +156,10 @@
             android:label="@string/title_activity_relatas_correction"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name="com.letrinhas05.escolhe.ListaResultados"
+            android:label="@string/title_activity_lista_resultados" >
         </activity>
     </application>
 

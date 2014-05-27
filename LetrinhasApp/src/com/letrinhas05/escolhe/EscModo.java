@@ -26,7 +26,7 @@ import android.widget.TextView;
  *
  */
 public class EscModo extends Activity {
-    protected Button btnModoAluno, btnModoProf, btnVoltar;
+    protected Button btnModoAluno, btnLResultados, btnModoProf, btnVoltar;
     protected int idEscola, idProfessor, idTurma, idAluno, iDs[];
     protected String nomeEscola, nomeProfessor, nomeTurma, nomeAluno, Nomes[];
     protected String fotoNomeProf, fotoAluno;
@@ -73,6 +73,7 @@ public class EscModo extends Activity {
         ////////////////Aceder a objectos visuais da janela///////////////////
         btnModoAluno = (Button) findViewById(R.id.btModoAluno);
         btnModoProf = (Button) findViewById(R.id.btModoProf);
+        btnLResultados = (Button) findViewById(R.id.btVerResult);
         btnVoltar = (Button) findViewById(R.id.escMbtnVoltar);
         ((TextView) findViewById(R.id.escMEscola)).setText(nomeEscola);
 		((TextView) findViewById(R.id.tvMProf)).setText(nomeProfessor);
@@ -203,7 +204,13 @@ public class EscModo extends Activity {
         btnVoltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				finish();
+				
+			}
+		});
+        btnLResultados.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				modResult();
 			}
 		});
 	}
@@ -238,4 +245,19 @@ public class EscModo extends Activity {
 		startActivity(it);
 	}
 
+	public void modResult() {
+		((Button) findViewById(R.id.btModoProf)).setTextColor(Color.GREEN);
+		((Button) findViewById(R.id.btModoAluno)).setTextColor(Color.rgb(0x5d,
+				0xdf, 0xff));
+////////////////enviar os parametros necesserios para a proxima janela ////////////
+		Bundle wrap = new Bundle();
+		// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
+		wrap.putStringArray("Nomes", Nomes);
+		// int's - idEscola, idProfessor, idTurma, idAluno
+		wrap.putIntArray("IDs", iDs);
+		// iniciar a pagina (escolher testes a corrigir)
+		Intent it = new Intent(EscModo.this, ListarSubmissoes.class);
+		it.putExtras(wrap);
+		startActivity(it);
+	}
 }

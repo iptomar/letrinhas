@@ -36,7 +36,7 @@ import android.widget.TextView;
 import android.os.Build;
 
 /**
- * Activity para listar as submiss�es a corrigir
+ * Activity para listar as submissoes a corrigir
  * 
  * 
  * @author Thiago

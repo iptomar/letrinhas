@@ -129,5 +129,6 @@
     <string name="avaliar">avaliar</string>
     <string name="listarResut">Ver Resultados</string>
     <string name="verResut">Ver Resultados</string>
+    <string name="title_activity_lista_resultados">Listar Resultados</string>
 
 </resources>
