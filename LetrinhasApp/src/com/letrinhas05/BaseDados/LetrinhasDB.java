@@ -270,7 +270,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + CORRTMULTIMEDIA_OPCAOESCOL + " INT,"
                 + CORRTMULTIMEDIA_CERTA + " INT)";
         db.execSQL(createTableString);
-        db.close();
+    //    db.close();
         Log.d("db", "Criada Tabela " + TABELA_CORRECAOMULTIMEDIA);
     }
 
