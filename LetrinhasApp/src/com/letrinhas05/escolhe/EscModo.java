@@ -204,7 +204,7 @@ public class EscModo extends Activity {
         btnVoltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				
+				finish();
 			}
 		});
         btnLResultados.setOnClickListener(new View.OnClickListener() {
@@ -216,9 +216,11 @@ public class EscModo extends Activity {
 	}
 
 	public void modAluno() {
-		((Button) findViewById(R.id.btModoAluno)).setTextColor(Color.GREEN);
-		((Button) findViewById(R.id.btModoProf)).setTextColor(Color.rgb(0x5d,
+		btnModoAluno.setTextColor(Color.GREEN);
+		btnModoProf.setTextColor(Color.rgb(0x5d,
 				0xdf, 0xff));
+		btnLResultados.setTextColor(Color.rgb(0x5d,
+				0xdf, 0xff));		
 	////////////////enviar os parametros necesserios para a proxima janela ////////////
 		Bundle wrap = new Bundle();
 		wrap.putStringArray("Nomes", Nomes);
@@ -230,9 +232,12 @@ public class EscModo extends Activity {
 	}
 
 	public void modProf() {
-		((Button) findViewById(R.id.btModoProf)).setTextColor(Color.GREEN);
-		((Button) findViewById(R.id.btModoAluno)).setTextColor(Color.rgb(0x5d,
+		btnModoProf.setTextColor(Color.GREEN);
+		btnModoAluno.setTextColor(Color.rgb(0x5d,
 				0xdf, 0xff));
+		btnLResultados.setTextColor(Color.rgb(0x5d,
+				0xdf, 0xff));
+		
 ////////////////enviar os parametros necesserios para a proxima janela ////////////
 		Bundle wrap = new Bundle();
 		// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
@@ -246,8 +251,10 @@ public class EscModo extends Activity {
 	}
 
 	public void modResult() {
-		((Button) findViewById(R.id.btModoProf)).setTextColor(Color.GREEN);
-		((Button) findViewById(R.id.btModoAluno)).setTextColor(Color.rgb(0x5d,
+		btnLResultados.setTextColor(Color.GREEN);
+		btnModoAluno.setTextColor(Color.rgb(0x5d,
+				0xdf, 0xff));
+		btnModoProf.setTextColor(Color.rgb(0x5d,
 				0xdf, 0xff));
 ////////////////enviar os parametros necesserios para a proxima janela ////////////
 		Bundle wrap = new Bundle();
@@ -256,7 +263,7 @@ public class EscModo extends Activity {
 		// int's - idEscola, idProfessor, idTurma, idAluno
 		wrap.putIntArray("IDs", iDs);
 		// iniciar a pagina (escolher testes a corrigir)
-		Intent it = new Intent(EscModo.this, ListarSubmissoes.class);
+		Intent it = new Intent(EscModo.this, ListaResultados.class);
 		it.putExtras(wrap);
 		startActivity(it);
 	}
