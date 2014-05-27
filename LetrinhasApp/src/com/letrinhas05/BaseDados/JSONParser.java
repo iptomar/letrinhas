@@ -52,16 +52,9 @@ public class JSONParser {
         while ((len = in.read(buf)) != -1) {
         	out.write(buf, 0, len);
         }
-        
-        // Header h = res.getContentEncoding();
-        
         out.flush();
-        
         in.close();
         client.close();
-        
-        
-        
         String str = new String(out.toByteArray(), "utf-8");
         
         return str;
@@ -81,49 +74,9 @@ public class JSONParser {
             return new JSONObject(getString(url, params));
     	} catch (Exception e) {
     		Log.e("letrinhas-network-utils", e.getMessage());
-    		
     		return null;
     	}
-//    	
-//        // Faz um HTTP request
-//        try {
-//            DefaultHttpClient httpClient = new DefaultHttpClient();
-//            String paramString = URLEncodedUtils.format(params, "utf-8");
-//            // url += "?" + paramString;
-//            url += paramString.length() > 0 ? "?" + paramString : "";
-//
-//            HttpGet httpGet = new HttpGet(url);
-//            HttpResponse httpResponse = httpClient.execute(httpGet);
-//            HttpEntity httpEntity = httpResponse.getEntity();
-//            is = httpEntity.getContent();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        //Come�a a ler a resposta
-//        try {
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
-//            StringBuilder sb = new StringBuilder();
-//            String line = null;
-//            while ((line = reader.readLine()) != null) {
-//                sb.append(line + "\n");
-//            }
-//            is.close();
-//            json = sb.toString();
-//
-//        } catch (Exception e) {
-//            Log.e("Erro no Buffer", "Erro a converter resultados" + e.toString());
-//        }
-//        // tentar analisar a sequencia do objeto JSON
-//        try {
-//            jObj = new JSONObject(json);
-//        } catch (JSONException e) {
-//            Log.e("JSON Parser", "Erro parsing " + e.toString());
-//        }
-//        // return JSON String
-//        return jObj;
     }
-
 
 
     /**
@@ -141,50 +94,7 @@ public class JSONParser {
     		
     		return null;
     	}
-    	
-    	
-//        JSONArray jObjs = null;
-//
-//        // Faz um HTTP request
-//        try {
-//            DefaultHttpClient httpClient = new DefaultHttpClient();
-//            String paramString = URLEncodedUtils.format(params, "utf-8");
-//            // url += "?" + paramString;
-//            url += paramString.length() > 0 ? "?" + paramString : "";
-//
-//            HttpGet httpGet = new HttpGet(url);
-//            HttpResponse httpResponse = httpClient.execute(httpGet);
-//            HttpEntity httpEntity = httpResponse.getEntity();
-//            is = httpEntity.getContent();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        //Come�a a ler a resposta
-//        try {
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
-//            StringBuilder sb = new StringBuilder();
-//            String line = null;
-//            while ((line = reader.readLine()) != null) {
-//                sb.append(line + "\n");
-//            }
-//            is.close();
-//            json = sb.toString();
-//
-//        } catch (Exception e) {
-//            Log.e("Erro no Buffer", "Erro a converter resultados" + e.toString());
-//        }
-//        // tentar analisar a sequencia do objeto JSON
-//        try {
-//              jObjs = new JSONArray(json);
-//        } catch (JSONException e) {
-//            Log.e("JSON Parser", "Erro parsing " + e.toString());
-//        }
-//        // return JSON String
-//        return jObjs;
     }
-
-
 
 
     /**

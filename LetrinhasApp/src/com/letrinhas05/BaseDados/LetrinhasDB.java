@@ -3,7 +3,6 @@
 /////DADOS E CONTEM METODOS PARA GERIR AS VARIAS TABELAS           ////
 //////////////////////////////////////////////////////////////////////
 
-
 package com.letrinhas05.BaseDados;
 import android.content.ContentValues;
 import android.content.Context;
@@ -271,6 +270,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 + CORRTMULTIMEDIA_OPCAOESCOL + " INT,"
                 + CORRTMULTIMEDIA_CERTA + " INT)";
         db.execSQL(createTableString);
+        db.close();
         Log.d("db", "Criada Tabela " + TABELA_CORRECAOMULTIMEDIA);
     }
 
@@ -281,6 +281,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABELA_PROFESSORES);
         // Create tables again
         this.onCreate(db);
+        db.close();
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////

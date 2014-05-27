@@ -13,17 +13,10 @@ import android.os.Environment;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.letrinhas05.R;
-import com.letrinhas05.ClassesObjs.Escola;
-import com.letrinhas05.util.Custom;
 import com.letrinhas05.util.SystemUiHider;
 
 /**
@@ -69,7 +62,7 @@ public class EscolheDisciplina extends Activity {
 		// int's - idEscola, idProfessor, idTurma, idAluno
 		iDs = b.getIntArray("IDs");
 
-		// preencher informação na activity
+		// preencher informaï¿½ï¿½o na activity
 		((TextView) findViewById(R.id.escDEscola)).setText(strings[0]);
 		((TextView) findViewById(R.id.tvDProf)).setText(strings[1]);
 		// se professor tem uma foto, usa-se
@@ -95,7 +88,7 @@ public class EscolheDisciplina extends Activity {
 					100, false));
 		}
 
-		// new line faz a rotação do ecrãn em 180 graus
+		// new line faz a rotaï¿½ï¿½o do ecrï¿½n em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
