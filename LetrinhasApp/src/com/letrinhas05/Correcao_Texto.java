@@ -566,10 +566,10 @@ public class Correcao_Texto extends Activity {
 		// define o titulo
 		builder.setTitle("Letrinhas");
 		// define a mensagem
-		builder.setMessage("Tem a certeza que quer eliminar esta submissao?");
+		builder.setMessage("Tem a certeza que quer submeter a avaliacao?");
 
 		// define os botoes
-		builder.setNegativeButton("Não", null);
+		builder.setNegativeButton("Nao", null);
 
 		builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 			@Override
@@ -617,7 +617,7 @@ public class Correcao_Texto extends Activity {
 		builder.setMessage("Tem a certeza que quer eliminar esta submissao?");
 
 		// define os botoes
-		builder.setNegativeButton("Não", null);
+		builder.setNegativeButton("Nao", null);
 
 		builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 			@Override

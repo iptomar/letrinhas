@@ -365,7 +365,7 @@ public class Teste_Poema extends Activity {
 				builder.setMessage("Tens a certeza que queres voltar para a listagem dos testes\n"
 						+ "E abandonar este?");
 				// define os botoes
-				builder.setNegativeButton("N�o", null);
+				builder.setNegativeButton("Nao", null);
 
 				builder.setPositiveButton("Sim",
 						new DialogInterface.OnClickListener() {
