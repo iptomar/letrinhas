@@ -147,7 +147,7 @@
         android:layout_alignBottom="@+id/tvDTurma"
         android:layout_toLeftOf="@+id/ivDProfessor"
         android:text="Aluno Escolhido"
-        android:textSize="25sp" />
+        android:textSize="25sp" android:layout_marginRight="10dp"/>
 
     <TextView
         android:id="@+id/tvDTurma"
@@ -168,6 +168,6 @@
         android:text="@string/letrinhas"
         android:textColor="#5ddfff"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textStyle="bold" android:layout_marginLeft="10dp"/>
 
 </RelativeLayout>

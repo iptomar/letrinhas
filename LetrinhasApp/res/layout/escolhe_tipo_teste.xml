@@ -29,10 +29,11 @@
             android:drawableTop="@drawable/imags"
             android:scaleType="fitCenter"
             android:text="Interpretação através de Imagens"
-            android:textColor="#0000aa"
+            android:textColor="#2b81aa"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:layout_centerVertical="true" android:layout_toLeftOf="@+id/escTipoTImgProf"/>
+            android:layout_centerVertical="true" android:layout_alignTop="@+id/btnLeituraTest"
+            android:layout_toRightOf="@+id/btnLeituraTest"/>
 
     <Button
             android:id="@+id/btnLeituraTest"
@@ -41,10 +42,11 @@
             android:drawableTop="@drawable/textos"
             android:scaleType="fitCenter"
             android:text="Leitura de Textos"
-            android:textColor="#0000aa"
+            android:textColor="#2b81aa"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:layout_alignTop="@+id/btnTestMulti" android:layout_centerHorizontal="true"/>
+            android:layout_alignTop="@+id/btnTestePalav" android:layout_toRightOf="@+id/btnTestePalav"
+            android:layout_marginRight="50dp"/>
 
     <Button
             android:id="@+id/btnTestePalav"
@@ -53,10 +55,11 @@
             android:drawableTop="@drawable/palavras"
             android:scaleType="fitCenter"
             android:text="Leitura de Palavras"
-            android:textColor="#0000aa"
+            android:textColor="#2b81aa"
             android:textSize="35sp"
             android:textStyle="bold"
-            android:layout_centerVertical="true" android:layout_alignLeft="@+id/escDRodape"/>
+            android:layout_centerVertical="true" android:layout_alignLeft="@+id/escDRodape"
+            android:layout_marginRight="50dp"/>
 
     <ImageView
             android:id="@+id/escDlogoEsTT"
@@ -121,7 +124,7 @@
             android:layout_alignBottom="@+id/escTipoTTurma"
             android:layout_toLeftOf="@+id/escTipoTImgProf"
             android:text="Aluno Escolhido"
-            android:textSize="25sp" />
+            android:textSize="25sp" android:layout_marginRight="10dp"/>
 
     <TextView
             android:id="@+id/escTipoTTurma"
@@ -142,7 +145,7 @@
             android:text="@string/letrinhas"
             android:textColor="#5ddfff"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold" android:layout_marginLeft="5dp"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
