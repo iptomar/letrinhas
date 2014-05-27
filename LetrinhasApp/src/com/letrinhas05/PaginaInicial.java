@@ -13,16 +13,21 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.*;
 
+import com.letrinhas05.BaseDados.NetworkUtils;
+import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
+import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.BaseDados.SincAllBd;
 import com.letrinhas05.ClassesObjs.Escola;
 import com.letrinhas05.escolhe.EscolheEscola;
 import com.letrinhas05.util.SystemUiHider;
+import com.letrinhas05.util.Utils;
 
 /**
  * Pagina Inicial
@@ -200,25 +205,27 @@ public class PaginaInicial extends Activity {
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                android.app.AlertDialog alerta;
-                // Cria o gerador do AlertDialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                // define o titulo
-                builder.setTitle("Definicoes");
-                // define a mensagem
-                builder.setMessage("Escolha a opcao!");
-                // define os botoes
-                builder.setNegativeButton("Cancelar",null);
-                builder.setPositiveButton("Sinc Manual",new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        sincBd();
-                    }
-                });
-                // cria o AlertDialog
-                alerta = builder.create();
-                // Mostra
-                alerta.show();
+                builder.setTitle("Configuracoes");
+                builder.setItems(new CharSequence[]
+                                {"Sinc Manual", "Enviar Correcoes Corrigidas", "Cancelar"},
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // The 'which' argument contains the index position
+                                // of the selected item
+                                switch (which) {
+                                    case 0:
+                                        sincBd();
+                                        break;
+                                    case 1:
+                                        EnviarCorrecoes();
+                                        break;
+                                    case 2:
+                                        break;
+                                }
+                            }
+                        });
+                builder.create().show();
             }
         });
         btnSair.setOnClickListener(new View.OnClickListener() {
@@ -246,12 +253,14 @@ public class PaginaInicial extends Activity {
         // Forma o endere�o http
         String URlString = "http://" + ip + ":" + porta + "/";
         String[] myTaskParams = { URlString, URlString, URlString };
-        new SincAllBd(this, this).execute(myTaskParams);
+        new SincAllBd(this, this, 0).execute(myTaskParams);
     }
 
-
-
-
+        public void EnviarCorrecoes(){
+            String URlString = "http://code.dei.estt.ipt.pt:80/Api/Tests/Submit";
+            String[] myTaskParams = { URlString, URlString, URlString };
+            new SincAllBd(this, this, 1).execute(myTaskParams);
+        }
 
     @Override
 	protected void onPostCreate(Bundle savedInstanceState) {

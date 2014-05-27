@@ -64,6 +64,30 @@ public class Utils {
     }
 
 
+    /**
+     * Buscar um determinado ficheiro no sistema de pastas do cartao de memoria
+     * @param nome Nome do ficheiro (exp: IMG1.JPG)
+     * @return returna o ficheiro em Byte[]
+     */
+    public static byte[] getFileSD2(String nome) {
+        try {
+           // final File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + pasta);
+            final File myFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + nome);
+            InputStream is = new BufferedInputStream(new FileInputStream(myFile));
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            while (is.available() > 0) {
+                bos.write(is.read());
+            }
+            is.close();
+            return bos.toByteArray();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
     /**
      * Buscar um determinado ficheiro no sistema de pastas do cartao de memoria

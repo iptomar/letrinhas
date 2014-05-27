@@ -4,14 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.letrinhas05.ClassesObjs.Escola;
-import com.letrinhas05.ClassesObjs.Estudante;
-import com.letrinhas05.ClassesObjs.Professor;
-import com.letrinhas05.ClassesObjs.Teste;
-import com.letrinhas05.ClassesObjs.TesteLeitura;
-import com.letrinhas05.ClassesObjs.TesteMultimedia;
-import com.letrinhas05.ClassesObjs.Turma;
-import com.letrinhas05.ClassesObjs.TurmaProfessor;
+import com.letrinhas05.ClassesObjs.*;
 import com.letrinhas05.PaginaInicial;
 import com.letrinhas05.util.Utils;
 
@@ -31,43 +24,63 @@ public class SincAllBd extends AsyncTask<String, String, String> {
     public Context context;
     public String msg = "";
     private PaginaInicial mActivity;
+    public int tipo;
 
 
-    public SincAllBd(Context context, PaginaInicial mActivity) {
+    public SincAllBd(Context context, PaginaInicial mActivity, int tipo) {
         this.context = context;
         this.mActivity = mActivity;
         mActivity.progBar.setProgress(5);
+        this.tipo = tipo;
     }
 
     @Override
     protected String doInBackground(String[] strings) {
 
-        lerSynProfessores(strings[0]);
-        mActivity.progBar.setProgress(15);
+        if (tipo == 0) {
+            lerSynProfessores(strings[0]);
+            mActivity.progBar.setProgress(15);
 
-        lerSynEscolas(strings[0]);
-        mActivity.progBar.setProgress(22);
+            lerSynEscolas(strings[0]);
+            mActivity.progBar.setProgress(22);
 
-        lerSynEstudante(strings[0]);
-        mActivity.progBar.setProgress(32);
+            lerSynEstudante(strings[0]);
+            mActivity.progBar.setProgress(32);
 
-        lerSynTurmas(strings[0]);
-        mActivity.progBar.setProgress(42);
+            lerSynTurmas(strings[0]);
+            mActivity.progBar.setProgress(42);
 
-        lerSynTurmasProfessor(strings[0]);
-        mActivity.progBar.setProgress(52);
+            lerSynTurmasProfessor(strings[0]);
+            mActivity.progBar.setProgress(52);
 
-        lerSynTestes(strings[0]);
-        mActivity.progBar.setProgress(65);
+            lerSynTestes(strings[0]);
+            mActivity.progBar.setProgress(65);
 
-        lerSynTestesLista(strings[0]);
-        mActivity.progBar.setProgress(77);
+            lerSynTestesLista(strings[0]);
+            mActivity.progBar.setProgress(77);
 
-        lerSynTestesPoema(strings[0]);
-        mActivity.progBar.setProgress(82);
+            lerSynTestesPoema(strings[0]);
+            mActivity.progBar.setProgress(82);
 
-        lerSynTestesMultimedia(strings[0]);
-        mActivity.progBar.setProgress(100);
+            lerSynTestesMultimedia(strings[0]);
+            mActivity.progBar.setProgress(100);
+        }
+        else{
+
+            LetrinhasDB db = new LetrinhasDB(context);
+            List<CorrecaoTesteLeitura> listCrtl =  db.getAllCorrecaoTesteLeitura_ByEstado(1);
+
+
+            for (CorrecaoTesteLeitura cn : listCrtl) {
+                NetworkUtils.postResultados("http://code.dei.estt.ipt.pt:80/Api/Tests/Submit/", cn);
+                Log.e("MERDA MERDA ", cn.getAudiourl());
+                Log.e("SABERTESTEaENVIAR",cn.getTestId()+"" );
+
+                //     Log.e("MERDA MERDA ",  Utils.getFileSD2(cn.getAudiourl())+"");
+            }
+
+
+        }
         return null;
     }
 
