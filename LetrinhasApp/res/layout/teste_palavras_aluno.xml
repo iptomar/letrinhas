@@ -11,7 +11,7 @@
     tools:context="com.letrinhas05.Teste_Palavras_Aluno" >
     
     <TextView
-        android:id="@+id/textTitulo"
+        android:id="@+id/tlaTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -23,7 +23,7 @@
         android:textStyle="bold" />
 
     <ScrollView
-        android:id="@+id/txtTela"
+        android:id="@+id/tlaTela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -42,7 +42,7 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/TextView01"
+                android:id="@+id/tlaTv01"
                 android:layout_width="240dp"
                 android:layout_height="1221dp"
                 android:orientation="vertical"
@@ -54,13 +54,13 @@
 
     </ScrollView>
      <ScrollView
-        android:id="@+id/txtTela1"
+        android:id="@+id/tlaTela1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/txtTela"
+        android:layout_toRightOf="@+id/tlaTela"
         android:background="#ccccff"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
@@ -73,7 +73,7 @@
              android:orientation="vertical" >
 
              <TextView
-                 android:id="@+id/TextView02"
+                 android:id="@+id/tlaTv02"
                  android:layout_width="240dp"
                  android:layout_height="1221dp"
                  android:orientation="vertical"
@@ -84,13 +84,13 @@
 
     </ScrollView>
      <ScrollView
-        android:id="@+id/txtTela2"
+        android:id="@+id/tlaTela2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/txtTela1"
+        android:layout_toRightOf="@+id/tlaTela1"
         android:background="#ccccff"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
@@ -103,7 +103,7 @@
              android:orientation="vertical" >
 
              <TextView
-                 android:id="@+id/TextView03"
+                 android:id="@+id/tlaTv03"
                  android:layout_width="240dp"
                  android:layout_height="1221dp"
                  android:orientation="vertical"
@@ -115,7 +115,7 @@
     </ScrollView>
      
     <ImageButton
-        android:id="@+id/txtRecordPalavras"
+        android:id="@+id/tlaRecordPalavras"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -124,27 +124,27 @@
         android:src="@drawable/record" />
 
     <ImageButton
-        android:id="@+id/txtDemoPlay"
+        android:id="@+id/tlaDemoPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/txtRecordPalavras"
-        android:layout_below="@+id/txtRecordPalavras"
+        android:layout_alignRight="@+id/tlaRecordPalavras"
+        android:layout_below="@+id/tlaRecordPalavras"
         android:layout_marginTop="34dp"
         android:contentDescription="@string/play"
         android:src="@drawable/palyoff" />
 
     <ImageButton
-        android:id="@+id/txtVoicePlay"
+        android:id="@+id/tlaVoicePlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtDemoPlay"
-        android:layout_below="@+id/txtDemoPlay"
+        android:layout_alignLeft="@+id/tlaDemoPlay"
+        android:layout_below="@+id/tlaDemoPlay"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/play"
         android:src="@drawable/play" />
 
     <ImageButton
-        android:id="@+id/txtVoltar"
+        android:id="@+id/tlaVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -153,21 +153,21 @@
         android:src="@drawable/voltar" />
 
     <ImageButton
-        android:id="@+id/txtCancel"
+        android:id="@+id/tlaCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtVoltar"
-        android:layout_alignRight="@+id/txtVoltar"
+        android:layout_above="@+id/tlaVoltar"
+        android:layout_alignRight="@+id/tlaVoltar"
         android:layout_marginBottom="40dp"
         android:contentDescription="@string/sair"
         android:src="@drawable/cancelar" />
 
     <ImageButton
-        android:id="@+id/txtAvaliar"
+        android:id="@+id/tlaAvaliar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtCancel"
-        android:layout_alignRight="@+id/txtCancel"
+        android:layout_above="@+id/tlaCancel"
+        android:layout_alignRight="@+id/tlaCancel"
         android:layout_marginBottom="32dp"
         android:contentDescription="@string/entrar"
         android:src="@drawable/valido" />

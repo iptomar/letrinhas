@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/testPalavras"
+    android:id="@+id/corecaoPalavras"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="clip_vertical"
@@ -11,7 +11,7 @@
     tools:context="com.letrinhas05.Teste_Palavras_Prof" >
     
     <TextView
-        android:id="@+id/textTitulo"
+        android:id="@+id/tlpTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -23,7 +23,7 @@
         android:textStyle="bold" />
 
     <ScrollView
-        android:id="@+id/txtScroll"
+        android:id="@+id/tlpScroll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -37,13 +37,13 @@
         android:paddingTop="10dp" >
 
         <LinearLayout
-            android:id="@+id/lllayer"
+            android:id="@+id/tlplllayer"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="vertical" >
 
             <ToggleButton
-                android:id="@+id/ToggleButton"
+                android:id="@+id/tlpToggleButton"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="@string/teste"
@@ -56,13 +56,13 @@
 
     </ScrollView>
      <ScrollView
-        android:id="@+id/txtScroll1"
+        android:id="@+id/tlpScroll1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/txtScroll"
+        android:layout_toRightOf="@+id/tlpScroll"
         android:background="#ccccff"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
@@ -70,13 +70,13 @@
         android:paddingTop="10dp" >
 
          <LinearLayout
-             android:id="@+id/lllayer1"
+             android:id="@+id/tlplllayer1"
              android:layout_width="match_parent"
              android:layout_height="@+id/txtTela"
              android:orientation="vertical" >
 
               <ToggleButton
-                android:id="@+id/ToggleButton1"
+                android:id="@+id/tlpToggleButton1"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="@string/teste"
@@ -88,13 +88,13 @@
 
     </ScrollView>
      <ScrollView
-        android:id="@+id/txtScroll2"
+        android:id="@+id/tlpScroll2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/txtScroll1"
+        android:layout_toRightOf="@+id/tlpScroll1"
         android:background="#ccccff"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
@@ -102,13 +102,13 @@
         android:paddingTop="10dp" >
 
          <LinearLayout
-             android:id="@+id/lllayer2"
+             android:id="@+id/tlplllayer2"
              android:layout_width="match_parent"
              android:layout_height="@+id/txtTela"
              android:orientation="vertical" >
 
               <ToggleButton
-                android:id="@+id/ToggleButton2"
+                android:id="@+id/tlpToggleButton2"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="@string/teste"
@@ -121,17 +121,17 @@
     </ScrollView>
 
     <ImageButton
-        android:id="@+id/txtVoicePlay"
+        android:id="@+id/tlpVoicePlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtAvaliar"
-        android:layout_alignRight="@+id/txtAvaliar"
+        android:layout_above="@+id/tlpAvaliar"
+        android:layout_alignRight="@+id/tlpAvaliar"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/play"
         android:src="@drawable/play" />
 
     <ImageButton
-        android:id="@+id/txtVoltar"
+        android:id="@+id/tlpVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -140,27 +140,27 @@
         android:src="@drawable/voltar" />
 
     <ImageButton
-        android:id="@+id/txtCancel"
+        android:id="@+id/tlpCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtVoltar"
-        android:layout_alignRight="@+id/txtVoltar"
+        android:layout_above="@+id/tlpVoltar"
+        android:layout_alignRight="@+id/tlpVoltar"
         android:layout_marginBottom="40dp"
         android:contentDescription="@string/sair"
         android:src="@drawable/cancelar" />
 
     <ImageButton
-        android:id="@+id/txtAvaliar"
+        android:id="@+id/tlpAvaliar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtCancel"
-        android:layout_alignRight="@+id/txtCancel"
+        android:layout_above="@+id/tlpCancel"
+        android:layout_alignRight="@+id/tlpCancel"
         android:layout_marginBottom="32dp"
         android:contentDescription="@string/entrar"
         android:src="@drawable/valido" />
     
         <TableLayout
-        android:id="@+id/txtControlo"
+        android:id="@+id/tlpControlo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -168,15 +168,15 @@
         android:paddingLeft="10dp" >
 
         <TableRow
-            android:id="@+id/tableRow6"
+            android:id="@+id/tlptableRow6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#000000" >
 
             <Chronometer
-                android:id="@+id/cromTxt"
+                android:id="@+id/cromtxt"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="#000000"
                 android:gravity="right"
                 android:paddingLeft="10sp"
@@ -187,12 +187,12 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow5"
+            android:id="@+id/tlptableRow5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/lgdmin"
+                android:id="@+id/tlplgdmin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#505050"
@@ -202,7 +202,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/lgdseg"
+                android:id="@+id/tlplgdseg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#505050"
@@ -212,13 +212,13 @@
                 android:textStyle="bold" />
         </TableRow>
 
-        <TableRow
-            android:id="@+id/tableRow3"
+       <TableRow
+            android:id="@+id/tlptableRow3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tlpTextView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/pErrada"

@@ -90,7 +90,7 @@ public class Teste_Palavras_Prof extends Activity{
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 				}
 				// / esconder o title************************************************+
-				final View contentView = findViewById(R.id.testPalavras);
+				final View contentView = findViewById(R.id.corecaoPalavras);
 				// Set up an instance of SystemUiHider to control the system UI for
 				// this activity.
 				mSystemUiHider = SystemUiHider.getInstance(this, contentView,HIDER_FLAGS);
@@ -132,7 +132,7 @@ public class Teste_Palavras_Prof extends Activity{
 
 				Log.d("Debug-uuidAudio", uuidAudio);
 				
-				text = db.getTesteLeituraById(id_teste).getTexto();
+				text = db.getTesteLeituraById(id_teste).getConteudoTexto();
 				Log.d("Debug-text",text);
 				Log.d("Debug-nomes.lenght",String.valueOf(nomes.length));
 				for(int i = 0;i<nomes.length;i++){
@@ -167,31 +167,58 @@ public class Teste_Palavras_Prof extends Activity{
 					restoVal[0] = "0";
 					restoVal[1] = "0";
 				}
-				String[] text = new String[lenght+Integer.parseInt(restoVal[0])], text1 = new String[lenght+Integer.parseInt(restoVal[1])], text2 = new String[lenght];
-				int var=0,var1=0,resto,support=0,support1=0;
-				for(int i=0;i<((ar.length)/3)+Integer.parseInt(restoVal[0]);i++){
-					text[i] = ar[i];
-					var=i;
+				
+				String[] texto, texto1, texto2;
+				if(ar.length==1){
+					texto = new String[lenght+Integer.parseInt(restoVal[0])];
+					texto1 = new String[0];
+					texto2 = new String[0];
+					for(int i=0;i<((ar.length)/3)+Integer.parseInt(restoVal[0]);i++){
+						texto[i] = ar[i];
+					}
+				}else if(ar.length==2){
+					texto = new String[lenght+Integer.parseInt(restoVal[0])];
+					texto1 = new String[lenght+Integer.parseInt(restoVal[1])];
+					texto2 = new String[0];
+					int var=0,resto,support=0;
+					for(int i=0;i<((ar.length)/3)+Integer.parseInt(restoVal[0]);i++){
+						texto[i] = ar[i];
+						var=i;
+					}
+					resto = ar.length - (ar.length)/3;
+					for(int j = var+1;j<resto+Integer.parseInt(restoVal[1]);j++){
+						texto1[support] = ar[j];
+						support++;
+					}
+				}else{
+					texto = new String[lenght+Integer.parseInt(restoVal[0])];
+					texto1 = new String[lenght+Integer.parseInt(restoVal[1])];
+					texto2 = new String[lenght];
+					int var=0,var1=0,resto,support=0,support1=0;
+					for(int i=0;i<((ar.length)/3)+Integer.parseInt(restoVal[0]);i++){
+						texto[i] = ar[i];
+						var=i;
+					}
+					resto = ar.length - (ar.length)/3;
+					for(int j = var+1;j<resto+Integer.parseInt(restoVal[1]);j++){
+						texto1[support] = ar[j];
+						var1=j;
+						support++;
+					}
+					for(int k = var1+1;k<ar.length;k++){
+						texto2[support1] = ar[k];
+						support1++;
+					}
 				}
-				resto = ar.length - (ar.length)/3;
-				for(int j = var+1;j<resto+Integer.parseInt(restoVal[1]);j++){
-					text1[support] = ar[j];
-					var1=j;
-					support++;
-				}
-				for(int k = var1+1;k<ar.length;k++){
-					text2[support1] = ar[k];
-					support1++;
-				}
-				initSetup(getResources(), R.id.txtScroll, R.id.ToggleButton, R.id.lllayer,text);
-				initSetup(getResources(), R.id.txtScroll1, R.id.ToggleButton1, R.id.lllayer1,text1);
-				initSetup(getResources(), R.id.txtScroll2, R.id.ToggleButton2, R.id.lllayer2,text2);
+				initSetup(getResources(), R.id.tlpScroll, R.id.tlpToggleButton, R.id.tlplllayer,texto);
+				initSetup(getResources(), R.id.tlpScroll1, R.id.tlpToggleButton1, R.id.tlplllayer1,texto1);
+				initSetup(getResources(), R.id.tlpScroll2, R.id.tlpToggleButton2, R.id.tlplllayer2,texto2);
 				// **********************************************************************************************
 				
-				play = (ImageButton) findViewById(R.id.txtVoicePlay);
-				voltar = (ImageButton) findViewById(R.id.txtVoltar);
-				cancelar = (ImageButton) findViewById(R.id.txtCancel);
-				avancar = (ImageButton) findViewById(R.id.txtAvaliar);
+				play = (ImageButton) findViewById(R.id.tlpVoicePlay);
+				voltar = (ImageButton) findViewById(R.id.tlpVoltar);
+				cancelar = (ImageButton) findViewById(R.id.tlpCancel);
+				avancar = (ImageButton) findViewById(R.id.tlpAvaliar);
 				escutaBotoes();
 			}
 
