@@ -883,13 +883,15 @@ public class Correcao_Texto extends Activity {
         	EscreverNaLista = true;
         	ListaPalavrasErradas.remove(RetirarSeleccao);
         	ListaPalavrasErradas.remove(RetirarSeleccao);
-        	PalavrasErr--;
+        	avaliador.decPalErrada();
+        	pErr.setText("" +  avaliador.getPlvErradas());
       // se for verdadeiro, coloca o span a vermelho e adiciona as cordenadas ao array
         }else{ 
         	cor = new ForegroundColorSpan(Color.RED);
     		ListaPalavrasErradas.add(startSelection);
             ListaPalavrasErradas.add(endSelection);
-            PalavrasErr++;
+            avaliador.incPalErrada();
+            pErr.setText("" +  avaliador.getPlvErradas());
         }
         // Pinta a palavra da respectiva cor
         WordtoSpan.setSpan(cor, startSelection, endSelection, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);        
