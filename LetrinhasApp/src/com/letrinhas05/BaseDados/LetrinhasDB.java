@@ -1626,7 +1626,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         ContentValues values2 = new ContentValues();
         values2.put(CORRTLEIT_OBSERVACOES, observacoes );
         values2.put(CORRTLEIT_NUMPALAVRASPORMIN, numPalavrasorMin );
-        values2.put(CORRTLEIT_NUMPALAVRASINCORRE, numPalavrasCorr );
+        values2.put(CORRTLEIT_NUMPALAVRASCORRET, numPalavrasCorr );
         values2.put(CORRTLEIT_NUMPALAVRASINCORRE, numPalavrasInc );
         values2.put(CORRTLEIT_PRECISAO, precisao );
         values2.put(CORRTLEIT_PRECISAO, velocidade );
