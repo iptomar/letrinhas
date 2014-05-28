@@ -185,7 +185,7 @@ public class EscolheEscola extends Activity {
 					///////////////////TESTE MULTIRESOLUCAO //////////
 					int largura = getResources().getDimensionPixelSize(R.dimen.act70);
 					
-					Toast.makeText(this, "Largura teste_: "+ largura, Toast.LENGTH_LONG).show();
+				///	Toast.makeText(this, "Largura teste_: "+ largura, Toast.LENGTH_LONG).show();
 					
 					
 					

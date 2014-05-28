@@ -1244,11 +1244,10 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
 
     /**
-     * Buscar todos os campos da Tabela CorrecaoTestLeitura pelo estado
-     * @param estado estado
+     * Buscar todos os campos da Tabela getAllCorrecaoTesteLeitura
      * @return retorna uma lista de testes de leitura
      */
-    public List<CorrecaoTesteLeitura> getAllCorrecaoTesteLeitura_ByEstado(int estado) {
+    public List<CorrecaoTesteLeitura> getAllCorrecaoTesteLeitura() {
         List<CorrecaoTesteLeitura> listcorrecaoTestes = new ArrayList<CorrecaoTesteLeitura>();
         // Select TODOS OS DADOS
         String selectQuery = "SELECT " +
@@ -1270,8 +1269,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_DETALHES +
 
                 " FROM " + TABELA_CORRECAOTESTE + ", "+ TABELA_CORRECAOTESTELEITURA +
-                " WHERE "+ TABELA_CORRECAOTESTE+"."+CORRT_ID +" = "+TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_IDCORRECAO+
-                " AND "+ TABELA_CORRECAOTESTE+"."+CORRT_ESTADO +" = "+estado;
+                " WHERE "+ TABELA_CORRECAOTESTE+"."+CORRT_ID +" = "+TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_IDCORRECAO;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         // loop atravEs de todas as linhas e adicionando Alista

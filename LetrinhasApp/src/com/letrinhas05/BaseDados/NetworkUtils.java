@@ -77,10 +77,13 @@ public class NetworkUtils {
         builder.addTextBody("studentId", correcaoTeste.getIdEstudante()+"");
         builder.addTextBody("executionDate", correcaoTeste.getDataExecucao()+"");
 
+        String observacoes = "Sem dados";
         if (correcaoTeste instanceof CorrecaoTesteLeitura) {
             CorrecaoTesteLeitura teste = (CorrecaoTesteLeitura) correcaoTeste;
             builder.addTextBody("type", "0");
-            builder.addTextBody("observations", teste.getObservacoes());
+            if (teste.getObservacoes() != null)
+                observacoes = teste.getObservacoes();
+            builder.addTextBody("observations", observacoes );
             builder.addTextBody("wpm", teste.getNumPalavrasMin()+"");
             builder.addTextBody("correct", teste.getNumPalavCorretas()+"");
             builder.addTextBody("incorrect", teste.getNumPalavIncorretas()+"");

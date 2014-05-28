@@ -257,6 +257,10 @@ public class PaginaInicial extends Activity {
     }
 
         public void EnviarCorrecoes(){
+            bentrar.setEnabled(false);
+            txtViewMSG.setText("A carregar....");
+            progBar.setVisibility(View.VISIBLE);
+            txtViewMSG.setVisibility(View.VISIBLE);
             String URlString = "http://code.dei.estt.ipt.pt:80/Api/Tests/Submit";
             String[] myTaskParams = { URlString, URlString, URlString };
             new SincAllBd(this, this, 1).execute(myTaskParams);
