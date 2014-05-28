@@ -777,8 +777,44 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         return testeLeir;
     }
 
-
-
+    /**
+     * Buscar Um Campo da CorrecaoTesteMultimedia Pelo ID
+     * @id recebe o id da Correcao
+     * Retorna um objecto que contem CorrecaoTesteMultimedia preenchido
+     */
+    public CorrecaoTesteMultimedia getCorrecaoTesteMultimediaById(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABELA_CORRECAOTESTE,
+                new String[]{CORRT_ID, CORRT_IDTESTE, CORRT_IDALUNO,CORRT_DATAEXEC,  CORRT_TIPO, CORRT_ESTADO },
+                CORRT_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null
+        );
+        ////// Se existir dados comeca a preencher o Objecto CorrecaoTesteLeitura
+        if (cursor != null)
+            cursor.moveToFirst();
+        CorrecaoTesteMultimedia testeMult = new CorrecaoTesteMultimedia();
+        testeMult.setIdCorrrecao( cursor.getLong(0));
+        testeMult.setTestId( cursor.getInt(1));
+        testeMult.setIdEstudante( cursor.getInt(2));
+        testeMult.setDataExecucao( cursor.getLong(3));
+        testeMult.setTipo( cursor.getInt(4));
+        testeMult.setEstado( cursor.getInt(5));
+        cursor.close();
+        Cursor cursor2 = db.query(TABELA_CORRECAOMULTIMEDIA,
+                new String[]{CORRTMULTIMEDIA_OPCAOESCOL, CORRTMULTIMEDIA_CERTA},
+                CORRTMULTIMEDIA_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null
+        );
+        ////// Se existir dados comeca a preencher o Objecto Estudante
+        if (cursor2 != null)
+            cursor2.moveToFirst();
+        testeMult.setOpcaoEscolhida(cursor2.getInt(0));
+        testeMult.setCerta(cursor2.getInt(1));
+        cursor2.close();
+        // return o Item ja carregado com os dados
+        db.close();
+        return testeMult;
+    }
 
 
     /**
