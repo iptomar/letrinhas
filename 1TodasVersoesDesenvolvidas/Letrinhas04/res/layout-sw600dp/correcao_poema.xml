@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/testTexto"
+    android:id="@+id/testPoema"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="clip_vertical"
@@ -8,29 +8,58 @@
     android:paddingLeft="21sp"
     android:paddingRight="21sp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.letrinhas05.Correcao_Texto_Prof" >
+    tools:context="com.letrinhas05.Teste_Poema" >
 
     <TextView
         android:id="@+id/textCabecalho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:drawableLeft="@drawable/logo2"
-        android:text="@string/title_activity_teste_texto"
+        android:text="@string/title_activity_teste__poema"
         android:textColor="#5ddfff"
         android:textSize="35sp"
         android:textStyle="bold" />
+
+    <ScrollView
+        android:id="@+id/txtTela"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textCabecalho"
+        android:layout_below="@+id/textCabecalho"
+        android:layout_marginLeft="21dp"
+        android:layout_toLeftOf="@+id/txtCancel"
+        android:background="#ccccff"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp" >
+
+        <LinearLayout
+            android:id="@+id/llTexto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txtTexto"
+                android:layout_width="match_parent"
+                android:layout_height="978dp"
+                android:text="@string/ExemploPoema"
+                android:textIsSelectable="true"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <TableLayout
         android:id="@+id/txtControlo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtAvaliar"
-        android:layout_alignRight="@+id/txtRecord"
-        android:layout_alignTop="@+id/txtTela"
-        android:paddingLeft="7dp" >
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textCabecalho"
+        android:paddingLeft="10dp" >
 
         <TableRow
             android:id="@+id/tableRow3"
@@ -41,39 +70,13 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@+id/txtTela"
+                android:translationX="75dp"
                 android:contentDescription="@string/pErrada"
                 android:text="@string/pErrada"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/TextView07"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/numer"
-                android:textColor="#ff2020"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </TableRow>
-
-       <TableRow
-            android:id="@+id/tableRow5"
-            android:layout_width="fill_parent"
-            android:layout_height="12sp"
-            android:scaleType="fitCenter"
-            android:background="#505050" >
-			
-            <TextView
-                android:id="@+id/lgdmin"
-                android:layout_width="10sp"
-                android:layout_height="12sp"
-                android:scaleType="fitCenter"
-                android:background="#505050"
-                android:text="@string/min"
-                android:textColor="#eeeeee"
-                android:textStyle="bold" />
-
-           
         </TableRow>
 
         <TableRow
@@ -86,23 +89,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pontErrada"
-                android:textSize="16sp"
+                android:translationX="90dp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow7"
-           android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content" >
 
             <ImageButton
                 android:id="@+id/txtPontErrMn"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:scaleType="fitCenter"
-                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+             	android:layout_gravity="right"
                 android:contentDescription="@string/menos"
+                android:scaleType="fitCenter"
                 android:src="@drawable/menos" />
 
             <TextView
@@ -117,10 +121,9 @@
 
             <ImageButton
                 android:id="@+id/txtPontErrMS"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="fitCenter"
-                android:layout_weight="1"
                 android:contentDescription="@string/mais"
                 android:src="@drawable/mais" />
         </TableRow>
@@ -134,9 +137,11 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:translationX="90dp"
                 android:text="@string/vacilar"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
+
         </TableRow>
 
         <TableRow
@@ -146,10 +151,10 @@
 
             <ImageButton
                 android:id="@+id/txtVacilMen"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
                 android:scaleType="fitCenter"
-                android:layout_weight="1"
                 android:contentDescription="@string/menos"
                 android:src="@drawable/menos" />
 
@@ -165,10 +170,9 @@
 
             <ImageButton
                 android:id="@+id/txtVacilMais"
-                 android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="fitCenter"
-                android:layout_weight="1"
                 android:contentDescription="@string/mais"
                 android:src="@drawable/mais" />
         </TableRow>
@@ -182,9 +186,11 @@
                 android:id="@+id/resCabecalho"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:translationX="75dp"
                 android:text="@string/fragment"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
+
         </TableRow>
 
         <TableRow
@@ -194,10 +200,10 @@
 
             <ImageButton
                 android:id="@+id/txtFragMen"
-                 android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="fitCenter"
-                android:layout_weight="1"
+                android:layout_gravity="right"
                 android:contentDescription="@string/menos"
                 android:src="@drawable/menos" />
 
@@ -213,10 +219,9 @@
 
             <ImageButton
                 android:id="@+id/txtFragMais"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="fitCenter"
-                android:layout_weight="1"
                 android:contentDescription="@string/mais"
                 android:src="@drawable/mais" />
         </TableRow>
@@ -230,9 +235,11 @@
                 android:id="@+id/TextView04"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:translationX="90dp"
                 android:text="@string/silabac"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
+
         </TableRow>
 
         <TableRow
@@ -242,10 +249,10 @@
 
             <ImageButton
                 android:id="@+id/txtSilbMen"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="fitCenter"
-                android:layout_weight="1"
+                android:layout_gravity="right"
                 android:contentDescription="@string/menos"
                 android:src="@drawable/menos" />
 
@@ -261,10 +268,9 @@
 
             <ImageButton
                 android:id="@+id/txtSilbMais"
-                 android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="fitCenter"
-                android:layout_weight="1"
                 android:contentDescription="@string/mais"
                 android:src="@drawable/mais" />
         </TableRow>
@@ -278,8 +284,9 @@
                 android:id="@+id/TextView05"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:translationX="90dp"
                 android:text="@string/repeti"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -290,11 +297,11 @@
 
             <ImageButton
                 android:id="@+id/txtRepMen"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_weight="1"
-                android:contentDescription="@string/menos"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="fitCenter"
+                android:layout_gravity="right"
+                android:contentDescription="@string/menos"
                 android:src="@drawable/menos" />
 
             <TextView
@@ -309,123 +316,105 @@
 
             <ImageButton
                 android:id="@+id/txtRepMais"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="fitCenter"
-                android:layout_weight="1"
                 android:contentDescription="@string/mais"
                 android:src="@drawable/mais" />
         </TableRow>
     </TableLayout>
 
-    <ScrollView
-        android:id="@+id/txtTela"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/txtVoltar"
-        android:layout_alignLeft="@+id/textCabecalho"
-        android:layout_below="@+id/textCabecalho"
-        android:layout_marginLeft="14dp"
-        android:layout_toLeftOf="@+id/txtControlo"
-        android:background="#ccccff"
-        android:paddingBottom="7dp"
-        android:paddingLeft="7dp"
-        android:paddingRight="7dp"
-        android:paddingTop="7dp" >
-
-        <LinearLayout
-            android:id="@+id/llTexto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/txtTexto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="fill"
-                android:textIsSelectable="true"
-                android:textColor="#303030"
-                android:textSize="25sp" />
-
-        </LinearLayout>
-    </ScrollView>
-
-    <ImageButton
-        android:id="@+id/txtVoltar"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:scaleType="fitCenter"
-        android:layout_alignLeft="@+id/txtTela"
-        android:layout_alignParentBottom="true"
-        android:contentDescription="@string/voltar"
-        android:src="@drawable/voltar" />
-
     <TextView
         android:id="@+id/textRodape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtVoltar"
-        android:layout_toRightOf="@+id/txtVoltar"
+        android:layout_alignLeft="@+id/txtTela"
+        android:layout_below="@+id/txtTela"
         android:text="@string/letrinhas"
         android:textColor="#5ddfff"
-        android:textSize="21sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
-
-    <ImageButton
-        android:id="@+id/txtDemo"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/cromTxt"
-        android:contentDescription="@string/play"
-        android:scaleType="fitCenter"
-        android:src="@drawable/palyoff" />
-
-    <ImageButton
-        android:id="@+id/txtRecord"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/txtDemo"
-        android:contentDescription="@string/Recording"
-        android:scaleType="fitCenter"
-        android:src="@drawable/record" />
 
     <Chronometer
         android:id="@+id/cromTxt"
-        android:layout_width="55dp"
-        android:layout_height="12dp"
-        android:layout_alignBottom="@+id/txtDemo"
-        android:layout_alignRight="@+id/txtTela"
-        android:layout_alignTop="@+id/txtDemo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textCabecalho"
+        android:layout_alignBottom="@+id/textCabecalho"
+        android:layout_alignRight="@+id/txtControlo"
         android:background="#000000"
         android:gravity="right"
-        android:paddingLeft="7dp"
-        android:paddingRight="7dp"
-        android:scaleType="fitCenter"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
         android:textColor="#50ff50"
-        android:textSize="28dp"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <ImageButton
         android:id="@+id/txtAvaliar"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_alignTop="@+id/txtCancel"
-        android:layout_toLeftOf="@+id/txtControlo"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignRight="@+id/txtControlo"
+        android:layout_below="@+id/play"
+        android:background="#FFFFFF"
         android:contentDescription="@string/entrar"
         android:scaleType="fitCenter"
         android:src="@drawable/valido" />
 
     <ImageButton
+        android:id="@+id/txtVoltar"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="#FFFFFF"
+        android:contentDescription="@string/voltar"
+        android:scaleType="fitCenter"
+        android:src="@drawable/voltar" />
+
+    <TextView
+        android:id="@+id/TextView07"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/txtControlo"
+        android:text="@string/numer"
+        android:textColor="#ff2020"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <ImageButton
         android:id="@+id/txtCancel"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_alignBottom="@+id/textRodape"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/play"
         android:layout_toLeftOf="@+id/txtAvaliar"
+        android:background="#FFFFFF"
         android:contentDescription="@string/sair"
         android:scaleType="fitCenter"
         android:src="@drawable/cancelar" />
+
+    <ImageButton
+        android:id="@+id/txtDemo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignLeft="@+id/txtCancel"
+        android:layout_below="@+id/txtControlo"
+        android:layout_marginTop="101dp"
+        android:background="#FFFFFF"
+        android:contentDescription="@string/play"
+        android:scaleType="fitCenter"
+        android:src="@drawable/palyoff" />
+
+    <ImageButton
+        android:id="@+id/play"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignTop="@+id/txtDemo"
+        android:layout_toRightOf="@+id/txtDemo"
+        android:background="#FFFFFF"
+        android:contentDescription="@string/play"
+        android:scaleType="fitCenter"
+        android:src="@drawable/play" />
 
 </RelativeLayout>
