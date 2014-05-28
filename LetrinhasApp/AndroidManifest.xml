@@ -159,7 +159,9 @@
         </activity>
         <activity
             android:name="com.letrinhas05.escolhe.ListaResultados"
-            android:label="@string/title_activity_lista_resultados" >
+            android:label="@string/title_activity_lista_resultados"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme" >
         </activity>
     </application>
 

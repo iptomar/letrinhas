@@ -10,26 +10,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.letrinhas05.Correcao_Texto" >
 
-    <TextView
-        android:id="@+id/textCabecalho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:drawableLeft="@drawable/logo2"
-        android:text="@string/title_activity_teste_texto"
-        android:textColor="#5ddfff"
-        android:textSize="45sp"
-        android:textStyle="bold" />
-
     <ScrollView
         android:id="@+id/txtTela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/pbText"
-        android:layout_alignLeft="@+id/textCabecalho"
-        android:layout_alignTop="@+id/txtDemo"
-        android:layout_marginLeft="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/txtControlo"
         android:background="#ccccff"
         android:paddingBottom="10dp"
@@ -48,11 +35,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="fill"
-                android:textColor="#303030"
                 android:text="@string/ExemploTexto"
+                android:textColor="#303030"
                 android:textIsSelectable="true"
                 android:textSize="35sp" />
-
         </LinearLayout>
     </ScrollView>
 
@@ -84,24 +70,13 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/txtVoltar"
         android:layout_alignLeft="@+id/txtTela"
-        android:layout_toLeftOf="@+id/txtCancel" />
-
-    <Button
-        android:id="@+id/txtDemo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/txtCancel"
-        android:layout_below="@+id/textCabecalho"
-        android:contentDescription="@string/play"
-        android:drawableTop="@drawable/palyoff"
-        android:text="@string/demo" />
+        android:layout_alignRight="@+id/txtTela" />
 
     <Button
         android:id="@+id/txtPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textCabecalho"
         android:contentDescription="@string/Recording"
         android:drawableTop="@drawable/play"
         android:text="@string/play" />
@@ -112,20 +87,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/txtCancel"
+        android:layout_below="@+id/pbText"
         android:contentDescription="@string/entrar"
         android:drawableTop="@drawable/valido"
         android:text="@string/avaliar" />
-
-    <Button
-        android:id="@+id/txtCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtControlo"
-        android:layout_below="@+id/pbText"
-        android:contentDescription="@string/sair"
-        android:drawableTop="@drawable/cancelar"
-        android:text="@string/apagar" />
 
     <Chronometer
         android:id="@+id/cromTxt"
@@ -141,12 +106,23 @@
         android:textSize="40sp"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/txtDemo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtControlo"
+        android:layout_alignTop="@+id/txtPlay"
+        android:layout_marginLeft="25dp"
+        android:contentDescription="@string/play"
+        android:drawableTop="@drawable/palyoff"
+        android:text="@string/demo" />
+
     <TableLayout
         android:id="@+id/txtControlo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtTela"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:paddingLeft="10dp" >
 
         <TableRow

@@ -10,26 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.letrinhas05.Correcao_Poema" >
 
-  <TextView
-        android:id="@+id/textCabecalho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:drawableLeft="@drawable/logo2"
-        android:text="@string/title_activity_teste__poema"
-        android:textColor="#5ddfff"
-        android:textSize="45sp"
-        android:textStyle="bold" />
-
     <ScrollView
         android:id="@+id/txtTela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/pbText"
-        android:layout_alignLeft="@+id/textCabecalho"
-        android:layout_alignTop="@+id/txtDemo"
-        android:layout_marginLeft="21dp"
+        android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/txtControlo"
         android:background="#ccccff"
         android:paddingBottom="10dp"
@@ -52,7 +38,6 @@
                 android:textColor="#303030"
                 android:textIsSelectable="true"
                 android:textSize="30sp" />
-
         </LinearLayout>
     </ScrollView>
 
@@ -84,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/txtVoltar"
         android:layout_alignLeft="@+id/txtTela"
-        android:layout_toLeftOf="@+id/txtCancel" />
+        android:layout_alignRight="@+id/txtTela" />
 
     <TableLayout
         android:id="@+id/txtControlo"
@@ -366,21 +351,10 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/txtDemo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/txtCancel"
-        android:layout_below="@+id/textCabecalho"
-        android:contentDescription="@string/play"
-        android:drawableTop="@drawable/palyoff"
-        android:text="@string/demo" />
-
-    <Button
         android:id="@+id/txtPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textCabecalho"
         android:contentDescription="@string/Recording"
         android:drawableTop="@drawable/play"
         android:text="@string/play" />
@@ -395,16 +369,6 @@
         android:drawableTop="@drawable/valido"
         android:text="@string/avaliar" />
 
-    <Button
-        android:id="@+id/txtCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtControlo"
-        android:layout_alignTop="@+id/txtAvaliar"
-        android:contentDescription="@string/sair"
-        android:drawableTop="@drawable/cancelar"
-        android:text="@string/apagar" />
-
     <Chronometer
         android:id="@+id/cromTxt"
         android:layout_width="wrap_content"
@@ -418,5 +382,16 @@
         android:textColor="#50ff50"
         android:textSize="40sp"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/txtDemo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtControlo"
+        android:layout_alignTop="@+id/txtPlay"
+        android:layout_marginLeft="25dp"
+        android:contentDescription="@string/play"
+        android:drawableTop="@drawable/palyoff"
+        android:text="@string/demo" />
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
@@ -56,6 +57,10 @@ public class Correcao_Poema extends Activity {
 	CorrecaoTesteLeitura crt;
 	int iDs[], minuto, segundo;
 	String Nomes[], demoUrl, audioUrl, s;
+	int RetirarSeleccao = 0;
+	boolean EscreverNaLista = true;
+	ArrayList<Integer> ListaPalavrasErradas = new ArrayList<Integer>();
+
 
 	// objetos
 	Button play, pDemo, voltar, cancelar, avancar;
@@ -70,29 +75,12 @@ public class Correcao_Poema extends Activity {
 
 	private MediaPlayer reprodutor = new MediaPlayer();
 
-	/**
-	 * Whether or not the system UI should be auto-hidden after
-	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-	 */
-	private static final boolean AUTO_HIDE = true;
-	/**
-	 * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-	 * user interaction before hiding the system UI.
-	 */
-	private static final int AUTO_HIDE_DELAY_MILLIS = 2000;
-	/*********************************************************************
-	 * The flags to pass to {@link SystemUiHider#getInstance}.
-	 */
-	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
-	/**
-	 * The instance of the {@link SystemUiHider} for this activity.
-	 */
-	private SystemUiHider mSystemUiHider;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.correcao_poema);
+		ListaPalavrasErradas.add(-1);
 
 		// new line faz a rotaï¿½ï¿½o do ecrï¿½n 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
@@ -102,35 +90,6 @@ public class Correcao_Poema extends Activity {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 		}
 
-		// / esconder o title************************************************+
-		final View contentView = findViewById(R.id.testPoema);
-
-		// Set up an instance of SystemUiHider to control the system UI for
-		// this activity.
-		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
-				HIDER_FLAGS);
-		mSystemUiHider.setup();
-		mSystemUiHider
-				.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
-					// Cached values.
-					int mShortAnimTime;
-
-					@Override
-					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-					public void onVisibilityChange(boolean visible) {
-						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-							if (mShortAnimTime == 0) {
-								mShortAnimTime = getResources().getInteger(
-										android.R.integer.config_shortAnimTime);
-							}
-						}
-
-						if (visible && AUTO_HIDE) {
-							// Schedule a hide().
-							delayedHide(AUTO_HIDE_DELAY_MILLIS);
-						}
-					}
-				});
 
 		// buscar os parametros
 		Bundle b = getIntent().getExtras();
@@ -152,8 +111,9 @@ public class Correcao_Poema extends Activity {
 		
 		s += ""	+ getDate(crt.getDataExecucao());
 
+		this.setTitle(s);
 		// tiulo do teste
-		((TextView) findViewById(R.id.textCabecalho)).setText(s);
+		//((TextView) findViewById(R.id.textCabecalho)).setText(s);
 		// coteudo do teste
 		texto = ((TextView) findViewById(R.id.txtTexto));
 		texto.setText(teste.getConteudoTexto());
@@ -186,7 +146,7 @@ public class Correcao_Poema extends Activity {
 		pDemo = (Button) findViewById(R.id.txtDemo);
 		play = (Button) findViewById(R.id.txtPlay);
 		voltar = (Button) findViewById(R.id.txtVoltar);
-		cancelar = (Button) findViewById(R.id.txtCancel);
+		//cancelar = (Button) findViewById(R.id.txtCancel);
 		avancar = (Button) findViewById(R.id.txtAvaliar);
 
 		setCorreccao();
@@ -224,47 +184,7 @@ public class Correcao_Poema extends Activity {
 		return num;
 	}
 
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-
-		// Trigger the initial hide() shortly after the activity has been
-		// created, to briefly hint to the user that UI controls
-		// are available.
-		delayedHide(2000);
-	}
-
-	/**
-	 * Touch listener to use for in-layout UI controls to delay hiding the
-	 * system UI. This is to prevent the jarring behavior of controls going away
-	 * while interacting with activity UI.
-	 */
-	View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-		@Override
-		public boolean onTouch(View view, MotionEvent motionEvent) {
-			if (AUTO_HIDE) {
-				delayedHide(AUTO_HIDE_DELAY_MILLIS);
-			}
-			return false;
-		}
-	};
-
-	Handler mHideHandler = new Handler();
-	Runnable mHideRunnable = new Runnable() {
-		@Override
-		public void run() {
-			mSystemUiHider.hide();
-		}
-	};
-
-	/**
-	 * Schedules a call to hide() in [delay] milliseconds, canceling any
-	 * previously scheduled calls.
-	 */
-	private void delayedHide(int delayMillis) {
-		mHideHandler.removeCallbacks(mHideRunnable);
-		mHideHandler.postDelayed(mHideRunnable, delayMillis);
-	}
+	
 
 	private void escutaBotoes() {
 		pDemo.setOnClickListener(new View.OnClickListener() {
@@ -283,14 +203,14 @@ public class Correcao_Poema extends Activity {
 
 		});
 
-		cancelar.setOnClickListener(new View.OnClickListener() {
+		/*cancelar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				cancelAvaliacao();
 
 			}
 
-		});
+		});*/
 
 		avancar.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -852,54 +772,55 @@ public class Correcao_Poema extends Activity {
 	 * 
 	 * @author Jorge
 	 */
-	public void marcaPalavra() {
+	public void marcaPalavra() { // Marcar Palavra Errada
 
-		// Mostrar Popup se caregou no ecra
-		final TextView textozico = texto;
-		textozico.performLongClick();
-		final int startSelection = textozico.getSelectionStart();
-		final int endSelection = textozico.getSelectionEnd();
+		// Associar a variavél TextoLido a Textview que contém o texto
+		final TextView TextoLido = texto;
+		TextoLido.performLongClick();
+		
+		// Variáveis que contem o inicio e o fim da palavra que foi selecionada
+		final int startSelection = TextoLido.getSelectionStart();
+		final int endSelection = TextoLido.getSelectionEnd();
 
-		PopupMenu menu = new PopupMenu(getApplicationContext(), textozico);
-		menu.getMenuInflater().inflate(R.menu.menu, menu.getMenu());
-		menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-			@Override
-			public boolean onMenuItemClick(MenuItem item) {
-				// Mostrar palavra seleccionada na textbox
-				switch (item.getItemId()) {
-				case R.id.PalavraErrada:
-					avaliador.incPalErrada();
-					pErr.setText("" + avaliador.getPlvErradas());
-					Spannable WordtoSpan = (Spannable) textozico.getText();
-					ForegroundColorSpan cor = new ForegroundColorSpan(Color.RED);
-					WordtoSpan.setSpan(cor, startSelection, endSelection,
-							Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-					textozico.setText(WordtoSpan);
-					break;
-				case R.id.CancelarSeleccao:
-					if (avaliador.getPlvErradas() > 0) {
-						Spannable WordtoCancelSpan = (Spannable) textozico
-								.getText();
-						ForegroundColorSpan corCancelar = new ForegroundColorSpan(
-								Color.BLACK);
-						WordtoCancelSpan.setSpan(corCancelar, startSelection,
-								endSelection,
-								Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-						textozico.setText(WordtoCancelSpan);
-						avaliador.decPalErrada();
-						pErr.setText("" + avaliador.getPlvErradas());
-					} else {
-						Toast toast = Toast.makeText(getApplicationContext(),
-								"No existem palavras erradas",
-								Toast.LENGTH_SHORT);
-						toast.show();
-					}
-				}
-				return true;
-			}
-		});
-		menu.show();
-
-	}
+		
+		if(startSelection!=endSelection){
+		
+		
+		//Definição do Span para pintar a palavra seleccionada
+		Spannable WordtoSpan =  (Spannable)TextoLido.getText();
+        ForegroundColorSpan cor = new ForegroundColorSpan(Color.BLACK);
+        
+        //ciclo "for" que percorre a lista de palavras onde contem as 
+        //cordenadas da palavra que foi seleccionada
+        // no inicio foi colocado o valor -1 para o array ter alguma coisa
+        
+        for(int i=0; i<ListaPalavrasErradas.size();i++){
+        	//"if" que verifica se a cordenada inicial da palavra seleccionada 
+        	// está inserida no array, se sim guarda o valor da posição
+        	if(ListaPalavrasErradas.get(i) == startSelection){
+        		EscreverNaLista = false;
+        		RetirarSeleccao = i;
+        	}
+        }
+        //Se acima for falso, coloca o Span a preto e adiciona ao ArrayList
+        if (EscreverNaLista == false){
+        	cor = new ForegroundColorSpan(Color.BLACK);
+        	EscreverNaLista = true;
+        	ListaPalavrasErradas.remove(RetirarSeleccao);
+        	ListaPalavrasErradas.remove(RetirarSeleccao);
+        	avaliador.decPalErrada();
+        	pErr.setText("" +  avaliador.getPlvErradas());
+      // se for verdadeiro, coloca o span a vermelho e adiciona as cordenadas ao array
+        }else{ 
+        	cor = new ForegroundColorSpan(Color.RED);
+    		ListaPalavrasErradas.add(startSelection);
+            ListaPalavrasErradas.add(endSelection);
+            avaliador.incPalErrada();
+            pErr.setText("" +  avaliador.getPlvErradas());
+        }
+        // Pinta a palavra da respectiva cor
+        WordtoSpan.setSpan(cor, startSelection, endSelection, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);        
+        TextoLido.setText(WordtoSpan);
+	}}
 
 }

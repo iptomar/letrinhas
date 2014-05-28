@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import com.letrinhas05.PaginaInicial;
 import com.letrinhas05.R;
@@ -173,7 +174,7 @@ public class EscolheEscola extends Activity {
 				// copiar os parametros do bot�o original
 				bt1.setLayoutParams(bt.getLayoutParams());
 
-				// se a escola j� tiver logotipo, vou busca-lo
+				// se a escola ja tiver logotipo, vou busca-lo
 				if (img[cont] != null) {
 					String imageInSD = Environment
 							.getExternalStorageDirectory().getAbsolutePath()
@@ -181,6 +182,18 @@ public class EscolheEscola extends Activity {
 					Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
 					ImageView imageView = new ImageView(this);
 
+					///////////////////TESTE MULTIRESOLUCAO //////////
+					int largura = getResources().getDimensionPixelSize(R.dimen.act70);
+					
+					Toast.makeText(this, "Largura teste_: "+ largura, Toast.LENGTH_LONG).show();
+					
+					
+					
+					
+					///////////////////////////////////////////////////
+					
+					
+					
 					//ajustar o tamanho da imagem
 					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 240, 240, false));
 					//enviar para o bot�o

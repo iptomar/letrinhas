@@ -21,7 +21,7 @@
         android:keepScreenOn="true"
         android:text="@string/letrinhas"
         android:textColor="#33b5e5"
-        android:textSize="90sp"
+        android:textSize="@dimen/act90"
         android:textStyle="bold" />
 
     <!--

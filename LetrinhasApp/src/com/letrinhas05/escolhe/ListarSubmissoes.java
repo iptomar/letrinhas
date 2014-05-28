@@ -196,6 +196,10 @@ public class ListarSubmissoes extends Activity {
 
 			// Agora vou construir os botoes com a informacao necessaria:
 			for (int i = 0; i < ctAux.length; i++) {
+				
+				//descurar as correções do tipo multimedia
+				if(ctAux[i].getTipo()==1) continue;
+				
 				//criar o botao
 				Button btIn = new Button(this);
 				//copiar os parametros de layout
@@ -220,9 +224,9 @@ public class ListarSubmissoes extends Activity {
 				case 0:
 					imgTip.setImageResource(R.drawable.textos);// texto
 					break;
-				case 1:
-					imgTip.setImageResource(R.drawable.imags);// multimedia
-					break;
+				//case 1:
+				//	imgTip.setImageResource(R.drawable.imags);// multimedia
+				//	break;
 				case 2:
 					imgTip.setImageResource(R.drawable.palavras);// palavras
 					break;
@@ -264,7 +268,7 @@ public class ListarSubmissoes extends Activity {
 				Nomes[3]=bd.getTurmaByID(aluno.getIdTurma()).getNome();
 				Nomes[5]= aluno.getNomefoto();
 				
-				// Defenir o que faz o botï¿½o ao clicar
+				// Defenir o que faz o botao ao clicar
 				btIn.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -281,11 +285,11 @@ public class ListarSubmissoes extends Activity {
 							it.putExtras(wrap);
 							startActivity(it);
 							break;
-						case 1://multimedia (imagens)
+//						case 1://multimedia (imagens)
 //							it= new Intent(getApplicationContext(),Teste_Imagem.class);
 //							it.putExtras(wrap);
 //							startActivity(it);
-							break;
+//							break;
 						case 2://lista
                             it= new Intent(getApplicationContext(),Teste_Palavras_Prof.class);
                             it.putExtras(wrap);
@@ -306,7 +310,7 @@ public class ListarSubmissoes extends Activity {
 				ll.addView(btIn);
 			}
 
-			// Senï¿½o lanï¿½a um alerta... de sem submissï¿½es de momento
+			// Senao lanca um alerta... de sem submissoes de momento
 		} else {
 			
 

@@ -68,24 +68,6 @@ public class Correcao_Texto extends Activity {
 
 	private MediaPlayer reprodutor = new MediaPlayer();
 
-	/**
-	 * Whether or not the system UI should be auto-hidden after
-	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-	 */
-	private static final boolean AUTO_HIDE = true;
-	/**
-	 * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-	 * user interaction before hiding the system UI.
-	 */
-	private static final int AUTO_HIDE_DELAY_MILLIS = 2000;
-	/*********************************************************************
-	 * The flags to pass to {@link SystemUiHider#getInstance}.
-	 */
-	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
-	/**
-	 * The instance of the {@link SystemUiHider} for this activity.
-	 */
-	private SystemUiHider mSystemUiHider;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,35 +83,7 @@ public class Correcao_Texto extends Activity {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 		}
 
-		// / esconder o title************************************************+
-		final View contentView = findViewById(R.id.testTexto);
-
-		// Set up an instance of SystemUiHider to control the system UI for
-		// this activity.
-		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
-				HIDER_FLAGS);
-		mSystemUiHider.setup();
-		mSystemUiHider
-				.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
-					// Cached values.
-					int mShortAnimTime;
-
-					@Override
-					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-					public void onVisibilityChange(boolean visible) {
-						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-							if (mShortAnimTime == 0) {
-								mShortAnimTime = getResources().getInteger(
-										android.R.integer.config_shortAnimTime);
-							}
-						}
-
-						if (visible && AUTO_HIDE) {
-							// Schedule a hide().
-							delayedHide(AUTO_HIDE_DELAY_MILLIS);
-						}
-					}
-				});
+		
 
 		// buscar os parametros
 		Bundle b = getIntent().getExtras();
@@ -151,8 +105,9 @@ public class Correcao_Texto extends Activity {
 		
 		s += ""	+ getDate(crt.getDataExecucao());
 
+		this.setTitle(s);
 		// tiulo do teste
-		((TextView) findViewById(R.id.textCabecalho)).setText(s);
+		//((TextView) findViewById(R.id.textCabecalho)).setText(s);
 		// coteudo do teste
 		texto = ((TextView) findViewById(R.id.txtTexto));
 		texto.setText(teste.getConteudoTexto());
@@ -185,7 +140,7 @@ public class Correcao_Texto extends Activity {
 		pDemo = (Button) findViewById(R.id.txtDemo);
 		play = (Button) findViewById(R.id.txtPlay);
 		voltar = (Button) findViewById(R.id.txtVoltar);
-		cancelar = (Button) findViewById(R.id.txtCancel);
+		//cancelar = (Button) findViewById(R.id.txtCancel);
 		avancar = (Button) findViewById(R.id.txtAvaliar);
 
 		setCorreccao();
@@ -223,47 +178,7 @@ public class Correcao_Texto extends Activity {
 		return num;
 	}
 
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-
-		// Trigger the initial hide() shortly after the activity has been
-		// created, to briefly hint to the user that UI controls
-		// are available.
-		delayedHide(2000);
-	}
-
-	/**
-	 * Touch listener to use for in-layout UI controls to delay hiding the
-	 * system UI. This is to prevent the jarring behavior of controls going away
-	 * while interacting with activity UI.
-	 */
-	View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-		@Override
-		public boolean onTouch(View view, MotionEvent motionEvent) {
-			if (AUTO_HIDE) {
-				delayedHide(AUTO_HIDE_DELAY_MILLIS);
-			}
-			return false;
-		}
-	};
-
-	Handler mHideHandler = new Handler();
-	Runnable mHideRunnable = new Runnable() {
-		@Override
-		public void run() {
-			mSystemUiHider.hide();
-		}
-	};
-
-	/**
-	 * Schedules a call to hide() in [delay] milliseconds, canceling any
-	 * previously scheduled calls.
-	 */
-	private void delayedHide(int delayMillis) {
-		mHideHandler.removeCallbacks(mHideRunnable);
-		mHideHandler.postDelayed(mHideRunnable, delayMillis);
-	}
+	
 
 	private void escutaBotoes() {
 		pDemo.setOnClickListener(new View.OnClickListener() {
@@ -282,14 +197,14 @@ public class Correcao_Texto extends Activity {
 
 		});
 
-		cancelar.setOnClickListener(new View.OnClickListener() {
+		/*cancelar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				cancelAvaliacao();
 
 			}
 
-		});
+		});*/
 
 		avancar.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -861,6 +776,10 @@ public class Correcao_Texto extends Activity {
 		final int startSelection = TextoLido.getSelectionStart();
 		final int endSelection = TextoLido.getSelectionEnd();
 
+		
+		if(startSelection!=endSelection){
+		
+		
 		//Definição do Span para pintar a palavra seleccionada
 		Spannable WordtoSpan =  (Spannable)TextoLido.getText();
         ForegroundColorSpan cor = new ForegroundColorSpan(Color.BLACK);
@@ -896,6 +815,6 @@ public class Correcao_Texto extends Activity {
         // Pinta a palavra da respectiva cor
         WordtoSpan.setSpan(cor, startSelection, endSelection, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);        
         TextoLido.setText(WordtoSpan);
-	}
+	}}
 
 }
