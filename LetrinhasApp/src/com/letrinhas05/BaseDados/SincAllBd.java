@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import android.view.View;
 import com.letrinhas05.ClassesObjs.*;
 import com.letrinhas05.PaginaInicial;
 import com.letrinhas05.util.Utils;
@@ -38,6 +39,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
     protected String doInBackground(String[] strings) {
 
         if (tipo == 0) {
+            mActivity.progBar.setMax(100);
             lerSynProfessores(strings[0]);
             mActivity.progBar.setProgress(15);
 
@@ -66,32 +68,51 @@ public class SincAllBd extends AsyncTask<String, String, String> {
             mActivity.progBar.setProgress(100);
         }
         else{
-
+            mActivity.txtViewMSG.setText("A Enviar ....");
             LetrinhasDB db = new LetrinhasDB(context);
-            List<CorrecaoTesteLeitura> listCrtl =  db.getAllCorrecaoTesteLeitura_ByEstado(1);
-
-
+            List<CorrecaoTesteLeitura> listCrtl =  db.getAllCorrecaoTesteLeitura();
+            List<CorrecaoTesteMultimedia> listCrtM =  db.getAllCorrecaoTesteMultime();
+            int prog = 1;
+            int totalCampos = listCrtl.size() + listCrtM.size();
+            mActivity.progBar.setMax(totalCampos);
+            mActivity.progBar.setProgress(prog);
+            if (listCrtl.size() != 0)
             for (CorrecaoTesteLeitura cn : listCrtl) {
-                NetworkUtils.postResultados("http://code.dei.estt.ipt.pt:80/Api/Tests/Submit/", cn);
-                Log.e("MERDA MERDA ", cn.getAudiourl());
-                Log.e("SABERTESTEaENVIAR",cn.getTestId()+"" );
-
-                //     Log.e("MERDA MERDA ",  Utils.getFileSD2(cn.getAudiourl())+"");
+                NetworkUtils.postResultados(strings[0], cn);
+                mActivity.progBar.setProgress(prog);
+                prog++;
             }
+            if (listCrtM.size() != 0)
+            for (CorrecaoTesteMultimedia tstM : listCrtM) {
+                Log.e("CENAAAA" ,"Testid:"+ tstM.getTestId()+"");
+                Log.e("CENAAAA" ,"estudante:"+  tstM.getIdEstudante()+"");
+                Log.e("CENAAAA" ,"data:"+  tstM.getDataExecucao()+"");
+                Log.e("CENAAAA" ,"*************************************");
+                NetworkUtils.postResultados(strings[0], tstM);
 
-
+                mActivity.progBar.setProgress(prog);
+                prog++;
+            }
         }
         return null;
     }
 
     @Override
     protected void onPostExecute(String file_url) {
+        if (tipo == 0){
         if (msg.equals("")) {
             mActivity.txtViewMSG.setText("Sincronizacao Realizada Com Sucesso!!");
             mActivity.bentrar.setEnabled(true);
         } else {
             mActivity.txtViewMSG.setText("ERRO a Sinc: " + msg);
             mActivity.bentrar.setEnabled(false);
+        }
+        }
+        else
+        {
+            mActivity.progBar.setVisibility(View.INVISIBLE);
+            mActivity.txtViewMSG.setText("Enviado Correcoes para o Servidor!");
+            mActivity.bentrar.setEnabled(true);
         }
 
     }

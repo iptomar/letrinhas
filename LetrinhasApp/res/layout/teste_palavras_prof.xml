@@ -21,14 +21,23 @@
         android:textColor="#5ddfff"
         android:textSize="50sp"
         android:textStyle="bold" />
+    
+    <ProgressBar
+        android:id="@+id/pbPalavreas"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tlpScroll"
+        android:layout_alignLeft="@+id/tlpScroll"
+        android:layout_alignRight="@+id/tlpScroll2" />
 
     <ScrollView
         android:id="@+id/tlpScroll"
-        android:layout_width="wrap_content"
+        android:layout_width="200sp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/tlpControlo"
         android:layout_marginLeft="21dp"
         android:background="#ccccff"
         android:paddingBottom="10dp"
@@ -49,25 +58,26 @@
                 android:text="@string/teste"
                 android:textOff="@string/teste"
                 android:textOn="@string/teste"
-                android:textSize="32sp"
+                android:textSize="22sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
 
     </ScrollView>
+
      <ScrollView
-        android:id="@+id/tlpScroll1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/tlpScroll"
-        android:background="#ccccff"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp" >
+         android:id="@+id/tlpScroll1"
+         android:layout_width="200sp"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:layout_alignTop="@+id/tlpScroll"
+         android:layout_marginLeft="21dp"
+         android:layout_toRightOf="@+id/tlpScroll"
+         android:background="#ccccff"
+         android:paddingBottom="10dp"
+         android:paddingLeft="10dp"
+         android:paddingRight="10dp"
+         android:paddingTop="10dp" >
 
          <LinearLayout
              android:id="@+id/tlplllayer1"
@@ -82,24 +92,25 @@
                 android:text="@string/teste"
                 android:textOff="@string/teste"
                 android:textOn="@string/teste"
-                android:textSize="32sp"
+                android:textSize="22sp"
                 android:textStyle="normal" />
          </LinearLayout>
 
     </ScrollView>
+
      <ScrollView
-        android:id="@+id/tlpScroll2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/tlpScroll1"
-        android:background="#ccccff"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp" >
+         android:id="@+id/tlpScroll2"
+         android:layout_width="200sp"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:layout_below="@+id/tlpControlo"
+         android:layout_marginLeft="21dp"
+         android:layout_toRightOf="@+id/tlpScroll1"
+         android:background="#ccccff"
+         android:paddingBottom="10dp"
+         android:paddingLeft="10dp"
+         android:paddingRight="10dp"
+         android:paddingTop="10dp" >
 
          <LinearLayout
              android:id="@+id/tlplllayer2"
@@ -114,7 +125,7 @@
                 android:text="@string/teste"
                 android:textOff="@string/teste"
                 android:textOn="@string/teste"
-                android:textSize="32sp"
+                android:textSize="22sp"
                 android:textStyle="normal" />
          </LinearLayout>
 
@@ -174,7 +185,7 @@
             android:background="#000000" >
 
             <Chronometer
-                android:id="@+id/cromtxt"
+                android:id="@+id/tlpcrom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#000000"

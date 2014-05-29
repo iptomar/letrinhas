@@ -21,7 +21,7 @@
         android:keepScreenOn="true"
         android:text="@string/letrinhas"
         android:textColor="#33b5e5"
-        android:textSize="@dimen/act90"
+        android:textSize="@dimen/dim90"
         android:textStyle="bold" />
 
     <!--
@@ -33,9 +33,9 @@
         android:id="@+id/piAgrup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="300sp"
+        android:layout_marginLeft="@dimen/dim300"
         android:text="@string/agrupamento"
-        android:textSize="50sp" android:layout_marginBottom="210sp" android:layout_gravity="bottom"/>
+        android:textSize="@dimen/dim50" android:layout_marginBottom="@dimen/dim210" android:layout_gravity="bottom"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -55,7 +55,7 @@
             <ImageButton
                 android:id="@+id/iBSair"
                 style="@style/ButtonBarButton"
-                android:layout_width="110dp"
+                android:layout_width="@dimen/dim110"
                 android:layout_height="match_parent"
                 android:layout_weight="0.48"
                 android:adjustViewBounds="false"
@@ -63,30 +63,30 @@
                 android:contentDescription="@string/sair" />
 
             <Space
-                android:layout_width="400sp"
+                android:layout_width="@dimen/dim400"
                 android:layout_height="match_parent" />
 
             <Space
-                android:layout_width="400sp"
+                android:layout_width="@dimen/dim400"
                 android:layout_height="match_parent" />
 
             <Button
                 android:id="@+id/bEntrar1"
                 style="@style/ButtonBarButton"
-                android:layout_width="0dp"
-                android:layout_height="152dp"
+                android:layout_width="@dimen/dim0"
+                android:layout_height="@dimen/dim152"
                 android:layout_weight="4.75"
                 android:drawableRight="@drawable/right"
                 android:text="@string/entrar"
-                android:textSize="72sp"
+                android:textSize="@dimen/dim72"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
         <ImageView
             android:id="@+id/iVLogo"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
+            android:layout_width="@dimen/dim350"
+            android:layout_height="@dimen/dim350"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/app_name"
             android:src="@drawable/letrinhas" />
@@ -97,17 +97,17 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/progressBarLoad" android:layout_gravity="center_horizontal|bottom"
                 android:indeterminate="false"
-                android:background="@color/black_overlay" android:layout_marginBottom="165dp"/>
+                android:background="@color/black_overlay" android:layout_marginBottom="@dimen/dim165"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text=" "
                 android:id="@+id/txtMsg" android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="50dp" android:textSize="30dp"/>
+                android:layout_marginBottom="@dimen/dim50" android:textSize="@dimen/dim30"/>
         <ImageButton
-                android:layout_width="90sp"
-                android:layout_height="90sp"
+                android:layout_width="@dimen/dim90"
+                android:layout_height="@dimen/dim90"
                 android:id="@+id/btnSettingsMenuP" android:layout_gravity="right|top" android:src="@drawable/settings"
                 android:background="@android:color/transparent"/>
 

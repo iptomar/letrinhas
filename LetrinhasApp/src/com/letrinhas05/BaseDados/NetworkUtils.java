@@ -6,6 +6,7 @@ import android.util.Log;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 
+import com.letrinhas05.ClassesObjs.CorrecaoTesteMultimedia;
 import com.letrinhas05.util.Utils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -73,14 +74,22 @@ public class NetworkUtils {
 
         // Construir os campos.
         builder.addTextBody("testId", correcaoTeste.getTestId()+"");
-
         builder.addTextBody("studentId", correcaoTeste.getIdEstudante()+"");
         builder.addTextBody("executionDate", correcaoTeste.getDataExecucao()+"");
+        builder.addTextBody("wasCorrected", correcaoTeste.getEstado()+"");
 
+
+        String observacoes = "Sem dados";
+        String detalhes = "Sem dados";
         if (correcaoTeste instanceof CorrecaoTesteLeitura) {
             CorrecaoTesteLeitura teste = (CorrecaoTesteLeitura) correcaoTeste;
-            builder.addTextBody("type", "0");
-            builder.addTextBody("observations", teste.getObservacoes());
+            builder.addTextBody("type", teste.getTipo()+"");
+            if (teste.getObservacoes() != null)
+                observacoes = teste.getObservacoes();
+            if (teste.getDetalhes() != null)
+                detalhes = teste.getDetalhes();
+
+            builder.addTextBody("observations", observacoes );
             builder.addTextBody("wpm", teste.getNumPalavrasMin()+"");
             builder.addTextBody("correct", teste.getNumPalavCorretas()+"");
             builder.addTextBody("incorrect", teste.getNumPalavIncorretas()+"");
@@ -88,10 +97,19 @@ public class NetworkUtils {
             builder.addTextBody("expressiveness", teste.getExpressividade()+"");
             builder.addTextBody("rhythm", teste.getRitmo()+"");
             builder.addTextBody("speed", teste.getVelocidade()+"");
+            builder.addTextBody("details", detalhes+"");
                 //// Envia Um ficheiro////
             builder.addBinaryBody("audio", Utils.getFileSD2(teste.getAudiourl()), ContentType.APPLICATION_OCTET_STREAM, "cenas.3gp");
         } else {
-            ////////////para se colocar outros  tipos de teste //////////////////////
+
+            CorrecaoTesteMultimedia teste = (CorrecaoTesteMultimedia) correcaoTeste;
+            builder.addTextBody("type", teste.getTipo()+"");
+            builder.addTextBody("optionChosen", teste.getOpcaoEscolhida()+"");
+            if (teste.getOpcaoEscolhida() ==  teste.getCerta())
+            builder.addTextBody("isCorrect", "1");
+            else
+            builder.addTextBody("isCorrect", "0");
+            //// Envia Um ficheiro////
         }
         //Faz o post Request
             postRequest.setEntity(builder.build());
