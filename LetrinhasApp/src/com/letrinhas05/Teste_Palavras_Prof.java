@@ -559,6 +559,7 @@ public class Teste_Palavras_Prof extends Activity{
 			public void initSetup(Resources res,int list, int toggle, int layout, String[] ar){
 				ToggleButton tg = (ToggleButton) findViewById(toggle);
 				tg.setTextColor(Color.DKGRAY);
+				tg.setTextSize(22);
 				tg.setBackgroundColor(Color.DKGRAY);
 				tg.setTextColor(Color.WHITE);
 				tg.setOnClickListener(new OnClickListener() {
@@ -599,7 +600,7 @@ public class Teste_Palavras_Prof extends Activity{
 				tg.setLayoutParams(tg1.getLayoutParams());
 				tg.setBackgroundColor(Color.DKGRAY);
 				tg.setTextColor(Color.WHITE);
-				tg.setTextColor(Color.WHITE);
+				tg.setTextSize(22);
 				tg.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
 				          if (((CompoundButton) v).isChecked()){

@@ -58,7 +58,7 @@
                 android:text="@string/teste"
                 android:textOff="@string/teste"
                 android:textOn="@string/teste"
-                android:textSize="32sp"
+                android:textSize="22sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
@@ -92,7 +92,7 @@
                 android:text="@string/teste"
                 android:textOff="@string/teste"
                 android:textOn="@string/teste"
-                android:textSize="32sp"
+                android:textSize="22sp"
                 android:textStyle="normal" />
          </LinearLayout>
 
@@ -125,7 +125,7 @@
                 android:text="@string/teste"
                 android:textOff="@string/teste"
                 android:textOn="@string/teste"
-                android:textSize="32sp"
+                android:textSize="22sp"
                 android:textStyle="normal" />
          </LinearLayout>
 
