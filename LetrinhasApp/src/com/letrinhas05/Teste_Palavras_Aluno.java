@@ -114,6 +114,7 @@ public class Teste_Palavras_Aluno extends Activity{
 				 * 
 				 * 
 				 */
+				LetrinhasDB bd = new LetrinhasDB(this);
 				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/CorrectionReadTest/"+uuid+".mp3";
 				path =  "/School-Data/CorrectionReadTest/"+uuid+".mp3";
 				profSound = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/ReadingTests/SOM1.mp3";
@@ -154,51 +155,57 @@ public class Teste_Palavras_Aluno extends Activity{
 				// ordena��o do texto nas tr�s colunas de forma a preencher toda de seguida a 1� e s� depois passa para as outras
 				int lenght;
 				String[] ar = teste.getConteudoTexto().split("[ ]");
-				String[] restoVal = new String[2];
+				int[] restoVal = new int[2];
 				lenght = ar.length/3;
+				Log.d("Debug-length_totil", String.valueOf(ar.length));
+				Log.d("Debug-length", String.valueOf(ar.length/3));
+				Log.d("Debug-Resto", String.valueOf(ar.length%3));
 				if(ar.length%3 == 2){
-					restoVal[0] = "1";
-					restoVal[1] = "1";
+					restoVal[0] = 1;
+					restoVal[1] = 1;
 				}else if(ar.length%3 == 1){
-					restoVal[0] = "1";
-					restoVal[1] = "0";
+					restoVal[0] = 1;
+					restoVal[1] = 0;
 				}else if(ar.length%3 == 0){
-					restoVal[0] = "0";
-					restoVal[1] = "0";
+					restoVal[0] = 0;
+					restoVal[1] = 0;
 				}
 				String[] texto, texto1, texto2;
 				if(ar.length==1){
-					texto = new String[lenght+Integer.parseInt(restoVal[0])];
+					texto = new String[lenght+restoVal[0]];
 					texto1 = new String[0];
 					texto2 = new String[0];
-					for(int i=0;i<((ar.length)/3)+Integer.parseInt(restoVal[0]);i++){
+					for(int i=0;i<((ar.length)/3)+restoVal[0];i++){
 						texto[i] = ar[i];
 					}
 				}else if(ar.length==2){
-					texto = new String[lenght+Integer.parseInt(restoVal[0])];
-					texto1 = new String[lenght+Integer.parseInt(restoVal[1])];
+					texto = new String[lenght+restoVal[0]];
+					texto1 = new String[lenght+restoVal[1]];
 					texto2 = new String[0];
 					int var=0,resto,support=0;
-					for(int i=0;i<((ar.length)/3)+Integer.parseInt(restoVal[0]);i++){
+					for(int i=0;i<((ar.length)/3)+restoVal[0];i++){
 						texto[i] = ar[i];
 						var=i;
 					}
 					resto = ar.length - (ar.length)/3;
-					for(int j = var+1;j<resto+Integer.parseInt(restoVal[1]);j++){
+					for(int j = var+1;j<resto+restoVal[1];j++){
 						texto1[support] = ar[j];
 						support++;
 					}
 				}else{
-					texto = new String[lenght+Integer.parseInt(restoVal[0])];
-					texto1 = new String[lenght+Integer.parseInt(restoVal[1])];
+					texto = new String[lenght+restoVal[0]];
+					texto1 = new String[lenght+restoVal[1]];
 					texto2 = new String[lenght];
 					int var=0,var1=0,resto,support=0,support1=0;
-					for(int i=0;i<((ar.length)/3)+Integer.parseInt(restoVal[0]);i++){
+					for(int i=0;i<(lenght)+restoVal[0];i++){
 						texto[i] = ar[i];
 						var=i;
 					}
-					resto = ar.length - (ar.length)/3;
-					for(int j = var+1;j<resto+Integer.parseInt(restoVal[1]);j++){
+					resto = ar.length - lenght;
+					Log.d("Debug-Resto_in", String.valueOf(resto));
+					Log.d("Debug-Resto_var", String.valueOf(var));
+					Log.d("Debug-value", String.valueOf(resto+restoVal[1]));
+					for(int j = var+1;j<resto;j++){
 						texto1[support] = ar[j];
 						var1=j;
 						support++;
@@ -209,7 +216,7 @@ public class Teste_Palavras_Aluno extends Activity{
 					}
 				}
 				((TextView) findViewById(R.id.tlaTitulo)).setText(teste.getTitulo());
-				fillTextColumn(R.id.tlaTv01, texto);
+				fillTextColumn(R.id.tvTv01, texto);
 				fillTextColumn(R.id.tlaTv02, texto1);
 				fillTextColumn(R.id.tlaTv03, texto2);
 				// **********************************************************************************************

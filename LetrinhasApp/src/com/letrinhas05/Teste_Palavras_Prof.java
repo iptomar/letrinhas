@@ -22,9 +22,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Chronometer;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -58,6 +61,8 @@ public class Teste_Palavras_Prof extends Activity{
 			int segundos, minutos, horas;
 			String observacoes="empty", detalhes="empty";
 			Avaliacao eval;
+			Chronometer chrono;
+			ProgressBar pbDuracao;
 			
 			/**
 			 * Whether or not the system UI should be auto-hidden after
@@ -155,52 +160,57 @@ public class Teste_Palavras_Prof extends Activity{
 				// ordenaï¿½ï¿½o do texto nas trï¿½s colunas de forma a preencher toda de seguida a 1ï¿½ e sï¿½ depois passa para as outras
 				int lenght;
 				String[] ar = text.split("[ ]");
-				String[] restoVal = new String[2];
+				int[] restoVal = new int[2];
 				lenght = ar.length/3;
+				Log.d("Debug-length_totil", String.valueOf(ar.length));
+				Log.d("Debug-length", String.valueOf(ar.length/3));
+				Log.d("Debug-Resto", String.valueOf(ar.length%3));
 				if(ar.length%3 == 2){
-					restoVal[0] = "1";
-					restoVal[1] = "1";
+					restoVal[0] = 1;
+					restoVal[1] = 1;
 				}else if(ar.length%3 == 1){
-					restoVal[0] = "1";
-					restoVal[1] = "0";
+					restoVal[0] = 1;
+					restoVal[1] = 0;
 				}else if(ar.length%3 == 0){
-					restoVal[0] = "0";
-					restoVal[1] = "0";
+					restoVal[0] = 0;
+					restoVal[1] = 0;
 				}
-				
 				String[] texto, texto1, texto2;
 				if(ar.length==1){
-					texto = new String[lenght+Integer.parseInt(restoVal[0])];
+					texto = new String[lenght+restoVal[0]];
 					texto1 = new String[0];
 					texto2 = new String[0];
-					for(int i=0;i<((ar.length)/3)+Integer.parseInt(restoVal[0]);i++){
+					for(int i=0;i<((ar.length)/3)+restoVal[0];i++){
 						texto[i] = ar[i];
 					}
 				}else if(ar.length==2){
-					texto = new String[lenght+Integer.parseInt(restoVal[0])];
-					texto1 = new String[lenght+Integer.parseInt(restoVal[1])];
+					texto = new String[lenght+restoVal[0]];
+					texto1 = new String[lenght+restoVal[1]];
 					texto2 = new String[0];
 					int var=0,resto,support=0;
-					for(int i=0;i<((ar.length)/3)+Integer.parseInt(restoVal[0]);i++){
+					for(int i=0;i<((ar.length)/3)+restoVal[0];i++){
 						texto[i] = ar[i];
 						var=i;
 					}
 					resto = ar.length - (ar.length)/3;
-					for(int j = var+1;j<resto+Integer.parseInt(restoVal[1]);j++){
+					for(int j = var+1;j<resto+restoVal[1];j++){
 						texto1[support] = ar[j];
 						support++;
 					}
 				}else{
-					texto = new String[lenght+Integer.parseInt(restoVal[0])];
-					texto1 = new String[lenght+Integer.parseInt(restoVal[1])];
+					texto = new String[lenght+restoVal[0]];
+					texto1 = new String[lenght+restoVal[1]];
 					texto2 = new String[lenght];
 					int var=0,var1=0,resto,support=0,support1=0;
-					for(int i=0;i<((ar.length)/3)+Integer.parseInt(restoVal[0]);i++){
+					for(int i=0;i<(lenght)+restoVal[0];i++){
 						texto[i] = ar[i];
 						var=i;
 					}
-					resto = ar.length - (ar.length)/3;
-					for(int j = var+1;j<resto+Integer.parseInt(restoVal[1]);j++){
+					resto = ar.length - lenght;
+					Log.d("Debug-Resto_in", String.valueOf(resto));
+					Log.d("Debug-Resto_var", String.valueOf(var));
+					Log.d("Debug-value", String.valueOf(resto+restoVal[1]));
+					for(int j = var+1;j<resto;j++){
 						texto1[support] = ar[j];
 						var1=j;
 						support++;
@@ -219,9 +229,41 @@ public class Teste_Palavras_Prof extends Activity{
 				voltar = (ImageButton) findViewById(R.id.tlpVoltar);
 				cancelar = (ImageButton) findViewById(R.id.tlpCancel);
 				avancar = (ImageButton) findViewById(R.id.tlpAvaliar);
+				chrono = (Chronometer) findViewById(R.id.tlpcrom);
+				pbDuracao = (ProgressBar) findViewById(R.id.pbPalavreas);
+				
+				try {
+					reprodutor.setDataSource(endereco);
+					reprodutor.prepare();
+					pbDuracao.setMax(reprodutor.getDuration());
+					segundos = ((reprodutor.getDuration() / 1000) % 60);
+					minutos = ((reprodutor.getDuration() / 1000) / 60);
+				} catch (Exception ex) {
+				}
+				chrono.setText(n2d(minutos) + ":" + n2d(segundos));
 				escutaBotoes();
 			}
 
+			// método para acrescentar um 0 nas casas das dezenas,
+			// caso o númer seja inferior a 10
+			private String n2d(int n) {
+				String num;
+				if (n / 10 == 0) {
+					num = "0" + n;
+				} else {
+					num = "" + n;
+				}
+				return num;
+			}
+			
+			// forçar a paragem da reprodução do audio!
+			private void stopPlay() {
+				if (playing) {
+					reprodutor.stop();
+					reprodutor.release();
+				}
+			}
+			
 			@Override
 			protected void onPostCreate(Bundle savedInstanceState) {
 				super.onPostCreate(savedInstanceState);
@@ -273,6 +315,7 @@ public class Teste_Palavras_Prof extends Activity{
 				cancelar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
+						stopPlay();
 						finish();
 					}
 				});
@@ -280,30 +323,15 @@ public class Teste_Palavras_Prof extends Activity{
 					@Override
 					public void onClick(View view) {
 						// voltar para pag inicial
-						if(flag==true){
-							startAvalia();
-						}else{
-							android.app.AlertDialog alerta;
-							// Cria o gerador do AlertDialog
-							AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-							// define o titulo
-							builder.setTitle("Letrinhas 05");
-							// define a mensagem
-							builder.setMessage(" Nï¿½o correu o som, tem de o fazer pelo menos uma vez!");
-							// define um botï¿½o como positivo
-							builder.setPositiveButton("OK", null);
-							// cria o AlertDialog
-							alerta = builder.create();
-							// Mostra
-							alerta.show();
-						}
-						
+						startAvalia();
+						finish();
 					}
 				});
 				voltar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
 						// voltar para pag inicial
+						stopPlay();
 						finish();
 					}
 				});
@@ -381,16 +409,19 @@ public class Teste_Palavras_Prof extends Activity{
 				 startActivity(it);
 			}
 
-			private final int PARADO = 2;
-			private Handler play_handler;
+			private final int PARADO = 2, ANDANDO = 1;
+			private int tSegundo = segundos, tMinuto = minutos;
+			private Handler play_handler, play_handler2;;
+			
 			/**
-			 * serve para a aplicaï¿½ï¿½o reproduzir ou parar o som
+			 * serve para a aplicacao reproduzir ou parar o som
 			 * 
-			 * @author Dï¿½rio Jorge
+			 * @author Dario Jorge
 			 */
 			@SuppressLint("HandlerLeak")
 			private void startPlay() {
 				if (!playing) {
+					resetTimer();
 					play.setImageResource(R.drawable.play_on);
 					playing = true;
 					try {
@@ -398,9 +429,10 @@ public class Teste_Palavras_Prof extends Activity{
 						reprodutor.setDataSource(endereco);
 						reprodutor.prepare();
 						reprodutor.start();
-						Toast.makeText(getApplicationContext(), "A reproduzir.",Toast.LENGTH_SHORT).show();
+						final ImageView img2 = new ImageView(this);
+						img2.setImageResource(R.drawable.play);
 						// espetar aqui uma thread, para caso isto pare
-						// handler para controlara a GUI do androi e a thread seguinte
+						// handler para controlara a GUI do android e a thread seguinte
 						play_handler = new Handler() {
 							public void handleMessage(Message msg) {
 								switch (msg.what) {
@@ -409,17 +441,10 @@ public class Teste_Palavras_Prof extends Activity{
 									playing = false;
 									try {
 										reprodutor.stop();
-										double dur = reprodutor.getDuration();
-										segundos  = (int)(dur/ 1000) % 60 ;
-										minutos  = (int)((dur/ (1000*60)) % 60);
-										horas   = (int)((dur/ (1000*60*60)) % 24);
-										String time = horas+":"+minutos+":"+segundos;
-										Log.d("Debug-mediaPlayerTime", time);
-										flag=true;
 										reprodutor.release();
-										Toast.makeText(getApplicationContext(),"Fim da reproduï¿½ï¿½o.",Toast.LENGTH_SHORT).show();
 									} catch (Exception ex) {
 									}
+									resetTimer();
 									break;
 								default:
 									break;
@@ -428,34 +453,72 @@ public class Teste_Palavras_Prof extends Activity{
 						};
 						new Thread(new Runnable() {
 							public void run() {
-								while (reprodutor.isPlaying());
 								Message msg = new Message();
+								while (reprodutor.isPlaying());
 								msg.what = PARADO;
 								play_handler.sendMessage(msg);
 							}
 						}).start();
+						play_handler2 = new Handler() {
+							public void handleMessage(Message msg) {
+								switch (msg.what) {
+								case ANDANDO:
+									pbDuracao.setProgress(reprodutor.getCurrentPosition());
+									chrono.setText(n2d(tMinuto) + ":" + n2d(tSegundo));
+									break;
+								default:
+									break;
+								}
+							}
+						};
+						new Thread(new Runnable() {
+							public void run() {
+								Message msg = new Message();
+								while (playing) {
+									msg = new Message();
+									msg.what = ANDANDO;
+									play_handler2.sendMessage(msg);
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										e.printStackTrace();
+									}
+									tSegundo--;
+									if (tSegundo == (-1)) {
+										tMinuto--;
+										tSegundo = 59;
+									}
+								}
+							}
+						}).start();
 					} catch (Exception ex) {
-						Toast.makeText(getApplicationContext(),"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
+						play.setImageResource(R.drawable.palyoff);
+						resetTimer();
+						playing = false;
 					}
 				} else {
 					play.setImageResource(R.drawable.palyoff);
 					playing = false;
 					try {
 						reprodutor.stop();
-						double dur = reprodutor.getDuration();
-						segundos  = (int)(dur/ 1000) % 60 ;
-						minutos  = (int)((dur/ (1000*60)) % 60);
-						horas   = (int)((dur/ (1000*60*60)) % 24);
-						String time = horas+":"+minutos+":"+segundos;
-						Log.d("Debug-mediaPlayerTime", time);
-						flag = true;
 						reprodutor.release();
-
-						Toast.makeText(getApplicationContext(),"Reproduï¿½ï¿½o interrompida.", Toast.LENGTH_SHORT).show();
 					} catch (Exception ex) {
-						Toast.makeText(getApplicationContext(),"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
 					}
+					resetTimer();
 				}
+			}
+			
+			protected void resetTimer() {
+				try {
+					reprodutor.setDataSource(endereco);
+					reprodutor.prepare();
+					pbDuracao.setMax(reprodutor.getDuration());
+					pbDuracao.setProgress(0);
+				} catch (Exception ex) {
+				}
+				tSegundo = segundo;
+				tMinuto = minuto;
+				chrono.setText(n2d(tMinuto) + ":" + n2d(tSegundo));
 			}
 
 			/**
