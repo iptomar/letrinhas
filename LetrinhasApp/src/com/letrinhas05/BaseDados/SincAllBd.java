@@ -68,16 +68,30 @@ public class SincAllBd extends AsyncTask<String, String, String> {
             mActivity.progBar.setProgress(100);
         }
         else{
-            mActivity.txtViewMSG.setText("A carregar ....");
+            mActivity.txtViewMSG.setText("A Enviar ....");
             LetrinhasDB db = new LetrinhasDB(context);
             List<CorrecaoTesteLeitura> listCrtl =  db.getAllCorrecaoTesteLeitura();
+            List<CorrecaoTesteMultimedia> listCrtM =  db.getAllCorrecaoTesteMultime();
             int prog = 1;
-            mActivity.progBar.setMax(listCrtl.size());
+            int totalCampos = listCrtl.size() + listCrtM.size();
+            mActivity.progBar.setMax(totalCampos);
             mActivity.progBar.setProgress(prog);
+            if (listCrtl.size() != 0)
             for (CorrecaoTesteLeitura cn : listCrtl) {
                 NetworkUtils.postResultados(strings[0], cn);
-                prog++;
                 mActivity.progBar.setProgress(prog);
+                prog++;
+            }
+            if (listCrtM.size() != 0)
+            for (CorrecaoTesteMultimedia tstM : listCrtM) {
+                Log.e("CENAAAA" ,"Testid:"+ tstM.getTestId()+"");
+                Log.e("CENAAAA" ,"estudante:"+  tstM.getIdEstudante()+"");
+                Log.e("CENAAAA" ,"data:"+  tstM.getDataExecucao()+"");
+                Log.e("CENAAAA" ,"*************************************");
+                NetworkUtils.postResultados(strings[0], tstM);
+
+                mActivity.progBar.setProgress(prog);
+                prog++;
             }
         }
         return null;

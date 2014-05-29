@@ -1306,6 +1306,47 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
 
 
+    /**
+     * Buscar todos os campos da Tabela CorrecaoTestMultimedia
+     * @return retorna uma lista de testes de leitura
+     */
+    public List<CorrecaoTesteMultimedia> getAllCorrecaoTesteMultime() {
+        List<CorrecaoTesteMultimedia> listcorrecaoTestes = new ArrayList<CorrecaoTesteMultimedia>();
+        // Select TODOS OS DADOS
+        String selectQuery = "SELECT " +
+                TABELA_CORRECAOTESTE +"."+ CORRT_ID +", "+
+                TABELA_CORRECAOTESTE +"."+ CORRT_IDTESTE +", "+
+                TABELA_CORRECAOTESTE +"."+ CORRT_IDALUNO +", "+
+                TABELA_CORRECAOTESTE +"."+ CORRT_DATAEXEC +", "+
+                TABELA_CORRECAOTESTE +"."+ CORRT_TIPO +", "+
+                TABELA_CORRECAOTESTE +"."+ CORRT_ESTADO +", "+
+                TABELA_CORRECAOMULTIMEDIA +"."+ CORRTMULTIMEDIA_OPCAOESCOL +", "+
+                TABELA_CORRECAOMULTIMEDIA +"."+ CORRTMULTIMEDIA_CERTA +
+                " FROM " + TABELA_CORRECAOTESTE + ", "+ TABELA_CORRECAOMULTIMEDIA +
+                " WHERE "+ TABELA_CORRECAOTESTE+"."+CORRT_ID +" = "+TABELA_CORRECAOMULTIMEDIA +"."+ CORRTMULTIMEDIA_ID;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // loop atravEs de todas as linhas e adicionando Alista
+        if (cursor.moveToFirst()) {
+            do {
+                CorrecaoTesteMultimedia corrtesteMult = new CorrecaoTesteMultimedia();
+                corrtesteMult.setIdCorrrecao(cursor.getLong(0));
+                corrtesteMult.setTestId(cursor.getInt(1));
+                corrtesteMult.setIdEstudante(cursor.getInt(2));
+                corrtesteMult.setDataExecucao(cursor.getLong(3));
+                corrtesteMult.setTipo(cursor.getInt(4));
+                corrtesteMult.setEstado(cursor.getInt(5));
+                corrtesteMult.setOpcaoEscolhida(cursor.getInt(6));
+                corrtesteMult.setCerta(cursor.getInt(7));
+                // Adicionar os os items da base de dados a lista
+                listcorrecaoTestes.add(corrtesteMult);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        // return a lista com todos os items da base de dados
+        return listcorrecaoTestes;
+    }
 
 
 
