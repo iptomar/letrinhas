@@ -151,15 +151,16 @@ public class ListaResultados extends Activity {
 	private void makeLista() {
 
 		LetrinhasDB bd = new LetrinhasDB(this);
-		// vou buscar todas as submissoes de teste nao corrigidas existentes..
-		// ... dos alunos, das turmas, do professor selecionado.
+		// vou buscar todas as submissoes de teste corrigidas existentes..
+		// ... dos alunos selecionado.
 		List<CorrecaoTeste> ct = bd.getAllCorrecaoTesteByProfID(iDs[1]);
 
-		// verifico se estas submissoes estao corrigidas
+		// verifico se estas submissoes estao corrigidas e são do aluno selecionado
 		int cont = 0;
 		for (int i = 0; i < ct.size(); i++) {
-			// se nao esta corrigido, conta-o
-			if (ct.get(i).getEstado() == 1) {
+			// se esta corrigido e pertence ao aluno selecionado, conta-o
+			if (ct.get(i).getEstado() == 1
+					&& ct.get(i).getIdEstudante() == iDs[3]) {
 				cont++;
 			}
 		}
@@ -168,37 +169,20 @@ public class ListaResultados extends Activity {
 		Button btOriginal = (Button) findViewById(R.id.btnLRCorrecao_Original);
 		// remove o botao original do layerlayout
 		ll.removeView(btOriginal);
-		// se existirem submissoes a corrigir
+		// se existirem submissoes
 		if (cont != 0) {
 			// crio um array de correcoes auxiliar
 			CorrecaoTeste ctAux[] = new CorrecaoTeste[cont];
 			cont = 0;
 			for (int i = 0; i < ct.size(); i++) {
-				// se nao esta corrigido, acrescenta-o
-				if (ct.get(i).getEstado() == 1) {
+				// se esta corrigido, acrescenta-o
+				if (ct.get(i).getEstado() == 1
+						&& ct.get(i).getIdEstudante() == iDs[3]) {
 					ctAux[cont] = ct.get(i);
 					cont++;
 				}
 			}
-			// *Destaque do aluno selecionado
-			CorrecaoTeste ctAux2[] = new CorrecaoTeste[cont];
-			cont = 0;
-			for (int i = 0; i < ctAux.length; i++) {
-
-				if (ctAux[i].getIdEstudante() == iDs[3]) {
-					ctAux2[cont] = ctAux[i];
-					cont++;
-				}
-			}
-			for (int i = 0; i < ctAux.length; i++) {
-
-				if (ctAux[i].getIdEstudante() != iDs[3]) {
-					ctAux2[cont] = ctAux[i];
-					cont++;
-				}
-			}
-			ctAux = ctAux2;
-
+			
 			// Agora vou construir os botoes com a informacao necessaria:
 			for (int i = 0; i < ctAux.length; i++) {
 
@@ -257,27 +241,28 @@ public class ListaResultados extends Activity {
 							imgTip.getDrawable(), null);
 				}
 
-				CorrecaoTesteLeitura ctl = bd
-						.getCorrecaoTesteLeirutaById(ctAux[i].getIdCorrrecao());
+				
 
-				final String resultado, titulo=title;
+				if (ctAux[i].getTipo()!= 1) { //tipo texto / Lista /poema
+					CorrecaoTesteLeitura ctl = bd
+							.getCorrecaoTesteLeirutaById(ctAux[i].getIdCorrrecao());
 
-				resultado = "==========Avaliação============\n"
-						+ ctl.getObservacoes() + "\n"
-						+ "Palavras lidas por minuto (plm): "
-						+ ctl.getNumPalavrasMin() + "\n"
-						+ "Palavras corretamente lidas (pcl): "
-						+ ctl.getNumPalavCorretas() + "\n"
-						+ "Precisão de Leitura (PL): " + ctl.getPrecisao()
-						+ "\n" + "Velocidade de leitura (VL): "
-						+ ctl.getVelocidade() + "\n" + "Expressividade: "
-						+ ctl.getExpressividade() + "\n" + "Ritmo: "
-						+ ctl.getRitmo() + "\n\n"
-						+ "===============================\n" + "Detalhes\n"
-						+ "===============================\n"
-						+ ctl.getDetalhes();
+					final String resultado, titulo=title;
 
-				if (ctAux[i].getTipo()!= 1) {
+					resultado = "==========Avaliação============\n"
+							+ ctl.getObservacoes() + "\n"
+							+ "Palavras lidas por minuto (plm): "
+							+ ctl.getNumPalavrasMin() + "\n"
+							+ "Palavras corretamente lidas (pcl): "
+							+ ctl.getNumPalavCorretas() + "\n"
+							+ "Precisão de Leitura (PL): " + ctl.getPrecisao()
+							+ "\n" + "Velocidade de leitura (VL): "
+							+ ctl.getVelocidade() + "\n" + "Expressividade: "
+							+ ctl.getExpressividade() + "\n" + "Ritmo: "
+							+ ctl.getRitmo() + "\n\n"
+							+ "===============================\n" + "Detalhes\n"
+							+ "===============================\n"
+							+ ctl.getDetalhes();
 					// Defenir o que faz o botao ao clicar
 					btIn.setOnClickListener(new View.OnClickListener() {
 						@Override
@@ -297,7 +282,7 @@ public class ListaResultados extends Activity {
 							startActivity(it);
 						}
 					});
-				} else {
+				} else {//tipo multimédia
 					CorrecaoTesteMultimedia ctm = bd
 							.getCorrecaoTesteMultimediaById(ctAux[i]
 									.getIdCorrrecao());

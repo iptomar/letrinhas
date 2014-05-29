@@ -284,7 +284,7 @@ public class TesteMultimediaW  extends Activity  {
                 ctM.setIdEstudante(iDs[3]);
                 ctM.setTestId(idTesteAtual);
                 ctM.setTipo(1);// pois estou num teste Multimedia
-                ctM.setEstado(0);
+                ctM.setEstado(1); //pois este teste auto-corrige-se
                 ctM.setDataExecucao(time);
                 ctM.setOpcaoEscolhida(opcaoEscolh);
                 ctM.setCerta(opcaoCerta);
