@@ -117,8 +117,8 @@ public class Teste_Palavras_Aluno extends Activity{
 				LetrinhasDB bd = new LetrinhasDB(this);
 				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/CorrectionReadTest/"+uuid+".mp3";
 				path =  "/School-Data/CorrectionReadTest/"+uuid+".mp3";
-				profSound = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/ReadingTests/SOM1.mp3";
-
+				profSound = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/ReadingTests/"+teste.getProfessorAudioUrl();
+				Log.d("Debug-SoundProf", "/School-Data/ReadingTests/"+teste.getProfessorAudioUrl()+".mp3");
 				Log.d("Debug-ButtonRecord", String.valueOf(findViewById(R.id.tlaRecordPalavras)));
 				Log.d("Debug-ButtonComeca", String.valueOf(findViewById(R.id.tlaVoicePlay)));
 				record = (ImageButton) findViewById(R.id.tlaRecordPalavras);
@@ -129,6 +129,14 @@ public class Teste_Palavras_Aluno extends Activity{
 				cancelar = (ImageButton) findViewById(R.id.tlaCancel);
 				avancar = (ImageButton) findViewById(R.id.tlaAvaliar);
 				escutaBotoes();
+			}
+			
+			// forçar a paragem da reprodução do audio!
+			private void stopPlay() {
+				if (playing) {
+					reprodutor.stop();
+					reprodutor.release();
+				}
 			}
 
 			/**
@@ -304,18 +312,21 @@ public class Teste_Palavras_Aluno extends Activity{
 					@Override
 					public void onClick(View view) {
 						startGrava();
+						stopPlay();
 					}
 
 				});
 				play.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
+						voicePlay.setVisibility(View.INVISIBLE);
 						startPlay("gravacao");
 					}
 				});
 				voicePlay.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
+						play.setVisibility(View.INVISIBLE);
 						startPlay("vozProf");
 					}
 				});
@@ -328,6 +339,7 @@ public class Teste_Palavras_Aluno extends Activity{
 						if (file.exists()) {
 							file.delete();
 						}*/
+						stopPlay();
 						finaliza();
 					}
 				});
@@ -335,6 +347,7 @@ public class Teste_Palavras_Aluno extends Activity{
 					@Override
 					public void onClick(View view) {
 						// voltar para pag inicial
+						stopPlay();
 						submit();
 					}
 				});
@@ -378,7 +391,7 @@ public class Teste_Palavras_Aluno extends Activity{
 				ctl = new CorrecaoTesteLeitura();
 				File file = new File(endereco);
 				if(!file.exists()){
-					Toast.makeText(getApplicationContext(),"Nï¿½o gravou nada",Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),"Nao gravou nada",Toast.LENGTH_SHORT).show();
 				}else{
 					long time = System.currentTimeMillis() / 1000;
 					String aux = idTesteAtual + iDs[3] + time + "";
@@ -389,10 +402,6 @@ public class Teste_Palavras_Aluno extends Activity{
 					ctl.setEstado(0);
 					ctl.setTestId(idTesteAtual);
 					ctl.setIdEstudante(iDs[3]);
-					Toast.makeText(getApplicationContext(),ctl.getAudiourl(),Toast.LENGTH_SHORT).show();
-					Toast.makeText(getApplicationContext(),getCurrentTimeStamp(),Toast.LENGTH_SHORT).show();
-					Toast.makeText(getApplicationContext(),String.valueOf(ctl.getIdEstudante()),Toast.LENGTH_SHORT).show();
-					Toast.makeText(getApplicationContext(),String.valueOf(ctl.getTestId()),Toast.LENGTH_SHORT).show();
 					db.addNewItemCorrecaoTesteLeitura(ctl);
 					
 					List<CorrecaoTeste> data1 = db.getAllCorrecaoTeste();
@@ -495,7 +504,7 @@ public class Teste_Palavras_Aluno extends Activity{
 							}
 						}).start();
 					} catch (Exception e) {
-						Toast.makeText(getApplicationContext(),"Erro na gravaï¿½ï¿½o.\n" + e.getMessage(),Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Erro na gravacao.\n" + e.getMessage(),Toast.LENGTH_SHORT).show();
 					}
 				} else {
 					record.setImageResource(R.drawable.record);
@@ -507,10 +516,10 @@ public class Teste_Palavras_Aluno extends Activity{
 					try {
 						gravador.stop();
 						gravador.release();
-						Toast.makeText(getApplicationContext(),"Gravaï¿½ï¿½o efetuada com sucesso!", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Gravacao efetuada com sucesso!", Toast.LENGTH_SHORT).show();
 						Toast.makeText(getApplicationContext(),"Tempo de leitura: " + minuto + ":" + segundo,Toast.LENGTH_LONG).show();
 					} catch (Exception e) {
-						Toast.makeText(getApplicationContext(),"Erro na gravaï¿½ï¿½o.\n" + e.getMessage(),Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Erro na gravacao.\n" + e.getMessage(),Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
@@ -548,11 +557,13 @@ public class Teste_Palavras_Aluno extends Activity{
 								case PARADO:
 									play.setImageResource(R.drawable.palyoff);
 									record.setVisibility(View.VISIBLE);
+									voicePlay.setVisibility(View.VISIBLE);
+									play.setVisibility(View.VISIBLE);
 									playing = false;
 									try {
 										reprodutor.stop();
 										reprodutor.release();
-										Toast.makeText(getApplicationContext(),"Fim da reproduï¿½ï¿½o.",Toast.LENGTH_SHORT).show();
+										Toast.makeText(getApplicationContext(),"Fim da reproducao.",Toast.LENGTH_SHORT).show();
 									} catch (Exception ex) {
 									}
 									break;
@@ -570,19 +581,21 @@ public class Teste_Palavras_Aluno extends Activity{
 							}
 						}).start();
 					} catch (Exception ex) {
-						Toast.makeText(getApplicationContext(),"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Erro na reproducao.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
 					}
 				} else {
 					play.setImageResource(R.drawable.palyoff);
 					record.setVisibility(View.VISIBLE);
+					voicePlay.setVisibility(View.VISIBLE);
+					play.setVisibility(View.VISIBLE);
 					playing = false;
 					try {
 						reprodutor.stop();
 						reprodutor.release();
 
-						Toast.makeText(getApplicationContext(),"Reproduï¿½ï¿½o interrompida.", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Reproducao interrompida.", Toast.LENGTH_SHORT).show();
 					} catch (Exception ex) {
-						Toast.makeText(getApplicationContext(),"Erro na reproduï¿½ï¿½o.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),"Erro na reproducao.\n" + ex.getMessage(),Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
@@ -625,7 +638,7 @@ public class Teste_Palavras_Aluno extends Activity{
 						startActivity(ipp);
 						break;
 					default:
-						Toast.makeText(getApplicationContext(), " - Tipo nï¿½o defenido",Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), " - Tipo nao defenido",Toast.LENGTH_SHORT).show();
 						// retirar o teste errado e continuar
 						// descontar este teste da lista.
 						int[] aux = new int[testesID.length - 1];

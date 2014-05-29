@@ -516,8 +516,8 @@ public class Teste_Palavras_Prof extends Activity{
 					pbDuracao.setProgress(0);
 				} catch (Exception ex) {
 				}
-				tSegundo = segundo;
-				tMinuto = minuto;
+				tSegundo = segundos;
+				tMinuto = minutos;
 				chrono.setText(n2d(tMinuto) + ":" + n2d(tSegundo));
 			}
 
@@ -543,7 +543,7 @@ public class Teste_Palavras_Prof extends Activity{
 						// define o titulo
 						builder.setTitle("Letrinhas 05");
 						// define a mensagem
-						builder.setMessage(" N�o existe o ficheiro audio!");
+						builder.setMessage(" Nao existe o ficheiro audio!");
 						// define um bot�o como positivo
 						builder.setPositiveButton("OK", null);
 						// cria o AlertDialog
@@ -564,13 +564,11 @@ public class Teste_Palavras_Prof extends Activity{
 				tg.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
 				          if (((CompoundButton) v).isChecked()){
-				        	Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
 							v.setBackgroundColor(Color.RED);
 							plvErradas++;
 							Log.d("Debug-plvErradas",String.valueOf(plvErradas));
 							valueWord.setText(String.valueOf(plvErradas));
 				          }else{
-				        	Toast.makeText(getApplicationContext(),"UnChecked",Toast.LENGTH_SHORT).show();
 							v.setBackgroundColor(Color.DKGRAY);
 							plvErradas--;
 							valueWord.setText(String.valueOf(plvErradas));
@@ -605,12 +603,10 @@ public class Teste_Palavras_Prof extends Activity{
 				tg.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
 				          if (((CompoundButton) v).isChecked()){
-				        	Toast.makeText(getApplicationContext(),"Checked",Toast.LENGTH_SHORT).show();
 							v.setBackgroundColor(Color.RED);
 							plvErradas++;
 							valueWord.setText(String.valueOf(plvErradas));
 				          }else{
-				        	Toast.makeText(getApplicationContext(),"UnChecked",Toast.LENGTH_SHORT).show();
 							v.setBackgroundColor(Color.DKGRAY);
 							plvErradas--;
 							valueWord.setText(String.valueOf(plvErradas));
