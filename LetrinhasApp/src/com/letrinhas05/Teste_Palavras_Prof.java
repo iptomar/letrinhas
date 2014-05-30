@@ -59,7 +59,7 @@ public class Teste_Palavras_Prof extends Activity{
 			float numPalavrasMin=0, precisao=0, velocidade=0, expressividade=0, ritmo=0;
 			double milisegundos; 
 			int segundos, minutos, horas,auxiliar;
-			String observacoes="empty", detalhes="empty", stringAuxForType;
+			String observacoes="empty", detalhes="empty", stringAuxForType,dataDeExecucao;
 			Avaliacao eval;
 			Chronometer chrono;
 			ProgressBar pbDuracao;
@@ -122,6 +122,7 @@ public class Teste_Palavras_Prof extends Activity{
 				nomes = b.getStringArray("Nomes");
 				ids = b.getIntArray("IDs");
 				id_teste = b.getInt("ID_teste"); 
+				dataDeExecucao = b.getString("dataDeExecucao");
 				db = new LetrinhasDB(this);
 				
 				List<CorrecaoTesteLeitura> a = db.getAllCorrecaoTesteLeitura_ByIDaluno_TestID(ids[3], id_teste);
@@ -390,16 +391,12 @@ public class Teste_Palavras_Prof extends Activity{
 				Log.d("Debug-valueInt[0]", String.valueOf(valueInt[0]));
 				wrap.putIntArray("ints", valueInt);
 
-				//long[] -> dataExecucao, idCorrrecao
-				long[] valueLong = {dataExecucao, idCorrrecao};
-				wrap.putLongArray("longs", valueLong);
-
 				//float[] -> numPalavrasMin, precisao, velocidade, expressividade, ritmo
 				float[] valueFloat = {numPalavrasMin, precisao, velocidade, expressividade, ritmo};
 				wrap.putFloatArray("floats", valueFloat);
 
-				//String[] -> observacoes, detalhes
-				String[] valueString = {observacoes, detalhes,stringAuxForType};
+				//String[] -> observacoes, detalhes, stringAuxForType
+				String[] valueString = {observacoes, detalhes,stringAuxForType,dataDeExecucao};
 				wrap.putStringArray("strings", valueString);
 				//wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
 				//wrap.putInt("IDAluno", iDs[3]); //id do aluno

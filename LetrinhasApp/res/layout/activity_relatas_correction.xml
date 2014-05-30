@@ -20,28 +20,27 @@
         android:layout_marginBottom="32dp"
         android:paddingLeft="10dp" >
         <TableRow
-            android:id="@+id/tbdataExecucao"
+            android:id="@+id/tbrexpressividade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-            
-            <TextView
-                 android:id="@+id/dataExecucaotxt"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:contentDescription="Data de Execucao"
-                 android:text="Data de Execucao: "
-                 android:textSize="25sp"
-                 android:textStyle="bold" />
 
-             <TextView
-                 android:id="@+id/dataExecucao"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/ZeroValues"
-                 android:textColor="#ff2020"
-                 android:textSize="30sp"
-                 android:textStyle="bold" />
-             
+            <TextView
+                android:id="@+id/expressividadetxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Expressividade"
+                android:text="Expressividade: "
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/expressividade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValues"
+                android:textColor="#ff2020"
+                android:textSize="30sp"
+                android:textStyle="bold" />
         </TableRow>
         <TableRow
             android:id="@+id/tbrnumPalavrasMin"
@@ -169,27 +168,28 @@
         android:layout_marginBottom="32dp"
         android:paddingLeft="10dp" >
         <TableRow
-            android:id="@+id/tbrexpressividade"
+            android:id="@+id/tbdataExecucao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
+            
             <TextView
-                android:id="@+id/expressividadetxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="Expressividade"
-                android:text="Expressividade: "
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                 android:id="@+id/dataExecucaotxt"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:contentDescription="Data de Execucao"
+                 android:text="Data de Execucao: "
+                 android:textSize="25sp"
+                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/expressividade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ZeroValues"
-                android:textColor="#ff2020"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+             <TextView
+                 android:id="@+id/dataExecucao"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="@string/ZeroValues"
+                 android:textColor="#ff2020"
+                 android:textSize="30sp"
+                 android:textStyle="bold" />
+             
         </TableRow>
         <TableRow
             android:id="@+id/tbrtipo"

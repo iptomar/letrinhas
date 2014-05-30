@@ -8,11 +8,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 
 public class RelatasCorrection extends Activity {
@@ -69,7 +66,7 @@ public class RelatasCorrection extends Activity {
 		//estado.setText(String.valueOf(valueInt[3]));
 		numPalavCorretas.setText(String.valueOf(valueInt[4]));
 		numPalavIncorretas.setText(String.valueOf(valueInt[5]));
-		dataExecucao.setText(String.valueOf(valueLong[0]));
+		dataExecucao.setText(valueString[3]);
 		//idCorrrecao.setText(String.valueOf(valueLong[1]));
 		numPalavrasMin.setText(String.valueOf(valueFloat[0]));
 		precisao.setText(String.valueOf(valueFloat[1]));
@@ -79,11 +76,6 @@ public class RelatasCorrection extends Activity {
 		observacoes.setText(valueString[0]);
 		detalhes.setText(valueString[1]);
 		totalDePalavras.setText(String.valueOf(valueInt[6]));
-
-		Toast.makeText(getApplicationContext(),String.valueOf(valueInt[0]),Toast.LENGTH_SHORT).show();
-		Toast.makeText(getApplicationContext(),String.valueOf(valueLong[0]),Toast.LENGTH_SHORT).show();
-		Toast.makeText(getApplicationContext(),String.valueOf(valueFloat[0]),Toast.LENGTH_SHORT).show();
-		Toast.makeText(getApplicationContext(),valueString[0],Toast.LENGTH_SHORT).show();
 		next.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
