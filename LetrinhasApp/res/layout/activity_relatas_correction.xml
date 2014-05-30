@@ -20,29 +20,11 @@
         android:layout_marginBottom="@dimen/dim32"
         android:paddingLeft="@dimen/dim10" >
         <TableRow
-            android:id="@+id/tbrexpressividade"
+            android:id="@+id/tbdataExecucao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
+            
             <TextView
-<<<<<<< c33f2f4d37fd84b060b5ca0c4e0c9461b15e8833
-                android:id="@+id/expressividadetxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="Expressividade"
-                android:text="Expressividade: "
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/expressividade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ZeroValues"
-                android:textColor="#ff2020"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-=======
                  android:id="@+id/dataExecucaotxt"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
@@ -60,7 +42,6 @@
                  android:textSize="@dimen/dim30"
                  android:textStyle="bold" />
              
->>>>>>> 252cff577a1a8a0311d6d8324824a230760da54b
         </TableRow>
         <TableRow
             android:id="@+id/tbrnumPalavrasMin"
@@ -188,30 +169,11 @@
         android:layout_marginBottom="@dimen/dim32"
         android:paddingLeft="@dimen/dim10" >
         <TableRow
-            android:id="@+id/tbdataExecucao"
+            android:id="@+id/tbrexpressividade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-            
-            <TextView
-<<<<<<< c33f2f4d37fd84b060b5ca0c4e0c9461b15e8833
-                 android:id="@+id/dataExecucaotxt"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:contentDescription="Data de Execucao"
-                 android:text="Data de Execucao: "
-                 android:textSize="25sp"
-                 android:textStyle="bold" />
 
-             <TextView
-                 android:id="@+id/dataExecucao"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/ZeroValues"
-                 android:textColor="#ff2020"
-                 android:textSize="30sp"
-                 android:textStyle="bold" />
-             
-=======
+            <TextView
                 android:id="@+id/expressividadetxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -228,7 +190,6 @@
                 android:textColor="#ff2020"
                 android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
->>>>>>> 252cff577a1a8a0311d6d8324824a230760da54b
         </TableRow>
         <TableRow
             android:id="@+id/tbrtipo"
