@@ -58,8 +58,8 @@ public class Teste_Palavras_Prof extends Activity{
 			long dataExecucao=0, idCorrrecao=0;
 			float numPalavrasMin=0, precisao=0, velocidade=0, expressividade=0, ritmo=0;
 			double milisegundos; 
-			int segundos, minutos, horas;
-			String observacoes="empty", detalhes="empty";
+			int segundos, minutos, horas,auxiliar;
+			String observacoes="empty", detalhes="empty", stringAuxForType;
 			Avaliacao eval;
 			Chronometer chrono;
 			ProgressBar pbDuracao;
@@ -129,6 +129,7 @@ public class Teste_Palavras_Prof extends Activity{
 				int x=0;
 				for(CorrecaoTesteLeitura asdf: a){
 					g[x] = asdf.getAudiourl().toString();
+					auxiliar = asdf.getTipo();
 					uuidAudio = g[x];
 					Log.d("Debug-url", g[x]+" awehfe "+x);
 					x++;
@@ -398,7 +399,7 @@ public class Teste_Palavras_Prof extends Activity{
 				wrap.putFloatArray("floats", valueFloat);
 
 				//String[] -> observacoes, detalhes
-				String[] valueString = {observacoes, detalhes};
+				String[] valueString = {observacoes, detalhes,stringAuxForType};
 				wrap.putStringArray("strings", valueString);
 				//wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
 				//wrap.putInt("IDAluno", iDs[3]); //id do aluno
@@ -522,26 +523,44 @@ public class Teste_Palavras_Prof extends Activity{
 			}
 
 			/**
-			 * Este metodo servir� para iniciar a avalia��o
+			 * Este metodo servirco para iniciar a avaliacao
 			 */
 			private void startAvalia() {
 					File file = new File(endereco);
-					if (file.exists()) { // se j� fez uma grava��o
+					if (file.exists()) { // se ja fez uma gravacao
 						// uma pop-up ou activity para determinar o valor de
 						// exprecividade da leitura
-						// usar a classe Avalia��o para calcular os resultados.
+						// usar a classe Avaliacao para calcular os resultados.
+						resetTimer();
 						eval = new Avaliacao(totalDePalavras, 0, plvErradas);
 						numPalavCorretas = eval.palavrasCertas();
-						velocidade = eval.VL(minutos, segundos);
+						velocidade = eval.VL(tMinuto, tSegundo);
 						precisao = eval.PL();
-						numPalavrasMin = eval.PLM(minutos, segundos);
+						switch(auxiliar){
+							case 0:
+								stringAuxForType = "Texto";
+								break;
+							case 1:
+								stringAuxForType = "Multimedia";
+								break;
+							case 2:
+								stringAuxForType = "Palavras";
+								break;
+							case 3:
+								stringAuxForType = "Poema";
+								break;
+							default:
+								stringAuxForType = "Indefenido";
+								break;
+						}
+						numPalavrasMin = eval.PLM(tMinuto, tSegundo);
 						submit();
 					} else {
 						android.app.AlertDialog alerta;
 						// Cria o gerador do AlertDialog
 						AlertDialog.Builder builder = new AlertDialog.Builder(this);
 						// define o titulo
-						builder.setTitle("Letrinhas 05");
+						builder.setTitle("Letrinhas");
 						// define a mensagem
 						builder.setMessage(" Nao existe o ficheiro audio!");
 						// define um bot�o como positivo
@@ -554,7 +573,7 @@ public class Teste_Palavras_Prof extends Activity{
 			}
 
 			/**
-			 * este metodo ir� criar o primeiro but�o, que ir� servir de modelo para os restantes
+			 * este metodo irao criar o primeiro butao, que irao servir de modelo para os restantes
 			 */
 			public void initSetup(Resources res,int list, int toggle, int layout, String[] ar){
 				ToggleButton tg = (ToggleButton) findViewById(toggle);
@@ -562,6 +581,7 @@ public class Teste_Palavras_Prof extends Activity{
 				tg.setTextSize(22);
 				tg.setBackgroundColor(Color.DKGRAY);
 				tg.setTextColor(Color.WHITE);
+				totalDePalavras++;
 				tg.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
 				          if (((CompoundButton) v).isChecked()){
@@ -583,7 +603,7 @@ public class Teste_Palavras_Prof extends Activity{
 		        // Resto do t�tulos
 				for(int i = 1; i<ar.length;i++){
 					buttonSetUp(ar,i,ll,tg);
-					totalDePalavras = (i*3)+3;
+					totalDePalavras++;
 				}	
 				Log.d("Debug-totalDePalavras", String.valueOf(totalDePalavras));
 			}

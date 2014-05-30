@@ -45,14 +45,14 @@ public class RelatasCorrection extends Activity {
 	
 		valueString = b.getStringArray("strings");
 		
-		testId = (TextView) findViewById(R.id.testId);
-		idEstudante = (TextView) findViewById(R.id.idEstudante);
+		//testId = (TextView) findViewById(R.id.testId);
+		//idEstudante = (TextView) findViewById(R.id.idEstudante);
 		tipo =  (TextView) findViewById(R.id.tipo);
-		estado = (TextView) findViewById(R.id.estado);
+		//estado = (TextView) findViewById(R.id.estado);
 		numPalavCorretas = (TextView) findViewById(R.id.numPalavCorretas);
 		numPalavIncorretas = (TextView) findViewById(R.id.numPalavIncorretas);
 		dataExecucao = (TextView) findViewById(R.id.dataExecucao);
-		idCorrrecao = (TextView) findViewById(R.id.idCorrrecao);
+	//	idCorrrecao = (TextView) findViewById(R.id.idCorrrecao);
 		numPalavrasMin = (TextView) findViewById(R.id.numPalavrasMin);
 		precisao = (TextView) findViewById(R.id.precisao);
 		velocidade = (TextView) findViewById(R.id.velocidade);
@@ -63,14 +63,14 @@ public class RelatasCorrection extends Activity {
 		totalDePalavras = (TextView) findViewById(R.id.totalDePalavras);
 		next = (Button) findViewById(R.id.next);
 		
-		testId.setText(String.valueOf(valueInt[0]));
-		idEstudante.setText(String.valueOf(valueInt[1]));
-		tipo.setText(String.valueOf(valueInt[2]));
-		estado.setText(String.valueOf(valueInt[3]));
+		//testId.setText(String.valueOf(valueInt[0]));
+		//idEstudante.setText(String.valueOf(valueInt[1]));
+		tipo.setText(valueString[2]);
+		//estado.setText(String.valueOf(valueInt[3]));
 		numPalavCorretas.setText(String.valueOf(valueInt[4]));
 		numPalavIncorretas.setText(String.valueOf(valueInt[5]));
 		dataExecucao.setText(String.valueOf(valueLong[0]));
-		idCorrrecao.setText(String.valueOf(valueLong[1]));
+		//idCorrrecao.setText(String.valueOf(valueLong[1]));
 		numPalavrasMin.setText(String.valueOf(valueFloat[0]));
 		precisao.setText(String.valueOf(valueFloat[1]));
 		velocidade.setText(String.valueOf(valueFloat[2]));
