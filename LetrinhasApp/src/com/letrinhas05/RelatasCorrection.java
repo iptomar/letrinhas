@@ -64,9 +64,10 @@ public class RelatasCorrection extends Activity {
 		//idEstudante.setText(String.valueOf(valueInt[1]));
 		tipo.setText(valueString[2]);
 		//estado.setText(String.valueOf(valueInt[3]));
+		String[] ar = valueString[3].split("[ ]");
 		numPalavCorretas.setText(String.valueOf(valueInt[4]));
 		numPalavIncorretas.setText(String.valueOf(valueInt[5]));
-		dataExecucao.setText(valueString[3]);
+		dataExecucao.setText(ar[0]);
 		//idCorrrecao.setText(String.valueOf(valueLong[1]));
 		numPalavrasMin.setText(String.valueOf(valueFloat[0]));
 		precisao.setText(String.valueOf(valueFloat[1]));
