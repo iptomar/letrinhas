@@ -31,6 +31,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
@@ -61,7 +62,6 @@ public class Correcao_Poema extends Activity {
 	boolean EscreverNaLista = true;
 	ArrayList<Integer> ListaPalavrasErradas = new ArrayList<Integer>();
 
-
 	// objetos
 	Button play, pDemo, voltar, cancelar, avancar;
 	ImageButton p1, p2, v1, v2, f1, f2, s1, s2, r1, r2;
@@ -74,7 +74,6 @@ public class Correcao_Poema extends Activity {
 	String avaliacao;
 
 	private MediaPlayer reprodutor = new MediaPlayer();
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +88,6 @@ public class Correcao_Poema extends Activity {
 		} else {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 		}
-
 
 		// buscar os parametros
 		Bundle b = getIntent().getExtras();
@@ -108,12 +106,12 @@ public class Correcao_Poema extends Activity {
 		TesteLeitura teste = bd.getTesteLeituraById(crt.getTestId());
 
 		s = teste.getTitulo() + " - ";
-		
-		s += ""	+ getDate(crt.getDataExecucao());
+
+		s += "" + getDate(crt.getDataExecucao());
 
 		this.setTitle(s);
 		// tiulo do teste
-		//((TextView) findViewById(R.id.textCabecalho)).setText(s);
+		// ((TextView) findViewById(R.id.textCabecalho)).setText(s);
 		// coteudo do teste
 		texto = ((TextView) findViewById(R.id.txtTexto));
 		texto.setText(teste.getConteudoTexto());
@@ -146,7 +144,7 @@ public class Correcao_Poema extends Activity {
 		pDemo = (Button) findViewById(R.id.txtDemo);
 		play = (Button) findViewById(R.id.txtPlay);
 		voltar = (Button) findViewById(R.id.txtVoltar);
-		//cancelar = (Button) findViewById(R.id.txtCancel);
+		// cancelar = (Button) findViewById(R.id.txtCancel);
 		avancar = (Button) findViewById(R.id.txtAvaliar);
 
 		setCorreccao();
@@ -154,24 +152,24 @@ public class Correcao_Poema extends Activity {
 	}
 
 	/**
-     * Funcao importante que transforma um TimeStamp em uma data com hora
-     * @param timeStamp timestamp a converter
-     * @return retorna uma string
-     */
-    @SuppressLint("SimpleDateFormat")
-	private String getDate(long timeStamp){
-        try{
-            long timeStampCorrigido = timeStamp * 1000;
-            DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            Date netDate = (new Date(timeStampCorrigido));
-            return sdf.format(netDate);
-        }
-        catch(Exception ex){
-            return "0";
-        }
-    }
+	 * Funcao importante que transforma um TimeStamp em uma data com hora
+	 * 
+	 * @param timeStamp
+	 *            timestamp a converter
+	 * @return retorna uma string
+	 */
+	@SuppressLint("SimpleDateFormat")
+	private String getDate(long timeStamp) {
+		try {
+			long timeStampCorrigido = timeStamp * 1000;
+			DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			Date netDate = (new Date(timeStampCorrigido));
+			return sdf.format(netDate);
+		} catch (Exception ex) {
+			return "0";
+		}
+	}
 
-	
 	// método para acrescentar um 0 nas casas das dezenas,
 	// caso o númer seja inferior a 10
 	private String n2d(int n) {
@@ -184,9 +182,21 @@ public class Correcao_Poema extends Activity {
 		return num;
 	}
 
-	
-
 	private void escutaBotoes() {
+		// Bloqueio do multi-touch na textView (só para Asus)
+		texto.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent e) {
+
+				int dedos = e.getPointerCount();
+				if (dedos > 1) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		});
+
 		pDemo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -203,14 +213,15 @@ public class Correcao_Poema extends Activity {
 
 		});
 
-		/*cancelar.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				cancelAvaliacao();
-
-			}
-
-		});*/
+		/*
+		 * cancelar.setOnClickListener(new View.OnClickListener() {
+		 * 
+		 * @Override public void onClick(View view) { cancelAvaliacao();
+		 * 
+		 * }
+		 * 
+		 * });
+		 */
 
 		avancar.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -777,50 +788,52 @@ public class Correcao_Poema extends Activity {
 		// Associar a variavél TextoLido a Textview que contém o texto
 		final TextView TextoLido = texto;
 		TextoLido.performLongClick();
-		
+
 		// Variáveis que contem o inicio e o fim da palavra que foi selecionada
 		final int startSelection = TextoLido.getSelectionStart();
 		final int endSelection = TextoLido.getSelectionEnd();
 
-		
-		if(startSelection!=endSelection){
-		
-		
-		//Definição do Span para pintar a palavra seleccionada
-		Spannable WordtoSpan =  (Spannable)TextoLido.getText();
-        ForegroundColorSpan cor = new ForegroundColorSpan(Color.BLACK);
-        
-        //ciclo "for" que percorre a lista de palavras onde contem as 
-        //cordenadas da palavra que foi seleccionada
-        // no inicio foi colocado o valor -1 para o array ter alguma coisa
-        
-        for(int i=0; i<ListaPalavrasErradas.size();i++){
-        	//"if" que verifica se a cordenada inicial da palavra seleccionada 
-        	// está inserida no array, se sim guarda o valor da posição
-        	if(ListaPalavrasErradas.get(i) == startSelection){
-        		EscreverNaLista = false;
-        		RetirarSeleccao = i;
-        	}
-        }
-        //Se acima for falso, coloca o Span a preto e adiciona ao ArrayList
-        if (EscreverNaLista == false){
-        	cor = new ForegroundColorSpan(Color.BLACK);
-        	EscreverNaLista = true;
-        	ListaPalavrasErradas.remove(RetirarSeleccao);
-        	ListaPalavrasErradas.remove(RetirarSeleccao);
-        	avaliador.decPalErrada();
-        	pErr.setText("" +  avaliador.getPlvErradas());
-      // se for verdadeiro, coloca o span a vermelho e adiciona as cordenadas ao array
-        }else{ 
-        	cor = new ForegroundColorSpan(Color.RED);
-    		ListaPalavrasErradas.add(startSelection);
-            ListaPalavrasErradas.add(endSelection);
-            avaliador.incPalErrada();
-            pErr.setText("" +  avaliador.getPlvErradas());
-        }
-        // Pinta a palavra da respectiva cor
-        WordtoSpan.setSpan(cor, startSelection, endSelection, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);        
-        TextoLido.setText(WordtoSpan);
-	}}
+		if (startSelection != endSelection) {
+
+			// Definição do Span para pintar a palavra seleccionada
+			Spannable WordtoSpan = (Spannable) TextoLido.getText();
+			ForegroundColorSpan cor = new ForegroundColorSpan(Color.BLACK);
+
+			// ciclo "for" que percorre a lista de palavras onde contem as
+			// cordenadas da palavra que foi seleccionada
+			// no inicio foi colocado o valor -1 para o array ter alguma coisa
+
+			for (int i = 0; i < ListaPalavrasErradas.size(); i++) {
+				// "if" que verifica se a cordenada inicial da palavra
+				// seleccionada
+				// está inserida no array, se sim guarda o valor da posição
+				if (ListaPalavrasErradas.get(i) == startSelection) {
+					EscreverNaLista = false;
+					RetirarSeleccao = i;
+				}
+			}
+			// Se acima for falso, coloca o Span a preto e adiciona ao ArrayList
+			if (EscreverNaLista == false) {
+				cor = new ForegroundColorSpan(Color.BLACK);
+				EscreverNaLista = true;
+				ListaPalavrasErradas.remove(RetirarSeleccao);
+				ListaPalavrasErradas.remove(RetirarSeleccao);
+				avaliador.decPalErrada();
+				pErr.setText("" + avaliador.getPlvErradas());
+				// se for verdadeiro, coloca o span a vermelho e adiciona as
+				// cordenadas ao array
+			} else {
+				cor = new ForegroundColorSpan(Color.RED);
+				ListaPalavrasErradas.add(startSelection);
+				ListaPalavrasErradas.add(endSelection);
+				avaliador.incPalErrada();
+				pErr.setText("" + avaliador.getPlvErradas());
+			}
+			// Pinta a palavra da respectiva cor
+			WordtoSpan.setSpan(cor, startSelection, endSelection,
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			TextoLido.setText(WordtoSpan);
+		}
+	}
 
 }

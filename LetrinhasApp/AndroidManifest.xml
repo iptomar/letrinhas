@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -68,7 +69,7 @@
             android:name="com.letrinhas05.Correcao_Texto"
             android:label="@string/title_activity_teste_texto"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/semMultitouch" >
         </activity>
         <activity
             android:name="com.letrinhas05.Correcao_Poema"

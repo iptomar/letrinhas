@@ -42,7 +42,7 @@ import android.widget.TextView;
 import android.os.Build;
 
 /**
- * Activity para listar os resultados 
+ * Activity para listar os resultados
  * 
  * @author Thiago
  * 
@@ -124,7 +124,8 @@ public class ListaResultados extends Activity {
 
 		((TextView) findViewById(R.id.lREscola)).setText(Nomes[0]);
 		((TextView) findViewById(R.id.lRtvProf)).setText(Nomes[1]);
-
+		((TextView) findViewById(R.id.tvRTurma)).setText(Nomes[3]);
+		((TextView) findViewById(R.id.tvRAluno)).setText(Nomes[4]);
 		// se professor tem uma foto, usa-se
 		if (Nomes[2] != null) {
 			ImageView imageView = ((ImageView) findViewById(R.id.lRivProfessor));
@@ -135,6 +136,15 @@ public class ListaResultados extends Activity {
 					100, false));
 		}
 
+		// se aluno tem uma foto, usa-se
+		if (Nomes[5] != null) {
+			ImageView imageView = ((ImageView) findViewById(R.id.ivRAluno));
+			String imageInSD = Environment.getExternalStorageDirectory()
+					.getAbsolutePath() + "/School-Data/Students/" + Nomes[5];
+			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
+					100, false));
+		}
 		volt = (Button) findViewById(R.id.lRbtnVoltar);
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -155,7 +165,8 @@ public class ListaResultados extends Activity {
 		// ... dos alunos selecionado.
 		List<CorrecaoTeste> ct = bd.getAllCorrecaoTesteByProfID(iDs[1]);
 
-		// verifico se estas submissoes estao corrigidas e são do aluno selecionado
+		// verifico se estas submissoes estao corrigidas e são do aluno
+		// selecionado
 		int cont = 0;
 		for (int i = 0; i < ct.size(); i++) {
 			// se esta corrigido e pertence ao aluno selecionado, conta-o
@@ -182,7 +193,7 @@ public class ListaResultados extends Activity {
 					cont++;
 				}
 			}
-			
+
 			// Agora vou construir os botoes com a informacao necessaria:
 			for (int i = 0; i < ctAux.length; i++) {
 
@@ -241,13 +252,12 @@ public class ListaResultados extends Activity {
 							imgTip.getDrawable(), null);
 				}
 
-				
-
-				if (ctAux[i].getTipo()!= 1) { //tipo texto / Lista /poema
+				if (ctAux[i].getTipo() != 1) { // tipo texto / Lista /poema
 					CorrecaoTesteLeitura ctl = bd
-							.getCorrecaoTesteLeirutaById(ctAux[i].getIdCorrrecao());
+							.getCorrecaoTesteLeirutaById(ctAux[i]
+									.getIdCorrrecao());
 
-					final String resultado, titulo=title;
+					final String resultado, titulo = title;
 
 					resultado = "==========Avaliação============\n"
 							+ ctl.getObservacoes() + "\n"
@@ -260,7 +270,8 @@ public class ListaResultados extends Activity {
 							+ ctl.getVelocidade() + "\n" + "Expressividade: "
 							+ ctl.getExpressividade() + "\n" + "Ritmo: "
 							+ ctl.getRitmo() + "\n\n"
-							+ "===============================\n" + "Detalhes\n"
+							+ "===============================\n"
+							+ "Detalhes\n"
 							+ "===============================\n"
 							+ ctl.getDetalhes();
 					// Defenir o que faz o botao ao clicar
@@ -271,7 +282,8 @@ public class ListaResultados extends Activity {
 
 							// teste do resultado!
 							Bundle wrap = new Bundle();
-							wrap.putString("teste", titulo);// titulo do teste + data
+							wrap.putString("teste", titulo);// titulo do teste +
+															// data
 							wrap.putString("Avaliac", resultado); // descritivo
 																	// do
 																	// resultado
@@ -282,7 +294,7 @@ public class ListaResultados extends Activity {
 							startActivity(it);
 						}
 					});
-				} else {//tipo multimédia
+				} else {// tipo multimédia
 					CorrecaoTesteMultimedia ctm = bd
 							.getCorrecaoTesteMultimediaById(ctAux[i]
 									.getIdCorrrecao());

@@ -7,11 +7,13 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="30sp"
     android:paddingRight="30sp"
+    style="@style/semMultitouch"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.letrinhas05.Correcao_Texto" >
 
     <ScrollView
         android:id="@+id/txtTela"
+        style="@style/semMultitouch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/pbText"
@@ -22,19 +24,24 @@
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="10dp" >
+        android:paddingTop="10dp"
+        android:splitMotionEvents="false" >
 
         <LinearLayout
             android:id="@+id/llTexto"
+            style="@style/semMultitouch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:splitMotionEvents="false" >
 
             <TextView
                 android:id="@+id/txtTexto"
+                style="@style/semMultitouch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="fill"
+                android:splitMotionEvents="false"
                 android:text="@string/ExemploTexto"
                 android:textColor="#303030"
                 android:textIsSelectable="true"
