@@ -1,12 +1,16 @@
 package com.letrinhas05;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -131,6 +135,7 @@ public class Teste_Palavras_Prof extends Activity{
 				for(CorrecaoTesteLeitura asdf: a){
 					g[x] = asdf.getAudiourl().toString();
 					auxiliar = asdf.getTipo();
+					idCorrrecao = asdf.getIdCorrrecao();
 					uuidAudio = g[x];
 					Log.d("Debug-url", g[x]+" awehfe "+x);
 					x++;
@@ -246,6 +251,14 @@ public class Teste_Palavras_Prof extends Activity{
 				escutaBotoes();
 			}
 
+			public void elimina() {
+				File file = new File(endereco);
+				if (file.exists()) {
+					db.deleteCorrecaoLeituraByid(ctl.getIdCorrrecao());
+					file.delete();
+				}
+				finish();
+			}
 			// método para acrescentar um 0 nas casas das dezenas,
 			// caso o númer seja inferior a 10
 			private String n2d(int n) {
@@ -307,6 +320,15 @@ public class Teste_Palavras_Prof extends Activity{
 				mHideHandler.postDelayed(mHideRunnable, delayMillis);
 			}
 
+			@Override
+			protected void onDestroy() {
+				if (playing) {
+					reprodutor.stop();
+					reprodutor.release();
+				}
+				super.onDestroy();
+			}
+			
 			private void escutaBotoes() {
 				play.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -317,8 +339,28 @@ public class Teste_Palavras_Prof extends Activity{
 				cancelar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						stopPlay();
-						finish();
+						android.app.AlertDialog alerta;
+						// Cria o gerador do AlertDialog
+						AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+						// define o titulo
+						builder.setTitle("Letrinhas");
+						// define a mensagem
+						builder.setMessage("Tem a certeza que quer eliminar esta submissao?");
+
+						// define os botoes
+						builder.setNegativeButton("Nao", null);
+
+						builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								stopPlay();
+								elimina();
+							}
+						});
+						// cria o AlertDialog
+						alerta = builder.create();
+						// Mostra
+						alerta.show();
 					}
 				});
 				avancar.setOnClickListener(new View.OnClickListener() {
@@ -338,6 +380,26 @@ public class Teste_Palavras_Prof extends Activity{
 					}
 				});
 			}
+			
+			/**
+			 * Funcao importante que transforma um TimeStamp em uma data com hora
+			 * 
+			 * @param timeStamp
+			 *            timestamp a converter
+			 * @return retorna uma string
+			 */
+			@SuppressLint("SimpleDateFormat")
+			private String getDate(long timeStamp) {
+				try {
+					long timeStampCorrigido = timeStamp * 1000;
+					DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+					Date netDate = (new Date(timeStampCorrigido));
+					return sdf.format(netDate);
+				} catch (Exception ex) {
+					return "0";
+				}
+			}
+			
 			int minuto, segundo;
 		
 			/**
@@ -348,7 +410,7 @@ public class Teste_Palavras_Prof extends Activity{
 			 * dm
 			 * @author Dï¿½rio
 			 */
-			public void submit(){
+			public void submit(){		
 				ctl = new CorrecaoTesteLeitura();
 
 				int[] valueInt1 = {testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas};
@@ -356,25 +418,21 @@ public class Teste_Palavras_Prof extends Activity{
 				float[] valueFloat1 = {numPalavrasMin, precisao, velocidade, expressividade, ritmo};
 				String[] valueString1 = {observacoes, detalhes};
 
-				ctl.setTestId(valueInt1[0]);
+				/*ctl.setTestId(valueInt1[0]);
 				ctl.setIdEstudante(valueInt1[1]);
 				ctl.setTipo(valueInt1[2]);
 				ctl.setEstado(valueInt1[3]);
-				ctl.setNumPalavCorretas(valueInt1[4]);
-				ctl.setNumPalavIncorretas(valueInt1[5]);
-				ctl.setDataExecucao(valueLong1[0]);
-				ctl.setIdCorrrecao(valueLong1[1]);
-				ctl.setNumPalavrasMin(valueFloat1[0]);
-				ctl.setPrecisao(valueFloat1[1]);
-				ctl.setVelocidade(valueFloat1[2]);
-				ctl.setExpressividade(valueInt1[3]);
-				ctl.setRitmo(valueInt1[4]);
-				ctl.setObservacoes(valueString1[0]);
-				ctl.setDetalhes(valueString1[1]);
-				//db.addNewItemCorrecaoTesteLeitura(ctl);
+				ctl.setDataExecucao(valueLong1[0]);*/
 
+				long time = System.currentTimeMillis() / 1000;
+				try {
+				db.updateCorrecaoTesteLeitura(idCorrrecao, time, observacoes, numPalavrasMin, numPalavCorretas, numPalavIncorretas, precisao, velocidade, (int)expressividade, (int)ritmo, detalhes);
+				} catch (Exception ex) {
+				}
+				//db.addNewItemCorrecaoTesteLeitura(ctl);
+				//db.updateCorrecaoTesteLeitura(idCorrrecao, time,ctl.setObservacoes(valueString1[0]), ctl.setNumPalavrasMin(valueFloat1[0]),ctl.setNumPalavCorretas(valueInt1[4]),ctl.setNumPalavIncorretas(valueInt1[5]), ctl.setPrecisao(valueFloat1[1]),ctl.setVelocidade(valueFloat1[2]),ctl.setExpressividade(valueInt1[3]), ctl.setRitmo(valueInt1[4]),ctl.setDetalhes(valueString1[1]));
 				List<CorrecaoTeste> data1 = db.getAllCorrecaoTeste();
-				Log.d("CheckInserts: ", "***********Testes******************");
+				Log.d("CheckInserts: ", "***********Correcao Testes******************");
 				for (CorrecaoTeste cn : data1) {
 					String logs = "Id: " + cn.getIdCorrrecao() + ", idEstudante: "
 							+ cn.getIdEstudante() + "  , estado: " + cn.getEstado()
@@ -383,11 +441,33 @@ public class Teste_Palavras_Prof extends Activity{
 					// Writing Contacts to log
 					Log.d("CheckInserts: ", logs);
 				}
-
+				List<CorrecaoTesteLeitura> data = db.getAllCorrecaoTesteLeitura();
+				Log.d("CheckInserts: ", "***********Correcao Testes Leitura******************");
+				for (CorrecaoTesteLeitura cn : data) {
+					String logs = "getTestId:"+
+							cn.getTestId() +", getIdEstudante:"+
+							cn.getIdEstudante() +", getTipo:"+
+							cn.getTipo() +", getEstado:"+
+							cn.getEstado() +", getDataExecucao:"+
+							cn.getDataExecucao() +", getObservacoes:"+
+							cn.getObservacoes() +", getNumPalavrasMin:"+
+							cn.getNumPalavrasMin() +", getNumPalavCorretas:"+
+							cn.getNumPalavCorretas() +", getNumPalavIncorretas:"+
+							cn.getNumPalavIncorretas() +", getPrecisao:"+
+							cn.getPrecisao() +", getVelocidade:"+
+							cn.getVelocidade() +", getExpressividade:"+
+							cn.getExpressividade() +", getRitmo:"+
+							cn.getRitmo() +", getDetalhes:"+
+							cn.getDetalhes();
+					// Writing Contacts to log
+					Log.d("CheckInserts_test_palavras: ", logs);
+				}
+				String DuracaoTime = n2d(minutos) + ":" + n2d(segundos);
 				Bundle wrap = new Bundle();
 				numPalavIncorretas = plvErradas;
 				//int[] -> testId, idEstudante, tipo, estado,numPalavCorretas, numPalavIncorretas, totalDePalavras
 				int[] valueInt = {testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas, totalDePalavras};
+				wrap.putString("DuracaoTime", DuracaoTime);
 				Log.d("Debug-valueInt[0]", String.valueOf(valueInt[0]));
 				wrap.putIntArray("ints", valueInt);
 
@@ -405,6 +485,7 @@ public class Teste_Palavras_Prof extends Activity{
 				 RelatasCorrection.class);
 				 it.putExtras(wrap);
 				 startActivity(it);
+				 finish();
 			}
 
 			private final int PARADO = 2, ANDANDO = 1;
@@ -532,6 +613,7 @@ public class Teste_Palavras_Prof extends Activity{
 						eval = new Avaliacao(totalDePalavras, 0, plvErradas);
 						numPalavCorretas = eval.palavrasCertas();
 						velocidade = eval.VL(tMinuto, tSegundo);
+						Log.d("Debug-vl", tMinuto+"min - sec"+tSegundo);
 						precisao = eval.PL();
 						switch(auxiliar){
 							case 0:

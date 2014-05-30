@@ -19,8 +19,9 @@ public class RelatasCorrection extends Activity {
 	long[] valueLong;
 	float[] valueFloat;
 	String[] valueString;
-	TextView testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas, dataExecucao, idCorrrecao, numPalavrasMin, precisao, velocidade, expressividade, ritmo, observacoes, detalhes, totalDePalavras;
+	TextView testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas, dataExecucao, idCorrrecao, numPalavrasMin, precisao, velocidade, expressividade, ritmo, observacoes, detalhes, totalDePalavras, Duracao;
 	Button next;
+	String DuracaoTime;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,6 +43,7 @@ public class RelatasCorrection extends Activity {
 	
 		valueString = b.getStringArray("strings");
 		
+		DuracaoTime = b.getString("DuracaoTime");
 		//testId = (TextView) findViewById(R.id.testId);
 		//idEstudante = (TextView) findViewById(R.id.idEstudante);
 		tipo =  (TextView) findViewById(R.id.tipo);
@@ -59,6 +61,7 @@ public class RelatasCorrection extends Activity {
 		detalhes = (TextView) findViewById(R.id.detalhes);
 		totalDePalavras = (TextView) findViewById(R.id.totalDePalavras);
 		next = (Button) findViewById(R.id.next);
+		Duracao = (TextView) findViewById(R.id.Duracao);
 		
 		//testId.setText(String.valueOf(valueInt[0]));
 		//idEstudante.setText(String.valueOf(valueInt[1]));
@@ -77,6 +80,7 @@ public class RelatasCorrection extends Activity {
 		observacoes.setText(valueString[0]);
 		detalhes.setText(valueString[1]);
 		totalDePalavras.setText(String.valueOf(valueInt[6]));
+		Duracao.setText(DuracaoTime);
 		next.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {

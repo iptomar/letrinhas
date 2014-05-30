@@ -434,6 +434,40 @@ public class Teste_Palavras_Aluno extends Activity{
 					file.delete();
 				}		
 			}
+			//forçar a paragem da reprodução e gravação do audio!
+			private void stopPlayRec() {
+				if(recording){
+					gravador.stop();
+					gravador.release();
+				}
+				if(playing){
+					reprodutor.stop();
+					reprodutor.release();
+				}	
+			}
+			
+			
+			//temos de manter o onDestroy, devido a existir a possibilidade de fazer finhish() através da barra de sistema!
+			@Override
+			protected void onDestroy() {
+				if(recording){
+					gravador.stop();
+					gravador.release();
+				}
+				if(playing){
+					reprodutor.stop();
+					reprodutor.release();
+				}	
+				super.onDestroy();
+			}
+			
+			
+			public void elimina() {
+				File file = new File(endereco);
+				if (file.exists()) {
+					file.delete();
+				}
+			}
 			
 			int minuto, segundo;
 			/**
@@ -473,7 +507,7 @@ public class Teste_Palavras_Aluno extends Activity{
 										s = "" + segundo;
 									}
 									tempo =  m + s;
-									Toast.makeText(getApplicationContext(), "Tempo: "+ m + s,Toast.LENGTH_SHORT).show();
+									//Toast.makeText(getApplicationContext(), "Tempo: "+ m + s,Toast.LENGTH_SHORT).show();
 									break;
 								default:
 									break;

@@ -122,12 +122,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="Ritmo"
-                android:text="Ritmo "
+                android:text="Ritmo: "
                 android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/ritmo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValues"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tbrDuracao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/ritmoDuracao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Duracao"
+                android:text="Duracao: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/Duracao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ZeroValues"
