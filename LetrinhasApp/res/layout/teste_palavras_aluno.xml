@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:gravity="clip_vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="30sp"
-    android:paddingRight="30sp"
+    android:paddingLeft="@dimen/dim30"
+    android:paddingRight="@dimen/dim30"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.letrinhas05.Teste_Palavras_Aluno" >
     
@@ -19,22 +19,22 @@
         android:drawableLeft="@drawable/logo2"
         android:text="@string/title_activity_teste__palavras"
         android:textColor="#5ddfff"
-        android:textSize="50sp"
+        android:textSize="@dimen/dim50"
         android:textStyle="bold" />
 
      <ScrollView
          android:id="@+id/tlaTela1"
-         android:layout_width="200sp"
+         android:layout_width="@dimen/dim200"
        	 android:layout_height="wrap_content"
          android:layout_alignParentBottom="true"
          android:layout_below="@+id/tlaTitulo"
-         android:layout_marginLeft="21dp"
+         android:layout_marginLeft="@dimen/dim21"
          android:layout_toRightOf="@+id/tlaTela"
          android:background="#ccccff"
-         android:paddingBottom="10dp"
-         android:paddingLeft="10dp"
-         android:paddingRight="10dp"
-         android:paddingTop="10dp" >
+         android:paddingBottom="@dimen/dim10"
+         android:paddingLeft="@dimen/dim10"
+         android:paddingRight="@dimen/dim10"
+         android:paddingTop="@dimen/dim10" >
 
          <LinearLayout
              android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                	 android:layout_height="wrap_content"
                  android:orientation="vertical"
                  android:text="Palavra"
-                 android:textSize="32sp"
+                 android:textSize="@dimen/dim32"
                  android:textStyle="normal" />
          </LinearLayout>
 
@@ -55,17 +55,17 @@
 
      <ScrollView
          android:id="@+id/tlaTela2"
-         android:layout_width="200sp"
+         android:layout_width="@dimen/dim200"
          android:layout_height="wrap_content"
          android:layout_alignParentBottom="true"
          android:layout_below="@+id/tlaTitulo"
-         android:layout_marginLeft="21dp"
+         android:layout_marginLeft="@dimen/dim21"
          android:layout_toRightOf="@+id/tlaTela1"
          android:background="#ccccff"
-         android:paddingBottom="10dp"
-         android:paddingLeft="10dp"
-         android:paddingRight="10dp"
-         android:paddingTop="10dp" >
+         android:paddingBottom="@dimen/dim10"
+         android:paddingLeft="@dimen/dim10"
+         android:paddingRight="@dimen/dim10"
+         android:paddingTop="@dimen/dim10" >
 
          <LinearLayout
              android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                	 android:layout_height="wrap_content"
                  android:orientation="vertical"
                  android:text="Palavra"
-                 android:textSize="32sp"
+                 android:textSize="@dimen/dim32"
                  android:textStyle="normal" />
          </LinearLayout>
 
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/tlaRecordPalavras"
         android:layout_below="@+id/tlaRecordPalavras"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="@dimen/dim34"
         android:contentDescription="@string/play"
         android:src="@drawable/palyoff" />
 
@@ -109,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tlaDemoPlay"
         android:layout_below="@+id/tlaDemoPlay"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dim20"
         android:contentDescription="@string/play"
         android:src="@drawable/play" />
 
@@ -128,7 +128,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/tlaVoltar"
         android:layout_alignRight="@+id/tlaVoltar"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="@dimen/dim40"
         android:contentDescription="@string/sair"
         android:src="@drawable/cancelar" />
 
@@ -138,22 +138,22 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/tlaCancel"
         android:layout_alignRight="@+id/tlaCancel"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="@dimen/dim32"
         android:contentDescription="@string/entrar"
         android:src="@drawable/valido" />
 
     <ScrollView
         android:id="@+id/tlaTela"
-        android:layout_width="200sp"
+        android:layout_width="@dimen/dim200"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tlaTitulo"
         android:layout_alignParentBottom="true"
         android:layout_alignTop="@+id/tlaTela1"
         android:background="#ccccff"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp" >
+        android:paddingBottom="@dimen/dim10"
+        android:paddingLeft="@dimen/dim10"
+        android:paddingRight="@dimen/dim10"
+        android:paddingTop="@dimen/dim10" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -166,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:text="Palavra"
-                android:textSize="32sp"
+                android:textSize="@dimen/dim32"
                 android:textStyle="normal" />
         </LinearLayout>
     </ScrollView>

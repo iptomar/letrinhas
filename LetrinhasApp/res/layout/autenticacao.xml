@@ -9,18 +9,18 @@
         android:layout_height="wrap_content"
         android:text="@string/login_title"
         android:gravity="center_horizontal"
-        android:textSize="20sp" 
+        android:textSize="@dimen/dim20" 
         />
     <!-- Login Image -->
     <ImageView
         android:id="@+id/Afoto"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dim0"
         android:gravity="center_horizontal"
         android:src="@drawable/ic_launcher"
         android:layout_weight="1.1"
         android:contentDescription="@string/letrinhas"
-        android:padding="20dp"
+        android:padding="@dimen/dim20"
         />
     <!-- layout for Username -->
     <LinearLayout
@@ -28,17 +28,17 @@
       android:layout_height="wrap_content"
       android:orientation="horizontal"
       android:layout_weight="0.01"
-      android:padding="10dp">
+      android:padding="@dimen/dim10">
      
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/username"
-            android:textSize="18sp" />
+            android:textSize="@dimen/dim18" />
 
         <EditText
             android:id="@+id/username"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
             android:layout_weight="0.97"
             android:ems="10"
@@ -54,18 +54,18 @@
       android:layout_height="wrap_content"
       android:orientation="horizontal"
       android:layout_weight="0.01"
-      android:padding="10dp"
+      android:padding="@dimen/dim10"
       >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/password"
-            android:textSize="18sp" />
+            android:textSize="@dimen/dim18" />
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="0sp"
+            android:layout_width="@dimen/dim0"
             android:layout_height="wrap_content"
             android:layout_weight="0.97"
             android:inputType="textPassword" />
@@ -76,6 +76,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/dim10"
         />
 </LinearLayout>

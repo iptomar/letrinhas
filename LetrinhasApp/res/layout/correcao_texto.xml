@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:gravity="clip_vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="30sp"
-    android:paddingRight="30sp"
+    android:paddingLeft="@dimen/dim30"
+    android:paddingRight="@dimen/dim30"
     style="@style/semMultitouch"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.letrinhas05.Correcao_Texto" >
@@ -21,10 +21,10 @@
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/txtControlo"
         android:background="#ccccff"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"
+        android:paddingBottom="@dimen/dim10"
+        android:paddingLeft="@dimen/dim10"
+        android:paddingRight="@dimen/dim10"
+        android:paddingTop="@dimen/dim10"
         android:splitMotionEvents="false" >
 
         <LinearLayout
@@ -45,7 +45,7 @@
                 android:text="@string/ExemploTexto"
                 android:textColor="#303030"
                 android:textIsSelectable="true"
-                android:textSize="35sp" />
+                android:textSize="@dimen/dim35" />
         </LinearLayout>
     </ScrollView>
 
@@ -57,7 +57,7 @@
         android:layout_toRightOf="@+id/txtVoltar"
         android:text="@string/letrinhas"
         android:textColor="#5ddfff"
-        android:textSize="30sp"
+        android:textSize="@dimen/dim30"
         android:textStyle="bold" />
 
     <Button
@@ -107,10 +107,10 @@
         android:layout_centerHorizontal="true"
         android:background="#507050"
         android:gravity="right"
-        android:paddingLeft="10sp"
-        android:paddingRight="10sp"
+        android:paddingLeft="@dimen/dim10"
+        android:paddingRight="@dimen/dim10"
         android:textColor="#50ff50"
-        android:textSize="40sp"
+        android:textSize="@dimen/dim40"
         android:textStyle="bold" />
 
     <Button
@@ -119,7 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/txtControlo"
         android:layout_alignTop="@+id/txtPlay"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="@dimen/dim25"
         android:contentDescription="@string/play"
         android:drawableTop="@drawable/palyoff"
         android:text="@string/demo" />
@@ -130,7 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:paddingLeft="10dp" >
+        android:paddingLeft="@dimen/dim10" >
 
         <TableRow
             android:id="@+id/tableRow3"
@@ -143,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/pErrada"
                 android:text="@string/pErrada"
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
@@ -152,14 +152,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/numer"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow5"
             android:layout_width="fill_parent"
-            android:layout_height="12sp"
+            android:layout_height="@dimen/dim12"
             android:background="#505050" >
 
             <TextView
@@ -182,7 +182,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pontErrada"
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -193,7 +193,7 @@
 
             <ImageButton
                 android:id="@+id/txtPontErrMn"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dim0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/menos"
@@ -206,12 +206,12 @@
                 android:layout_gravity="center"
                 android:text="@string/numer"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/txtPontErrMS"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dim0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/mais"
@@ -228,7 +228,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/vacilar"
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -239,7 +239,7 @@
 
             <ImageButton
                 android:id="@+id/txtVacilMen"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dim0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/menos"
@@ -252,12 +252,12 @@
                 android:layout_gravity="center"
                 android:text="@string/numer"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/txtVacilMais"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dim0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/mais"
@@ -274,7 +274,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment"
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -285,7 +285,7 @@
 
             <ImageButton
                 android:id="@+id/txtFragMen"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dim0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/menos"
@@ -298,12 +298,12 @@
                 android:layout_gravity="center"
                 android:text="@string/numer"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/txtFragMais"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dim0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/mais"
@@ -320,7 +320,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/silabac"
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -331,7 +331,7 @@
 
             <ImageButton
                 android:id="@+id/txtSilbMen"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dim0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/menos"
@@ -344,12 +344,12 @@
                 android:layout_gravity="center"
                 android:text="@string/numer"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/txtSilbMais"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dim0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/mais"
@@ -366,7 +366,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/repeti"
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -377,7 +377,7 @@
 
             <ImageButton
                 android:id="@+id/txtRepMen"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dim0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/menos"
@@ -390,12 +390,12 @@
                 android:layout_gravity="center"
                 android:text="@string/numer"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/txtRepMais"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dim0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/mais"

@@ -7,8 +7,8 @@
     android:configChanges="orientation|keyboardHidden|screenSize"
     android:gravity="center_horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="40sp"
-    android:paddingRight="40sp"
+    android:paddingLeft="@dimen/dim40"
+    android:paddingRight="@dimen/dim40"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:screenOrientation="landscape"
     tools:context="com.letrinhas05.RelatasCorrection" >
@@ -17,14 +17,15 @@
         android:id="@+id/tlcolumn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:paddingLeft="10dp" >
+        android:layout_marginBottom="@dimen/dim32"
+        android:paddingLeft="@dimen/dim10" >
         <TableRow
             android:id="@+id/tbrexpressividade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
             <TextView
+<<<<<<< c33f2f4d37fd84b060b5ca0c4e0c9461b15e8833
                 android:id="@+id/expressividadetxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,6 +42,25 @@
                 android:textColor="#ff2020"
                 android:textSize="30sp"
                 android:textStyle="bold" />
+=======
+                 android:id="@+id/dataExecucaotxt"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:contentDescription="Data de Execucao"
+                 android:text="Data de Execucao: "
+                 android:textSize="@dimen/dim25"
+                 android:textStyle="bold" />
+
+             <TextView
+                 android:id="@+id/dataExecucao"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="@string/ZeroValues"
+                 android:textColor="#ff2020"
+                 android:textSize="@dimen/dim30"
+                 android:textStyle="bold" />
+             
+>>>>>>> 252cff577a1a8a0311d6d8324824a230760da54b
         </TableRow>
         <TableRow
             android:id="@+id/tbrnumPalavrasMin"
@@ -53,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="Palavras por minuto"
                 android:text="Palavras por minuto: "
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
@@ -62,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ZeroValues"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
         </TableRow>
         <TableRow
@@ -76,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="Precisao"
                 android:text="Precisao: "
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
@@ -85,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ZeroValues"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
         </TableRow>
          <TableRow
@@ -99,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="Velocidade"
                 android:text="Velocidade: "
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
@@ -108,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ZeroValues"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
         </TableRow>
         <TableRow
@@ -122,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="Ritmo"
                 android:text="Ritmo "
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
@@ -131,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ZeroValues"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
         </TableRow>
         <TableRow
@@ -145,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="Detalhes"
                 android:text="Detalhes: "
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
@@ -154,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ZeroValuesStr"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
         </TableRow>
     </TableLayout>
@@ -165,14 +185,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/tlcolumn"
-        android:layout_marginBottom="32dp"
-        android:paddingLeft="10dp" >
+        android:layout_marginBottom="@dimen/dim32"
+        android:paddingLeft="@dimen/dim10" >
         <TableRow
             android:id="@+id/tbdataExecucao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
             
             <TextView
+<<<<<<< c33f2f4d37fd84b060b5ca0c4e0c9461b15e8833
                  android:id="@+id/dataExecucaotxt"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
@@ -190,6 +211,24 @@
                  android:textSize="30sp"
                  android:textStyle="bold" />
              
+=======
+                android:id="@+id/expressividadetxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Expressividade"
+                android:text="Expressividade: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/expressividade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValues"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+>>>>>>> 252cff577a1a8a0311d6d8324824a230760da54b
         </TableRow>
         <TableRow
             android:id="@+id/tbrtipo"
@@ -202,7 +241,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="Tipo de teste"
                 android:text="Tipo de teste: "
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
@@ -211,7 +250,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ZeroValuesStr"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
         </TableRow>
         <TableRow
@@ -225,7 +264,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="Palavras correctas"
                 android:text="Palavras correctas: "
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
@@ -234,7 +273,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ZeroValues"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
         </TableRow>
         <TableRow
@@ -248,7 +287,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="Palavras incocorrectas"
                 android:text="Palavras incocorrectas: "
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
@@ -257,7 +296,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ZeroValues"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
         </TableRow>
         
@@ -272,7 +311,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="Total palavras"
                 android:text="Total palavras: "
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
@@ -281,7 +320,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ZeroValues"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
         </TableRow>
          <TableRow
@@ -295,7 +334,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="Observacoes"
                 android:text="Observacoes: "
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
@@ -304,7 +343,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ZeroValuesStr"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
         </TableRow>
     </TableLayout>
@@ -315,11 +354,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="19dp"
-        android:layout_marginRight="27dp"
+        android:layout_marginBottom="@dimen/dim19"
+        android:layout_marginRight="@dimen/dim27"
         android:drawableRight="@drawable/right"
         android:text="@string/avancar"
-        android:textSize="35sp"
+        android:textSize="@dimen/dim35"
         android:textStyle="bold" />
 
 </RelativeLayout>

@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:gravity="clip_vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="30sp"
-    android:paddingRight="30sp"
+    android:paddingLeft="@dimen/dim30"
+    android:paddingRight="@dimen/dim30"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.letrinhas05.Teste_Palavras_Prof" >
     
@@ -19,7 +19,7 @@
         android:drawableLeft="@drawable/logo2"
         android:text="@string/title_activity_teste__palavras"
         android:textColor="#5ddfff"
-        android:textSize="50sp"
+        android:textSize="@dimen/dim50"
         android:textStyle="bold" />
     
     <ProgressBar
@@ -33,32 +33,32 @@
 
     <ScrollView
         android:id="@+id/tlpScroll"
-        android:layout_width="200sp"
+        android:layout_width="@dimen/dim200"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tlpControlo"
-        android:layout_marginLeft="21dp"
+        android:layout_marginLeft="@dimen/dim21"
         android:background="#ccccff"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp" >
+        android:paddingBottom="@dimen/dim10"
+        android:paddingLeft="@dimen/dim10"
+        android:paddingRight="@dimen/dim10"
+        android:paddingTop="@dimen/dim10" >
 
         <LinearLayout
             android:id="@+id/tlplllayer"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/dim40"
             android:orientation="vertical" >
 
             <ToggleButton
                 android:id="@+id/tlpToggleButton"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dim40"
                 android:text="@string/teste"
                 android:textOff="@string/teste"
                 android:textOn="@string/teste"
-                android:textSize="22sp"
+                android:textSize="@dimen/dim22"
                 android:textStyle="normal" />
 
         </LinearLayout>
@@ -67,17 +67,17 @@
 
      <ScrollView
          android:id="@+id/tlpScroll1"
-         android:layout_width="200sp"
+         android:layout_width="@dimen/dim200"
          android:layout_height="wrap_content"
          android:layout_alignParentBottom="true"
          android:layout_alignTop="@+id/tlpScroll"
-         android:layout_marginLeft="21dp"
+         android:layout_marginLeft="@dimen/dim21"
          android:layout_toRightOf="@+id/tlpScroll"
          android:background="#ccccff"
-         android:paddingBottom="10dp"
-         android:paddingLeft="10dp"
-         android:paddingRight="10dp"
-         android:paddingTop="10dp" >
+         android:paddingBottom="@dimen/dim10"
+         android:paddingLeft="@dimen/dim10"
+         android:paddingRight="@dimen/dim10"
+         android:paddingTop="@dimen/dim10" >
 
          <LinearLayout
              android:id="@+id/tlplllayer1"
@@ -88,11 +88,11 @@
               <ToggleButton
                 android:id="@+id/tlpToggleButton1"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dim40"
                 android:text="@string/teste"
                 android:textOff="@string/teste"
                 android:textOn="@string/teste"
-                android:textSize="22sp"
+                android:textSize="@dimen/dim22"
                 android:textStyle="normal" />
          </LinearLayout>
 
@@ -100,17 +100,17 @@
 
      <ScrollView
          android:id="@+id/tlpScroll2"
-         android:layout_width="200sp"
+         android:layout_width="@dimen/dim200"
          android:layout_height="wrap_content"
          android:layout_alignParentBottom="true"
          android:layout_below="@+id/tlpControlo"
-         android:layout_marginLeft="21dp"
+         android:layout_marginLeft="@dimen/dim21"
          android:layout_toRightOf="@+id/tlpScroll1"
          android:background="#ccccff"
-         android:paddingBottom="10dp"
-         android:paddingLeft="10dp"
-         android:paddingRight="10dp"
-         android:paddingTop="10dp" >
+         android:paddingBottom="@dimen/dim10"
+         android:paddingLeft="@dimen/dim10"
+         android:paddingRight="@dimen/dim10"
+         android:paddingTop="@dimen/dim10" >
 
          <LinearLayout
              android:id="@+id/tlplllayer2"
@@ -121,11 +121,11 @@
               <ToggleButton
                 android:id="@+id/tlpToggleButton2"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dim40"
                 android:text="@string/teste"
                 android:textOff="@string/teste"
                 android:textOn="@string/teste"
-                android:textSize="22sp"
+                android:textSize="@dimen/dim22"
                 android:textStyle="normal" />
          </LinearLayout>
 
@@ -137,7 +137,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/tlpAvaliar"
         android:layout_alignRight="@+id/tlpAvaliar"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dim20"
         android:contentDescription="@string/play"
         android:src="@drawable/play" />
 
@@ -156,7 +156,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/tlpVoltar"
         android:layout_alignRight="@+id/tlpVoltar"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="@dimen/dim40"
         android:contentDescription="@string/sair"
         android:src="@drawable/cancelar" />
 
@@ -166,7 +166,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/tlpCancel"
         android:layout_alignRight="@+id/tlpCancel"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="@dimen/dim32"
         android:contentDescription="@string/entrar"
         android:src="@drawable/valido" />
     
@@ -176,7 +176,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:paddingLeft="10dp" >
+        android:paddingLeft="@dimen/dim10" >
 
         <TableRow
             android:id="@+id/tlptableRow6"
@@ -190,10 +190,10 @@
                 android:layout_height="wrap_content"
                 android:background="#000000"
                 android:gravity="right"
-                android:paddingLeft="10sp"
-                android:paddingRight="10sp"
+                android:paddingLeft="@dimen/dim10"
+                android:paddingRight="@dimen/dim10"
                 android:textColor="#50ff50"
-                android:textSize="40sp"
+                android:textSize="@dimen/dim40"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -209,7 +209,7 @@
                 android:background="#505050"
                 android:text="@string/min"
                 android:textColor="#eeeeee"
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
@@ -219,7 +219,7 @@
                 android:background="#505050"
                 android:text="@string/sec"
                 android:textColor="#eeeeee"
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -234,7 +234,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/pErrada"
                 android:text="@string/pErrada"
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
 
             <TextView
@@ -243,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/numer"
                 android:textColor="#ff2020"
-                android:textSize="30sp"
+                android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
         </TableRow>
     </TableLayout>

@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="10sp"
-    android:paddingRight="10sp"
+    android:paddingLeft="@dimen/dim10"
+    android:paddingRight="@dimen/dim10"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.letrinhas05.ResumoSubmissoes" >
 
@@ -17,7 +17,7 @@
         android:layout_alignParentTop="true"
         android:drawableLeft="@drawable/index"
         android:text="@string/resumo"
-        android:textSize="40sp"
+        android:textSize="@dimen/dim40"
         android:textStyle="bold" />
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_alignBottom="@+id/rSCabecalho"
         android:layout_toRightOf="@+id/rSCabecalho"
         android:text="Titulo do teste"
-        android:textSize="25sp" />
+        android:textSize="@dimen/dim25" />
 
     <ScrollView
         android:id="@+id/svResumo"
@@ -48,12 +48,12 @@
             <Button
                 android:id="@+id/rsBtnOriginal"
                 android:layout_width="match_parent"
-                android:layout_height="100sp"
-                android:layout_marginBottom="10sp"
-                android:layout_marginTop="5sp"
+                android:layout_height="@dimen/dim100"
+                android:layout_marginBottom="@dimen/dim10"
+                android:layout_marginTop="@dimen/dim5"
                 android:layout_weight="0.75"
                 android:text="@string/botao"
-                android:textSize="25sp"
+                android:textSize="@dimen/dim25"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -68,7 +68,7 @@
         android:layout_alignTop="@+id/resBtnParar"
         android:drawableRight="@drawable/right"
         android:text="@string/avancar"
-        android:textSize="35sp"
+        android:textSize="@dimen/dim35"
         android:textStyle="bold" />
 
     <Button

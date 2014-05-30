@@ -7,8 +7,8 @@
     android:configChanges="orientation|keyboardHidden|screenSize"
     android:gravity="center_horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="40sp"
-    android:paddingRight="40sp"
+    android:paddingLeft="@dimen/dim40"
+    android:paddingRight="@dimen/dim40"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:screenOrientation="landscape"
     tools:context="com.letrinhas05.escolhe.EscolheEscola" >
@@ -25,11 +25,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/btnVoltarEscolherEscola"
-        android:layout_marginLeft="10sp"
+        android:layout_marginLeft="@dimen/dim10"
         android:layout_toRightOf="@+id/btnVoltarEscolherEscola"
         android:text="@string/letrinhas"
         android:textColor="#5ddfff"
-        android:textSize="30sp"
+        android:textSize="@dimen/dim30"
         android:textStyle="bold" />
 
     <ScrollView
@@ -58,16 +58,16 @@
 
                 <Button
                     android:id="@+id/Button04"
-                    android:layout_width="250sp"
+                    android:layout_width="@dimen/dim250"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10sp"
-                    android:layout_marginTop="10sp"
-                    android:layout_marginRight="15sp"
-                    android:layout_marginLeft="15sp"
+                    android:layout_marginBottom="@dimen/dim10"
+                    android:layout_marginTop="@dimen/dim10"
+                    android:layout_marginRight="@dimen/dim15"
+                    android:layout_marginLeft="@dimen/dim15"
                     android:contentDescription="@string/escola"
                     android:drawableTop="@drawable/escola"
                     android:text="Escola Básica e Secundária Artur Gonçalves de Torres Novas"
-                    android:textSize="25sp" />
+                    android:textSize="@dimen/dim25" />
 
             </TableRow>
 
@@ -83,13 +83,13 @@
         android:layout_toRightOf="@+id/logo"
         android:text="@string/title_activity_escolhe_escola"
         android:textColor="#5ddfff"
-        android:textSize="50sp"
+        android:textSize="@dimen/dim50"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnVoltarEscolherEscola"
-        android:layout_width="100sp"
-        android:layout_height="100sp"
+        android:layout_width="@dimen/dim100"
+        android:layout_height="@dimen/dim100"
         android:layout_alignLeft="@+id/logo"
         android:layout_alignParentBottom="true"
         android:contentDescription="@string/voltar"
