@@ -1,9 +1,6 @@
 package com.letrinhas05;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -33,10 +30,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
@@ -91,7 +86,7 @@ public class Teste_Palavras_Prof extends Activity{
 			protected void onCreate(Bundle savedInstanceState) {
 				super.onCreate(savedInstanceState);
 				setContentView(R.layout.teste_palavras_prof);
-				//new line faz a rota��o do ecr�n 180 graus
+				//new line faz a rotacao do ecran 180 graus
 				int currentOrientation = getResources().getConfiguration().orientation;
 				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -164,7 +159,7 @@ public class Teste_Palavras_Prof extends Activity{
 				valueWord = (TextView) findViewById(R.id.ValueWord);
 				valueWord.setText("0");
 				
-				// ordena��o do texto nas tr�s colunas de forma a preencher toda de seguida a 1� e s� depois passa para as outras
+				// ordenacao do texto nas tres colunas de forma a preencher toda de seguida a 1 e so depois passa para as outras
 				int lenght;
 				String[] ar = text.split("[ ]");
 				int[] restoVal = new int[2];
@@ -336,33 +331,6 @@ public class Teste_Palavras_Prof extends Activity{
 						startPlay();
 					}
 				});
-				cancelar.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						android.app.AlertDialog alerta;
-						// Cria o gerador do AlertDialog
-						AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-						// define o titulo
-						builder.setTitle("Letrinhas");
-						// define a mensagem
-						builder.setMessage("Tem a certeza que quer eliminar esta submissao?");
-
-						// define os botoes
-						builder.setNegativeButton("Nao", null);
-
-						builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								stopPlay();
-								elimina();
-							}
-						});
-						// cria o AlertDialog
-						alerta = builder.create();
-						// Mostra
-						alerta.show();
-					}
-				});
 				avancar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -379,64 +347,58 @@ public class Teste_Palavras_Prof extends Activity{
 						finish();
 					}
 				});
-			}
-			
-			/**
-			 * Funcao importante que transforma um TimeStamp em uma data com hora
-			 * 
-			 * @param timeStamp
-			 *            timestamp a converter
-			 * @return retorna uma string
-			 */
-			@SuppressLint("SimpleDateFormat")
-			private String getDate(long timeStamp) {
-				try {
-					long timeStampCorrigido = timeStamp * 1000;
-					DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-					Date netDate = (new Date(timeStampCorrigido));
-					return sdf.format(netDate);
-				} catch (Exception ex) {
-					return "0";
-				}
+				
+				cancelar.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						android.app.AlertDialog alerta;
+						// Cria o gerador do AlertDialog
+						AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+						// define o titulo
+						builder.setTitle("Letrinhas");
+						// define a mensagem
+						builder.setMessage("Tens a certeza que queres abandonar este teste?");
+						// define os botoes
+						builder.setNegativeButton("Nao", null);
+
+						builder.setPositiveButton("Sim",
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										stopPlay();
+										finish();
+									}
+								});
+						// cria o AlertDialog
+						alerta = builder.create();
+						// Mostra
+						alerta.show();
+
+					}
+				});
 			}
 			
 			int minuto, segundo;
 		
 			/**
-			 * znyt
-			 * znrdy
-			 * xdgh
-			 * dnyx<
-			 * dm
-			 * @author D�rio
+			 * este metodo serve para enviar todos os dados para a tabela respectiva e preparar os dados para a activity seguinte
+			 * @author Dario
 			 */
 			public void submit(){		
 				ctl = new CorrecaoTesteLeitura();
-
-				int[] valueInt1 = {testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas};
-				long[] valueLong1 = {dataExecucao, idCorrrecao};
-				float[] valueFloat1 = {numPalavrasMin, precisao, velocidade, expressividade, ritmo};
-				String[] valueString1 = {observacoes, detalhes};
-
-				/*ctl.setTestId(valueInt1[0]);
-				ctl.setIdEstudante(valueInt1[1]);
-				ctl.setTipo(valueInt1[2]);
-				ctl.setEstado(valueInt1[3]);
-				ctl.setDataExecucao(valueLong1[0]);*/
-
 				long time = System.currentTimeMillis() / 1000;
 				try {
 				db.updateCorrecaoTesteLeitura(idCorrrecao, time, observacoes, numPalavrasMin, numPalavCorretas, numPalavIncorretas, precisao, velocidade, (int)expressividade, (int)ritmo, detalhes);
 				} catch (Exception ex) {
 				}
-				//db.addNewItemCorrecaoTesteLeitura(ctl);
-				//db.updateCorrecaoTesteLeitura(idCorrrecao, time,ctl.setObservacoes(valueString1[0]), ctl.setNumPalavrasMin(valueFloat1[0]),ctl.setNumPalavCorretas(valueInt1[4]),ctl.setNumPalavIncorretas(valueInt1[5]), ctl.setPrecisao(valueFloat1[1]),ctl.setVelocidade(valueFloat1[2]),ctl.setExpressividade(valueInt1[3]), ctl.setRitmo(valueInt1[4]),ctl.setDetalhes(valueString1[1]));
 				List<CorrecaoTeste> data1 = db.getAllCorrecaoTeste();
+				//mostra o que se passa nas tabelas de CorrecaoTeste e CorrecaoTesteLeitura
 				Log.d("CheckInserts: ", "***********Correcao Testes******************");
 				for (CorrecaoTeste cn : data1) {
-					String logs = "Id: " + cn.getIdCorrrecao() + ", idEstudante: "
+					String logs = "Id: " + cn.getIdCorrrecao() + ", ID Estudante: "
 							+ cn.getIdEstudante() + "  , estado: " + cn.getEstado()
-							+ "  , testeId: " + cn.getTestId() + "  , tipo: "
+							+ "  , teste ID: " + cn.getTestId() + "  , tipo: "
 							+ cn.getTipo() + "  , data: " + cn.getDataExecucao();
 					// Writing Contacts to log
 					Log.d("CheckInserts: ", logs);
@@ -444,43 +406,37 @@ public class Teste_Palavras_Prof extends Activity{
 				List<CorrecaoTesteLeitura> data = db.getAllCorrecaoTesteLeitura();
 				Log.d("CheckInserts: ", "***********Correcao Testes Leitura******************");
 				for (CorrecaoTesteLeitura cn : data) {
-					String logs = "getTestId:"+
-							cn.getTestId() +", getIdEstudante:"+
-							cn.getIdEstudante() +", getTipo:"+
-							cn.getTipo() +", getEstado:"+
-							cn.getEstado() +", getDataExecucao:"+
-							cn.getDataExecucao() +", getObservacoes:"+
-							cn.getObservacoes() +", getNumPalavrasMin:"+
-							cn.getNumPalavrasMin() +", getNumPalavCorretas:"+
-							cn.getNumPalavCorretas() +", getNumPalavIncorretas:"+
-							cn.getNumPalavIncorretas() +", getPrecisao:"+
-							cn.getPrecisao() +", getVelocidade:"+
-							cn.getVelocidade() +", getExpressividade:"+
-							cn.getExpressividade() +", getRitmo:"+
-							cn.getRitmo() +", getDetalhes:"+
+					String logs = "Test ID:"+
+							cn.getTestId() +", ID do Estudante:"+
+							cn.getIdEstudante() +", Tipo:"+
+							cn.getTipo() +", Estado:"+
+							cn.getEstado() +", DataExecucao:"+
+							cn.getDataExecucao() +", Observacoes:"+
+							cn.getObservacoes() +", Numero de Palavras por Minuto:"+
+							cn.getNumPalavrasMin() +", Numero de Palavas Corretas:"+
+							cn.getNumPalavCorretas() +", Numero de Palavas Incorretas:"+
+							cn.getNumPalavIncorretas() +", Precisao:"+
+							cn.getPrecisao() +", Velocidade:"+
+							cn.getVelocidade() +", Expressividade:"+
+							cn.getExpressividade() +", Ritmo:"+
+							cn.getRitmo() +", Detalhes:"+
 							cn.getDetalhes();
 					// Writing Contacts to log
 					Log.d("CheckInserts_test_palavras: ", logs);
 				}
 				String DuracaoTime = n2d(minutos) + ":" + n2d(segundos);
 				Bundle wrap = new Bundle();
-				numPalavIncorretas = plvErradas;
-				//int[] -> testId, idEstudante, tipo, estado,numPalavCorretas, numPalavIncorretas, totalDePalavras
-				int[] valueInt = {testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas, totalDePalavras};
+				int[] valueInt = {testId, idEstudante, tipo, estado, numPalavCorretas, plvErradas, totalDePalavras};
 				wrap.putString("DuracaoTime", DuracaoTime);
 				Log.d("Debug-valueInt[0]", String.valueOf(valueInt[0]));
 				wrap.putIntArray("ints", valueInt);
-
-				//float[] -> numPalavrasMin, precisao, velocidade, expressividade, ritmo
 				float[] valueFloat = {numPalavrasMin, precisao, velocidade, expressividade, ritmo};
 				wrap.putFloatArray("floats", valueFloat);
-
-				//String[] -> observacoes, detalhes, stringAuxForType
 				String[] valueString = {observacoes, detalhes,stringAuxForType,dataDeExecucao};
 				wrap.putStringArray("strings", valueString);
 				//wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
 				//wrap.putInt("IDAluno", iDs[3]); //id do aluno
-				// listar submiss�es anteriores do mesmo teste
+				// listar submissoes anteriores do mesmo teste
 				 Intent it = new Intent(getApplicationContext(),
 				 RelatasCorrection.class);
 				 it.putExtras(wrap);
@@ -633,6 +589,7 @@ public class Teste_Palavras_Prof extends Activity{
 								break;
 						}
 						numPalavrasMin = eval.PLM(tMinuto, tSegundo);
+						Log.d("Debug-PLM", numPalavrasMin+" ");
 						submit();
 					} else {
 						android.app.AlertDialog alerta;
@@ -642,7 +599,7 @@ public class Teste_Palavras_Prof extends Activity{
 						builder.setTitle("Letrinhas");
 						// define a mensagem
 						builder.setMessage(" Nao existe o ficheiro audio!");
-						// define um bot�o como positivo
+						// define um botao como positivo
 						builder.setPositiveButton("OK", null);
 						// cria o AlertDialog
 						alerta = builder.create();
@@ -652,7 +609,7 @@ public class Teste_Palavras_Prof extends Activity{
 			}
 
 			/**
-			 * este metodo irao criar o primeiro butao, que irao servir de modelo para os restantes
+			 * Neste metodo irao criar o primeiro butao, que irao servir de modelo para os restantes
 			 */
 			public void initSetup(Resources res,int list, int toggle, int layout, String[] ar){
 				ToggleButton tg = (ToggleButton) findViewById(toggle);
@@ -679,7 +636,7 @@ public class Teste_Palavras_Prof extends Activity{
 		        tg.setTextOn(ar[0]);
 		        tg.setTextOff(ar[0]);
 				LinearLayout ll = (LinearLayout) findViewById(layout);
-		        // Resto do t�tulos
+		        // Resto do titulos
 				for(int i = 1; i<ar.length;i++){
 					buttonSetUp(ar,i,ll,tg);
 					totalDePalavras++;
@@ -688,7 +645,7 @@ public class Teste_Palavras_Prof extends Activity{
 			}
 
 			/**
-			 * Esta metodo serve para a cria��o de todos os outros but�es
+			 * Esta metodo serve para a criacao de todos os outros butoes
 			 * @param teste
 			 * @param i
 			 * @param ll
