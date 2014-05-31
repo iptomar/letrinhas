@@ -22,32 +22,6 @@
         android:contentDescription="@string/letrinhas"
         android:padding="@dimen/dim20"
         />
-    <!-- layout for Username -->
-    <LinearLayout
-            android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_weight="0.01"
-      android:padding="@dimen/dim10">
-     
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/username"
-            android:textSize="@dimen/dim18" />
-
-        <EditText
-            android:id="@+id/username"
-            android:layout_width="@dimen/dim0"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.97"
-            android:ems="10"
-            android:inputType="text" >
-
-            <requestFocus />
-        </EditText>
-
-    </LinearLayout>
     <!-- layout for Password -->
     <LinearLayout
             android:layout_width="fill_parent"
@@ -69,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.97"
             android:inputType="textPassword" />
-
+			<requestFocus />
     </LinearLayout>
     <Button
         android:id="@+id/login"

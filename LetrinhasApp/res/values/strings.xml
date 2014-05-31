@@ -29,7 +29,7 @@
     <string name="title_activity_teste__poema">Teste de poema</string>
     <string name="login_title">Login Screen</string>
     <string name="username">Username</string>
-    <string name="password">Password</string>
+    <string name="password">Pin</string>
     <string name="login">Login</string>
     <string name="title_activity_autenticacao">Autenticacao</string>
     <string name="min"></string>
