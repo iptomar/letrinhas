@@ -57,7 +57,7 @@
                 android:clickable="true" >
 
                 <Button
-                    android:id="@+id/Button04"
+                    android:id="@+id/bt4"
                     android:layout_width="@dimen/dim250"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dim10"

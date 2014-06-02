@@ -16,7 +16,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.letrinhas05.R;
+import com.letrinhas05.BaseDados.LetrinhasDB;
+import com.letrinhas05.ClassesObjs.Professor;
+import com.letrinhas05.util.Autenticacao;
 import com.letrinhas05.util.SystemUiHider;
 
 /**
@@ -29,6 +33,7 @@ public class EscolheDisciplina extends Activity {
 	Button volt, pt, mat, estMeio, ingl;
 	String strings[];
 	int[] iDs;
+	boolean blok = true;
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -177,8 +182,24 @@ public class EscolheDisciplina extends Activity {
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
 
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		volt.performClick();
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+
+		if(data.getExtras().getBoolean("Resultado")){
+			finish();
+		}
+	}
+	
+	
 	/**
-	 * Procedimento para veirficar os botï¿½es
+	 * Procedimento para veirficar os botoes
 	 * 
 	 * @author Thiago
 	 */
@@ -187,7 +208,20 @@ public class EscolheDisciplina extends Activity {
 		volt.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				finish();
+				
+					LetrinhasDB bd = new LetrinhasDB(getApplicationContext());
+					Professor prf = bd.getProfessorById(iDs[1]);
+
+					String PIN = prf.getPassword();
+					Bundle wrap = new Bundle();
+					wrap.putString("PIN", PIN);
+
+					// iniciar a pagina (Autenticação)
+					Intent at = new Intent(getApplicationContext(),
+							Autenticacao.class);
+					at.putExtras(wrap);
+					startActivityForResult(at, 1);
+				
 			}
 		});
 
@@ -201,7 +235,7 @@ public class EscolheDisciplina extends Activity {
 				wrap.putInt("idDisciplina", 1);
 				wrap.putString("Disciplina", "Portugues");
 
-				// iniciar a pagina 2 (escolher testes a executar)
+				// iniciar a pagina (escolher tipo teste)
 				Intent ipt = new Intent(getApplicationContext(),
 						EscTipoTeste.class);
 				ipt.putExtras(wrap);
