@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class Autenticacao extends Activity {
-	String userName, passWord, pin;
+	String userName, passWord="", pin="";
 	// EditText password;
 	ImageView img[];
 
@@ -89,7 +89,6 @@ public class Autenticacao extends Activity {
 
 	}
 
-    	
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
@@ -109,12 +108,18 @@ public class Autenticacao extends Activity {
 			public void onClick(View view) {// sair da activity
 				// /////////////////////////////////////////////////////////
 				// se o pin estiver correto
-				// /////////////////////////////////////////////////////////
-				Intent data = new Intent();
-				data.putExtra("Resultado", true);
-				setResult(2, data);
+				// /////////// Neste teste o pin = 3756 ////////////////////
 
-				blok = false;
+				passWord = "" + 3756;
+
+				////////////////////////////////////////////////////////////
+				if (passWord.equals(pin)) {
+					Intent data = new Intent();
+					data.putExtra("Resultado", true);
+					setResult(2, data);
+
+					blok = false;
+				}
 				finish();
 			}
 		});
@@ -122,61 +127,79 @@ public class Autenticacao extends Activity {
 		btn[0].setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				ins(0);	}});
+				ins(0);
+			}
+		});
 		btn[1].setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				ins(1);	}});
+				ins(1);
+			}
+		});
 		btn[2].setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				ins(2);	}});
+				ins(2);
+			}
+		});
 		btn[3].setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				ins(3);	}});
+				ins(3);
+			}
+		});
 		btn[4].setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				ins(4);	}});
+				ins(4);
+			}
+		});
 		btn[5].setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				ins(5);	}});
+				ins(5);
+			}
+		});
 		btn[6].setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				ins(6);	}});
+				ins(6);
+			}
+		});
 		btn[7].setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				ins(7);	}});
+				ins(7);
+			}
+		});
 		btn[8].setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				ins(8);	}});
+				ins(8);
+			}
+		});
 		btn[9].setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {// sair da activity
-				ins(9);	}});
+				ins(9);
+			}
+		});
 
 	}
 
-
 	private void ins(int input) {
-		//se o botão ainda nao esta disponivel, inserir numeros
-		if(!login.isEnabled()){
-			pin+=""+input;
+		// se o botão ainda nao esta disponivel, inserir numeros
+		if (!login.isEnabled()) {
+			pin += "" + input;
 			img[controlo].setVisibility(View.VISIBLE);
 			controlo++;
-			//a melhorar isto
-			if(controlo==4){
+			// a melhorar isto
+			if (controlo == 4) {
 				login.setEnabled(true);
 			}
 		}
 	}
 
-	
 	/*
 	 * private OnClickListener loginListener = new OnClickListener() { public
 	 * void onClick(View v) { //vai buscar os dados que o utilizador introduzio

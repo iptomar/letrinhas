@@ -33,7 +33,6 @@ public class EscolheDisciplina extends Activity {
 	Button volt, pt, mat, estMeio, ingl;
 	String strings[];
 	int[] iDs;
-	boolean blok = true;
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after

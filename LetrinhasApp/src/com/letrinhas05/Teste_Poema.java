@@ -54,7 +54,7 @@ public class Teste_Poema extends Activity {
 	private String endereco, audio, fileName;
 	Context context;
 
-	int tipo, idTesteAtual;
+	int tipo, idTesteAtual, source=0;
 	String[] Nomes;
 	int[] iDs, testesID;
 
@@ -133,6 +133,7 @@ public class Teste_Poema extends Activity {
 		play.setVisibility(View.INVISIBLE);
 		voltar = (Button) findViewById(R.id.txtVoltar);
 		cancelar = (Button) findViewById(R.id.txtCancel);
+		cancelar.setVisibility(View.INVISIBLE);
 		avancar = (Button) findViewById(R.id.txtAvaliar);
 
 		escutaBotoes();
@@ -166,11 +167,9 @@ public class Teste_Poema extends Activity {
 
 		idTesteAtual = testesID[0];
 		endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
-				+ "/School-Data/submits/" + iDs[0] + "/" + iDs[1] + "/"
-				+ iDs[2] + "/" + iDs[3] + "/" + "/" + testesID[0] + "/";
+				+ "/School-Data/CorrectionReadTest/"+idTesteAtual+ iDs[3] + "/";
 
 		fileName = getCurrentTimeStamp() + ".3gpp";
-
 		audio = Environment.getExternalStorageDirectory().getAbsolutePath()
 				+ "/School-Data/ReadingTests/" + teste.getProfessorAudioUrl();
 
@@ -281,7 +280,11 @@ public class Teste_Poema extends Activity {
 		if (data.getExtras().getBoolean("Resultado")) {
 			stopPlayRec();
 			elimina();
-			finaliza();
+			if(source==1){
+				finaliza();
+			}else{
+				finish();
+			}
 		}
 	}
 
@@ -341,7 +344,7 @@ public class Teste_Poema extends Activity {
 										Autenticacao.class);
 								at.putExtras(wrap);
 								startActivityForResult(at, 1);
-
+								source=1;
 							}
 						});
 				// cria o AlertDialog
@@ -415,7 +418,7 @@ public class Teste_Poema extends Activity {
 										Autenticacao.class);
 								at.putExtras(wrap);
 								startActivityForResult(at, 1);
-
+								source=0;
 							}
 
 						});
@@ -456,7 +459,7 @@ public class Teste_Poema extends Activity {
 	}
 
 	public void elimina() {
-		File file = new File(endereco);
+		File file = new File(endereco+fileName);
 		if (file.exists()) {
 			file.delete();
 		}
@@ -467,7 +470,7 @@ public class Teste_Poema extends Activity {
 	/**
 	 * Serve para come�ar ou parar o recording do audio
 	 * 
-	 * @author D�rio Jorge
+	 * @author Dario Jorge
 	 */
 	@SuppressLint("HandlerLeak")
 	private void startGrava() {
