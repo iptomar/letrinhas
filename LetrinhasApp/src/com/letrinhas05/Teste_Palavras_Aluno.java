@@ -1,6 +1,8 @@
 package com.letrinhas05;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,6 +44,7 @@ public class Teste_Palavras_Aluno extends Activity{
 			private MediaPlayer reprodutor = new MediaPlayer();
 			String endereco,yo,yo1,yo2,profSound,tempo,path;
 			String uuid = UUID.randomUUID().toString();
+			String fileName;
 			LetrinhasDB db;
 			CorrecaoTesteLeitura ctl;
 			
@@ -106,9 +109,9 @@ public class Teste_Palavras_Aluno extends Activity{
 				// buscar os parametros
 				Bundle b = getIntent().getExtras();
 				inicia(b);
-
-				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/CorrectionReadTest/"+uuid+".mp3";
-				path =  "/School-Data/CorrectionReadTest/"+uuid+".mp3";
+				fileName = getCurrentTimeStamp() + ".3gpp";
+				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/CorrectionReadTest/"+testesID[0]+"/"+iDs[3]+"/"+fileName;
+				path =  "/School-Data/CorrectionReadTest/"+testesID[0]+"/"+iDs[3]+"/"+fileName;
 				profSound = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/ReadingTests/"+teste.getProfessorAudioUrl();
 				Log.d("Debug-SoundProf", "/School-Data/ReadingTests/"+teste.getProfessorAudioUrl()+".mp3");
 				Log.d("Debug-ButtonRecord", String.valueOf(findViewById(R.id.tlaRecordPalavras)));
@@ -120,6 +123,33 @@ public class Teste_Palavras_Aluno extends Activity{
 				voltar = (ImageButton) findViewById(R.id.tlaVoltar);
 				avancar = (ImageButton) findViewById(R.id.tlaAvaliar);
 				escutaBotoes();
+			}
+			
+			/**
+			 * 
+			 * @return yyyy-MM-dd HH:mm:ss formate date as string
+			 */
+			@SuppressLint("SimpleDateFormat")
+			public static String getCurrentTimeStamp() {
+				String aux = "";
+				try {
+					SimpleDateFormat dateFormat = new SimpleDateFormat(
+							"yyyy-MM-dd HH:mm:ss");
+					String currentTimeStamp = dateFormat.format(new Date()); // Find
+																				// todays
+																				// date
+					for (int i = 0; i < currentTimeStamp.length(); i++) {
+						// descarto tudo o que n�o � um numero
+						if (currentTimeStamp.charAt(i) >= '0'
+								&& currentTimeStamp.charAt(i) < '9') {
+							aux += currentTimeStamp.charAt(i);
+						}
+					}
+
+				} catch (Exception e) {
+					aux = "today";
+				}
+				return aux;
 			}
 
 			/**

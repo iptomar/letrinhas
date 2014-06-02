@@ -25,33 +25,22 @@ public class RelatasCorrection extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
-                                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_relatas_correction);
-		
 		Bundle b = getIntent().getExtras();
 	
 		valueInt = b.getIntArray("ints");
 		Log.d("Debug-valueInt[0]", String.valueOf(valueInt[0]));
 		valueLong = b.getLongArray("longs");
-
 		valueFloat = b.getFloatArray("floats");
-	
 		valueString = b.getStringArray("strings");
 		
 		DuracaoTime = b.getString("DuracaoTime");
-		//testId = (TextView) findViewById(R.id.testId);
-		//idEstudante = (TextView) findViewById(R.id.idEstudante);
 		tipo =  (TextView) findViewById(R.id.tipo);
-		//estado = (TextView) findViewById(R.id.estado);
 		numPalavCorretas = (TextView) findViewById(R.id.numPalavCorretas);
 		numPalavIncorretas = (TextView) findViewById(R.id.numPalavIncorretas);
 		dataExecucao = (TextView) findViewById(R.id.dataExecucao);
-	//	idCorrrecao = (TextView) findViewById(R.id.idCorrrecao);
 		numPalavrasMin = (TextView) findViewById(R.id.numPalavrasMin);
 		precisao = (TextView) findViewById(R.id.precisao);
 		velocidade = (TextView) findViewById(R.id.velocidade);
@@ -63,15 +52,12 @@ public class RelatasCorrection extends Activity {
 		next = (Button) findViewById(R.id.next);
 		Duracao = (TextView) findViewById(R.id.Duracao);
 		
-		//testId.setText(String.valueOf(valueInt[0]));
-		//idEstudante.setText(String.valueOf(valueInt[1]));
 		tipo.setText(valueString[2]);
-		//estado.setText(String.valueOf(valueInt[3]));
+		
 		String[] ar = valueString[3].split("[ ]");
 		numPalavCorretas.setText(String.valueOf(valueInt[4]));
 		numPalavIncorretas.setText(String.valueOf(valueInt[5]));
 		dataExecucao.setText(ar[0]);
-		//idCorrrecao.setText(String.valueOf(valueLong[1]));
 		numPalavrasMin.setText(String.valueOf(valueFloat[0]));
 		precisao.setText(String.valueOf(valueFloat[1]));
 		velocidade.setText(String.valueOf(valueFloat[2]));
@@ -81,6 +67,7 @@ public class RelatasCorrection extends Activity {
 		detalhes.setText(valueString[1]);
 		totalDePalavras.setText(String.valueOf(valueInt[6]));
 		Duracao.setText(DuracaoTime);
+		
 		next.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
