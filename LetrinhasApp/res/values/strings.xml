@@ -132,5 +132,6 @@
     <string name="title_activity_lista_resultados">Listar Resultados</string>
     <string name="listResult">Listar Resultados</string>
     <string name="word">Palavra</string>
+    <string name="insPin">Insira o PIN</string>
 
 </resources>
