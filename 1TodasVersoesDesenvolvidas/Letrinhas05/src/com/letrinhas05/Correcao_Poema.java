@@ -33,7 +33,6 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.letrinhas05.R;
 import com.letrinhas05.util.Avaliacao;
 import com.letrinhas05.util.SystemUiHider;
 import com.letrinhas05.util.Teste;

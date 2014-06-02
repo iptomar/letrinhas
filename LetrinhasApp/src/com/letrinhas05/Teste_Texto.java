@@ -7,8 +7,10 @@ import java.util.Date;
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
+import com.letrinhas05.ClassesObjs.Professor;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.ClassesObjs.TesteLeitura;
+import com.letrinhas05.util.Autenticacao;
 import com.letrinhas05.util.SystemUiHider;
 
 import android.media.MediaPlayer;
@@ -265,6 +267,23 @@ public class Teste_Texto extends Activity {
 
 	}
 
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		voltar.performClick();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+
+		if (data.getExtras().getBoolean("Resultado")) {
+			stopPlayRec();
+			elimina();
+			finaliza();
+		}
+	}
+
 	private void escutaBotoes() {
 		record.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -308,9 +327,20 @@ public class Teste_Texto extends Activity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								stopPlayRec();
-								elimina();
-								finaliza();
+								LetrinhasDB bd = new LetrinhasDB(
+										getApplicationContext());
+								Professor prf = bd.getProfessorById(iDs[1]);
+
+								String PIN = prf.getPassword();
+								Bundle wrap = new Bundle();
+								wrap.putString("PIN", PIN);
+
+								// iniciar a pagina (Autenticação)
+								Intent at = new Intent(getApplicationContext(),
+										Autenticacao.class);
+								at.putExtras(wrap);
+								startActivityForResult(at, 1);
+
 							}
 						});
 				// cria o AlertDialog
@@ -371,9 +401,20 @@ public class Teste_Texto extends Activity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								stopPlayRec();								
-								elimina();
-								finish();
+								LetrinhasDB bd = new LetrinhasDB(
+										getApplicationContext());
+								Professor prf = bd.getProfessorById(iDs[1]);
+
+								String PIN = prf.getPassword();
+								Bundle wrap = new Bundle();
+								wrap.putString("PIN", PIN);
+
+								// iniciar a pagina (Autenticação)
+								Intent at = new Intent(getApplicationContext(),
+										Autenticacao.class);
+								at.putExtras(wrap);
+								startActivityForResult(at, 1);
+
 							}
 
 						});
@@ -386,34 +427,33 @@ public class Teste_Texto extends Activity {
 		});
 	}
 
-	//forçar a paragem da reprodução e gravação do audio!
+	// forçar a paragem da reprodução e gravação do audio!
 	private void stopPlayRec() {
-		if(recording){
+		if (recording) {
 			gravador.stop();
 			gravador.release();
 		}
-		if(playing){
+		if (playing) {
 			reprodutor.stop();
 			reprodutor.release();
-		}	
+		}
 	}
-	
-	
-	//temos de manter o onDestroy, devido a existir a possibilidade de fazer finhish() através da barra de sistema!
+
+	// temos de manter o onDestroy, devido a existir a possibilidade de fazer
+	// finhish() através da barra de sistema!
 	@Override
 	protected void onDestroy() {
-		if(recording){
+		if (recording) {
 			gravador.stop();
 			gravador.release();
 		}
-		if(playing){
+		if (playing) {
 			reprodutor.stop();
 			reprodutor.release();
-		}	
+		}
 		super.onDestroy();
 	}
-	
-	
+
 	public void elimina() {
 		File file = new File(endereco);
 		if (file.exists()) {
@@ -493,8 +533,8 @@ public class Teste_Texto extends Activity {
 				gravador.stop();
 				gravador.release();
 				Toast.makeText(getApplicationContext(),
-						"Gravacao efetuada com sucesso!",
-						Toast.LENGTH_SHORT).show();
+						"Gravacao efetuada com sucesso!", Toast.LENGTH_SHORT)
+						.show();
 				Toast.makeText(getApplicationContext(),
 						"Tempo de leitura: " + minuto + ":" + segundo,
 						Toast.LENGTH_LONG).show();
@@ -611,7 +651,6 @@ public class Teste_Texto extends Activity {
 
 	}
 
-
 	@SuppressLint("HandlerLeak")
 	private void startDemo() {
 		if (!playing) {
@@ -698,8 +737,8 @@ public class Teste_Texto extends Activity {
 				reprodutor.stop();
 				reprodutor.release();
 				Toast.makeText(getApplicationContext(),
-						"Reproducao da demo interrompida.",
-						Toast.LENGTH_SHORT).show();
+						"Reproducao da demo interrompida.", Toast.LENGTH_SHORT)
+						.show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
 						"Erro na reproducao da demo.\n" + ex.getMessage(),
@@ -809,7 +848,7 @@ public class Teste_Texto extends Activity {
 				ctl.setIdCorrrecao(Long.parseLong(aux));
 				String[] yo = endereco.split("School-Data");
 				ctl.setAudiourl("/School-Data" + yo[1] + fileName);
-				
+
 				ctl.setDataExecucao(time);
 				ctl.setTipo(0);// pois estou num teste texto
 				ctl.setEstado(0);

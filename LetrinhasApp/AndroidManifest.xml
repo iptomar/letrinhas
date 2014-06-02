@@ -14,7 +14,10 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen.multitouch"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -47,10 +50,6 @@
             android:label="@string/title_activity_escolhe_teste"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
-        </activity>
-        <activity
-            android:name="com.letrinhas05.util.Autenticacao"
-            android:label="@string/title_activity_autenticacao" >
         </activity>
         <activity
             android:name="com.letrinhas05.Teste_Texto"
@@ -101,6 +100,7 @@
             android:label="@string/title_activity_escolhe_disciplina"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
+            
         </activity>
         <activity
             android:name="com.letrinhas05.escolhe.EscolheAluno"
@@ -145,14 +145,6 @@
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.letrinhas05.ResumoSubmissoes"
-            android:label="@string/title_activity_resumo_submissoes" >
-        </activity>
-        <activity
-            android:name="com.letrinhas05.Resultado"
-            android:label="@string/title_activity_resultado" >
-        </activity>
-        <activity
             android:name="com.letrinhas05.RelatasCorrection"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_relatas_correction"
@@ -165,6 +157,19 @@
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" >
         </activity>
+        <activity
+            android:name="com.letrinhas05.ResumoSubmissoes"
+            android:label="@string/title_activity_resumo_submissoes" >
+        </activity>
+        <activity
+            android:name="com.letrinhas05.Resultado"
+            android:label="@string/title_activity_resultado" >
+        </activity>
+        <activity
+                android:name="com.letrinhas05.util.Autenticacao"
+                android:label="@string/title_activity_autenticacao" >
+            </activity>
+            
     </application>
 
 </manifest>

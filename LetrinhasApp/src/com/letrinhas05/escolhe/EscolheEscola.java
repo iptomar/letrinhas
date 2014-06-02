@@ -150,7 +150,7 @@ public class EscolheEscola extends Activity {
 		// linha da tabela a editar
 		TableRow linha = (TableRow) findViewById(R.id.linha01);
 		// 1� bot�o
-		Button bt = (Button) findViewById(R.id.Button04);
+		Button bt = (Button) findViewById(R.id.bt4);
 		bt.setText("teste escolas");
 
 		// Contador de controlo

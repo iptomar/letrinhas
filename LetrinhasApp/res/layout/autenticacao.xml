@@ -1,55 +1,185 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auTentic"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="clip_vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/dim30"
+    android:paddingRight="@dimen/dim30"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.letrinhas05.util.Autenticacao" >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-      <!-- Login Title -->
     <TextView
-        android:layout_width="fill_parent"
+        android:id="@+id/autCabecalho"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login_title"
-        android:gravity="center_horizontal"
-        android:textSize="@dimen/dim20" 
-        />
-    <!-- Login Image -->
-    <ImageView
-        android:id="@+id/Afoto"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/dim0"
-        android:gravity="center_horizontal"
-        android:src="@drawable/ic_launcher"
-        android:layout_weight="1.1"
-        android:contentDescription="@string/letrinhas"
-        android:padding="@dimen/dim20"
-        />
-    <!-- layout for Password -->
-    <LinearLayout
-            android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_weight="0.01"
-      android:padding="@dimen/dim10"
-      >
+        android:drawableLeft="@drawable/logo2"
+        android:text="@string/insPin"
+        android:textColor="#5ddfff"
+        android:textSize="@dimen/dim30"
+        android:textStyle="bold" />
 
-        <TextView
+    <TableLayout
+        android:id="@+id/teclado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/bt1"
+                android:layout_width="@dimen/dim100"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt2"
+                android:layout_width="@dimen/dim100"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt3"
+                android:layout_width="@dimen/dim100"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/bt4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6"
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/bt7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7"
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9"
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/btnAutCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:textColor="#ff4040"
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnOk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/avancar"
+                android:textColor="#40ff40"
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@color/text_color" >
+
+        <ImageView
+            android:id="@+id/im1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/password"
-            android:textSize="@dimen/dim18" />
+            android:src="@drawable/logo2" />
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="@dimen/dim0"
+        <ImageView
+            android:id="@+id/im2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.97"
-            android:inputType="textPassword" />
-			<requestFocus />
+            android:src="@drawable/logo2" />
+
+        <ImageView
+            android:id="@+id/im3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo2" />
+
+        <ImageView
+            android:id="@+id/im4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo2" />
     </LinearLayout>
-    <Button
-        android:id="@+id/login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:layout_margin="@dimen/dim10"
-        />
-</LinearLayout>
+
+</RelativeLayout>

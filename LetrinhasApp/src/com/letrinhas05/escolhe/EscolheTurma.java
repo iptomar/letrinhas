@@ -191,7 +191,7 @@ public class EscolheTurma extends Activity {
 				bt1.setCompoundDrawables(null,
 						bt.getCompoundDrawablesRelative()[1], null, null);
 
-				final String aux = anoEscolarTurmas[cont] + " Âº - "
+				final String aux = anoEscolarTurmas[cont] + "º - "
 						+ nomeTurma[cont];
 				// addicionar o nome
 				bt1.setText(aux);
@@ -244,7 +244,7 @@ public class EscolheTurma extends Activity {
 						bt.getCompoundDrawablesRelative()[1], null, null);
 
 				// addicionar o nome
-				final String aux = anoEscolarTurmas[cont] + " Âº - "
+				final String aux = anoEscolarTurmas[cont] + "º - "
 						+ nomeTurma[cont];
 				bt1.setText(aux);
 				// Defenir o que faz o botï¿½o ao clicar
