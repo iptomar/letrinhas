@@ -1,0 +1,152 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/testPalavras"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="clip_vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="21sp"
+    android:paddingRight="21sp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.letrinhas05.Teste_Palavras_Aluno" >
+    
+    <TextView
+        android:id="@+id/textTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:drawableLeft="@drawable/logo2"
+        android:text="@string/title_activity_teste__palavras"
+        android:textColor="#5ddfff"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+     
+    <ImageButton
+        android:id="@+id/txtRecordPalavras"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/Recording"
+        android:src="@drawable/record" />
+
+    <ImageButton
+        android:id="@+id/txtDemoPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtRecordPalavras"
+        android:layout_alignRight="@+id/txtRecordPalavras"
+        android:layout_below="@+id/txtRecordPalavras"
+        android:layout_marginTop="23dp"
+        android:contentDescription="@string/play"
+        android:src="@drawable/palyoff" />
+
+    <ImageButton
+        android:id="@+id/txtVoicePlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtDemoPlay"
+        android:layout_alignRight="@+id/txtDemoPlay"
+        android:layout_below="@+id/txtDemoPlay"
+        android:layout_marginTop="14dp"
+        android:contentDescription="@string/play"
+        android:src="@drawable/play" />
+
+    <ScrollView
+        android:id="@+id/txtTela"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textTitulo"
+        android:layout_alignTop="@+id/txtTela1"
+        android:layout_marginRight="89dp"
+        android:background="#ccccff"
+        android:paddingBottom="7dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:paddingTop="7dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="168dp"
+                android:layout_height="855dp"
+                android:orientation="vertical"
+                android:text="Palavra"
+                android:textSize="22sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/txtAvaliar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtTela2"
+        android:layout_alignLeft="@+id/txtVoicePlay"
+        android:layout_alignRight="@+id/txtDemoPlay"
+        android:contentDescription="@string/entrar"
+        android:src="@drawable/valido" />
+
+    <ScrollView
+        android:id="@+id/txtTela1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/txtTela2"
+        android:layout_centerHorizontal="true"
+        android:background="#ccccff"
+        android:paddingBottom="7dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:paddingTop="7dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextView02"
+                android:layout_width="168dp"
+                android:layout_height="855dp"
+                android:orientation="vertical"
+                android:text="Palavra"
+                android:textSize="22sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/txtTela2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtRecordPalavras"
+        android:layout_marginRight="21dp"
+        android:layout_toLeftOf="@+id/txtRecordPalavras"
+        android:background="#ccccff"
+        android:paddingBottom="7dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:paddingTop="7dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextView03"
+                android:layout_width="168dp"
+                android:layout_height="855dp"
+                android:orientation="vertical"
+                android:text="Palavra"
+                android:textSize="22sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

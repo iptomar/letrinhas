@@ -1,0 +1,117 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    android:screenOrientation="landscape"
+    android:configChanges="orientation|keyboardHidden|screenSize"
+    tools:context="com.letrinhas05.PaginaInicial" >
+
+   <!--
+         The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc.
+    -->
+
+    <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="@string/letrinhas"
+        android:textColor="#33b5e5"
+        android:textSize="90sp"
+        android:textStyle="bold" />
+
+    <!--
+         This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows.
+    -->
+
+    <TextView
+        android:id="@+id/piAgrup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="300sp"
+        android:text="@string/agrupamento"
+        android:textSize="50sp" android:layout_marginBottom="210sp" android:layout_gravity="bottom"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true" >
+
+        <LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="@style/ButtonBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent" >
+
+            <ImageButton
+                android:id="@+id/iBSair"
+                style="@style/ButtonBarButton"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.48"
+                android:adjustViewBounds="false"
+                android:background="@drawable/exit"
+                android:contentDescription="@string/sair" />
+
+            <Space
+                android:layout_width="400sp"
+                android:layout_height="match_parent" />
+
+            <Space
+                android:layout_width="400sp"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/bEntrar1"
+                style="@style/ButtonBarButton"
+                android:layout_width="0dp"
+                android:layout_height="152dp"
+                android:layout_weight="4.75"
+                android:drawableRight="@drawable/right"
+                android:text="@string/entrar"
+                android:textSize="72sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iVLogo"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/letrinhas" />
+
+        <Button
+            android:id="@+id/btnSincManual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sinc Manual" />
+        <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBarLoad" android:layout_gravity="center_horizontal|bottom"
+                android:indeterminate="false"
+                android:background="@color/black_overlay" android:layout_marginBottom="165dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text=" "
+                android:id="@+id/txtMsg" android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="50dp" android:textSize="30dp"/>
+
+    </FrameLayout>
+
+
+</FrameLayout>

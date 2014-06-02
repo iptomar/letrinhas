@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/testTexto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="clip_vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="30sp"
+                android:paddingRight="30sp"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                tools:context="com.letrinhas05.TesteMultimediaW" android:background="#0099CC"
+                android:textAlignment="center">
+
+
+
+    <TextView
+            android:id="@+id/textCabecalhoTestMultimedia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:drawableLeft="@drawable/logo2"
+            android:text="@string/title_activity_teste__imagem"
+            android:textColor="#36d2ff"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+    <ImageButton
+            android:id="@+id/btnVoltarTestMult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/voltar"
+            android:src="@drawable/voltar" />
+
+
+    <TextView
+            android:id="@+id/textRodapeTestMult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/letrinhas"
+            android:textColor="#1ad6ff"
+            android:textSize="30sp"
+            android:textStyle="bold" android:layout_alignParentBottom="true" android:layout_marginLeft="100dp"/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/textCabecalhoTestMultimedia" android:layout_alignLeft="@+id/textRodapeTestMult"
+            android:layout_marginLeft="230dp" android:layout_marginRight="200dp"
+            android:id="@+id/linearTestMultw" android:layout_alignParentTop="false"
+            android:layout_alignParentEnd="true" android:layout_alignParentStart="true"
+            android:gravity="center|top" android:layout_marginTop="70dp" android:layout_marginBottom="250dp"
+            android:background="#9dc3e6">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/txtMultiTextoTitul" android:textStyle="bold" android:textSize="50dp"
+                android:textAlignment="center" android:textColor="#000000" android:visibility="invisible"
+                />
+        <ImageView
+                android:layout_width="183dp"
+                android:layout_height="183dp"
+                android:id="@+id/imgTituloTextMult" android:src="@drawable/smiletriste" android:visibility="invisible"
+                android:focusable="false"/>
+    </LinearLayout>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Titulo"
+            android:id="@+id/txtCabeTituloTextMult" android:layout_below="@+id/textCabecalhoTestMultimedia"
+            android:layout_alignLeft="@+id/linearTestMultw" android:textSize="40dp" android:textColor="#b54732"
+            android:layout_alignRight="@+id/linearTestMultw" android:gravity="top"
+            android:layout_alignBottom="@+id/linearTestMultw" android:layout_alignParentTop="false"/>
+    <Button
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:drawableTop="@drawable/boy"
+            android:id="@+id/btnOpcao1Mult"
+            android:layout_alignParentBottom="true" android:layout_toRightOf="@+id/textRodapeTestMult"
+            android:textAlignment="center" android:paddingTop="40dp" android:layout_marginBottom="35dp"
+            android:layout_marginLeft="5dp" android:textStyle="bold" android:textSize="20dp"/>
+
+    <Button
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:drawableTop="@drawable/boy"
+            android:id="@+id/btnOpcao2Mult"
+            android:textAlignment="center" android:paddingTop="40dp"
+            android:layout_alignTop="@+id/btnOpcao1Mult" android:layout_toLeftOf="@+id/btnOpcao3Mult"
+            android:layout_marginRight="55dp" android:textStyle="bold" android:textSize="20dp"/>
+
+    <Button
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:drawableTop="@drawable/boy"
+            android:id="@+id/btnOpcao3Mult"
+            android:textAlignment="center" android:paddingTop="40dp"
+            android:layout_alignTop="@+id/btnOpcao2Mult" android:layout_alignRight="@+id/linearTestMultw"
+            android:textStyle="bold" android:textSize="20dp"/>
+
+
+</RelativeLayout>

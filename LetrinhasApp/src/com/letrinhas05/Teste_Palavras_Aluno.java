@@ -1,8 +1,6 @@
 package com.letrinhas05;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,7 +24,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
@@ -38,8 +35,8 @@ public class Teste_Palavras_Aluno extends Activity{
 	// flags para verificar os diversos estados do teste
 			boolean modo, gravado, recording, playing;
 			// objetos
-			ImageButton record, play, voltar, cancelar, avancar,voicePlay;
-			// variaveis contadoras para a avaliaï¿½ï¿½o
+			ImageButton record, play, voltar, avancar,voicePlay;
+			// variaveis contadoras para a avaliacao
 			int numero=0,nTestes,testeId;
 			private MediaRecorder gravador;
 			private MediaPlayer reprodutor = new MediaPlayer();
@@ -76,7 +73,7 @@ public class Teste_Palavras_Aluno extends Activity{
 				super.onCreate(savedInstanceState);
 				setContentView(R.layout.teste_palavras_aluno);
 				db = new LetrinhasDB(this);
-				//new line faz a rotaï¿½ï¿½o do ecrï¿½n 180 graus
+				//new line faz a rotacao do ecran 180 graus
 				int currentOrientation = getResources().getConfiguration().orientation;
 				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -109,12 +106,7 @@ public class Teste_Palavras_Aluno extends Activity{
 				// buscar os parametros
 				Bundle b = getIntent().getExtras();
 				inicia(b);
-				/**
-				 * 
-				 * 
-				 * 
-				 */
-				LetrinhasDB bd = new LetrinhasDB(this);
+
 				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/CorrectionReadTest/"+uuid+".mp3";
 				path =  "/School-Data/CorrectionReadTest/"+uuid+".mp3";
 				profSound = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/ReadingTests/"+teste.getProfessorAudioUrl();
@@ -126,24 +118,15 @@ public class Teste_Palavras_Aluno extends Activity{
 				play.setVisibility(View.INVISIBLE);
 				voicePlay = (ImageButton) findViewById(R.id.tlaVoicePlay);
 				voltar = (ImageButton) findViewById(R.id.tlaVoltar);
-				cancelar = (ImageButton) findViewById(R.id.tlaCancel);
 				avancar = (ImageButton) findViewById(R.id.tlaAvaliar);
 				escutaBotoes();
 			}
-			
-			// forçar a paragem da reprodução do audio!
-			private void stopPlay() {
-				if (playing) {
-					reprodutor.stop();
-					reprodutor.release();
-				}
-			}
 
 			/**
-			 * mï¿½todo para iniciar os componetes, que dependem do conteudo passado
+			 * metodo para iniciar os componetes, que dependem do conteudo passado
 			 * por parametros (extras)
 			 * 
-			 * @param b Bundle, contï¿½m informaï¿½ï¿½o da activity anterior
+			 * @param b Bundle, contem informacao da activity anterior
 			 */
 			public void inicia(Bundle b){
 				// Compor novamente e lista de testes
@@ -153,14 +136,14 @@ public class Teste_Palavras_Aluno extends Activity{
 				// int's - idEscola, idProfessor, idTurma, idAluno
 				iDs = b.getIntArray("IDs");
 
-				/** Consultar a BD para preencher o conteï¿½do.... */
+				/** Consultar a BD para preencher o conteudo.... */
 				LetrinhasDB bd = new LetrinhasDB(this);
 				teste =  bd.getTesteLeituraById(testesID[0]);
 				Log.d("Debug-Iniciar(b)", "testesID->"+String.valueOf(testesID[0])+" teste->"+teste.getConteudoTexto());
 				Log.d("Debug-getTitulo()", teste.getTitulo());
 				
 				
-				// ordenaï¿½ï¿½o do texto nas trï¿½s colunas de forma a preencher toda de seguida a 1ï¿½ e sï¿½ depois passa para as outras
+				// ordenacao do texto nas tres colunas de forma a preencher toda de seguida a 1 e so depois passa para as outras
 				int lenght;
 				String[] ar = teste.getConteudoTexto().split("[ ]");
 				int[] restoVal = new int[2];
@@ -239,7 +222,7 @@ public class Teste_Palavras_Aluno extends Activity{
 			}
 			
 			/**
-			 * Controi a coluna com o texto que lhe ï¿½ disponivel
+			 * Controi a coluna com o texto que lhe e disponivel
 			 * @param textView
 			 * @param text
 			 * @author Dario
@@ -299,7 +282,7 @@ public class Teste_Palavras_Aluno extends Activity{
 				gravador.setAudioSource(MediaRecorder.AudioSource.MIC);
 				gravador.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 				gravador.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-				// construir as pastas caso necessï¿½rio
+				// construir as pastas caso necessario
 				File file = new File(endereco);
 				if (file.getParent() != null && !file.getParentFile().exists()) {
 					file.getParentFile().mkdirs();
@@ -312,7 +295,6 @@ public class Teste_Palavras_Aluno extends Activity{
 					@Override
 					public void onClick(View view) {
 						startGrava();
-						stopPlay();
 					}
 
 				});
@@ -320,6 +302,7 @@ public class Teste_Palavras_Aluno extends Activity{
 					@Override
 					public void onClick(View view) {
 						voicePlay.setVisibility(View.INVISIBLE);
+						//stopPlayRec();
 						startPlay("gravacao");
 					}
 				});
@@ -327,27 +310,14 @@ public class Teste_Palavras_Aluno extends Activity{
 					@Override
 					public void onClick(View view) {
 						play.setVisibility(View.INVISIBLE);
+						//stopPlayRec();
 						startPlay("vozProf");
-					}
-				});
-				cancelar.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						// salta a avaliaï¿½ï¿½o e vai para o prï¿½ximo teste descurando a
-						// gravaï¿½ï¿½o gerada
-						/*File file = new File(endereco);
-						if (file.exists()) {
-							file.delete();
-						}*/
-						stopPlay();
-						finaliza();
 					}
 				});
 				avancar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
 						// voltar para pag inicial
-						stopPlay();
 						submit();
 					}
 				});
@@ -361,31 +331,8 @@ public class Teste_Palavras_Aluno extends Activity{
 			}
 			
 			/**
-			 * 
-			 * @return yyyy-MM-dd HH:mm:ss formate date as string
-			 */
-			@SuppressLint("SimpleDateFormat")
-			public static String getCurrentTimeStamp(){
-			    try {
-
-			        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			        String currentTimeStamp = dateFormat.format(new Date()); // Find todays date
-
-			        return currentTimeStamp;
-			    } catch (Exception e) {
-			        e.printStackTrace();
-
-			        return null;
-			    }
-			}
-			
-			/**
-			 * znyt
-			 * znrdy
-			 * xdgh
-			 * dnyx
-			 * dm
-			 * @author Dï¿½rio
+			 *  este metodo serve para enviar todos os dados para a tabela respectiva e preparar os dados para a activity seguinte
+			 * @author Dario
 			 */
 			public void submit(){
 				ctl = new CorrecaoTesteLeitura();
@@ -405,14 +352,36 @@ public class Teste_Palavras_Aluno extends Activity{
 					db.addNewItemCorrecaoTesteLeitura(ctl);
 					
 					List<CorrecaoTeste> data1 = db.getAllCorrecaoTeste();
-					Log.d("CheckInserts: ", "***********Testes******************");
+					//mostra o que se passa nas tabelas de CorrecaoTeste e CorrecaoTesteLeitura
+					Log.d("CheckInserts: ", "***********Correcao Testes******************");
 					for (CorrecaoTeste cn : data1) {
-						String logs = "Id: " + cn.getIdCorrrecao() + ", idEstudante: "
+						String logs = "Id: " + cn.getIdCorrrecao() + ", ID Estudante: "
 								+ cn.getIdEstudante() + "  , estado: " + cn.getEstado()
-								+ "  , testeId: " + cn.getTestId() + "  , tipo: "
+								+ "  , teste ID: " + cn.getTestId() + "  , tipo: "
 								+ cn.getTipo() + "  , data: " + cn.getDataExecucao();
 						// Writing Contacts to log
 						Log.d("CheckInserts: ", logs);
+					}
+					List<CorrecaoTesteLeitura> data = db.getAllCorrecaoTesteLeitura();
+					Log.d("CheckInserts: ", "***********Correcao Testes Leitura******************");
+					for (CorrecaoTesteLeitura cn : data) {
+						String logs = "Test ID:"+
+								cn.getTestId() +", ID do Estudante:"+
+								cn.getIdEstudante() +", Tipo:"+
+								cn.getTipo() +", Estado:"+
+								cn.getEstado() +", DataExecucao:"+
+								cn.getDataExecucao() +", Observacoes:"+
+								cn.getObservacoes() +", Numero de Palavras por Minuto:"+
+								cn.getNumPalavrasMin() +", Numero de Palavas Corretas:"+
+								cn.getNumPalavCorretas() +", Numero de Palavas Incorretas:"+
+								cn.getNumPalavIncorretas() +", Precisao:"+
+								cn.getPrecisao() +", Velocidade:"+
+								cn.getVelocidade() +", Expressividade:"+
+								cn.getExpressividade() +", Ritmo:"+
+								cn.getRitmo() +", Detalhes:"+
+								cn.getDetalhes();
+						// Writing Contacts to log
+						Log.d("CheckInserts_test_palavras: ", logs);
 					}
 					finaliza();
 					
@@ -420,7 +389,7 @@ public class Teste_Palavras_Aluno extends Activity{
 					wrap.putInt("IDTeste", idTesteAtual);// id do teste atual
 					wrap.putInt("IDAluno", iDs[3]); //id do aluno
                     wrap.putInt("TipoTeste", 2); // id do aluno
-					// listar submissï¿½es anteriores do mesmo teste
+					// listar submissoes anteriores do mesmo teste
 					 Intent it = new Intent(getApplicationContext(),
 					 ResumoSubmissoes.class);
 					 it.putExtras(wrap);
@@ -434,18 +403,6 @@ public class Teste_Palavras_Aluno extends Activity{
 					file.delete();
 				}		
 			}
-			//forçar a paragem da reprodução e gravação do audio!
-			private void stopPlayRec() {
-				if(recording){
-					gravador.stop();
-					gravador.release();
-				}
-				if(playing){
-					reprodutor.stop();
-					reprodutor.release();
-				}	
-			}
-			
 			
 			//temos de manter o onDestroy, devido a existir a possibilidade de fazer finhish() através da barra de sistema!
 			@Override
@@ -471,16 +428,16 @@ public class Teste_Palavras_Aluno extends Activity{
 			
 			int minuto, segundo;
 			/**
-			 * Serve para comeï¿½ar ou parar o recording do audio
+			 * Serve para comecar ou parar o recording do audio
 			 * 
-			 * @author Dï¿½rio Jorge
+			 * @author Dario Jorge
 			 */
 			@SuppressLint("HandlerLeak")
 			private void startGrava() {
 				if (!recording) {
 					record.setImageResource(R.drawable.stop);
 					play.setVisibility(View.INVISIBLE);
-					cancelar.setVisibility(View.INVISIBLE);
+					voicePlay.setVisibility(View.INVISIBLE);
 					voltar.setVisibility(View.INVISIBLE);
 					avancar.setVisibility(View.INVISIBLE);
 					recording = true;
@@ -507,7 +464,6 @@ public class Teste_Palavras_Aluno extends Activity{
 										s = "" + segundo;
 									}
 									tempo =  m + s;
-									//Toast.makeText(getApplicationContext(), "Tempo: "+ m + s,Toast.LENGTH_SHORT).show();
 									break;
 								default:
 									break;
@@ -543,9 +499,9 @@ public class Teste_Palavras_Aluno extends Activity{
 				} else {
 					record.setImageResource(R.drawable.record);
 					play.setVisibility(View.VISIBLE);
-					cancelar.setVisibility(View.VISIBLE);
 					voltar.setVisibility(View.VISIBLE);
 					avancar.setVisibility(View.VISIBLE);
+					voicePlay.setVisibility(View.VISIBLE);
 					recording = false;
 					try {
 						gravador.stop();
@@ -560,9 +516,9 @@ public class Teste_Palavras_Aluno extends Activity{
 			private final int PARADO = 2;
 			private Handler play_handler;
 			/**
-			 * serve para a aplicaï¿½ï¿½o reproduzir ou parar o som
+			 * serve para a aplicacao reproduzir ou parar o som
 			 * 
-			 * @author Dï¿½rio Jorge
+			 * @author Dario Jorge
 			 */
 			@SuppressLint("HandlerLeak")
 			private void startPlay(String path) {
@@ -645,31 +601,15 @@ public class Teste_Palavras_Aluno extends Activity{
 					wrap.putIntArray("ListaID", testesID);// id's dos testes
 					wrap.putStringArray("Nomes", Nomes);
 					wrap.putIntArray("IDs", iDs);
-					// identifico o tipo do prï¿½ximo teste
+					// identifico o tipo do proximo teste
 					LetrinhasDB bd = new LetrinhasDB(this);
 					Teste tst = bd.getTesteById(testesID[0]);
 					tipo = tst.getTipo();
 					switch (tipo) {
-					case 0:
-						// lanï¿½ar a nova activity do tipo texto,
-						Intent it = new Intent(getApplicationContext(),Teste_Texto.class);
-						it.putExtras(wrap);
-						startActivity(it);
-						break;
-					case 1:// lanï¿½ar a nova activity do tipo imagem
-						Intent ip = new Intent(getApplicationContext(),TesteMultimediaW.class);
-						ip.putExtras(wrap);
-						startActivity(ip);
-						break;
-					case 2: // lanï¿½ar a nova activity do tipo Palavras
+					case 2: // lancar a nova activity do tipo Palavras
 						Intent ipm = new Intent(getApplicationContext(),Teste_Palavras_Aluno.class);
 						ipm.putExtras(wrap);
 						startActivity(ipm);
-						break;
-					case 3: // lanï¿½ar a nova activity do tipo poema
-						Intent ipp = new Intent(getApplicationContext(),Teste_Palavras_Aluno.class);
-						ipp.putExtras(wrap);
-						startActivity(ipp);
 						break;
 					default:
 						Toast.makeText(getApplicationContext(), " - Tipo nao defenido",Toast.LENGTH_SHORT).show();
