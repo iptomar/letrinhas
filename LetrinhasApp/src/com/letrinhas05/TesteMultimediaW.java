@@ -208,7 +208,7 @@ public class TesteMultimediaW  extends Activity  {
         }
         else
         {
-            TextView  txt1 = (TextView) findViewById(R.id.btnOpcao1TXT);
+            Button  txt1 = (Button) findViewById(R.id.btnOpcao1Mult);
             txt1.setText(testeM.getOpcao1());
         }
 
@@ -225,7 +225,7 @@ public class TesteMultimediaW  extends Activity  {
         }
         else
         {
-            TextView  txt2 = (TextView) findViewById(R.id.btnOpcao2TXT);
+            Button  txt2 = (Button) findViewById(R.id.btnOpcao2Mult);
             txt2.setText(testeM.getOpcao2());
         }
 
@@ -242,7 +242,7 @@ public class TesteMultimediaW  extends Activity  {
         }
         else
         {
-            TextView  txt3 = (TextView) findViewById(R.id.btnOpcao3TXT);
+            Button  txt3 = (Button) findViewById(R.id.btnOpcao3Mult);
             txt3.setText(testeM.getOpcao3());
         }
 
