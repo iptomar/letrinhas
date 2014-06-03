@@ -1,0 +1,117 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    android:configChanges="orientation|keyboardHidden|screenSize"
+    android:screenOrientation="landscape"
+    tools:context="com.letrinhas05.PaginaInicial" >
+
+
+    <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="@string/letrinhas"
+        android:textColor="#33b5e5"
+        android:textSize="@dimen/dim90"
+        android:textStyle="bold" />
+
+  
+
+    <TextView
+        android:id="@+id/piAgrup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/dim210"
+        android:layout_marginLeft="@dimen/dim300"
+        android:text="@string/agrupamento"
+        android:textSize="@dimen/dim50" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true" >
+
+        <LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="@style/ButtonBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent" >
+
+            <ImageButton
+                android:id="@+id/iBSair"
+                style="@style/ButtonBarButton"
+                android:layout_width="@dimen/dim110"
+                android:layout_height="match_parent"
+                android:layout_weight="0.48"
+                android:adjustViewBounds="false"
+                android:background="@drawable/exit"
+                android:contentDescription="@string/sair" />
+
+            <Space
+                android:layout_width="@dimen/dim400"
+                android:layout_height="match_parent" />
+
+            <Space
+                android:layout_width="@dimen/dim400"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/bEntrar1"
+                style="@style/ButtonBarButton"
+                android:layout_width="@dimen/dim0"
+                android:layout_height="@dimen/dim152"
+                android:layout_weight="4.75"
+                android:drawableRight="@drawable/right"
+                android:text="@string/entrar"
+                android:textSize="@dimen/dim72"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iVLogo"
+            android:layout_width="@dimen/dim350"
+            android:layout_height="@dimen/dim350"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/letrinhas" />
+
+        <ProgressBar
+            android:id="@+id/progressBarLoad"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="@dimen/dim165"
+            android:background="@color/black_overlay"
+            android:indeterminate="false" />
+
+        <TextView
+            android:id="@+id/txtMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="@dimen/dim50"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="@dimen/dim30" />
+
+        <ImageButton
+            android:id="@+id/btnSettingsMenuP"
+            android:layout_width="@dimen/dim90"
+            android:layout_height="@dimen/dim90"
+            android:layout_gravity="right|top"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/demo"
+            android:src="@drawable/settings" />
+    </FrameLayout>
+
+</FrameLayout>

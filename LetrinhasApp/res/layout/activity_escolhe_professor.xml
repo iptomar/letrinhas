@@ -1,0 +1,105 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/escProf"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    android:configChanges="orientation|keyboardHidden|screenSize"
+    android:gravity="center_horizontal"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/dim40"
+    android:paddingRight="@dimen/dim40"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:screenOrientation="landscape"
+    tools:context="com.letrinhas05.escolhe.EscolheProfessor" >
+
+    <ImageView
+        android:id="@+id/escPlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/letrinhas"
+        android:src="@drawable/letrinhas" />
+
+    <TextView
+        android:id="@+id/escPRodape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnVoltarProf"
+        android:layout_marginLeft="@dimen/dim10"
+        android:layout_toRightOf="@+id/btnVoltarProf"
+        android:text="@string/letrinhas"
+        android:textColor="#5ddfff"
+        android:textSize="@dimen/dim30"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:id="@+id/svProfEscolher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/escPRodape"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/escPEscola"
+        android:layout_toRightOf="@+id/btnVoltarProf"
+        android:background="#0099cc"
+        android:contentDescription="@string/escola" >
+
+        <TableLayout
+            android:id="@+id/tblEscolheProf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TableRow
+                android:id="@+id/Proflinha01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/PrfBtOriginal"
+                    style="@style/ButtonBarButton"
+                    android:layout_width="@dimen/dim250"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dim20"
+                    android:layout_marginRight="@dimen/dim30"
+                    android:contentDescription="@string/professor"
+                    android:drawableTop="@drawable/professor1"
+                    android:text="Professor Roberto Leal"
+                    android:textSize="@dimen/dim25" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnVoltarProf"
+        android:layout_width="@dimen/dim100"
+        android:layout_height="@dimen/dim100"
+        android:layout_alignLeft="@+id/escPlogo"
+        android:layout_alignParentBottom="true"
+        android:contentDescription="@string/voltar"
+        android:drawableTop="@drawable/voltar"
+        android:onClick="voltar"
+        android:text="@string/voltar" />
+
+    <TextView
+        android:id="@+id/escPCabecalho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/escPlogo"
+        android:layout_toRightOf="@+id/escPlogo"
+        android:text="@string/escProfessor"
+        android:textColor="#5ddfff"
+        android:textSize="@dimen/dim50"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/escPEscola"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/escPCabecalho"
+        android:layout_alignLeft="@+id/escPCabecalho"
+        android:text="Escola escolhida"
+        android:textSize="@dimen/dim30" />
+
+</RelativeLayout>

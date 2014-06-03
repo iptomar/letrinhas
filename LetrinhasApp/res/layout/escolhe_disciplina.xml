@@ -1,0 +1,173 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/escDisciplina"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80bb00"
+    android:gravity="clip_vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/dim30"
+    android:paddingRight="@dimen/dim30"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:screenOrientation="landscape"
+    tools:context="com.letrinhas05.escolhe.EscolheDisciplina" >
+
+    <Button
+        android:id="@+id/btnDVoltar"
+        android:layout_width="@dimen/dim100"
+        android:layout_height="@dimen/dim100"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/voltar"
+        android:drawableTop="@drawable/voltar"
+        android:scaleType="fitCenter"
+        android:text="@string/voltar" />
+
+    <Button
+        android:id="@+id/estMeio"
+        android:layout_width="@dimen/dim200"
+        android:layout_height="@dimen/dim200"
+        android:layout_alignTop="@+id/mat"
+        android:layout_marginLeft="@dimen/dim20"
+        android:layout_marginRight="@dimen/dim20"
+        android:layout_toRightOf="@+id/mat"
+        android:drawableTop="@drawable/estmeio"
+        android:scaleType="fitCenter"
+        android:text="@string/estMeio"
+        android:textColor="#208020"
+        android:textSize="@dimen/dim30"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/english"
+        android:layout_width="@dimen/dim200"
+        android:layout_height="@dimen/dim200"
+        android:layout_alignTop="@+id/estMeio"
+        android:layout_toRightOf="@+id/estMeio"
+        android:layout_marginRight="@dimen/dim20"
+        android:layout_marginLeft="@dimen/dim20"
+        android:drawableTop="@drawable/en"
+        android:scaleType="fitCenter"
+        android:text="@string/ingles"
+        android:textColor="#5050dd"
+        android:textSize="@dimen/dim30"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/mat"
+        android:layout_width="@dimen/dim200"
+        android:layout_height="@dimen/dim200"
+        android:layout_alignTop="@+id/pt"
+        android:layout_toRightOf="@+id/pt"
+        android:drawableTop="@drawable/mat"
+        android:layout_marginRight="@dimen/dim20"
+        android:layout_marginLeft="@dimen/dim20"
+        android:scaleType="fitCenter"
+        android:text="@string/matematica"
+        android:textColor="#0000aa"
+        android:textSize="@dimen/dim30"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/pt"
+        android:layout_width="@dimen/dim200"
+        android:layout_height="@dimen/dim200"
+        android:layout_alignLeft="@+id/escDCabecalho"
+        android:layout_below="@+id/escDEscola"
+        android:layout_marginLeft="@dimen/dim60"
+        android:layout_marginRight="@dimen/dim20"
+        android:layout_marginTop="@dimen/dim150"
+        android:drawableTop="@drawable/pt"
+        android:scaleType="fitCenter"
+        android:text="@string/portugues"
+        android:textColor="#aa0000"
+        android:textSize="@dimen/dim35"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/escDlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/letrinhas" />
+
+    <TextView
+        android:id="@+id/escDCabecalho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/escDlogo"
+        android:layout_toRightOf="@+id/escDlogo"
+        android:text="@string/escolheDisciplina"
+        android:textColor="#5ddfff"
+        android:textSize="@dimen/dim50"
+        android:textStyle="bold" />
+    
+    <TextView 
+        android:id="@+id/escDEscola" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_alignLeft="@+id/escDCabecalho" 
+        android:layout_below="@+id/escDCabecalho"
+        android:text="Escola escolhida" 
+        android:textSize="@dimen/dim30"/>
+    
+    <ImageView 
+        android:id="@+id/ivDProfessor" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_alignParentRight="true" 
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/professor" 
+        android:src="@drawable/professora"/>
+    
+    <ImageView 
+        android:id="@+id/ivDAluno" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_alignParentRight="true" 
+        android:layout_alignParentBottom="true" 
+        android:contentDescription="@string/aluno" 
+        android:src="@drawable/boy1"/>
+
+    <TextView
+        android:id="@+id/tvDProf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivDProfessor"
+        android:layout_toLeftOf="@+id/ivDProfessor"
+        android:text="Professor escolhido"
+        android:textSize="@dimen/dim30" android:layout_marginRight="@dimen/dim20"/>
+
+    <TextView
+        android:id="@+id/tvDAluno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvDTurma"
+        android:layout_alignBottom="@+id/tvDTurma"
+        android:layout_toLeftOf="@+id/ivDProfessor"
+        android:text="Aluno Escolhido"
+        android:textSize="@dimen/dim25" android:layout_marginRight="@dimen/dim10"/>
+
+    <TextView
+        android:id="@+id/tvDTurma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/dim30"
+        android:layout_toLeftOf="@+id/tvDAluno"
+        android:text="Turma Escolhida"
+        android:textSize="@dimen/dim25" />
+
+    <TextView
+        android:id="@+id/escDRodape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnDVoltar"
+        android:text="@string/letrinhas"
+        android:textColor="#5ddfff"
+        android:textSize="@dimen/dim30"
+        android:textStyle="bold" android:layout_marginLeft="@dimen/dim10"/>
+
+</RelativeLayout>

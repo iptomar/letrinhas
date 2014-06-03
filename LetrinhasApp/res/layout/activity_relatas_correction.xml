@@ -1,0 +1,348 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relatasCorrection"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    android:configChanges="orientation|keyboardHidden|screenSize"
+    android:gravity="center_horizontal"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/dim40"
+    android:paddingRight="@dimen/dim40"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:screenOrientation="landscape"
+    tools:context="com.letrinhas05.RelatasCorrection" >
+
+     <TableLayout
+        android:id="@+id/tlcolumn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dim32"
+        android:paddingLeft="@dimen/dim10" >
+        <TableRow
+            android:id="@+id/tbdataExecucao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+            <TextView
+                 android:id="@+id/dataExecucaotxt"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:contentDescription="Data de Execucao"
+                 android:text="Data de Execucao: "
+                 android:textSize="@dimen/dim25"
+                 android:textStyle="bold" />
+
+             <TextView
+                 android:id="@+id/dataExecucao"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="@string/ZeroValues"
+                 android:textColor="#ff2020"
+                 android:textSize="@dimen/dim30"
+                 android:textStyle="bold" />
+             
+        </TableRow>
+        <TableRow
+            android:id="@+id/tbrnumPalavrasMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/numPalavrasMintxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Palavras por minuto"
+                android:text="Palavras por minuto: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/numPalavrasMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValues"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tbrprecisao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/precisaotxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Precisao"
+                android:text="Precisao: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/precisao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValues"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+         <TableRow
+            android:id="@+id/tbrvelocidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/velocidadetxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Velocidade"
+                android:text="Velocidade: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/velocidade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValues"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tbrritmo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/ritmotxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Ritmo"
+                android:text="Ritmo: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/ritmo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValues"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tbrDuracao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/ritmoDuracao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Duracao"
+                android:text="Duracao: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/Duracao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValues"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tbdetalhes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/detalhestxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Detalhes"
+                android:text="Detalhes: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/detalhes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValuesStr"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+    
+    <TableLayout
+        android:id="@+id/tlcolumn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tlcolumn"
+        android:layout_marginBottom="@dimen/dim32"
+        android:paddingLeft="@dimen/dim10" >
+        <TableRow
+            android:id="@+id/tbrexpressividade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/expressividadetxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Expressividade"
+                android:text="Expressividade: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/expressividade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValues"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tbrtipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tipotxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Tipo de teste"
+                android:text="Tipo de teste: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tipo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValuesStr"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tbrnumPalavCorretas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/numPalavCorretastxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Palavras correctas"
+                android:text="Palavras correctas: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/numPalavCorretas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValues"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tbrnumPalavIncorretas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/numPalavIncorretastxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Palavras incocorrectas"
+                android:text="Palavras incocorrectas: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/numPalavIncorretas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValues"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tbrtotalDePalavras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/totalDePalavrastxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Total palavras"
+                android:text="Total palavras: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalDePalavras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValues"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+         <TableRow
+            android:id="@+id/tbrobservacoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/observacoestxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Observacoes"
+                android:text="Observacoes: "
+                android:textSize="@dimen/dim25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/observacoes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ZeroValuesStr"
+                android:textColor="#ff2020"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/dim19"
+        android:layout_marginRight="@dimen/dim27"
+        android:drawableRight="@drawable/right"
+        android:text="@string/avancar"
+        android:textSize="@dimen/dim35"
+        android:textStyle="bold" />
+
+</RelativeLayout>

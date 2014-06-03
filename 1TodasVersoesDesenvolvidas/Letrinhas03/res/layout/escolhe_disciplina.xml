@@ -1,0 +1,133 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/testTexto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="clip_vertical"
+
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="30sp"
+    android:paddingRight="30sp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.letrinhas03.Teste_Texto"
+    android:screenOrientation="landscape">
+
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textAlignment="textEnd" >
+    <TextView
+        android:id="@+id/textCabecalho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/logo2"
+        android:text="@string/escolheDisciplina"
+        android:textColor="#5ddfff"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <TableRow>
+
+        <ImageButton
+            android:id="@+id/pt"
+            android:layout_width="200dp"
+    		android:layout_height="200dp"
+    		android:scaleType="fitCenter"
+            
+            android:layout_marginTop="100dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="0dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/pt"
+ 										/>
+
+        <ImageButton
+            android:id="@+id/escTVoltar"
+            android:layout_width="200dp"
+    		android:layout_height="200dp"
+    		android:scaleType="fitCenter"
+            android:src="@drawable/mat"
+            android:layout_marginTop="100dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="0dp" />
+
+        <ImageButton
+            android:id="@+id/esTLogo"
+            android:layout_width="200dp"
+    		android:layout_height="200dp"
+    		android:scaleType="fitCenter"
+            android:src="@drawable/estmeio"
+            android:layout_marginTop="100dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="0dp" />
+
+        <ImageButton
+            android:id="@+id/img"
+           android:layout_width="200dp"
+    		android:layout_height="200dp"
+    		android:scaleType="fitCenter"
+            android:src="@drawable/en"
+            android:layout_marginTop="100dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="0dp" />
+	    </TableRow>
+		<TableRow >
+
+		    <TextView
+		        android:layout_marginRight="35dp"
+		        android:gravity="center"
+		        android:text="@string/portugues"
+		        android:textColor="#CC2222"
+		        android:textSize="50sp"
+		        android:textStyle="bold" />
+
+		    <TextView
+		        android:layout_marginRight="35dp"
+		        android:gravity="center"
+		        android:text="@string/matematica"
+		        android:textColor="#AA22AA"
+		        android:textSize="50sp"
+		        android:textStyle="bold" />
+
+		    <TextView
+		        android:layout_marginRight="5dp"
+		        android:gravity="center"
+		        android:text="@string/estMeio"
+		        android:textColor="#22CC22"
+		        android:textSize="50sp"
+		        android:textStyle="bold" />
+
+		    <TextView
+		        android:layout_marginRight="5dp"
+		        android:gravity="center"
+		        android:text="@string/ingles"
+		        android:textColor="#2222CC"
+		        android:textSize="50sp"
+		        android:textStyle="bold" />
+
+		</TableRow>
+</TableLayout>
+<ImageButton
+        android:id="@+id/txtVoltar"
+        android:layout_width="100dp"
+    	android:layout_height="100dp"
+    	android:scaleType="fitCenter"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/voltar"
+        android:src="@drawable/voltar" />
+<ImageButton
+        android:id="@+id/resAvancar"
+		android:layout_width="100dp"
+    	android:layout_height="100dp"
+    	android:scaleType="fitCenter"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/avancar"
+        android:src="@drawable/right" />
+
+</RelativeLayout>

@@ -1,0 +1,202 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auTentic"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="clip_vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/dim30"
+    android:paddingRight="@dimen/dim30"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.letrinhas05.util.Autenticacao" >
+
+    <TextView
+        android:id="@+id/autCabecalho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/logo2"
+        android:text="@string/insPin"
+        android:textColor="#5ddfff"
+        android:textSize="@dimen/dim40"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:id="@+id/teclado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/bt1"
+                style="@style/ButtonBarButton"
+                android:layout_width="@dimen/dim120"
+                android:layout_height="@dimen/dim75"
+                android:text="@string/um"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt2"
+                style="@style/ButtonBarButton"
+                android:layout_width="@dimen/dim120"
+                android:layout_height="@dimen/dim75"
+                android:text="@string/dois"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt3"
+                style="@style/ButtonBarButton"
+                android:layout_width="@dimen/dim120"
+                android:layout_height="@dimen/dim75"
+                android:text="@string/tres"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/bt4"
+                style="@style/ButtonBarButton"
+                android:layout_width="@dimen/dim120"
+                android:layout_height="@dimen/dim75"
+                android:text="@string/quatro"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt5"
+                style="@style/ButtonBarButton"
+                android:layout_width="@dimen/dim120"
+                android:layout_height="@dimen/dim75"
+                android:text="@string/cinco"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt6"
+                style="@style/ButtonBarButton"
+                android:layout_width="@dimen/dim120"
+                android:layout_height="@dimen/dim75"
+                android:text="@string/seis"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/bt7"
+                style="@style/ButtonBarButton"
+                android:layout_width="@dimen/dim120"
+                android:layout_height="@dimen/dim75"
+                android:text="@string/sete"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt8"
+                style="@style/ButtonBarButton"
+                android:layout_width="@dimen/dim120"
+                android:layout_height="@dimen/dim75"
+                android:text="@string/oito"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt9"
+                style="@style/ButtonBarButton"
+                android:layout_width="@dimen/dim120"
+                android:layout_height="@dimen/dim75"
+                android:text="@string/nove"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/btnAutCancel"
+                style="@style/ButtonBarButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dim75"
+                android:text="@string/cancel"
+                android:textColor="#ff4040"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bt0"
+                style="@style/ButtonBarButton"
+                android:layout_width="@dimen/dim120"
+                android:layout_height="@dimen/dim75"
+                android:text="@string/zero"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnOk"
+                style="@style/ButtonBarButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dim75"
+                android:text="@string/avancar"
+                android:textColor="#40ff40"
+                android:textSize="@dimen/dim30"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/autCabecalho"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dim90"
+        android:background="@color/text_color" >
+
+        <ImageView
+            android:id="@+id/im1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/letrinhas"
+            android:src="@drawable/logo2" />
+
+        <ImageView
+            android:id="@+id/im2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/letrinhas"
+            android:src="@drawable/logo2" />
+
+        <ImageView
+            android:id="@+id/im3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/letrinhas"
+            android:src="@drawable/logo2" />
+
+        <ImageView
+            android:id="@+id/im4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/letrinhas"
+            android:src="@drawable/logo2" />
+    </LinearLayout>
+
+</RelativeLayout>
