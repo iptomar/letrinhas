@@ -183,20 +183,13 @@ public class EscolheEscola extends Activity {
 					ImageView imageView = new ImageView(this);
 
 					///////////////////TESTE MULTIRESOLUCAO //////////
-				//	int largura = getResources().getDimensionPixelSize(R.dimen.act70);
-					
-				///	Toast.makeText(this, "Largura teste_: "+ largura, Toast.LENGTH_LONG).show();
-					
-					
-					
+					int largura = getResources().getDimensionPixelSize(R.dimen.dim240);
 					
 					///////////////////////////////////////////////////
-					
-					
-					
+									
 					//ajustar o tamanho da imagem
-					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 240, 240, false));
-					//enviar para o bot�o
+					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura, largura, false));
+					//enviar para o botao
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null, imageView.getDrawable(),
 							null, null);
 				} else {
@@ -207,7 +200,7 @@ public class EscolheEscola extends Activity {
 
 				// addicionar o nome
 				bt1.setText(arrNomeEscolas[cont]);
-				// Defenir o que faz o bot�o ao clicar, neste caso muda o texto
+				// Defenir o que faz o botao ao clicar, neste caso muda o texto
 				// do cabe�alho
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -245,7 +238,7 @@ public class EscolheEscola extends Activity {
 				Button bt1 = new Button(bt.getContext());
 				bt1.setLayoutParams(bt.getLayoutParams());
 
-				// se a escola j� tiver logotipo, vou busca-lo
+				// se a escola ja tiver logotipo, vou busca-lo
 				if (img[cont] != null) {
 					String imageInSD = Environment
 							.getExternalStorageDirectory().getAbsolutePath()
@@ -253,14 +246,15 @@ public class EscolheEscola extends Activity {
 					Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
 					ImageView imageView = new ImageView(this);
 
+					int largura = getResources().getDimensionPixelSize(R.dimen.dim240);
 					//ajustar o tamanho da imagem
-					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 240, 240, false));
-					//enviar para o bot�o
+					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura, largura, false));
+					//enviar para o botao
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null, imageView.getDrawable(),
 							null, null);
 
 				} else {
-					// sen�o copia a imagem do bot�o original
+					// sen�o copia a imagem do botao original
 					bt1.setCompoundDrawables(null,
 							bt.getCompoundDrawablesRelative()[1], null, null);
 				}

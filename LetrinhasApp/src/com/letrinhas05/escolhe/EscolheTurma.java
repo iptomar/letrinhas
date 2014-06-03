@@ -28,9 +28,9 @@ import android.widget.TextView;
 import android.os.Build;
 
 public class EscolheTurma extends Activity {
-    protected Button btnVoltar;
-    protected String nomeEscola, nomeProfessor, fotoProfNome;
-    protected int idEscola, idProfessor, nTurmas;
+	protected Button btnVoltar;
+	protected String nomeEscola, nomeProfessor, fotoProfNome;
+	protected int idEscola, idProfessor, nTurmas;
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -55,7 +55,8 @@ public class EscolheTurma extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.escolhe_turma);
-		////////////// Retirar os Extras da janela anterior/////////////////////7
+		// //////////// Retirar os Extras da janela
+		// anterior/////////////////////7
 		Bundle b = getIntent().getExtras();
 		// escola/////////
 		idEscola = b.getInt("Escola_ID");
@@ -65,20 +66,23 @@ public class EscolheTurma extends Activity {
 		nomeProfessor = b.getString("Professor");
 		fotoProfNome = b.getString("foto_Professor");
 
-        ////////////////////Aceder a objectos visuais////////////////////
-        btnVoltar = (Button) findViewById(R.id.btnVoltarTurm);
+		// //////////////////Aceder a objectos visuais////////////////////
+		btnVoltar = (Button) findViewById(R.id.btnVoltarTurm);
 		((TextView) findViewById(R.id.tvTProf)).setText(nomeProfessor);
-        ((TextView) findViewById(R.id.escTEscola)).setText(nomeEscola);
-        ImageView imageView = ((ImageView) findViewById(R.id.ivTProfessor));
-        final View contentView = findViewById(R.id.escTurma);
-        /////////////////////////////////////////////////////////
+		((TextView) findViewById(R.id.escTEscola)).setText(nomeEscola);
+		ImageView imageView = ((ImageView) findViewById(R.id.ivTProfessor));
+		final View contentView = findViewById(R.id.escTurma);
+		// ///////////////////////////////////////////////////////
 
+		int largura = getResources().getDimensionPixelSize(R.dimen.dim100);
 		if (fotoProfNome != null) {
 			String imageInSD = Environment.getExternalStorageDirectory()
-					.getAbsolutePath() + "/School-Data/Professors/" + fotoProfNome;
+					.getAbsolutePath()
+					+ "/School-Data/Professors/"
+					+ fotoProfNome;
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
-					100, false));
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura,
+					largura, false));
 		}
 		// new line faz a rota��o do ecr�n em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
@@ -96,6 +100,7 @@ public class EscolheTurma extends Activity {
 				.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
 					// Cached values.
 					int mShortAnimTime;
+
 					@Override
 					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
 					public void onVisibilityChange(boolean visible) {
@@ -113,7 +118,7 @@ public class EscolheTurma extends Activity {
 				});
 
 		// Botao de voltar
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
+		btnVoltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Bundle wrap = new Bundle();
@@ -122,7 +127,7 @@ public class EscolheTurma extends Activity {
 				Intent it = new Intent(getApplicationContext(),
 						EscolheProfessor.class);
 				it.putExtras(wrap);
-				startActivity(it);				
+				startActivity(it);
 				finish();
 			}
 		});
@@ -132,6 +137,7 @@ public class EscolheTurma extends Activity {
 	/**
 	 * Novo m�todo para criar o painel din�mico para os bot�es de
 	 * selec��o da turma
+	 * 
 	 * @author Thiago
 	 */
 	@SuppressLint("NewApi")
@@ -151,10 +157,6 @@ public class EscolheTurma extends Activity {
 			idTurmas[i] = turmas.get(i).getId();
 			nomeTurma[i] = turmas.get(i).getNome();
 			anoEscolarTurmas[i] = turmas.get(i).getAnoEscolar();
-		}
-		for (Turma cn : turmas) {
-			String storage = cn.getAnoLetivo() + "," + cn.getAnoEscolar() + ","
-					+ cn.getId() + "," + cn.getNome() + "," + cn.getIdEscola();
 		}
 		/**
 		 * Scroll view com uma tabela de 4 colunas(max)
@@ -180,7 +182,6 @@ public class EscolheTurma extends Activity {
 				// **********************************
 				// Nome da turma
 
-				final String turm = nomeTurma[cont];
 				final int idturm = idTurmas[cont];
 				// ***********************************
 				// novo bot�o
@@ -200,7 +201,8 @@ public class EscolheTurma extends Activity {
 					@Override
 					public void onClick(View view) {
 						// Entrar na activity
-                        ////////////////CAMPOS PARA A PROXIMA JANELA///////////////////
+						// //////////////CAMPOS PARA A PROXIMA
+						// JANELA///////////////////
 						Bundle wrap = new Bundle();
 						wrap.putString("Escola", nomeEscola);
 						wrap.putInt("Escola_ID", idEscola);
@@ -229,9 +231,6 @@ public class EscolheTurma extends Activity {
 			TableRow linha1 = new TableRow(getBaseContext());
 			linha1.setLayoutParams(linha.getLayoutParams());
 			for (int j = 0; j < nTurmas % 4; j++) {
-				// **********************************
-				// Nome da turma
-				final String turm = nomeTurma[cont];
 				final int idturm = idTurmas[cont];
 				// ***********************************
 				// novo botao
@@ -252,13 +251,14 @@ public class EscolheTurma extends Activity {
 					@Override
 					public void onClick(View view) {
 						// Entrar na activity
-                        ////////////////CAMPOS PARA A PROXIMA JANELA///////////////////
+						// //////////////CAMPOS PARA A PROXIMA
+						// JANELA///////////////////
 						Bundle wrap = new Bundle();
-                        wrap.putString("Escola", nomeEscola);
-                        wrap.putInt("Escola_ID", idEscola);
-                        wrap.putString("Professor", nomeProfessor);
-                        wrap.putInt("Professor_ID", idProfessor);
-                        wrap.putString("foto_Professor", fotoProfNome);
+						wrap.putString("Escola", nomeEscola);
+						wrap.putInt("Escola_ID", idEscola);
+						wrap.putString("Professor", nomeProfessor);
+						wrap.putInt("Professor_ID", idProfessor);
+						wrap.putString("foto_Professor", fotoProfNome);
 						wrap.putString("Turma", aux);
 						wrap.putInt("turma_ID", idturm);
 						Intent it = new Intent(getApplicationContext(),

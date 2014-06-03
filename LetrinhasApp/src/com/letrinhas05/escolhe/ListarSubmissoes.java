@@ -82,14 +82,15 @@ public class ListarSubmissoes extends Activity {
 		((TextView) findViewById(R.id.lsEscola)).setText(Nomes[0]);
 		((TextView) findViewById(R.id.lstvProf)).setText(Nomes[1]);
 
+		int largura = getResources().getDimensionPixelSize(R.dimen.dim100);
 		// se professor tem uma foto, usa-se
 		if (Nomes[2] != null) {
 			ImageView imageView = ((ImageView) findViewById(R.id.lsivProfessor));
 			String imageInSD = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/School-Data/Professors/" + Nomes[2];
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
-					100, false));
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura,
+					largura, false));
 		}
 
 		// new line faz a rotaco do ecran em 180 graus
@@ -194,6 +195,7 @@ public class ListarSubmissoes extends Activity {
 			}	
 			ctAux=ctAux2;		
 
+			int largura = getResources().getDimensionPixelSize(R.dimen.dim120);
 			// Agora vou construir os botoes com a informacao necessaria:
 			for (int i = 0; i < ctAux.length; i++) {
 				
@@ -242,8 +244,8 @@ public class ListarSubmissoes extends Activity {
 					Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
 					ImageView imgAl = new ImageView(this);
 					// ajustar o tamanho da imagem
-					imgAl.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 120,
-							120, false));
+					imgAl.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura,
+							largura, false));
 
 					// enviar para o bot�o
 					btIn.setCompoundDrawablesWithIntrinsicBounds(

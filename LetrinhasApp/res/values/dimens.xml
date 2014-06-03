@@ -13,6 +13,7 @@
 	<dimen name="dim20">20sp</dimen>
 	<dimen name="dim21">21sp</dimen>
 	<dimen name="dim22">22sp</dimen>
+	<dimen name="dim24">24sp</dimen>
 	<dimen name="dim25">25sp</dimen>
 	<dimen name="dim27">27sp</dimen>
 	<dimen name="dim30">30sp</dimen>
@@ -40,6 +41,8 @@
 	<dimen name="dim205">205sp</dimen>
 	<dimen name="dim210">210sp</dimen>
 	<dimen name="dim220">220sp</dimen>
+	<dimen name="dim230">230sp</dimen>
+	<dimen name="dim240">240sp</dimen>
 	<dimen name="dim250">250sp</dimen>
 	<dimen name="dim260">260sp</dimen>
 	<dimen name="dim300">300sp</dimen>

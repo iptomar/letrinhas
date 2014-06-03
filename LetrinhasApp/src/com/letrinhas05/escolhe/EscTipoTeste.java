@@ -24,11 +24,11 @@ import com.letrinhas05.util.SystemUiHider;
  */
 public class EscTipoTeste extends Activity {
 
-    protected Button btnVoltar, btnTestePalavras, btnTesteTexto, btnTesteMulti;
-    protected String strings[];
-    protected int[] iDs;
-    protected String disciplina;
-    protected int idDisciplina;
+	protected Button btnVoltar, btnTestePalavras, btnTesteTexto, btnTesteMulti;
+	protected String strings[];
+	protected int[] iDs;
+	protected String disciplina;
+	protected int idDisciplina;
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -53,7 +53,8 @@ public class EscTipoTeste extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.escolhe_tipo_teste);
-		///////////////////7Retirar os Extras DA JANELA ANTERIOR ///////////////////
+		// /////////////////7Retirar os Extras DA JANELA ANTERIOR
+		// ///////////////////
 		Bundle b = getIntent().getExtras();
 		// String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
 		strings = b.getStringArray("Nomes");
@@ -62,18 +63,22 @@ public class EscTipoTeste extends Activity {
 		disciplina = b.getString("Disciplina");
 		idDisciplina = b.getInt("idDisciplina");
 
-   ///////////////////////////////////////ACEDER A OBJECTOS VISUAIS DA JANELA//////////////
-        btnVoltar = (Button) findViewById(R.id.escTipoTVoltar);
-        btnTestePalavras = (Button) findViewById(R.id.btnTestePalav);
-        btnTesteTexto = (Button) findViewById(R.id.btnLeituraTest);
-        btnTesteMulti = (Button) findViewById(R.id.btnTestMulti);
+		// /////////////////////////////////////ACEDER A OBJECTOS VISUAIS DA
+		// JANELA//////////////
+		btnVoltar = (Button) findViewById(R.id.escTipoTVoltar);
+		btnTestePalavras = (Button) findViewById(R.id.btnTestePalav);
+		btnTesteTexto = (Button) findViewById(R.id.btnLeituraTest);
+		btnTesteMulti = (Button) findViewById(R.id.btnTestMulti);
 		((TextView) findViewById(R.id.escTipoTEscola)).setText(strings[0]);
 		((TextView) findViewById(R.id.escTipoTProfname)).setText(strings[1]);
-		((TextView) findViewById(R.id.txtTipoTDisciplina)).setText("Escolha o tipo de Teste de " + disciplina + " :");
-        ((TextView) findViewById(R.id.escTipoTTurma)).setText(strings[3]);
-        ((TextView) findViewById(R.id.escTipoTAluni)).setText(strings[4]);
-        final View contentView = findViewById(R.id.escTipoTeste);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		((TextView) findViewById(R.id.txtTipoTDisciplina))
+				.setText("Escolha o tipo de Teste de " + disciplina + " :");
+		((TextView) findViewById(R.id.escTipoTTurma)).setText(strings[3]);
+		((TextView) findViewById(R.id.escTipoTAluni)).setText(strings[4]);
+		final View contentView = findViewById(R.id.escTipoTeste);
+		// //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		int largura = getResources().getDimensionPixelSize(R.dimen.dim100);
 		// se PROFESSOR tem uma foto, usa-se
 		if (strings[2] != null) {
 			ImageView imageView = ((ImageView) findViewById(R.id.escTipoTImgProf));
@@ -82,8 +87,8 @@ public class EscTipoTeste extends Activity {
 					+ "/School-Data/Professors/"
 					+ strings[2];
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
-					100, false));
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura,
+					largura, false));
 		}
 
 		// se ALUNO tem uma foto, usa-se
@@ -92,8 +97,8 @@ public class EscTipoTeste extends Activity {
 			String imageInSD = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/School-Data/Students/" + strings[5];
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
-					100, false));
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura,
+					largura, false));
 		}
 
 		// new line faz a rota��o do ecr�n em 180 graus
@@ -170,21 +175,26 @@ public class EscTipoTeste extends Activity {
 		mHideHandler.removeCallbacks(mHideRunnable);
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
+
 	/**
 	 * Procedimento para veirficar os botoes
+	 * 
 	 * @author Alex
 	 */
 	private void escutaBotoes() {
-        //////////////////botao boltar /////////////
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {finish();}
-		});
-        //////////////////botao testePalavras /////////////
-        btnTestePalavras.setOnClickListener(new View.OnClickListener() {
+		// ////////////////botao boltar /////////////
+		btnVoltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-			////////////////ENVIAR DADOS PARA A JANELA SEGUINTE ////////////////
+				finish();
+			}
+		});
+		// ////////////////botao testePalavras /////////////
+		btnTestePalavras.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				// //////////////ENVIAR DADOS PARA A JANELA SEGUINTE
+				// ////////////////
 				Bundle wrap = new Bundle();
 				wrap.putStringArray("Nomes", strings);
 				wrap.putIntArray("IDs", iDs);
@@ -193,15 +203,16 @@ public class EscTipoTeste extends Activity {
 				wrap.putInt("TipoTesteid", 2);
 				wrap.putString("TipoTeste", "Leitura de Palavras");
 				Intent inten = new Intent(EscTipoTeste.this, EscolheTeste.class);
-                inten.putExtras(wrap);
+				inten.putExtras(wrap);
 				startActivity(inten);
 			}
 		});
-        //////////////////botao testeTexto/////////////
-        btnTesteTexto.setOnClickListener(new View.OnClickListener() {
+		// ////////////////botao testeTexto/////////////
+		btnTesteTexto.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-                ////////////////ENVIAR DADOS PARA A JANELA SEGUINTE ////////////////
+				// //////////////ENVIAR DADOS PARA A JANELA SEGUINTE
+				// ////////////////
 				Bundle wrap = new Bundle();
 				wrap.putStringArray("Nomes", strings);
 				wrap.putIntArray("IDs", iDs);
@@ -210,25 +221,26 @@ public class EscTipoTeste extends Activity {
 				wrap.putInt("TipoTesteid", 0);
 				wrap.putString("TipoTeste", "Leitura de Textos");
 				Intent inten = new Intent(EscTipoTeste.this, EscolheTeste.class);
-                inten.putExtras(wrap);
+				inten.putExtras(wrap);
 				startActivity(inten);
 			}
 		});
 
-        //////////////////botao testeMultimedia /////////////
-        btnTesteMulti.setOnClickListener(new View.OnClickListener() {
+		// ////////////////botao testeMultimedia /////////////
+		btnTesteMulti.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-                ////////////////ENVIAR DADOS PARA A JANELA SEGUINTE ////////////////
+				// //////////////ENVIAR DADOS PARA A JANELA SEGUINTE
+				// ////////////////
 				Bundle wrap = new Bundle();
 				wrap.putStringArray("Nomes", strings);
 				wrap.putIntArray("IDs", iDs);
 				wrap.putInt("idDisciplina", idDisciplina);
 				wrap.putString("Disciplina", disciplina);
 				wrap.putInt("TipoTesteid", 1);
-				wrap.putString("TipoTeste","Interpretacao atraves de Imagens");
+				wrap.putString("TipoTeste", "Interpretacao atraves de Imagens");
 				Intent inten = new Intent(EscTipoTeste.this, EscolheTeste.class);
-                inten.putExtras(wrap);
+				inten.putExtras(wrap);
 				startActivity(inten);
 			}
 		});

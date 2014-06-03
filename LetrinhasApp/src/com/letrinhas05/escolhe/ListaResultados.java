@@ -126,14 +126,16 @@ public class ListaResultados extends Activity {
 		((TextView) findViewById(R.id.lRtvProf)).setText(Nomes[1]);
 		((TextView) findViewById(R.id.tvRTurma)).setText(Nomes[3]);
 		((TextView) findViewById(R.id.tvRAluno)).setText(Nomes[4]);
+
+		int largura = getResources().getDimensionPixelSize(R.dimen.dim100);
 		// se professor tem uma foto, usa-se
 		if (Nomes[2] != null) {
 			ImageView imageView = ((ImageView) findViewById(R.id.lRivProfessor));
 			String imageInSD = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/School-Data/Professors/" + Nomes[2];
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
-					100, false));
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura,
+					largura, false));
 		}
 
 		// se aluno tem uma foto, usa-se
@@ -142,8 +144,8 @@ public class ListaResultados extends Activity {
 			String imageInSD = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/School-Data/Students/" + Nomes[5];
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
-					100, false));
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura,
+					largura, false));
 		}
 		volt = (Button) findViewById(R.id.lRbtnVoltar);
 		volt.setOnClickListener(new View.OnClickListener() {
@@ -230,6 +232,7 @@ public class ListaResultados extends Activity {
 					imgTip.setImageResource(R.drawable.textos);// poema
 					break;
 				}
+				int largura = getResources().getDimensionPixelSize(R.dimen.dim120);
 				// colocar a foto do aluno
 				if (aluno.getNomefoto() != null) {
 					String imageInSD = Environment
@@ -238,8 +241,8 @@ public class ListaResultados extends Activity {
 					Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
 					ImageView imgAl = new ImageView(this);
 					// ajustar o tamanho da imagem
-					imgAl.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 120,
-							120, false));
+					imgAl.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura,
+							largura, false));
 
 					// enviar para o bot�o
 					btIn.setCompoundDrawablesWithIntrinsicBounds(

@@ -89,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tlaDemoPlay"
-        android:layout_marginLeft="24dp"
+        android:layout_marginLeft="@dimen/dim24"
         android:layout_toRightOf="@+id/tlaDemoPlay"
         android:layout_marginTop="@dimen/dim20"
         android:contentDescription="@string/play"
@@ -138,7 +138,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tlaRecordPalavras"
-        android:layout_marginLeft="24dp"
+        android:layout_marginLeft="@dimen/dim24"
         android:layout_toRightOf="@+id/tlaRecordPalavras"
         android:contentDescription="@string/play"
         android:src="@drawable/palyoff" />
@@ -148,7 +148,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/tlaVoltar"
-        android:layout_marginLeft="24dp"
+        android:layout_marginLeft="@dimen/dim24"
         android:layout_toRightOf="@+id/tlaVoicePlay"
         android:contentDescription="@string/entrar"
         android:src="@drawable/valido" />
@@ -158,7 +158,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="24dp"
+        android:layout_marginLeft="@dimen/dim24"
         android:layout_toRightOf="@+id/tlaAvaliar"
         android:contentDescription="@string/voltar"
         android:src="@drawable/voltar" />

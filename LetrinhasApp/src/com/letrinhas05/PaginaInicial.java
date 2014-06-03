@@ -1,7 +1,5 @@
 package com.letrinhas05;
 
-import java.util.List;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,21 +11,15 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.*;
 
-import com.letrinhas05.BaseDados.NetworkUtils;
-import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
-import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.BaseDados.SincAllBd;
-import com.letrinhas05.ClassesObjs.Escola;
 import com.letrinhas05.escolhe.EscolheEscola;
 import com.letrinhas05.util.SystemUiHider;
-import com.letrinhas05.util.Utils;
 
 /**
  * Pagina Inicial

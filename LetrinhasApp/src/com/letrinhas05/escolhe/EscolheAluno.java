@@ -78,14 +78,15 @@ public class EscolheAluno extends Activity {
         ((TextView) findViewById(R.id.escAlTurma)).setText(nomeTurma);
         final View contentView = findViewById(R.id.escAluno);
    ////////////////////////////////////////////////////////////////////////////////////////////v
-		if (fotoNomeProf != null) {
+        int largura = getResources().getDimensionPixelSize(R.dimen.dim100);
+        if (fotoNomeProf != null) {
 			String imageInSD = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/School-Data/Professors/" + fotoNomeProf;
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
 			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
-					100, 100, false));
+					largura, largura, false));
 		}
-		// new line faz a rota��o do ecr�n em 180 graus
+		// new line faz a rotacao do ecran em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -148,7 +149,7 @@ public class EscolheAluno extends Activity {
 		String nomeAluno[] = new String[nAlunos];
 		String fotoAluno[] = new String[nAlunos];
 		
-		// preenche os arrays s� com a informa��o necess�ria
+		// preenche os arrays so com a informacao necessaria
 		for (int i = 0; i < nAlunos; i++) {
 			idAluno[i] = alunos.get(i).getIdEstudante();
 			nomeAluno[i] = alunos.get(i).getNome();
@@ -172,6 +173,8 @@ public class EscolheAluno extends Activity {
 		bt.setText("teste alunos");
 		// Contador de controlo
 		int cont = 0;
+		int largura = getResources().getDimensionPixelSize(R.dimen.dim210);
+		int comprimento = getResources().getDimensionPixelSize(R.dimen.dim200);
 		// criar o n� de linhas a dividir por 4 colunas
 		for (int i = 0; i < nAlunos / 4; i++) {
 			// nova linha da tabela
@@ -192,7 +195,7 @@ public class EscolheAluno extends Activity {
 				Button bt1 = new Button(bt.getContext());
 				// copiar os parametros do bot�o original
 				bt1.setLayoutParams(bt.getLayoutParams());
-
+				
 				// se o aluno tiver foto, vou busca-la
 				if (fotoAluno[cont] != null) {
 					String imageInSD = Environment
@@ -203,7 +206,7 @@ public class EscolheAluno extends Activity {
 
 					// ajustar o tamanho da imagem
 					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
-							210, 200, false));
+							largura, comprimento, false));
 					// enviar para o bot�o
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null,
 							imageView.getDrawable(), null, null);
@@ -271,7 +274,7 @@ public class EscolheAluno extends Activity {
 
 					// ajustar o tamanho da imagem
 					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
-							240, 240, false));
+							largura, comprimento, false));
 					// enviar para o bot�o
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null,
 							imageView.getDrawable(), null, null);

@@ -64,7 +64,7 @@
 
             <Button
                 android:id="@+id/bt4"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dim100"
                 android:layout_height="wrap_content"
                 android:text="4"
                 android:textSize="@dimen/dim25"
@@ -72,7 +72,7 @@
 
             <Button
                 android:id="@+id/bt5"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dim100"
                 android:layout_height="wrap_content"
                 android:text="5"
                 android:textSize="@dimen/dim25"
@@ -80,7 +80,7 @@
 
             <Button
                 android:id="@+id/bt6"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dim100"
                 android:layout_height="wrap_content"
                 android:text="6"
                 android:textSize="@dimen/dim25"
@@ -94,7 +94,7 @@
 
             <Button
                 android:id="@+id/bt7"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dim100"
                 android:layout_height="wrap_content"
                 android:text="7"
                 android:textSize="@dimen/dim25"
@@ -102,7 +102,7 @@
 
             <Button
                 android:id="@+id/bt8"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dim100"
                 android:layout_height="wrap_content"
                 android:text="8"
                 android:textSize="@dimen/dim25"
@@ -110,7 +110,7 @@
 
             <Button
                 android:id="@+id/bt9"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dim100"
                 android:layout_height="wrap_content"
                 android:text="9"
                 android:textSize="@dimen/dim25"
@@ -124,7 +124,7 @@
 
             <Button
                 android:id="@+id/btnAutCancel"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dim100"
                 android:layout_height="wrap_content"
                 android:text="@string/cancel"
                 android:textColor="#ff4040"
@@ -133,7 +133,7 @@
 
             <Button
                 android:id="@+id/bt0"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dim100"
                 android:layout_height="wrap_content"
                 android:text="0"
                 android:textSize="@dimen/dim25"
@@ -141,7 +141,7 @@
 
             <Button
                 android:id="@+id/btnOk"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dim100"
                 android:layout_height="wrap_content"
                 android:text="@string/avancar"
                 android:textColor="#40ff40"

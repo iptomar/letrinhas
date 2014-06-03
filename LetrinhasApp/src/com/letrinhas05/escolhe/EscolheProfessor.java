@@ -161,6 +161,7 @@ public class EscolheProfessor extends Activity {
 
 		// Contador de controlo
 		int cont = 0;
+		int largura = getResources().getDimensionPixelSize(R.dimen.dim240);		
 		for (int i = 0; i < nProfs / 4; i++) {
 			// nova linha da tabela
 			TableRow linha1 = new TableRow(getBaseContext());
@@ -190,7 +191,7 @@ public class EscolheProfessor extends Activity {
 					ImageView imageView = new ImageView(this);
 					// ajustar o tamanho da imagem
 					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
-							240, 240, false));
+							largura, largura, false));
 					// enviar para o bot�o
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null,
 							imageView.getDrawable(), null, null);
@@ -257,7 +258,7 @@ public class EscolheProfessor extends Activity {
 
 					// ajustar o tamanho da imagem
 					imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap,
-							240, 240, false));
+							largura, largura, false));
 					// enviar para o bot�o
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null,
 							imageView.getDrawable(), null, null);

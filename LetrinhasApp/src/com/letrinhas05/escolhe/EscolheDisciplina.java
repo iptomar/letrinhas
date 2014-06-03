@@ -69,6 +69,7 @@ public class EscolheDisciplina extends Activity {
 		// preencher informa��o na activity
 		((TextView) findViewById(R.id.escDEscola)).setText(strings[0]);
 		((TextView) findViewById(R.id.tvDProf)).setText(strings[1]);
+		int largura = getResources().getDimensionPixelSize(R.dimen.dim100);
 		// se professor tem uma foto, usa-se
 		if (strings[2] != null) {
 			ImageView imageView = ((ImageView) findViewById(R.id.ivDProfessor));
@@ -77,8 +78,8 @@ public class EscolheDisciplina extends Activity {
 					+ "/School-Data/Professors/"
 					+ strings[2];
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
-					100, false));
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura,
+					largura, false));
 		}
 		((TextView) findViewById(R.id.tvDTurma)).setText(strings[3]);
 		((TextView) findViewById(R.id.tvDAluno)).setText(strings[4]);
@@ -88,11 +89,11 @@ public class EscolheDisciplina extends Activity {
 			String imageInSD = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/School-Data/Students/" + strings[5];
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
-					100, false));
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura,
+					largura, false));
 		}
 
-		// new line faz a rota��o do ecr�n em 180 graus
+		// new line faz a rotacao do ecran em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);

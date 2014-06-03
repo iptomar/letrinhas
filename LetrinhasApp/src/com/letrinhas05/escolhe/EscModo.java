@@ -81,14 +81,16 @@ public class EscModo extends Activity {
         ((TextView) findViewById(R.id.tvMAluno)).setText(nomeAluno);
         final View contentView = findViewById(R.id.escModo);
 /////////////////////////////////////////////////////////////////////////////////
+
+		int largura = getResources().getDimensionPixelSize(R.dimen.dim100);
 		// se professor tem uma foto, usa-se
 		if (fotoNomeProf != null) {
 			ImageView imageView = ((ImageView) findViewById(R.id.imgProfEscmODO));
 			String imageInSD = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/School-Data/Professors/" + fotoNomeProf;
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
-					100, false));
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura,
+					largura, false));
 		}
 		// se o aluno tem uma foto, usa-se
 		if (fotoAluno != null) {
@@ -96,8 +98,8 @@ public class EscModo extends Activity {
 			String imageInSD = Environment.getExternalStorageDirectory()
 					.getAbsolutePath() + "/School-Data/Students/" + fotoAluno;
 			Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
-			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100,
-					100, false));
+			imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, largura,
+					largura, false));
 		}
 
 		// new line faz a rota��o do ecr�n em 180 graus

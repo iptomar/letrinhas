@@ -11,7 +11,6 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -75,7 +74,6 @@ public class EscolheTeste extends Activity {
         idTipo = b.getInt("TipoTesteid");
         nomeDsiciplina = b.getString("Disiciplina");
 
-        Log.e("CENAS", idArea + " " + idTipo); // Error
         //disciplina
         TextView tvd= ((TextView)findViewById(R.id.escTDisciplina));
         tvd.setText(b.getString("Disciplina"));
@@ -176,7 +174,7 @@ public class EscolheTeste extends Activity {
             // cn.getIdTeste()+","+cn.getTitulo().toString()+","+cn.getTexto().toString()+","+cn.getTipo()+","+cn.getDataInsercaoTeste()+","+cn.getGrauEscolar();
             String storage = cn.getIdTeste() + "," + cn.getTitulo().toString()
                     + "," + cn.getTexto().toString() + "," + cn.getTipo();
-            Log.d("letrinhas-Store", storage.toString());
+            
             array[numero] = storage.toString();
           
             titulo[numero] = cn.getTitulo();

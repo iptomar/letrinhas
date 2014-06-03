@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+/**
+ * Classe para apresentar o descritivo do resultado
+ * 
+ * @author Thiago
+ *
+ */
 public class Resultado extends Activity {
 
 	@Override
