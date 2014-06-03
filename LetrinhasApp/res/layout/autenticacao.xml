@@ -34,52 +34,30 @@
 
             <Button
                 android:id="@+id/bt1"
-<<<<<<< HEAD
                 style="@style/ButtonBarButton"
                 android:layout_width="@dimen/dim120"
                 android:layout_height="@dimen/dim75"
                 android:text="@string/um"
                 android:textSize="@dimen/dim30"
-=======
-                android:layout_width="@dimen/dim100"
-                android:layout_height="@dimen/dim90"
-                android:text="1"
-                android:textSize="@dimen/dim25"
->>>>>>> refs/remotes/origin/master
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/bt2"
-<<<<<<< HEAD
                 style="@style/ButtonBarButton"
                 android:layout_width="@dimen/dim120"
                 android:layout_height="@dimen/dim75"
                 android:text="@string/dois"
                 android:textSize="@dimen/dim30"
-=======
-                android:layout_width="@dimen/dim110"
-                android:layout_height="@dimen/dim90"
-                android:text="2"
-                android:textSize="@dimen/dim25"
->>>>>>> refs/remotes/origin/master
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/bt3"
-<<<<<<< HEAD
                 style="@style/ButtonBarButton"
                 android:layout_width="@dimen/dim120"
                 android:layout_height="@dimen/dim75"
                 android:text="@string/tres"
                 android:textSize="@dimen/dim30"
-=======
-                android:layout_width="@dimen/dim100"
-                android:layout_height="@dimen/dim90"
-                android:text="3"
-                android:textSize="@dimen/dim25"
->>>>>>> refs/remotes/origin/master
                 android:textStyle="bold" />
-
         </TableRow>
 
         <TableRow
@@ -89,52 +67,30 @@
 
             <Button
                 android:id="@+id/bt4"
-<<<<<<< HEAD
                 style="@style/ButtonBarButton"
                 android:layout_width="@dimen/dim120"
                 android:layout_height="@dimen/dim75"
                 android:text="@string/quatro"
                 android:textSize="@dimen/dim30"
-=======
-                android:layout_width="@dimen/dim100"
-                android:layout_height="@dimen/dim90"
-                android:text="4"
-                android:textSize="@dimen/dim25"
->>>>>>> refs/remotes/origin/master
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/bt5"
-<<<<<<< HEAD
                 style="@style/ButtonBarButton"
                 android:layout_width="@dimen/dim120"
                 android:layout_height="@dimen/dim75"
                 android:text="@string/cinco"
                 android:textSize="@dimen/dim30"
-=======
-                android:layout_width="@dimen/dim110"
-                android:layout_height="@dimen/dim90"
-                android:text="5"
-                android:textSize="@dimen/dim25"
->>>>>>> refs/remotes/origin/master
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/bt6"
-<<<<<<< HEAD
                 style="@style/ButtonBarButton"
                 android:layout_width="@dimen/dim120"
                 android:layout_height="@dimen/dim75"
                 android:text="@string/seis"
                 android:textSize="@dimen/dim30"
-=======
-                android:layout_width="@dimen/dim100"
-                android:layout_height="@dimen/dim90"
-                android:text="6"
-                android:textSize="@dimen/dim25"
->>>>>>> refs/remotes/origin/master
                 android:textStyle="bold" />
-
         </TableRow>
 
         <TableRow
@@ -144,52 +100,30 @@
 
             <Button
                 android:id="@+id/bt7"
-<<<<<<< HEAD
                 style="@style/ButtonBarButton"
                 android:layout_width="@dimen/dim120"
                 android:layout_height="@dimen/dim75"
                 android:text="@string/sete"
                 android:textSize="@dimen/dim30"
-=======
-                android:layout_width="@dimen/dim100"
-                android:layout_height="@dimen/dim90"
-                android:text="7"
-                android:textSize="@dimen/dim25"
->>>>>>> refs/remotes/origin/master
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/bt8"
-<<<<<<< HEAD
                 style="@style/ButtonBarButton"
                 android:layout_width="@dimen/dim120"
                 android:layout_height="@dimen/dim75"
                 android:text="@string/oito"
                 android:textSize="@dimen/dim30"
-=======
-                android:layout_width="@dimen/dim110"
-                android:layout_height="@dimen/dim90"
-                android:text="8"
-                android:textSize="@dimen/dim25"
->>>>>>> refs/remotes/origin/master
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/bt9"
-<<<<<<< HEAD
                 style="@style/ButtonBarButton"
                 android:layout_width="@dimen/dim120"
                 android:layout_height="@dimen/dim75"
                 android:text="@string/nove"
                 android:textSize="@dimen/dim30"
-=======
-                android:layout_width="@dimen/dim100"
-                android:layout_height="@dimen/dim90"
-                android:text="9"
-                android:textSize="@dimen/dim25"
->>>>>>> refs/remotes/origin/master
                 android:textStyle="bold" />
-
         </TableRow>
 
         <TableRow
@@ -198,15 +132,10 @@
             android:layout_height="wrap_content" >
 
             <Button
-                style="@style/ButtonBarButton"
                 android:id="@+id/btnAutCancel"
-<<<<<<< HEAD
+                style="@style/ButtonBarButton"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dim75"
-=======
-                android:layout_width="@dimen/dim120"
-                android:layout_height="@dimen/dim90"
->>>>>>> refs/remotes/origin/master
                 android:text="@string/cancel"
                 android:textColor="#ff4040"
                 android:textSize="@dimen/dim30"
@@ -214,30 +143,18 @@
 
             <Button
                 android:id="@+id/bt0"
-<<<<<<< HEAD
                 style="@style/ButtonBarButton"
                 android:layout_width="@dimen/dim120"
                 android:layout_height="@dimen/dim75"
                 android:text="@string/zero"
                 android:textSize="@dimen/dim30"
-=======
-                android:layout_width="@dimen/dim110"
-                android:layout_height="@dimen/dim90"
-                android:text="0"
-                android:textSize="@dimen/dim25"
->>>>>>> refs/remotes/origin/master
                 android:textStyle="bold" />
 
             <Button
-                style="@style/ButtonBarButton"
                 android:id="@+id/btnOk"
-<<<<<<< HEAD
+                style="@style/ButtonBarButton"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dim75"
-=======
-                android:layout_width="@dimen/dim120"
-                android:layout_height="@dimen/dim90"
->>>>>>> refs/remotes/origin/master
                 android:text="@string/avancar"
                 android:textColor="#40ff40"
                 android:textSize="@dimen/dim30"
@@ -248,41 +165,37 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:layout_below="@+id/autCabecalho"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dim90"
         android:background="@color/text_color" >
-=======
-        android:background="#8eff42" android:layout_centerHorizontal="true" android:layout_marginTop="@dimen/dim210">
->>>>>>> refs/remotes/origin/master
 
         <ImageView
-            android:contentDescription="@string/letrinhas"
             android:id="@+id/im1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/letrinhas"
             android:src="@drawable/logo2" />
 
         <ImageView
-            android:contentDescription="@string/letrinhas"
             android:id="@+id/im2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/letrinhas"
             android:src="@drawable/logo2" />
 
         <ImageView
-            android:contentDescription="@string/letrinhas"
             android:id="@+id/im3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/letrinhas"
             android:src="@drawable/logo2" />
 
         <ImageView
-            android:contentDescription="@string/letrinhas"
             android:id="@+id/im4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/letrinhas"
             android:src="@drawable/logo2" />
     </LinearLayout>
 
