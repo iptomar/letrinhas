@@ -166,7 +166,7 @@ public class Teste_Texto extends Activity {
 
 		idTesteAtual = testesID[0];
 		endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
-				+ "/School-Data/CorrectionReadTest/"+idTesteAtual+ iDs[3] + "/";
+				+ "/School-Data/CorrectionReadTest/"+idTesteAtual+ "/"+ iDs[3] + "/";
 
 		fileName = getCurrentTimeStamp() + ".3gpp";
 
@@ -339,7 +339,7 @@ public class Teste_Texto extends Activity {
 								Bundle wrap = new Bundle();
 								wrap.putString("PIN", PIN);
 
-								// iniciar a pagina (Autenticação)
+								// iniciar a pagina (Autenticaï¿½ï¿½o)
 								Intent at = new Intent(getApplicationContext(),
 										Autenticacao.class);
 								at.putExtras(wrap);
@@ -414,7 +414,7 @@ public class Teste_Texto extends Activity {
 								Bundle wrap = new Bundle();
 								wrap.putString("PIN", PIN);
 
-								// iniciar a pagina (Autenticação)
+								// iniciar a pagina (Autenticaï¿½ï¿½o)
 								Intent at = new Intent(getApplicationContext(),
 										Autenticacao.class);
 								at.putExtras(wrap);
@@ -432,7 +432,7 @@ public class Teste_Texto extends Activity {
 		});
 	}
 
-	// forçar a paragem da reprodução e gravação do audio!
+	// forï¿½ar a paragem da reproduï¿½ï¿½o e gravaï¿½ï¿½o do audio!
 	private void stopPlayRec() {
 		if (recording) {
 			gravador.stop();
@@ -445,7 +445,7 @@ public class Teste_Texto extends Activity {
 	}
 
 	// temos de manter o onDestroy, devido a existir a possibilidade de fazer
-	// finhish() através da barra de sistema!
+	// finhish() atravï¿½s da barra de sistema!
 	@Override
 	protected void onDestroy() {
 		if (recording) {

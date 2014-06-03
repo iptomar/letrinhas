@@ -114,7 +114,8 @@
             android:layout_alignTop="@+id/bt1M"
             android:layout_alignBottom="@id/bt1M"
             android:layout_alignRight="@id/bt1M"
-            android:layout_alignLeft="@id/bt1M" />
+            android:layout_alignLeft="@id/bt1M" android:background="#a1c4e6"
+            android:textColor="#000000" android:textStyle="bold" android:textSize="24dp"/>
     <RelativeLayout
             android:id="@id/bt1M"
             android:layout_width="@dimen/dim220"
@@ -122,13 +123,6 @@
             android:layout_centerHorizontal="true"
             android:layout_alignLeft="@+id/linearTestMultw" android:layout_above="@+id/textRodapeTestMult"
             android:layout_marginLeft="@dimen/dim65" android:layout_marginRight="@dimen/dim75">
-        <TextView
-                android:id="@+id/btnOpcao1TXT"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textSize="@dimen/dim22" android:textAlignment="center"
-                android:textStyle="bold"/>
         <ImageView
                 android:id="@+id/btnOpcao1IMG"
                 android:layout_width="wrap_content"
@@ -150,20 +144,14 @@
             android:layout_alignTop="@+id/bt2M"
             android:layout_alignBottom="@id/bt2M"
             android:layout_alignRight="@id/bt2M"
-            android:layout_alignLeft="@id/bt2M" />
+            android:layout_alignLeft="@id/bt2M" android:textStyle="bold" android:textSize="24dp"
+            android:textColor="#000000" android:background="#a3c6e6"/>
     <RelativeLayout
             android:id="@id/bt2M"
             android:layout_width="@dimen/dim220"
             android:layout_height="@dimen/dim205" android:layout_alignBottom="@id/bt1M"
             android:layout_centerHorizontal="true" android:layout_toRightOf="@id/bt1M"
             android:layout_marginRight="@dimen/dim75">
-        <TextView
-                android:id="@+id/btnOpcao2TXT"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textSize="@dimen/dim22" android:textAlignment="center"
-                android:textStyle="bold"/>
         <ImageView
                 android:id="@+id/btnOpcao2IMG"
                 android:layout_width="wrap_content"
@@ -185,20 +173,14 @@
             android:layout_alignTop="@+id/bt3M"
             android:layout_alignBottom="@id/bt3M"
             android:layout_alignRight="@id/bt3M"
-            android:layout_alignLeft="@id/bt3M" />
+            android:layout_alignLeft="@id/bt3M" android:textStyle="bold" android:textSize="24dp"
+            android:textColor="#000000" android:background="#a1c4e6"/>
     <RelativeLayout
             android:id="@id/bt3M"
             android:layout_width="@dimen/dim220"
             android:layout_height="@dimen/dim205"
             android:layout_centerHorizontal="true" android:layout_toRightOf="@id/bt2M"
             android:layout_alignBottom="@id/bt2M">
-        <TextView
-                android:id="@+id/btnOpcao3TXT"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textSize="@dimen/dim22" android:textAlignment="center"
-                android:textStyle="bold"/>
         <ImageView
                 android:id="@+id/btnOpcao3IMG"
                 android:layout_width="wrap_content"
