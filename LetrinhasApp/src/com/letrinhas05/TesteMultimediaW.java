@@ -10,7 +10,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,8 +23,6 @@ import com.letrinhas05.ClassesObjs.CorrecaoTesteMultimedia;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.ClassesObjs.TesteMultimedia;
 import com.letrinhas05.util.SystemUiHider;
-
-import java.io.File;
 
 /**
  * Created by Alex on 23/05/2014.
@@ -219,7 +216,7 @@ public class TesteMultimediaW extends Activity {
 			bt2img.setImageBitmap(Bitmap.createScaledBitmap(bitmap2, largura,
 					largura, false));
 		} else {
-			TextView txt1 = (TextView) findViewById(R.id.btnOpcao1TXT);
+			TextView txt1 = (TextView) findViewById(R.id.btnOpcao1Mult);
 			txt1.setText(testeM.getOpcao1());
 		}
 
@@ -236,7 +233,7 @@ public class TesteMultimediaW extends Activity {
 			bt2img.setImageBitmap(Bitmap.createScaledBitmap(bitmap2, largura, largura,
 					false));
 		} else {
-			TextView txt2 = (TextView) findViewById(R.id.btnOpcao2TXT);
+			TextView txt2 = (TextView) findViewById(R.id.btnOpcao2Mult);
 			txt2.setText(testeM.getOpcao2());
 		}
 
@@ -253,7 +250,7 @@ public class TesteMultimediaW extends Activity {
 			bt2img.setImageBitmap(Bitmap.createScaledBitmap(bitmap2, largura, largura,
 					false));
 		} else {
-			TextView txt3 = (TextView) findViewById(R.id.btnOpcao3TXT);
+			TextView txt3 = (TextView) findViewById(R.id.btnOpcao3Mult);
 			txt3.setText(testeM.getOpcao3());
 		}
 
