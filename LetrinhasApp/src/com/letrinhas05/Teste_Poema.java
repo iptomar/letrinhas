@@ -53,7 +53,7 @@ public class Teste_Poema extends Activity {
 	private MediaPlayer reprodutor = new MediaPlayer();
 	private String endereco, audio, fileName;
 	Context context;
-
+    long timeStamp;
 	int tipo, idTesteAtual, source=0;
 	String[] Nomes;
 	int[] iDs, testesID;
@@ -169,7 +169,7 @@ public class Teste_Poema extends Activity {
 		endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
 				+ "/School-Data/CorrectionReadTest/"+idTesteAtual+ "/"+ iDs[3] + "/";
 
-		fileName = getCurrentTimeStamp() + ".3gpp";
+		//fileName = getCurrentTimeStamp() + ".3gpp";
 		audio = Environment.getExternalStorageDirectory().getAbsolutePath()
 				+ "/School-Data/ReadingTests/" + teste.getProfessorAudioUrl();
 
@@ -253,7 +253,10 @@ public class Teste_Poema extends Activity {
 
 	public void setUp() {
 
-		gravador = new MediaRecorder();
+        timeStamp = System.currentTimeMillis() / 1000;
+        fileName = timeStamp +".3gpp";
+
+        gravador = new MediaRecorder();
 		gravador.setAudioSource(MediaRecorder.AudioSource.MIC);
 		gravador.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 		gravador.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
@@ -845,15 +848,13 @@ public class Teste_Poema extends Activity {
 			alerta.show();
 
 		} else {
-
-			long time = System.currentTimeMillis() / 1000;
 			try {
-				String aux = idTesteAtual + iDs[3] + time + "";
+				String aux = idTesteAtual +""+ iDs[3] +""+ timeStamp + "";
 				ctl.setIdCorrrecao(Long.parseLong(aux));
 				String[] yo = endereco.split("School-Data");
 				ctl.setAudiourl("/School-Data" + yo[1] + fileName);
 
-				ctl.setDataExecucao(time);
+				ctl.setDataExecucao(timeStamp);
 				ctl.setTipo(3);// pois estou num teste texto
 				ctl.setEstado(0);
 				ctl.setTestId(idTesteAtual);

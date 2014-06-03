@@ -1639,7 +1639,6 @@ public class LetrinhasDB extends SQLiteOpenHelper {
      * Actualizar um registo unico da Tabela CorrecaoTesteLeitura Passa o estado para corrigido
      * e actualiza os campos enviados por paramentro
      * @param idCorrecao ID da correcao que se pretende actualziar os campos
-     * @param dataAlteracao data de  alteracao
      * @param observacoes observacoes
      * @param numPalavrasorMin numero de plavras por minuto
      * @param numPalavrasCorr  numero de palavras correctas
@@ -1650,14 +1649,13 @@ public class LetrinhasDB extends SQLiteOpenHelper {
      * @param ritmo   ritmo
      * @param detalhes detalhes
      */
-    public void updateCorrecaoTesteLeitura(long idCorrecao, long dataAlteracao, String observacoes,
+    public void updateCorrecaoTesteLeitura(long idCorrecao, String observacoes,
                                           float numPalavrasorMin, int numPalavrasCorr, int numPalavrasInc,
                                           float precisao, float velocidade,
                                           int expressividade,int ritmo, String detalhes) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(CORRT_ESTADO, 1 ); /// Estado corrigido
-        values.put(CORRT_DATAEXEC, dataAlteracao ); /// data
         // Actualizar registos na Base de dados
         db.update(TABELA_CORRECAOTESTE, values, CORRT_ID + " = ?",
                 new String[] { String.valueOf(idCorrecao) });
@@ -1677,6 +1675,37 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 new String[] { String.valueOf(idCorrecao) });
         db.close();
     }
+
+    /**
+     * Actualizar um registo unico da Tabela CorrecaoTesteLeitura Passa o estado para corrigido
+     * e actualiza os campos enviados por paramentro
+     * @param correcaoTesteLeitura objecto correcao
+     */
+    public void updateCorrecaoTesteLeituraPorObjecto(CorrecaoTesteLeitura correcaoTesteLeitura) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CORRT_ESTADO, correcaoTesteLeitura.getEstado()); /// Estado corrigido
+        values.put(CORRT_DATAEXEC, correcaoTesteLeitura.getDataExecucao() ); /// data
+        // Actualizar registos na Base de dados
+        db.update(TABELA_CORRECAOTESTE, values, CORRT_ID + " = ?",
+                new String[] { String.valueOf(correcaoTesteLeitura.getIdCorrrecao()) });
+        ///////////////////////////////////////////////////////////
+        ContentValues values2 = new ContentValues();
+        values2.put(CORRTLEIT_OBSERVACOES, correcaoTesteLeitura.getObservacoes() );
+        values2.put(CORRTLEIT_NUMPALAVRASPORMIN, correcaoTesteLeitura.getNumPalavrasMin() );
+        values2.put(CORRTLEIT_NUMPALAVRASCORRET, correcaoTesteLeitura.getNumPalavCorretas() );
+        values2.put(CORRTLEIT_NUMPALAVRASINCORRE, correcaoTesteLeitura.getNumPalavIncorretas() );
+        values2.put(CORRTLEIT_PRECISAO, correcaoTesteLeitura.getPrecisao() );
+        values2.put(CORRTLEIT_PRECISAO, correcaoTesteLeitura.getVelocidade() );
+        values2.put(CORRTLEIT_EXPRESSIVIDADE, correcaoTesteLeitura.getExpressividade() );
+        values2.put(CORRTLEIT_RITMO, correcaoTesteLeitura.getRitmo() );
+        values2.put(CORRTLEIT_DETALHES, correcaoTesteLeitura.getDetalhes() );
+        // Actualizar registos na Base de dados
+        db.update(TABELA_CORRECAOTESTELEITURA, values2, CORRTLEIT_IDCORRECAO + " = ?",
+                new String[] { String.valueOf(correcaoTesteLeitura.getIdCorrrecao()) });
+        db.close();
+    }
+
 
                                      //*************************//
                                      //*********DELETE**********//
@@ -1781,21 +1810,49 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
 
 
-                ///////////////////COUNT///////////
+    ///////////////////COUNT///////////
     /**
      * Obtendo Contagem Items na Base de  dados
      * Retorna um inteiro com o total de resgisto da Base de dados
      */
-	public int getEscolasCount() {
-		String countQuery = "SELECT  * FROM " + TABELA_ESCOLAS;
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.rawQuery(countQuery, null);
+    public int getEscolasCount() {
+        String countQuery = "SELECT  * FROM " + TABELA_ESCOLAS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
         int total = cursor.getCount();
-		cursor.close();
+        cursor.close();
         db.close();
-		// return Total de registos da Base de Dados
-		return total;
-	}
+        // return Total de registos da Base de Dados
+        return total;
+    }
+
+
+
+
+    ///////////////////COUNT///////////
+    /**
+     * Obtendo Contagem Items na Base de  dados
+     * Retorna um inteiro com o total de resgisto da Base de dados
+     */
+    public boolean isExistsCorrecaoTestLeitura(int testId, int studentId, long executionDate) {
+        String countQuery = "SELECT  * FROM " + TABELA_CORRECAOTESTE
+                + " WHERE "+CORRT_IDTESTE + " = "+ testId
+                + " AND "+CORRT_IDALUNO+ " = "+ studentId
+                + " AND "+CORRT_DATAEXEC+ " = "+ executionDate;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int total = cursor.getCount();
+        boolean resposta = false;
+        if (total == 0)
+         resposta = false;
+        else
+         resposta = true;
+        cursor.close();
+        db.close();
+        // return Total de registos da Base de Dados
+        return resposta;
+    }
 
 //////////////////////////////////////////APENAS PARA TESTES PARA MAIS TARDE
 
