@@ -41,31 +41,35 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         if (tipo == 0) {
             mActivity.progBar.setMax(100);
             lerSynProfessores(strings[0]);
-            mActivity.progBar.setProgress(15);
+            mActivity.progBar.setProgress(10);
 
             lerSynEscolas(strings[0]);
-            mActivity.progBar.setProgress(22);
+            mActivity.progBar.setProgress(15);
 
             lerSynEstudante(strings[0]);
-            mActivity.progBar.setProgress(32);
+            mActivity.progBar.setProgress(20);
 
             lerSynTurmas(strings[0]);
-            mActivity.progBar.setProgress(42);
+            mActivity.progBar.setProgress(25);
 
             lerSynTurmasProfessor(strings[0]);
-            mActivity.progBar.setProgress(52);
+            mActivity.progBar.setProgress(30);
 
             lerSynTestes(strings[0]);
-            mActivity.progBar.setProgress(65);
+            mActivity.progBar.setProgress(50);
 
             lerSynTestesLista(strings[0]);
-            mActivity.progBar.setProgress(77);
+            mActivity.progBar.setProgress(60);
 
             lerSynTestesPoema(strings[0]);
-            mActivity.progBar.setProgress(82);
+            mActivity.progBar.setProgress(70);
 
             lerSynTestesMultimedia(strings[0]);
+            mActivity.progBar.setProgress(80);
+
+            lerSynCorrecaoLeitura(strings[0]);
             mActivity.progBar.setProgress(100);
+
         }
         else{
             mActivity.txtViewMSG.setText("A Enviar ....");
@@ -508,6 +512,84 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         }
     }
 
+
+
+    /**
+     * Vai por HTTP buscar toda a informacao sobre os TestesLeitura e no final
+     * chama o metodo para guardar na base de dados
+     */
+
+    protected void lerSynCorrecaoLeitura(String URlString) {
+        String url = URlString + "Api/Tests/Submissions/Read";
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        JSONArray tests = JSONParser.getJSONArray(url, params);
+        try {
+            CorrecaoTesteLeitura[] arrCorrTestesLeitura = new CorrecaoTesteLeitura[tests.length()];
+            // For (loop)looping atraves de todos os Testes
+            for (int i = 0; i < tests.length(); i++) {
+                CorrecaoTesteLeitura corretesteleitura = new CorrecaoTesteLeitura();
+                JSONObject c = tests.getJSONObject(i);
+                // /////// Preencher um objecto do tipo teste com a informaçao
+                String aux = c.getInt("testId") +""+ c.getInt("studentId") +""+ c.getLong("executionDate") + "";
+
+                corretesteleitura.setIdCorrrecao(Long.parseLong(aux));
+                corretesteleitura.setTestId(c.getInt("testId"));
+                corretesteleitura.setIdEstudante(c.getInt("studentId"));
+                corretesteleitura.setDataExecucao(c.getLong("executionDate"));
+                corretesteleitura.setTipo(c.getInt("type"));
+
+                corretesteleitura.setObservacoes(c.getString("professorObservations"));
+                corretesteleitura.setNumPalavrasMin(Float.parseFloat(c.getString("wordsPerMinute")));
+                corretesteleitura.setNumPalavCorretas(c.getInt("correctWordCount"));
+                corretesteleitura.setNumPalavIncorretas(c.getInt("testId"));
+
+                corretesteleitura.setPrecisao(Float.parseFloat(c.getString("readingPrecision")));
+                corretesteleitura.setExpressividade(c.getInt("expressiveness"));
+                corretesteleitura.setRitmo(c.getInt("rhythm"));
+                corretesteleitura.setDetalhes(c.getString("details"));
+                corretesteleitura.setEstado(c.getInt("wasCorrected"));
+
+
+                //Guardar ficheiro
+                corretesteleitura.setAudiourl("/School-Data/CorrectionReadTest/"+c.getInt("testId")+"/"+c.getInt("studentId")+"/"+c.getLong("executionDate")+".3gpp");
+                Utils.saveFileSDCorre(
+                        "/School-Data/CorrectionReadTest/"+c.getInt("testId")+"/"+c.getInt("studentId")+"/",
+                        c.getLong("executionDate")+".3gpp",
+                        NetworkUtils.getFile(URlString+ c.getString("soundFileUrl")));
+
+
+                arrCorrTestesLeitura[i] = corretesteleitura;
+            }
+           guardarCorrecaoTesteLeituraBD(arrCorrTestesLeitura);
+        } catch (Exception e) {
+            Log.d("ERRO",
+                    "ERRO DE SINC TESTES LEITURA TALVEZ SERVIDOR EM BAIXO");
+            msg += " TestesLeitura ||";
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Guarda um array de ObJECTOS professores na Base de dados
      *
@@ -820,5 +902,66 @@ public class SincAllBd extends AsyncTask<String, String, String> {
             // Writing Contacts to log
             Log.d("BDDADOS: ", cenas);
         }
-    }
+
 }
+
+
+    /**
+     * Guarda um array de ObJECTOS CorrecaotestesLeitura na Base de dados
+     *
+     * @param correcaoTesteLeituras Array com testesLeitura para se guardar
+     */
+    public void guardarCorrecaoTesteLeituraBD(CorrecaoTesteLeitura... correcaoTesteLeituras) {
+        LetrinhasDB db = new LetrinhasDB(context);
+
+
+
+
+
+
+        Log.d("DB", "Inserir Dados na base de dados dos TESTES ..");
+        for (int i = 0; i < correcaoTesteLeituras.length; i++) {
+
+            if (!db.isExistsCorrecaoTestLeitura(correcaoTesteLeituras[i].getTestId(), correcaoTesteLeituras[i].getIdEstudante(), correcaoTesteLeituras[i].getDataExecucao()))
+            {
+                Log.e("DB", "VAI FAZER INSERT");
+                db.addNewItemCorrecaoTesteLeitura(correcaoTesteLeituras[i]);
+            }
+            else
+            {
+                Log.e("DB", "VAI FAZER UPDATE");
+               db.updateCorrecaoTesteLeituraPorObjecto(correcaoTesteLeituras[i]);
+            }
+
+            }
+
+        Log.d("DB", "Tudo inserido nas Correcao");
+        // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
+        // CONTEUDO DA TABELA//////////////
+//        List<CorrecaoTesteLeitura> dados = db.getAllCorrecaoTesteLeitura();
+//        Log.d("BDDADOS: ",
+//                "*********Tabela Testes---- + testes Leitura LISTAS********************");
+//        for (Teste cn : dados) {
+//            String logs = "getIdTeste:   " + cn.getIdTeste() + ",getTitulo:   "
+//                    + cn.getTitulo() + ",getTexto:    " + cn.getTexto()
+//                    + ", getDataInsercaoTeste:    " + cn.getDataInsercaoTeste()
+//                    + ", getGrauEscolar:    " + cn.getGrauEscolar()
+//                    + ", getTipo:    " + cn.getTipo();
+//
+//            // Writing Contacts to log
+//
+//            Log.d("BDDADOS: ", logs);
+//        }
+//        // ///PARA EFEITOS DE DEBUG E LOGO O CODIGO A FRENTE APENAS MOSTRA O
+//        // CONTEUDO DA TABELA//////////////
+//        List<TesteLeitura> dados2 = db.getAllTesteLeitura();
+//        Log.d("BDDADOS: ", "\n*********testesleitura********************");
+//        for (TesteLeitura cn : dados2) {
+//            String cenas = "getIdTeste:" + cn.getIdTeste()
+//                    + ", getConteudoTexto: " + cn.getConteudoTexto()
+//                    + ", getProfessorAudioUrl: " + cn.getProfessorAudioUrl();
+//            // Writing Contacts to log
+//            Log.d("BDDADOS: ", cenas);
+         }
+    }
+

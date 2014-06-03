@@ -39,6 +39,31 @@ public class Utils {
     }
 
 
+    public static void saveFileSDCorre(String pasta, String nome ,byte[] body ) {
+        FileOutputStream fos = null;
+        try {
+            final File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + pasta);
+
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            final File myFile = new File(dir, nome);
+
+            if (!myFile.exists()) {
+                myFile.createNewFile();
+            }
+
+            fos = new FileOutputStream(myFile);
+            fos.write(body);
+            fos.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+
+
     /**
      * Buscar um determinado ficheiro no sistema de pastas do cartao de memoria
      * @param pasta Sub Pasta onde pertence o ficheiro (exp: Students, Schools..)

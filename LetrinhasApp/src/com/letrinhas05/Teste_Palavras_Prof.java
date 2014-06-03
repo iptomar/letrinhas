@@ -254,8 +254,8 @@ public class Teste_Palavras_Prof extends Activity{
 				}
 				finish();
 			}
-			// método para acrescentar um 0 nas casas das dezenas,
-			// caso o númer seja inferior a 10
+			// mï¿½todo para acrescentar um 0 nas casas das dezenas,
+			// caso o nï¿½mer seja inferior a 10
 			private String n2d(int n) {
 				String num;
 				if (n / 10 == 0) {
@@ -266,7 +266,7 @@ public class Teste_Palavras_Prof extends Activity{
 				return num;
 			}
 			
-			// forçar a paragem da reprodução do audio!
+			// forï¿½ar a paragem da reproduï¿½ï¿½o do audio!
 			private void stopPlay() {
 				if (playing) {
 					reprodutor.stop();
@@ -389,7 +389,7 @@ public class Teste_Palavras_Prof extends Activity{
 				ctl = new CorrecaoTesteLeitura();
 				long time = System.currentTimeMillis() / 1000;
 				try {
-				db.updateCorrecaoTesteLeitura(idCorrrecao, time, observacoes, numPalavrasMin, numPalavCorretas, numPalavIncorretas, precisao, velocidade, (int)expressividade, (int)ritmo, detalhes);
+				db.updateCorrecaoTesteLeitura(idCorrrecao, observacoes, numPalavrasMin, numPalavCorretas, numPalavIncorretas, precisao, velocidade, (int)expressividade, (int)ritmo, detalhes);
 				} catch (Exception ex) {
 				}
 				List<CorrecaoTeste> data1 = db.getAllCorrecaoTeste();

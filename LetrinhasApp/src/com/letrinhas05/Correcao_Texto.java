@@ -95,11 +95,11 @@ public class Correcao_Texto extends Activity {
 		iDs = b.getIntArray("IDs");
 		long idCorrecao = b.getLong("ID_Correcao");
 
-		// correcao para buscar o id do teste, titulo e o endereço do audio do
+		// correcao para buscar o id do teste, titulo e o endereï¿½o do audio do
 		// aluno
 		crt = bd.getCorrecaoTesteLeirutaById(idCorrecao);
 
-		// Teste para buscar o texto, titulo e o endereço da demonstração
+		// Teste para buscar o texto, titulo e o endereï¿½o da demonstraï¿½ï¿½o
 		TesteLeitura teste = bd.getTesteLeituraById(crt.getTestId());
 
 		s = teste.getTitulo() + " - ";
@@ -168,8 +168,8 @@ public class Correcao_Texto extends Activity {
 		}
 	}
 
-	// método para acrescentar um 0 nas casas das dezenas,
-	// caso o númer seja inferior a 10
+	// mï¿½todo para acrescentar um 0 nas casas das dezenas,
+	// caso o nï¿½mer seja inferior a 10
 	private String n2d(int n) {
 		String num;
 		if (n / 10 == 0) {
@@ -181,7 +181,7 @@ public class Correcao_Texto extends Activity {
 	}
 
 	private void escutaBotoes() {
-		// Bloqueio do multi-touch na textView (só para Asus)
+		// Bloqueio do multi-touch na textView (sï¿½ para Asus)
 		texto.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent e) {
@@ -239,7 +239,7 @@ public class Correcao_Texto extends Activity {
 		});
 	}
 
-	// forçar a paragem da reprodução do audio!
+	// forï¿½ar a paragem da reproduï¿½ï¿½o do audio!
 	private void stopPlay() {
 		if (playing) {
 			reprodutor.stop();
@@ -248,7 +248,7 @@ public class Correcao_Texto extends Activity {
 	}
 
 	// temos de manter o onDestroy, devido a existir a possibilidade de fazer
-	// finhish() através da barra de sistema!
+	// finhish() atravï¿½s da barra de sistema!
 	@Override
 	protected void onDestroy() {
 		if (playing) {
@@ -263,7 +263,7 @@ public class Correcao_Texto extends Activity {
 	private Handler play_handler, play_handler2;
 
 	/**
-	 * Método para reproduzir a demosntracao do professor
+	 * Mï¿½todo para reproduzir a demosntracao do professor
 	 */
 	@SuppressLint("HandlerLeak")
 	private void startDemo() {
@@ -320,7 +320,7 @@ public class Correcao_Texto extends Activity {
 
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reprodução da demo.\n" + ex.getMessage(),
+						"Erro na reproduï¿½ï¿½o da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 
 				img.setImageResource(R.drawable.palyoff);
@@ -345,7 +345,7 @@ public class Correcao_Texto extends Activity {
 
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reprodução da demo.\n" + ex.getMessage(),
+						"Erro na reproduï¿½ï¿½o da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -515,7 +515,7 @@ public class Correcao_Texto extends Activity {
 				String resultado = avaliador.calcula(minuto, segundo);
 				long time = System.currentTimeMillis() / 1000;
 				try {
-					bd.updateCorrecaoTesteLeitura(crt.getIdCorrrecao(), time,
+					bd.updateCorrecaoTesteLeitura(crt.getIdCorrrecao(),
 							avaliador.obs, avaliador.PLM(minuto, segundo),
 							avaliador.palavrasCertas(),
 							avaliador.getPlvErradas(), avaliador.PL(),
@@ -783,17 +783,17 @@ public class Correcao_Texto extends Activity {
 	 */
 	public void marcaPalavra() { // Marcar Palavra Errada
 
-		// Associar a variavél TextoLido a Textview que contém o texto
+		// Associar a variavï¿½l TextoLido a Textview que contï¿½m o texto
 		final TextView TextoLido = texto;
 		TextoLido.performLongClick();
 
-		// Variáveis que contem o inicio e o fim da palavra que foi selecionada
+		// Variï¿½veis que contem o inicio e o fim da palavra que foi selecionada
 		final int startSelection = TextoLido.getSelectionStart();
 		final int endSelection = TextoLido.getSelectionEnd();
 
 		if (startSelection != endSelection) {
 
-			// Definição do Span para pintar a palavra seleccionada
+			// Definiï¿½ï¿½o do Span para pintar a palavra seleccionada
 			Spannable WordtoSpan = (Spannable) TextoLido.getText();
 			ForegroundColorSpan cor = new ForegroundColorSpan(Color.BLACK);
 
@@ -804,7 +804,7 @@ public class Correcao_Texto extends Activity {
 			for (int i = 0; i < ListaPalavrasErradas.size(); i++) {
 				// "if" que verifica se a cordenada inicial da palavra
 				// seleccionada
-				// está inserida no array, se sim guarda o valor da posição
+				// estï¿½ inserida no array, se sim guarda o valor da posiï¿½ï¿½o
 				if (ListaPalavrasErradas.get(i) == startSelection) {
 					EscreverNaLista = false;
 					RetirarSeleccao = i;
