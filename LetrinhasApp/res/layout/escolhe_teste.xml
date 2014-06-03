@@ -100,6 +100,7 @@
         android:textSize="@dimen/dim30" />
 
     <ImageView
+        android:contentDescription="@string/teste"
         android:id="@+id/escTivTipo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

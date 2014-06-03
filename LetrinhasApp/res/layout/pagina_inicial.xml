@@ -3,15 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
-    android:screenOrientation="landscape"
     android:configChanges="orientation|keyboardHidden|screenSize"
+    android:screenOrientation="landscape"
     tools:context="com.letrinhas05.PaginaInicial" >
 
-   <!--
-         The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc.
-    -->
 
     <TextView
         android:id="@+id/fullscreen_content"
@@ -24,18 +19,17 @@
         android:textSize="@dimen/dim90"
         android:textStyle="bold" />
 
-    <!--
-         This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows.
-    -->
+  
 
     <TextView
         android:id="@+id/piAgrup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/dim210"
         android:layout_marginLeft="@dimen/dim300"
         android:text="@string/agrupamento"
-        android:textSize="@dimen/dim50" android:layout_marginBottom="@dimen/dim210" android:layout_gravity="bottom"/>
+        android:textSize="@dimen/dim50" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -80,7 +74,6 @@
                 android:text="@string/entrar"
                 android:textSize="@dimen/dim72"
                 android:textStyle="bold" />
-
         </LinearLayout>
 
         <ImageView
@@ -92,26 +85,33 @@
             android:src="@drawable/letrinhas" />
 
         <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/progressBarLoad" android:layout_gravity="center_horizontal|bottom"
-                android:indeterminate="false"
-                android:background="@color/black_overlay" android:layout_marginBottom="@dimen/dim165"/>
+            android:id="@+id/progressBarLoad"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="@dimen/dim165"
+            android:background="@color/black_overlay"
+            android:indeterminate="false" />
+
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text=" "
-                android:id="@+id/txtMsg" android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="@dimen/dim50" android:textSize="@dimen/dim30"/>
+            android:id="@+id/txtMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="@dimen/dim50"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="@dimen/dim30" />
+
         <ImageButton
-                android:layout_width="@dimen/dim90"
-                android:layout_height="@dimen/dim90"
-                android:id="@+id/btnSettingsMenuP" android:layout_gravity="right|top" android:src="@drawable/settings"
-                android:background="@android:color/transparent"/>
-
+            android:id="@+id/btnSettingsMenuP"
+            android:layout_width="@dimen/dim90"
+            android:layout_height="@dimen/dim90"
+            android:layout_gravity="right|top"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/demo"
+            android:src="@drawable/settings" />
     </FrameLayout>
-
 
 </FrameLayout>

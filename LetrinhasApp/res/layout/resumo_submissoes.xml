@@ -48,7 +48,7 @@
             <Button
                 android:id="@+id/rsBtnOriginal"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dim100"
+                android:layout_height="0dip"
                 android:layout_marginBottom="@dimen/dim10"
                 android:layout_marginTop="@dimen/dim5"
                 android:layout_weight="0.75"
