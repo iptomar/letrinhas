@@ -52,6 +52,7 @@ public class Teste_Palavras_Aluno extends Activity{
 			int tipo, idTesteAtual;
 			String[] Nomes;
 			int[] iDs, testesID;
+			int testeid;
 			/**
 			 * Whether or not the system UI should be auto-hidden after
 			 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -110,8 +111,9 @@ public class Teste_Palavras_Aluno extends Activity{
 				Bundle b = getIntent().getExtras();
 				inicia(b);
 				fileName = getCurrentTimeStamp() + ".3gpp";
-				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/CorrectionReadTest/"+testesID[0]+"/"+iDs[3]+"/"+fileName;
-				path =  "/School-Data/CorrectionReadTest/"+testesID[0]+"/"+iDs[3]+"/"+fileName;
+				Log.d("Debug-idTest", "testesID->"+String.valueOf(testeid));
+				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/CorrectionReadTest/"+testeid+"/"+iDs[3]+"/"+fileName;
+				path =  "/School-Data/CorrectionReadTest/"+testeid+"/"+iDs[3]+"/"+fileName;
 				profSound = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/ReadingTests/"+teste.getProfessorAudioUrl();
 				Log.d("Debug-SoundProf", "/School-Data/ReadingTests/"+teste.getProfessorAudioUrl()+".mp3");
 				Log.d("Debug-ButtonRecord", String.valueOf(findViewById(R.id.tlaRecordPalavras)));
@@ -165,7 +167,7 @@ public class Teste_Palavras_Aluno extends Activity{
 				Nomes = b.getStringArray("Nomes");
 				// int's - idEscola, idProfessor, idTurma, idAluno
 				iDs = b.getIntArray("IDs");
-
+				testeid = testesID[0];
 				/** Consultar a BD para preencher o conteudo.... */
 				LetrinhasDB bd = new LetrinhasDB(this);
 				teste =  bd.getTesteLeituraById(testesID[0]);
