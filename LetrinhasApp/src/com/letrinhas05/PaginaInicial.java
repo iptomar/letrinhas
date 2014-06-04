@@ -200,7 +200,7 @@ public class PaginaInicial extends Activity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Configuracoes");
                 builder.setItems(new CharSequence[]
-                                {"Sinc Manual", "Enviar Correcoes Corrigidas", "Cancelar"},
+                                {"Sinc Manual", "Enviar todas as Correcoes", "Cancelar"},
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // The 'which' argument contains the index position

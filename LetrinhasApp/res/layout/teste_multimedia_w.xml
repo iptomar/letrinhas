@@ -114,7 +114,7 @@
             android:layout_alignTop="@+id/bt1M"
             android:layout_alignBottom="@id/bt1M"
             android:layout_alignRight="@id/bt1M"
-            android:layout_alignLeft="@id/bt1M" android:background="#a1c4e6"
+            android:layout_alignLeft="@id/bt1M" android:background="#cfb78c"
             android:textColor="#000000" android:textStyle="bold" android:textSize="24dp"/>
     <RelativeLayout
             android:id="@id/bt1M"
@@ -145,7 +145,7 @@
             android:layout_alignBottom="@id/bt2M"
             android:layout_alignRight="@id/bt2M"
             android:layout_alignLeft="@id/bt2M" android:textStyle="bold" android:textSize="24dp"
-            android:textColor="#000000" android:background="#a3c6e6"/>
+            android:textColor="#000000" android:background="#cfb78c"/>
     <RelativeLayout
             android:id="@id/bt2M"
             android:layout_width="@dimen/dim220"
@@ -174,7 +174,7 @@
             android:layout_alignBottom="@id/bt3M"
             android:layout_alignRight="@id/bt3M"
             android:layout_alignLeft="@id/bt3M" android:textStyle="bold" android:textSize="24dp"
-            android:textColor="#000000" android:background="#a1c4e6"/>
+            android:textColor="#000000" android:background="#cfb78c"/>
     <RelativeLayout
             android:id="@id/bt3M"
             android:layout_width="@dimen/dim220"

@@ -20,8 +20,10 @@ import android.widget.*;
 
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteMultimedia;
+import com.letrinhas05.ClassesObjs.Professor;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.ClassesObjs.TesteMultimedia;
+import com.letrinhas05.util.Autenticacao;
 import com.letrinhas05.util.SystemUiHider;
 
 /**
@@ -122,13 +124,25 @@ public class TesteMultimediaW extends Activity {
 				// define os botoes
 				builder.setNegativeButton("Nao", null);
 				builder.setPositiveButton("Sim",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								finish();
-							}
-						});
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                LetrinhasDB bd = new LetrinhasDB(
+                                        getApplicationContext());
+                                Professor prf = bd.getProfessorById(iDs[1]);
+
+                                String PIN = prf.getPassword();
+                                Bundle wrap = new Bundle();
+                                wrap.putString("PIN", PIN);
+
+                                // iniciar a pagina (Autentica��o)
+                                Intent at = new Intent(getApplicationContext(),
+                                        Autenticacao.class);
+                                at.putExtras(wrap);
+                                startActivityForResult(at, 1);
+                            }
+                        });
 				// cria o AlertDialog
 				alerta = builder.create();
 				// Mostra
@@ -263,6 +277,16 @@ public class TesteMultimediaW extends Activity {
 
 	}
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+
+        if (data.getExtras().getBoolean("Resultado")) {
+
+                finish();
+        }
+    }
+
 	/**
 	 * Submete o teste na bd e termina a actividade
 	 * 
@@ -289,7 +313,7 @@ public class TesteMultimediaW extends Activity {
 
 				// //////////////////////////////////////////////////////////////////////////////
 				long time = System.currentTimeMillis() / 1000;
-				String aux = idTesteAtual + iDs[3] + time + "";
+				String aux = idTesteAtual +""+ iDs[3] +""+ time + "";
 				ctM.setIdCorrrecao(Long.parseLong(aux));
 				ctM.setIdEstudante(iDs[3]);
 				ctM.setTestId(idTesteAtual);

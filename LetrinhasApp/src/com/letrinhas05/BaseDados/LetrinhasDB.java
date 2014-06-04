@@ -1677,7 +1677,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     }
 
     /**
-     * Actualizar um registo unico da Tabela CorrecaoTesteLeitura Passa o estado para corrigido
+     * Actualizar um registo unico da Tabela CorrecaoTesteLeitura por objecto
      * e actualiza os campos enviados por paramentro
      * @param correcaoTesteLeitura objecto correcao
      */
@@ -1705,6 +1705,30 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 new String[] { String.valueOf(correcaoTesteLeitura.getIdCorrrecao()) });
         db.close();
     }
+
+    /**
+     * Actualizar um registo unico da Tabela CorrecaoTesteMultimedia por obejecto
+     * e actualiza os campos enviados por paramentro
+     * @param correcaoTesteMultimedia objecto correcao
+     */
+    public void updateCorrecaoTesteMultimediaPorObjecto(CorrecaoTesteMultimedia correcaoTesteMultimedia) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CORRT_ESTADO, correcaoTesteMultimedia.getEstado()); /// Estado corrigido
+        values.put(CORRT_DATAEXEC, correcaoTesteMultimedia.getDataExecucao() ); /// data
+        // Actualizar registos na Base de dados
+        db.update(TABELA_CORRECAOTESTE, values, CORRT_ID + " = ?",
+                new String[] { String.valueOf(correcaoTesteMultimedia.getIdCorrrecao()) });
+        ///////////////////////////////////////////////////////////
+        ContentValues values2 = new ContentValues();
+        values2.put(CORRTMULTIMEDIA_OPCAOESCOL, correcaoTesteMultimedia.getOpcaoEscolhida() );
+        values2.put(CORRTMULTIMEDIA_CERTA, correcaoTesteMultimedia.getCerta() );
+        // Actualizar registos na Base de dados
+        db.update(TABELA_CORRECAOMULTIMEDIA, values2, CORRTMULTIMEDIA_ID + " = ?",
+                new String[] { String.valueOf(correcaoTesteMultimedia.getIdCorrrecao()) });
+        db.close();
+    }
+
 
 
                                      //*************************//
@@ -1831,10 +1855,10 @@ public class LetrinhasDB extends SQLiteOpenHelper {
 
     ///////////////////COUNT///////////
     /**
-     * Obtendo Contagem Items na Base de  dados
-     * Retorna um inteiro com o total de resgisto da Base de dados
+     * Verifica se determinado teste existe na BD
+     * Retorna True ou false
      */
-    public boolean isExistsCorrecaoTestLeitura(int testId, int studentId, long executionDate) {
+    public boolean isExistsCorrecaoTest(int testId, int studentId, long executionDate) {
         String countQuery = "SELECT  * FROM " + TABELA_CORRECAOTESTE
                 + " WHERE "+CORRT_IDTESTE + " = "+ testId
                 + " AND "+CORRT_IDALUNO+ " = "+ studentId
