@@ -65,6 +65,9 @@ public class EscolheTeste extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.escolhe_teste);
 
+
+        volt = (Button) findViewById(R.id.escTVoltar);
+        exect = (Button) findViewById(R.id.ibComecar);
         // recebe o parametro de modo
         Bundle b = getIntent().getExtras();
         ids = b.getIntArray("IDs");
@@ -179,6 +182,8 @@ public class EscolheTeste extends Activity {
            
             numero++;
         }
+        
+        
         // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
         // Painel din�mico
@@ -243,8 +248,7 @@ public class EscolheTeste extends Activity {
         }
 
 
-        volt = (Button) findViewById(R.id.escTVoltar);
-        exect = (Button) findViewById(R.id.ibComecar);
+        
         escutaBotoes();
     }
 
