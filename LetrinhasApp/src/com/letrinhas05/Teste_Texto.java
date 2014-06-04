@@ -52,8 +52,8 @@ public class Teste_Texto extends Activity {
 	private MediaPlayer reprodutor = new MediaPlayer();
 	private String endereco, audio, fileName;
 	Context context;
-    long timeStamp;
-	int tipo, idTesteAtual, source=0;
+	long timeStamp;
+	int tipo, idTesteAtual, source = 0;
 	String[] Nomes;
 	int[] iDs, testesID;
 
@@ -157,8 +157,8 @@ public class Teste_Texto extends Activity {
 		LetrinhasDB bd = new LetrinhasDB(this);
 		teste = bd.getTesteLeituraById(testesID[0]);
 
-		((TextView) findViewById(R.id.textCabecalho))
-				.setText(teste.getTitulo());
+		this.setTitle(teste.getTitulo());
+
 		((TextView) findViewById(R.id.txtTexto)).setText(teste
 				.getConteudoTexto());
 
@@ -166,9 +166,10 @@ public class Teste_Texto extends Activity {
 
 		idTesteAtual = testesID[0];
 		endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
-				+ "/School-Data/CorrectionReadTest/"+idTesteAtual+ "/"+ iDs[3] + "/";
+				+ "/School-Data/CorrectionReadTest/" + idTesteAtual + "/"
+				+ iDs[3] + "/";
 
-		//fileName = getCurrentTimeStamp() + ".3gpp";
+		// fileName = getCurrentTimeStamp() + ".3gpp";
 
 		audio = Environment.getExternalStorageDirectory().getAbsolutePath()
 				+ "/School-Data/ReadingTests/" + teste.getProfessorAudioUrl();
@@ -253,8 +254,8 @@ public class Teste_Texto extends Activity {
 
 	public void setUp() {
 
-        timeStamp = System.currentTimeMillis() / 1000;
-        fileName = timeStamp +".3gpp";
+		timeStamp = System.currentTimeMillis() / 1000;
+		fileName = timeStamp + ".3gpp";
 
 		gravador = new MediaRecorder();
 		gravador.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -283,9 +284,9 @@ public class Teste_Texto extends Activity {
 		if (data.getExtras().getBoolean("Resultado")) {
 			stopPlayRec();
 			elimina();
-			if(source==1){
+			if (source == 1) {
 				finaliza();
-			}else{
+			} else {
 				finish();
 			}
 		}
@@ -347,7 +348,7 @@ public class Teste_Texto extends Activity {
 										Autenticacao.class);
 								at.putExtras(wrap);
 								startActivityForResult(at, 1);
-								source=1;
+								source = 1;
 
 							}
 						});
@@ -422,7 +423,7 @@ public class Teste_Texto extends Activity {
 										Autenticacao.class);
 								at.putExtras(wrap);
 								startActivityForResult(at, 1);
-								source=0;
+								source = 0;
 							}
 
 						});
@@ -463,7 +464,7 @@ public class Teste_Texto extends Activity {
 	}
 
 	public void elimina() {
-		File file = new File(endereco+fileName);
+		File file = new File(endereco + fileName);
 		if (file.exists()) {
 			file.delete();
 		}
@@ -493,7 +494,6 @@ public class Teste_Texto extends Activity {
 
 			try {
 				setUp();
-
 
 				gravador.prepare();
 				gravador.start();
@@ -852,9 +852,8 @@ public class Teste_Texto extends Activity {
 
 		} else {
 
-
 			try {
-				String aux = idTesteAtual +""+ iDs[3] +""+ timeStamp + "";
+				String aux = idTesteAtual + "" + iDs[3] + "" + timeStamp + "";
 				ctl.setIdCorrrecao(Long.parseLong(aux));
 				String[] yo = endereco.split("School-Data");
 				ctl.setAudiourl("/School-Data" + yo[1] + fileName);

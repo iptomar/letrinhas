@@ -39,7 +39,7 @@
         android:layout_above="@+id/Rodape"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/Cabecalho"
-        android:layout_toRightOf="@+id/btnVoltarEscolherEscola"
+        android:layout_toRightOf="@+id/logo"
         android:background="#0099cc"
         android:clickable="true"
         android:contentDescription="@string/escola" >
@@ -89,7 +89,7 @@
     <Button
         android:id="@+id/btnVoltarEscolherEscola"
         android:layout_width="@dimen/dim100"
-        android:layout_height="@dimen/dim100"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/logo"
         android:layout_alignParentBottom="true"
         android:contentDescription="@string/voltar"

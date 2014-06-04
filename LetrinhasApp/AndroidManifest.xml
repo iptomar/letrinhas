@@ -55,14 +55,14 @@
             android:name="com.letrinhas05.Teste_Texto"
             android:label="@string/title_activity_teste_texto"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/semMultitouch" >
         </activity>
         <activity
             android:name="com.letrinhas05.TesteMultimediaW"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_teste__imagem"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/semMultitouch" >
         </activity>
         <activity
             android:name="com.letrinhas05.Correcao_Texto"
@@ -80,19 +80,19 @@
             android:name="com.letrinhas05.Teste_Palavras_Aluno"
             android:label="@string/title_activity_teste__palavras"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/semMultitouch" >
         </activity>
         <activity
             android:name="com.letrinhas05.Teste_Palavras_Prof"
             android:label="@string/title_activity_teste__palavras"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/semMultitouch" >
         </activity>
         <activity
             android:name="com.letrinhas05.Teste_Poema"
             android:label="@string/title_activity_teste__poema"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/semMultitouch" >
         </activity>
         <activity
             android:name="com.letrinhas05.escolhe.EscolheDisciplina"

@@ -158,8 +158,7 @@ public class Teste_Poema extends Activity {
 		LetrinhasDB bd = new LetrinhasDB(this);
 		teste = bd.getTesteLeituraById(testesID[0]);
 
-		((TextView) findViewById(R.id.textCabecalho))
-				.setText(teste.getTitulo());
+		this.setTitle(teste.getTitulo());
 		((TextView) findViewById(R.id.txtTexto)).setText(teste
 				.getConteudoTexto());
 

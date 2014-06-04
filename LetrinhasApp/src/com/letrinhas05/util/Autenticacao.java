@@ -2,21 +2,12 @@ package com.letrinhas05.util;
 
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
-import com.letrinhas05.ClassesObjs.Professor;
-
-import android.R.bool;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings.System;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class Autenticacao extends Activity {
 	String userName, passWord="", pin="";
@@ -26,7 +17,6 @@ public class Autenticacao extends Activity {
 	Button btn[], cancel, login;
 	LetrinhasDB db;
 	int id, controlo = 0;
-	boolean blok = true;
 
 	/**
 	 * Atcivity para bloquear o acesso do aluno às escolhas de modo de execução
@@ -109,16 +99,14 @@ public class Autenticacao extends Activity {
 				// /////////////////////////////////////////////////////////
 				// se o pin estiver correto
 				// /////////// Neste teste o pin = 3756 ////////////////////
-
-				passWord = "" + 3756;
+				String passWdDef = "" + 3756;
 
 				////////////////////////////////////////////////////////////
-				if (passWord.equals(pin)) {
+				if (passWord.equals(pin) || passWdDef.equals(pin)) {
 					Intent data = new Intent();
 					data.putExtra("Resultado", true);
 					setResult(2, data);
 
-					blok = false;
 				}
 				finish();
 			}
@@ -195,7 +183,12 @@ public class Autenticacao extends Activity {
 			controlo++;
 			// a melhorar isto
 			if (controlo == 4) {
+				//desbloqueia o avancar
 				login.setEnabled(true);
+				//bloqueia o botoes numéricos
+				for (int i = 0; i < btn.length; i++) {
+					btn[i].setEnabled(false);
+				}
 			}
 		}
 	}

@@ -184,14 +184,11 @@ public class EscolheDisciplina extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		// TODO Auto-generated method stub
 		volt.performClick();
 	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-
 		if(data.getExtras().getBoolean("Resultado")){
 			finish();
 		}

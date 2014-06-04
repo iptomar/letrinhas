@@ -29,10 +29,11 @@
         android:id="@+id/svEscolher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/escTVoltar"
+        android:layout_above="@+id/escTVoltar"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/esTCabecalho"
-        android:background="@color/black_overlay" android:layout_above="@+id/escTVoltar"
-        android:layout_toLeftOf="@+id/ibComecar">
+        android:layout_toLeftOf="@+id/ibComecar"
+        android:background="@color/black_overlay" >
 
         <LinearLayout
             android:id="@+id/llescteste"
@@ -66,29 +67,6 @@
         android:textSize="@dimen/dim50"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/escTVoltar"
-        android:layout_width="@dimen/dim100"
-        android:layout_height="@dimen/dim100"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:contentDescription="@string/voltar"
-        android:drawableTop="@drawable/voltar"
-        android:onClick="voltar"
-        android:text="@string/voltar" />
-
-    <Button
-        android:id="@+id/ibComecar"
-        android:layout_width="@dimen/dim100"
-        android:layout_height="@dimen/dim100"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:clickable="true"
-        android:contentDescription="@string/start"
-        android:drawableTop="@drawable/right"
-        android:onClick="executarTestes"
-        android:text="@string/iniciar" />
-
     <TextView
         android:id="@+id/escTDisciplina"
         android:layout_width="wrap_content"
@@ -106,5 +84,28 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/svEscolher"
         android:src="@drawable/textos" android:layout_toRightOf="@+id/svEscolher"/>
+
+    <Button
+        android:id="@+id/escTVoltar"
+        android:layout_width="@dimen/dim100"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/voltar"
+        android:drawableTop="@drawable/voltar"
+        android:onClick="voltar"
+        android:text="@string/voltar" />
+
+    <Button
+        android:id="@+id/ibComecar"
+        android:layout_width="@dimen/dim100"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:contentDescription="@string/start"
+        android:drawableTop="@drawable/right"
+        android:onClick="executarTestes"
+        android:text="@string/iniciar" />
 
 </RelativeLayout>

@@ -156,7 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dim75"
                 android:text="@string/avancar"
-                android:textColor="#40ff40"
+                android:textColor="#40dd40"
                 android:textSize="@dimen/dim30"
                 android:textStyle="bold" />
         </TableRow>
@@ -168,7 +168,7 @@
         android:layout_below="@+id/autCabecalho"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dim90"
-        android:background="@color/text_color" >
+        android:background="#cacaca" >
 
         <ImageView
             android:id="@+id/im1"

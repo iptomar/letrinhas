@@ -40,7 +40,7 @@
         android:layout_above="@+id/escTRodape"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/ivTProfessor"
-        android:layout_toRightOf="@+id/btnVoltarTurm"
+        android:layout_toRightOf="@+id/escTlogo"
         android:background="#0099cc"
         android:contentDescription="@string/escola" >
 
@@ -76,7 +76,7 @@
     <Button
         android:id="@+id/btnVoltarTurm"
         android:layout_width="@dimen/dim100"
-        android:layout_height="@dimen/dim100"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/escTlogo"
         android:layout_alignParentBottom="true"
         android:contentDescription="@string/voltar"

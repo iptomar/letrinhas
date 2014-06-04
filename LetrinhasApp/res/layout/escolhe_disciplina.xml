@@ -15,7 +15,7 @@
     <Button
         android:id="@+id/btnDVoltar"
         android:layout_width="@dimen/dim100"
-        android:layout_height="@dimen/dim100"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:contentDescription="@string/voltar"

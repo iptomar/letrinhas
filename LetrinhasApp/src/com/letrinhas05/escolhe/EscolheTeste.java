@@ -92,7 +92,7 @@ public class EscolheTeste extends Activity {
                 imgD.setImageResource(R.drawable.en);// English
                 break;
         }
-        tvd.setCompoundDrawables(null, null, imgD.getDrawable(), null);
+        tvd.setCompoundDrawablesWithIntrinsicBounds(null, null, imgD.getDrawable(), null);
 
         //tipo
         imgD = (ImageView)findViewById(R.id.escTivTipo);
@@ -107,10 +107,6 @@ public class EscolheTeste extends Activity {
                 imgD.setImageResource(R.drawable.palavras);
                 break;
         }
-
-
-        volt = (Button) findViewById(R.id.escTVoltar);
-        exect = (Button) findViewById(R.id.ibComecar);
 
         // new line faz a rota��o do ecr�n em 180 graus
         int currentOrientation = getResources().getConfiguration().orientation;
@@ -234,7 +230,7 @@ public class EscolheTeste extends Activity {
             // Cria o gerador do AlertDialog
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             // define o titulo
-            builder.setTitle("Letrinhas 03");
+            builder.setTitle("Letrinhas");
             // define a mensagem
             builder.setMessage("Nao foram encontrados testes no repositorio");
             // define um bot�o como positivo
@@ -246,6 +242,9 @@ public class EscolheTeste extends Activity {
 
         }
 
+
+        volt = (Button) findViewById(R.id.escTVoltar);
+        exect = (Button) findViewById(R.id.ibComecar);
         escutaBotoes();
     }
 
@@ -415,7 +414,7 @@ public class EscolheTeste extends Activity {
             // Cria o gerador do AlertDialog
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             // define o titulo
-            builder.setTitle("Letrinhas 05");
+            builder.setTitle("Letrinhas");
             // define a mensagem
             builder.setMessage("Nao existem testes seleccionados!");
             // define um botao como positivo

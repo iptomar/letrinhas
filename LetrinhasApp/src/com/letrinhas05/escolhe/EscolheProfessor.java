@@ -25,20 +25,20 @@ import android.widget.TextView;
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.Professor;
+import com.letrinhas05.util.Autenticacao;
 import com.letrinhas05.util.SystemUiHider;
 
 public class EscolheProfessor extends Activity {
 
-    ///Varivaveis/////////////////
-    protected Button btnVoltar;
-    protected int nProfs, idEscola;
-    protected String escolaNome;
-    protected List<Professor> listaProfs;
-    protected String[] arrNomesFotosProfs;
-    protected LetrinhasDB db;
-    protected int[] arridProfs;
-    protected String[] username;
-
+	// /Varivaveis/////////////////
+	protected Button btnVoltar;
+	protected int nProfs, idEscola, idProf;
+	protected String escolaNome, profNome, fotoProf;
+	protected List<Professor> listaProfs;
+	protected String[] arrNomesFotosProfs;
+	protected LetrinhasDB db;
+	protected int[] arridProfs;
+	protected String[] username;
 
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -69,19 +69,19 @@ public class EscolheProfessor extends Activity {
 		idEscola = b.getInt("Escola_ID");
 		escolaNome = b.getString("Escola");
 
-        /////////////Aceder a objectos visuais da janela///////
-        btnVoltar = (Button) findViewById(R.id.btnVoltarProf);
+		// ///////////Aceder a objectos visuais da janela///////
+		btnVoltar = (Button) findViewById(R.id.btnVoltarProf);
 		((TextView) findViewById(R.id.escPEscola)).setText(escolaNome);
-        final View contentView = findViewById(R.id.escProf);
-		//////////////////////////////////////////////////////////////
-		
+		final View contentView = findViewById(R.id.escProf);
+		// ////////////////////////////////////////////////////////////
+
 		// new line faz a rotaï¿½ï¿½o do ecrï¿½n em 180 graus
-				int currentOrientation = getResources().getConfiguration().orientation;
-				if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-				} else {
-					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-				}
+		int currentOrientation = getResources().getConfiguration().orientation;
+		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+		} else {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+		}
 
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
@@ -92,6 +92,7 @@ public class EscolheProfessor extends Activity {
 				.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
 					// Cached values.
 					int mShortAnimTime;
+
 					@Override
 					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
 					public void onVisibilityChange(boolean visible) {
@@ -109,7 +110,7 @@ public class EscolheProfessor extends Activity {
 				});
 
 		// Botao de voltar
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
+		btnVoltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent it = new Intent(getApplicationContext(),
@@ -122,7 +123,8 @@ public class EscolheProfessor extends Activity {
 	}
 
 	/**
-	 * Novo mï¿½todo para criar o painel dinï¿½mico para os botï¿½es de selecï¿½ï¿½o do professor
+	 * Novo mï¿½todo para criar o painel dinï¿½mico para os botï¿½es de
+	 * selecï¿½ï¿½o do professor
 	 * 
 	 * @author Thiago
 	 */
@@ -131,15 +133,15 @@ public class EscolheProfessor extends Activity {
 
 		// Cria o objecto da base de dados
 		db = new LetrinhasDB(this);
-        listaProfs = db.getAllProfesorsBySchool(idEscola);
+		listaProfs = db.getAllProfesorsBySchool(idEscola);
 		nProfs = listaProfs.size();
-        arridProfs = new int[listaProfs.size()];
+		arridProfs = new int[listaProfs.size()];
 		username = new String[listaProfs.size()];
 		arrNomesFotosProfs = new String[listaProfs.size()];
 
 		for (int i = 0; i < nProfs; i++) {
 			username[i] = listaProfs.get(i).getNome();
-            arridProfs[i] = listaProfs.get(i).getId();
+			arridProfs[i] = listaProfs.get(i).getId();
 			arrNomesFotosProfs[i] = listaProfs.get(i).getFotoNome();
 		}
 		for (Professor cn : listaProfs) {
@@ -161,7 +163,7 @@ public class EscolheProfessor extends Activity {
 
 		// Contador de controlo
 		int cont = 0;
-		int largura = getResources().getDimensionPixelSize(R.dimen.dim240);		
+		int largura = getResources().getDimensionPixelSize(R.dimen.dim240);
 		for (int i = 0; i < nProfs / 4; i++) {
 			// nova linha da tabela
 			TableRow linha1 = new TableRow(getBaseContext());
@@ -170,10 +172,7 @@ public class EscolheProfessor extends Activity {
 			for (int j = 0; j < 4; j++) {
 
 				// **********************************
-				// Nome do professor
-
-				final String proff = username[cont];
-				final String fotoprof = arrNomesFotosProfs[cont];
+				// id do professor
 				final int idPrf = arridProfs[cont];
 				// ***********************************
 
@@ -186,7 +185,8 @@ public class EscolheProfessor extends Activity {
 				if (arrNomesFotosProfs[cont] != null) {
 					String imageInSD = Environment
 							.getExternalStorageDirectory().getAbsolutePath()
-							+ "/School-Data/Professors/" + arrNomesFotosProfs[cont];
+							+ "/School-Data/Professors/"
+							+ arrNomesFotosProfs[cont];
 					Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
 					ImageView imageView = new ImageView(this);
 					// ajustar o tamanho da imagem
@@ -196,29 +196,35 @@ public class EscolheProfessor extends Activity {
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null,
 							imageView.getDrawable(), null, null);
 				} else {
-					// senï¿½o copia a imagem do botï¿½o original
+					// senao copia a imagem do botao original
 					bt1.setCompoundDrawables(null,
 							bt.getCompoundDrawablesRelative()[1], null, null);
 				}
 
 				// addicionar o nome
 				bt1.setText(username[cont]);
-				///////////////////////////BOTAO DE CLICAR DA LISTA////////////////////////
+				// /////////////////////////BOTAO DE CLICAR DA
+				// LISTA////////////////////////
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						/////////////PARAMETROS PARA A PROXIMA JANELA/////////////////
+						LetrinhasDB bd = new LetrinhasDB(
+								getApplicationContext());
+						Professor prf = bd.getProfessorById(idPrf);
+
+						String PIN = prf.getPassword();
 						Bundle wrap = new Bundle();
-						wrap.putString("Escola", escolaNome);
-						wrap.putInt("Escola_ID", idEscola);
-						wrap.putString("Professor", proff);
-						wrap.putString("foto_Professor", fotoprof);
-						wrap.putInt("Professor_ID", idPrf);
-						Intent it = new Intent(getApplicationContext(),
-								EscolheTurma.class);
-						it.putExtras(wrap);
-						startActivity(it);
-						finish();
+						wrap.putString("PIN", PIN);
+
+						// iniciar a pagina (Autenticação)
+						Intent at = new Intent(getApplicationContext(),
+								Autenticacao.class);
+						at.putExtras(wrap);
+						startActivityForResult(at, 1);
+						idProf = prf.getId();
+						profNome = prf.getNome();
+						fotoProf = prf.getFotoNome();
+
 					}
 				});
 				// inserir o botAo na linha
@@ -236,10 +242,7 @@ public class EscolheProfessor extends Activity {
 			linha1.setLayoutParams(linha.getLayoutParams());
 			for (int j = 0; j < nProfs % 4; j++) {
 				// **********************************
-				// Nome do professor
-
-				final String proff = username[cont];
-				final String fotoprof = arrNomesFotosProfs[cont];
+				// id do professor
 				final int idPrf = arridProfs[cont];
 				// ***********************************
 
@@ -252,7 +255,8 @@ public class EscolheProfessor extends Activity {
 				if (arrNomesFotosProfs[cont] != null) {
 					String imageInSD = Environment
 							.getExternalStorageDirectory().getAbsolutePath()
-							+ "/School-Data/Professors/" + arrNomesFotosProfs[cont];
+							+ "/School-Data/Professors/"
+							+ arrNomesFotosProfs[cont];
 					Bitmap bitmap = BitmapFactory.decodeFile(imageInSD);
 					ImageView imageView = new ImageView(this);
 
@@ -274,19 +278,22 @@ public class EscolheProfessor extends Activity {
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						// Entrar na activity
-                        /////////////PARAMETROS PARA A PROXIMA JANELA/////////////////
+						LetrinhasDB bd = new LetrinhasDB(
+								getApplicationContext());
+						Professor prf = bd.getProfessorById(idPrf);
+
+						String PIN = prf.getPassword();
 						Bundle wrap = new Bundle();
-						wrap.putString("Escola", escolaNome);
-						wrap.putInt("Escola_ID", idEscola);
-						wrap.putString("Professor", proff);
-						wrap.putString("foto_Professor", fotoprof);
-						wrap.putInt("Professor_ID", idPrf);
-						Intent it = new Intent(getApplicationContext(),
-								EscolheTurma.class);
-						it.putExtras(wrap);
-						startActivity(it);
-						finish();
+						wrap.putString("PIN", PIN);
+
+						// iniciar a pagina (Autenticação)
+						Intent at = new Intent(getApplicationContext(),
+								Autenticacao.class);
+						at.putExtras(wrap);
+						startActivityForResult(at, 1);
+						idProf = prf.getId();
+						profNome = prf.getNome();
+						fotoProf = prf.getFotoNome();
 					}
 				});
 				// inserir o botï¿½o na linha
@@ -300,7 +307,28 @@ public class EscolheProfessor extends Activity {
 		// por fim escondo a 1ï¿½ linha
 		tabela.removeView(linha);
 	}
-	
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (data.getExtras().getBoolean("Resultado")) {
+			entrar();
+		}
+	}
+
+	private void entrar() {
+		// ///////////PARAMETROS PARA A PROXIMA JANELA/////////////////
+		Bundle wrap = new Bundle();
+		wrap.putString("Escola", escolaNome);
+		wrap.putInt("Escola_ID", idEscola);
+		wrap.putString("Professor", profNome);
+		wrap.putString("foto_Professor", fotoProf);
+		wrap.putInt("Professor_ID", idProf);
+		Intent it = new Intent(getApplicationContext(), EscolheTurma.class);
+		it.putExtras(wrap);
+		startActivity(it);
+		finish();
+	}
+
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);

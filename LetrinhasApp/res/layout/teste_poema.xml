@@ -10,18 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.letrinhas05.Teste_Poema" >
 
-    <TextView
-        android:id="@+id/textCabecalho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:drawableLeft="@drawable/logo2"
-        android:text="@string/title_activity_teste__poema"
-        android:textColor="#5ddfff"
-        android:textSize="@dimen/dim50"
-        android:textStyle="bold" />
-
     <ScrollView
         android:id="@+id/txtTela"
         android:layout_width="wrap_content"
@@ -29,7 +17,7 @@
         android:layout_above="@+id/txtCancel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textCabecalho"
+        android:layout_alignParentTop="true"
         android:background="#ccccff"
         android:paddingBottom="@dimen/dim10"
         android:paddingLeft="@dimen/dim10"

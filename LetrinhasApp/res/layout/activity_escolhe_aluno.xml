@@ -39,7 +39,7 @@
         android:layout_above="@+id/escAlRodape"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/imgProfEscolhAluno"
-        android:layout_toRightOf="@+id/escAlbtnVoltar"
+        android:layout_toRightOf="@+id/escAllogo"
         android:background="#0099cc"
         android:contentDescription="@string/escola" >
 
@@ -74,7 +74,7 @@
     <Button
         android:id="@+id/escAlbtnVoltar"
         android:layout_width="@dimen/dim100"
-        android:layout_height="@dimen/dim100"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/escAllogo"
         android:layout_alignParentBottom="true"
         android:contentDescription="@string/voltar"

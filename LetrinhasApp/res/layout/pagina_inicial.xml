@@ -54,7 +54,8 @@
                 android:layout_weight="0.48"
                 android:adjustViewBounds="false"
                 android:background="@drawable/exit"
-                android:contentDescription="@string/sair" />
+                android:contentDescription="@string/sair"
+                android:scaleType="fitCenter" />
 
             <Space
                 android:layout_width="@dimen/dim400"
@@ -111,7 +112,9 @@
             android:layout_gravity="right|top"
             android:background="@android:color/transparent"
             android:contentDescription="@string/demo"
+            android:scaleType="fitCenter"
             android:src="@drawable/settings" />
+
     </FrameLayout>
 
 </FrameLayout>

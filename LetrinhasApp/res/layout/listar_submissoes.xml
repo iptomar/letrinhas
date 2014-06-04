@@ -35,7 +35,7 @@
     <Button
         android:id="@+id/lsbtnVoltar"
         android:layout_width="@dimen/dim100"
-        android:layout_height="@dimen/dim100"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/lslogo"
         android:layout_alignParentBottom="true"
         android:contentDescription="@string/voltar"
