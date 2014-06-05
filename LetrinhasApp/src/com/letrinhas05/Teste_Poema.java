@@ -29,7 +29,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -48,13 +47,13 @@ public class Teste_Poema extends Activity {
 	boolean gravado, recording, playing;
 	TesteLeitura teste;
 	// objetos
-	Button record, demo, play, voltar, cancelar, avancar;
+	Button record, demo, play, voltar, avancar;// , cancelar;
 	private MediaRecorder gravador;
 	private MediaPlayer reprodutor = new MediaPlayer();
 	private String endereco, audio, fileName;
 	Context context;
-    long timeStamp;
-	int tipo, idTesteAtual, source=0;
+	long timeStamp;
+	int tipo, idTesteAtual, source = 0;
 	String[] Nomes;
 	int[] iDs, testesID;
 
@@ -132,8 +131,9 @@ public class Teste_Poema extends Activity {
 		play = (Button) findViewById(R.id.txtPlay);
 		play.setVisibility(View.INVISIBLE);
 		voltar = (Button) findViewById(R.id.txtVoltar);
-		cancelar = (Button) findViewById(R.id.txtCancel);
-		cancelar.setVisibility(View.INVISIBLE);
+		// cancelar = (Button) findViewById(R.id.txtCancel);
+		// cancelar.setVisibility(View.INVISIBLE);
+		((Button) findViewById(R.id.txtCancel)).setVisibility(View.INVISIBLE);
 		avancar = (Button) findViewById(R.id.txtAvaliar);
 
 		escutaBotoes();
@@ -166,9 +166,10 @@ public class Teste_Poema extends Activity {
 
 		idTesteAtual = testesID[0];
 		endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
-				+ "/School-Data/CorrectionReadTest/"+idTesteAtual+ "/"+ iDs[3] + "/";
+				+ "/School-Data/CorrectionReadTest/" + idTesteAtual + "/"
+				+ iDs[3] + "/";
 
-		//fileName = getCurrentTimeStamp() + ".3gpp";
+		// fileName = getCurrentTimeStamp() + ".3gpp";
 		audio = Environment.getExternalStorageDirectory().getAbsolutePath()
 				+ "/School-Data/ReadingTests/" + teste.getProfessorAudioUrl();
 
@@ -252,10 +253,10 @@ public class Teste_Poema extends Activity {
 
 	public void setUp() {
 
-        timeStamp = System.currentTimeMillis() / 1000;
-        fileName = timeStamp +".3gpp";
+		timeStamp = System.currentTimeMillis() / 1000;
+		fileName = timeStamp + ".3gpp";
 
-        gravador = new MediaRecorder();
+		gravador = new MediaRecorder();
 		gravador.setAudioSource(MediaRecorder.AudioSource.MIC);
 		gravador.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 		gravador.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
@@ -282,9 +283,9 @@ public class Teste_Poema extends Activity {
 		if (data.getExtras().getBoolean("Resultado")) {
 			stopPlayRec();
 			elimina();
-			if(source==1){
+			if (source == 1) {
 				finaliza();
-			}else{
+			} else {
 				finish();
 			}
 		}
@@ -315,47 +316,35 @@ public class Teste_Poema extends Activity {
 
 		});
 
-		cancelar.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				android.app.AlertDialog alerta;
-				// Cria o gerador do AlertDialog
-				AlertDialog.Builder builder = new AlertDialog.Builder(context);
-				// define o titulo
-				builder.setTitle("Letrinhas");
-				// define a mensagem
-				builder.setMessage("Tens a certeza que queres abandonar este teste?");
-				// define os botoes
-				builder.setNegativeButton("Nao", null);
-
-				builder.setPositiveButton("Sim",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								LetrinhasDB bd = new LetrinhasDB(
-										getApplicationContext());
-								Professor prf = bd.getProfessorById(iDs[1]);
-
-								String PIN = prf.getPassword();
-								Bundle wrap = new Bundle();
-								wrap.putString("PIN", PIN);
-
-								// iniciar a pagina (Autentica��o)
-								Intent at = new Intent(getApplicationContext(),
-										Autenticacao.class);
-								at.putExtras(wrap);
-								startActivityForResult(at, 1);
-								source=1;
-							}
-						});
-				// cria o AlertDialog
-				alerta = builder.create();
-				// Mostra
-				alerta.show();
-
-			}
-		});
+		/*
+		 * cancelar.setOnClickListener(new View.OnClickListener() {
+		 * 
+		 * @Override public void onClick(View view) { android.app.AlertDialog
+		 * alerta; // Cria o gerador do AlertDialog AlertDialog.Builder builder
+		 * = new AlertDialog.Builder(context); // define o titulo
+		 * builder.setTitle("Letrinhas"); // define a mensagem
+		 * builder.setMessage
+		 * ("Tens a certeza que queres abandonar este teste?"); // define os
+		 * botoes builder.setNegativeButton("Nao", null);
+		 * 
+		 * builder.setPositiveButton("Sim", new
+		 * DialogInterface.OnClickListener() {
+		 * 
+		 * @Override public void onClick(DialogInterface dialog, int which) {
+		 * LetrinhasDB bd = new LetrinhasDB( getApplicationContext()); Professor
+		 * prf = bd.getProfessorById(iDs[1]);
+		 * 
+		 * String PIN = prf.getPassword(); Bundle wrap = new Bundle();
+		 * wrap.putString("PIN", PIN);
+		 * 
+		 * // iniciar a pagina (Autentica��o) Intent at = new
+		 * Intent(getApplicationContext(), Autenticacao.class);
+		 * at.putExtras(wrap); startActivityForResult(at, 1); source = 1; } });
+		 * // cria o AlertDialog alerta = builder.create(); // Mostra
+		 * alerta.show();
+		 * 
+		 * } });
+		 */
 
 		avancar.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -420,7 +409,7 @@ public class Teste_Poema extends Activity {
 										Autenticacao.class);
 								at.putExtras(wrap);
 								startActivityForResult(at, 1);
-								source=0;
+								source = 0;
 							}
 
 						});
@@ -461,7 +450,7 @@ public class Teste_Poema extends Activity {
 	}
 
 	public void elimina() {
-		File file = new File(endereco+fileName);
+		File file = new File(endereco + fileName);
 		if (file.exists()) {
 			file.delete();
 		}
@@ -472,86 +461,94 @@ public class Teste_Poema extends Activity {
 	/**
 	 * Serve para come�ar ou parar o recording do audio
 	 * 
-	 * @author Dario Jorge
+	 * @author D�rio Jorge
 	 */
 	@SuppressLint("HandlerLeak")
 	private void startGrava() {
-		if (!recording) {
-			ImageView img = new ImageView(this);
-			img.setImageResource(R.drawable.stop);
-			record.setCompoundDrawablesWithIntrinsicBounds(null,
-					img.getDrawable(), null, null);
-			record.setText("Parar");
-			play.setVisibility(View.INVISIBLE);
-			demo.setVisibility(View.INVISIBLE);
-			cancelar.setVisibility(View.INVISIBLE);
-			voltar.setVisibility(View.INVISIBLE);
-			avancar.setVisibility(View.INVISIBLE);
-			recording = true;
+		if (!gravado) {
+			if (!recording) {
+				ImageView img = new ImageView(this);
+				img.setImageResource(R.drawable.stop);
+				record.setCompoundDrawablesWithIntrinsicBounds(null,
+						img.getDrawable(), null, null);
+				record.setText("Parar");
+				play.setVisibility(View.INVISIBLE);
+				demo.setVisibility(View.INVISIBLE);
+				// cancelar.setVisibility(View.INVISIBLE);
+				voltar.setVisibility(View.INVISIBLE);
+				avancar.setVisibility(View.INVISIBLE);
+				recording = true;
 
-			try {
-				setUp();
-				gravador.prepare();
-				gravador.start();
-				Toast.makeText(getApplicationContext(), "A gravar.",
-						Toast.LENGTH_SHORT).show();
+				try {
+					setUp();
 
-				// pequena thread, para contar o tempo
-				new Thread(new Runnable() {
-					public void run() {
-						minuto = 0;
-						segundo = 0;
-						while (recording) {
+					gravador.prepare();
+					gravador.start();
+					Toast.makeText(getApplicationContext(), "A gravar.",
+							Toast.LENGTH_SHORT).show();
 
-							try {
-								Thread.sleep(1000);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-							segundo++;
-							if (segundo == 60) {
-								minuto++;
-								segundo = 0;
+					// pequena thread, para contar o tempo
+					new Thread(new Runnable() {
+						public void run() {
+							minuto = 0;
+							segundo = 0;
+							while (recording) {
+
+								try {
+									Thread.sleep(1000);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								segundo++;
+								if (segundo == 60) {
+									minuto++;
+									segundo = 0;
+								}
 							}
 						}
-					}
-				}).start();
+					}).start();
 
-			} catch (Exception e) {
-				Toast.makeText(getApplicationContext(),
-						"Erro na gravacao.\n" + e.getMessage(),
-						Toast.LENGTH_SHORT).show();
-			}
+				} catch (Exception e) {
+					Toast.makeText(getApplicationContext(),
+							"Erro na gravacao.\n" + e.getMessage(),
+							Toast.LENGTH_SHORT).show();
+					record.performClick();
+					gravado = false;
+				}
 
-		} else {
-			ImageView img = new ImageView(this);
-			img.setImageResource(R.drawable.record);
-			record.setCompoundDrawablesWithIntrinsicBounds(null,
-					img.getDrawable(), null, null);
-			record.setText("Repetir");
-			play.setVisibility(View.VISIBLE);
-			demo.setVisibility(View.VISIBLE);
-			cancelar.setVisibility(View.VISIBLE);
-			voltar.setVisibility(View.VISIBLE);
-			avancar.setVisibility(View.VISIBLE);
-			recording = false;
-			try {
-				gravador.stop();
-				gravador.release();
-				Toast.makeText(getApplicationContext(),
-						"Gravacao efetuada com sucesso!", Toast.LENGTH_SHORT)
-						.show();
-				Toast.makeText(getApplicationContext(),
-						"Tempo de leitura: " + minuto + ":" + segundo,
-						Toast.LENGTH_LONG).show();
+			} else {
+				ImageView img = new ImageView(this);
+				img.setImageResource(R.drawable.record);
+				record.setCompoundDrawablesWithIntrinsicBounds(null,
+						img.getDrawable(), null, null);
+				record.setText("Repetir");
+				play.setVisibility(View.VISIBLE);
+				demo.setVisibility(View.VISIBLE);
+				// cancelar.setVisibility(View.VISIBLE);
+				voltar.setVisibility(View.VISIBLE);
+				avancar.setVisibility(View.VISIBLE);
+				recording = false;
+				try {
+					gravador.stop();
+					gravador.release();
+					Toast.makeText(getApplicationContext(),
+							"Gravacao efetuada com sucesso!",
+							Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),
+							"Tempo de leitura: " + minuto + ":" + segundo,
+							Toast.LENGTH_LONG).show();
 
-			} catch (Exception e) {
-				Toast.makeText(getApplicationContext(),
-						"Erro na gravacao.\n" + e.getMessage(),
-						Toast.LENGTH_SHORT).show();
+					gravado = true;
+					record.setVisibility(View.INVISIBLE);
+				} catch (Exception e) {
+					Toast.makeText(getApplicationContext(),
+							"Erro na gravacao.\n" + e.getMessage(),
+							Toast.LENGTH_SHORT).show();
+					gravado = false;
+					record.setVisibility(View.VISIBLE);
+				}
 			}
 		}
-
 	}
 
 	private final int PARADO = 2;
@@ -570,7 +567,7 @@ public class Teste_Poema extends Activity {
 			play.setCompoundDrawablesWithIntrinsicBounds(null,
 					img.getDrawable(), null, null);
 			play.setText("Parar");
-			record.setVisibility(View.INVISIBLE);
+			// record.setVisibility(View.INVISIBLE);
 			demo.setVisibility(View.INVISIBLE);
 			playing = true;
 			try {
@@ -592,7 +589,8 @@ public class Teste_Poema extends Activity {
 							play.setCompoundDrawablesWithIntrinsicBounds(null,
 									img2.getDrawable(), null, null);
 							play.setText("Ouvir");
-							record.setVisibility(View.VISIBLE);
+
+							// record.setVisibility(View.VISIBLE);
 							demo.setVisibility(View.VISIBLE);
 							playing = false;
 							try {
@@ -640,7 +638,7 @@ public class Teste_Poema extends Activity {
 			play.setCompoundDrawablesWithIntrinsicBounds(null,
 					img.getDrawable(), null, null);
 			play.setText("Ouvir");
-			record.setVisibility(View.VISIBLE);
+			// record.setVisibility(View.VISIBLE);
 			demo.setVisibility(View.VISIBLE);
 			playing = false;
 			try {
@@ -650,7 +648,7 @@ public class Teste_Poema extends Activity {
 						"Reproducao interrompida.", Toast.LENGTH_SHORT).show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproducao.\n" + ex.getMessage(),
+						"Erro a finalizar a reproducao.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -687,8 +685,10 @@ public class Teste_Poema extends Activity {
 						case PARADO:
 							demo.setCompoundDrawablesWithIntrinsicBounds(null,
 									img2.getDrawable(), null, null);
-							record.setVisibility(View.VISIBLE);
-							play.setVisibility(View.VISIBLE);
+							if (gravado)
+								play.setVisibility(View.VISIBLE);
+							else
+								record.setVisibility(View.VISIBLE);
 							demo.setText("Demo");
 							playing = false;
 							try {
@@ -724,8 +724,10 @@ public class Teste_Poema extends Activity {
 				img.setImageResource(R.drawable.palyoff);
 				demo.setCompoundDrawablesWithIntrinsicBounds(null,
 						img.getDrawable(), null, null);
-				record.setVisibility(View.VISIBLE);
-				play.setVisibility(View.VISIBLE);
+				if (gravado)
+					play.setVisibility(View.VISIBLE);
+				else
+					record.setVisibility(View.VISIBLE);
 				demo.setText("Demo");
 				playing = false;
 			}
@@ -735,8 +737,10 @@ public class Teste_Poema extends Activity {
 			img.setImageResource(R.drawable.palyoff);
 			demo.setCompoundDrawablesWithIntrinsicBounds(null,
 					img.getDrawable(), null, null);
-			record.setVisibility(View.VISIBLE);
-			play.setVisibility(View.VISIBLE);
+			if (gravado)
+				play.setVisibility(View.VISIBLE);
+			else
+				record.setVisibility(View.VISIBLE);
 			demo.setText("Demo");
 			playing = false;
 			try {
@@ -753,6 +757,7 @@ public class Teste_Poema extends Activity {
 		}
 
 	}
+
 
 	/**
 	 * Prepara a finalizacao da activity, descobrindo qual o proximo teste a
@@ -848,7 +853,7 @@ public class Teste_Poema extends Activity {
 
 		} else {
 			try {
-				String aux = idTesteAtual +""+ iDs[3] +""+ timeStamp + "";
+				String aux = idTesteAtual + "" + iDs[3] + "" + timeStamp + "";
 				ctl.setIdCorrrecao(Long.parseLong(aux));
 				String[] yo = endereco.split("School-Data");
 				ctl.setAudiourl("/School-Data" + yo[1] + fileName);

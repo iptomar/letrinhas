@@ -47,7 +47,7 @@ public class Teste_Texto extends Activity {
 	boolean gravado, recording, playing;
 	TesteLeitura teste;
 	// objetos
-	Button record, demo, play, voltar, cancelar, avancar;
+	Button record, demo, play, voltar, avancar;// , cancelar;
 	private MediaRecorder gravador;
 	private MediaPlayer reprodutor = new MediaPlayer();
 	private String endereco, audio, fileName;
@@ -131,8 +131,10 @@ public class Teste_Texto extends Activity {
 		play = (Button) findViewById(R.id.txtPlay);
 		play.setVisibility(View.INVISIBLE);
 		voltar = (Button) findViewById(R.id.txtVoltar);
-		cancelar = (Button) findViewById(R.id.txtCancel);
-		cancelar.setVisibility(View.INVISIBLE);
+		// cancelar = (Button) findViewById(R.id.txtCancel);
+		// cancelar.setVisibility(View.INVISIBLE);
+		((Button) findViewById(R.id.txtCancel)).setVisibility(View.INVISIBLE);
+
 		avancar = (Button) findViewById(R.id.txtAvaliar);
 
 		escutaBotoes();
@@ -317,48 +319,36 @@ public class Teste_Texto extends Activity {
 
 		});
 
-		cancelar.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				android.app.AlertDialog alerta;
-				// Cria o gerador do AlertDialog
-				AlertDialog.Builder builder = new AlertDialog.Builder(context);
-				// define o titulo
-				builder.setTitle("Letrinhas");
-				// define a mensagem
-				builder.setMessage("Tens a certeza que queres abandonar este teste?");
-				// define os botoes
-				builder.setNegativeButton("Nao", null);
-
-				builder.setPositiveButton("Sim",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								LetrinhasDB bd = new LetrinhasDB(
-										getApplicationContext());
-								Professor prf = bd.getProfessorById(iDs[1]);
-
-								String PIN = prf.getPassword();
-								Bundle wrap = new Bundle();
-								wrap.putString("PIN", PIN);
-
-								// iniciar a pagina (Autentica��o)
-								Intent at = new Intent(getApplicationContext(),
-										Autenticacao.class);
-								at.putExtras(wrap);
-								startActivityForResult(at, 1);
-								source = 1;
-
-							}
-						});
-				// cria o AlertDialog
-				alerta = builder.create();
-				// Mostra
-				alerta.show();
-
-			}
-		});
+		/*
+		 * cancelar.setOnClickListener(new View.OnClickListener() {
+		 * 
+		 * @Override public void onClick(View view) { android.app.AlertDialog
+		 * alerta; // Cria o gerador do AlertDialog AlertDialog.Builder builder
+		 * = new AlertDialog.Builder(context); // define o titulo
+		 * builder.setTitle("Letrinhas"); // define a mensagem
+		 * builder.setMessage
+		 * ("Tens a certeza que queres abandonar este teste?"); // define os
+		 * botoes builder.setNegativeButton("Nao", null);
+		 * 
+		 * builder.setPositiveButton("Sim", new
+		 * DialogInterface.OnClickListener() {
+		 * 
+		 * @Override public void onClick(DialogInterface dialog, int which) {
+		 * LetrinhasDB bd = new LetrinhasDB( getApplicationContext()); Professor
+		 * prf = bd.getProfessorById(iDs[1]);
+		 * 
+		 * String PIN = prf.getPassword(); Bundle wrap = new Bundle();
+		 * wrap.putString("PIN", PIN);
+		 * 
+		 * // iniciar a pagina (Autentica��o) Intent at = new
+		 * Intent(getApplicationContext(), Autenticacao.class);
+		 * at.putExtras(wrap); startActivityForResult(at, 1); source = 1;
+		 * 
+		 * } }); // cria o AlertDialog alerta = builder.create(); // Mostra
+		 * alerta.show();
+		 * 
+		 * } });
+		 */
 
 		avancar.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -479,83 +469,90 @@ public class Teste_Texto extends Activity {
 	 */
 	@SuppressLint("HandlerLeak")
 	private void startGrava() {
-		if (!recording) {
-			ImageView img = new ImageView(this);
-			img.setImageResource(R.drawable.stop);
-			record.setCompoundDrawablesWithIntrinsicBounds(null,
-					img.getDrawable(), null, null);
-			record.setText("Parar");
-			play.setVisibility(View.INVISIBLE);
-			demo.setVisibility(View.INVISIBLE);
-			cancelar.setVisibility(View.INVISIBLE);
-			voltar.setVisibility(View.INVISIBLE);
-			avancar.setVisibility(View.INVISIBLE);
-			recording = true;
+		if (!gravado) {
+			if (!recording) {
+				ImageView img = new ImageView(this);
+				img.setImageResource(R.drawable.stop);
+				record.setCompoundDrawablesWithIntrinsicBounds(null,
+						img.getDrawable(), null, null);
+				record.setText("Parar");
+				play.setVisibility(View.INVISIBLE);
+				demo.setVisibility(View.INVISIBLE);
+				// cancelar.setVisibility(View.INVISIBLE);
+				voltar.setVisibility(View.INVISIBLE);
+				avancar.setVisibility(View.INVISIBLE);
+				recording = true;
 
-			try {
-				setUp();
+				try {
+					setUp();
 
-				gravador.prepare();
-				gravador.start();
-				Toast.makeText(getApplicationContext(), "A gravar.",
-						Toast.LENGTH_SHORT).show();
+					gravador.prepare();
+					gravador.start();
+					Toast.makeText(getApplicationContext(), "A gravar.",
+							Toast.LENGTH_SHORT).show();
 
-				// pequena thread, para contar o tempo
-				new Thread(new Runnable() {
-					public void run() {
-						minuto = 0;
-						segundo = 0;
-						while (recording) {
+					// pequena thread, para contar o tempo
+					new Thread(new Runnable() {
+						public void run() {
+							minuto = 0;
+							segundo = 0;
+							while (recording) {
 
-							try {
-								Thread.sleep(1000);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-							segundo++;
-							if (segundo == 60) {
-								minuto++;
-								segundo = 0;
+								try {
+									Thread.sleep(1000);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								segundo++;
+								if (segundo == 60) {
+									minuto++;
+									segundo = 0;
+								}
 							}
 						}
-					}
-				}).start();
+					}).start();
 
-			} catch (Exception e) {
-				Toast.makeText(getApplicationContext(),
-						"Erro na gravacao.\n" + e.getMessage(),
-						Toast.LENGTH_SHORT).show();
-			}
+				} catch (Exception e) {
+					Toast.makeText(getApplicationContext(),
+							"Erro na gravacao.\n" + e.getMessage(),
+							Toast.LENGTH_SHORT).show();
+					record.performClick();
+					gravado = false;
+				}
 
-		} else {
-			ImageView img = new ImageView(this);
-			img.setImageResource(R.drawable.record);
-			record.setCompoundDrawablesWithIntrinsicBounds(null,
-					img.getDrawable(), null, null);
-			record.setText("Repetir");
-			play.setVisibility(View.VISIBLE);
-			demo.setVisibility(View.VISIBLE);
-			cancelar.setVisibility(View.VISIBLE);
-			voltar.setVisibility(View.VISIBLE);
-			avancar.setVisibility(View.VISIBLE);
-			recording = false;
-			try {
-				gravador.stop();
-				gravador.release();
-				Toast.makeText(getApplicationContext(),
-						"Gravacao efetuada com sucesso!", Toast.LENGTH_SHORT)
-						.show();
-				Toast.makeText(getApplicationContext(),
-						"Tempo de leitura: " + minuto + ":" + segundo,
-						Toast.LENGTH_LONG).show();
+			} else {
+				ImageView img = new ImageView(this);
+				img.setImageResource(R.drawable.record);
+				record.setCompoundDrawablesWithIntrinsicBounds(null,
+						img.getDrawable(), null, null);
+				record.setText("Repetir");
+				play.setVisibility(View.VISIBLE);
+				demo.setVisibility(View.VISIBLE);
+				// cancelar.setVisibility(View.VISIBLE);
+				voltar.setVisibility(View.VISIBLE);
+				avancar.setVisibility(View.VISIBLE);
+				recording = false;
+				try {
+					gravador.stop();
+					gravador.release();
+					Toast.makeText(getApplicationContext(),
+							"Gravacao efetuada com sucesso!",
+							Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),
+							"Tempo de leitura: " + minuto + ":" + segundo,
+							Toast.LENGTH_LONG).show();
 
-			} catch (Exception e) {
-				Toast.makeText(getApplicationContext(),
-						"Erro na gravacao.\n" + e.getMessage(),
-						Toast.LENGTH_SHORT).show();
+					gravado = true;
+					record.setVisibility(View.INVISIBLE);
+				} catch (Exception e) {
+					Toast.makeText(getApplicationContext(),
+							"Erro na gravacao.\n" + e.getMessage(),
+							Toast.LENGTH_SHORT).show();
+					gravado = false;
+					record.setVisibility(View.VISIBLE);
+				}
 			}
 		}
-
 	}
 
 	private final int PARADO = 2;
@@ -574,7 +571,7 @@ public class Teste_Texto extends Activity {
 			play.setCompoundDrawablesWithIntrinsicBounds(null,
 					img.getDrawable(), null, null);
 			play.setText("Parar");
-			record.setVisibility(View.INVISIBLE);
+			// record.setVisibility(View.INVISIBLE);
 			demo.setVisibility(View.INVISIBLE);
 			playing = true;
 			try {
@@ -596,7 +593,8 @@ public class Teste_Texto extends Activity {
 							play.setCompoundDrawablesWithIntrinsicBounds(null,
 									img2.getDrawable(), null, null);
 							play.setText("Ouvir");
-							record.setVisibility(View.VISIBLE);
+
+							// record.setVisibility(View.VISIBLE);
 							demo.setVisibility(View.VISIBLE);
 							playing = false;
 							try {
@@ -644,7 +642,7 @@ public class Teste_Texto extends Activity {
 			play.setCompoundDrawablesWithIntrinsicBounds(null,
 					img.getDrawable(), null, null);
 			play.setText("Ouvir");
-			record.setVisibility(View.VISIBLE);
+			// record.setVisibility(View.VISIBLE);
 			demo.setVisibility(View.VISIBLE);
 			playing = false;
 			try {
@@ -654,7 +652,7 @@ public class Teste_Texto extends Activity {
 						"Reproducao interrompida.", Toast.LENGTH_SHORT).show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproducao.\n" + ex.getMessage(),
+						"Erro a finalizar a reproducao.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -691,8 +689,10 @@ public class Teste_Texto extends Activity {
 						case PARADO:
 							demo.setCompoundDrawablesWithIntrinsicBounds(null,
 									img2.getDrawable(), null, null);
-							record.setVisibility(View.VISIBLE);
-							play.setVisibility(View.VISIBLE);
+							if (gravado)
+								play.setVisibility(View.VISIBLE);
+							else
+								record.setVisibility(View.VISIBLE);
 							demo.setText("Demo");
 							playing = false;
 							try {
@@ -728,8 +728,10 @@ public class Teste_Texto extends Activity {
 				img.setImageResource(R.drawable.palyoff);
 				demo.setCompoundDrawablesWithIntrinsicBounds(null,
 						img.getDrawable(), null, null);
-				record.setVisibility(View.VISIBLE);
-				play.setVisibility(View.VISIBLE);
+				if (gravado)
+					play.setVisibility(View.VISIBLE);
+				else
+					record.setVisibility(View.VISIBLE);
 				demo.setText("Demo");
 				playing = false;
 			}
@@ -739,8 +741,10 @@ public class Teste_Texto extends Activity {
 			img.setImageResource(R.drawable.palyoff);
 			demo.setCompoundDrawablesWithIntrinsicBounds(null,
 					img.getDrawable(), null, null);
-			record.setVisibility(View.VISIBLE);
-			play.setVisibility(View.VISIBLE);
+			if (gravado)
+				play.setVisibility(View.VISIBLE);
+			else
+				record.setVisibility(View.VISIBLE);
 			demo.setText("Demo");
 			playing = false;
 			try {
