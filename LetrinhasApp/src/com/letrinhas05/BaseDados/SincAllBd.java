@@ -25,8 +25,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
     public Context context;
     public String msg = "";
     private PaginaInicial mActivity;
-    public int tipo;
-
+    public int tipo, perct;
 
     public SincAllBd(Context context, PaginaInicial mActivity, int tipo) {
         this.context = context;
@@ -74,7 +73,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
             mActivity.progBar.setProgress(100);
 
         }
-        else{
+        else if (tipo == 1) {
             mActivity.txtViewMSG.setText("A Enviar ....");
             LetrinhasDB db = new LetrinhasDB(context);
             List<CorrecaoTesteLeitura> listCrtl =  db.getAllCorrecaoTesteLeitura();
@@ -101,6 +100,17 @@ public class SincAllBd extends AsyncTask<String, String, String> {
                 prog++;
             }
         }
+        else if (tipo == 2) {
+
+            mActivity.progBar.setProgress(10);
+            lerSynCorrecaoLeitura(strings[0]);
+            mActivity.progBar.setProgress(50);
+            lerSynCorrecaoMultimedia(strings[0]);
+            mActivity.progBar.setProgress(100);
+
+        }
+
+
         return null;
     }
 

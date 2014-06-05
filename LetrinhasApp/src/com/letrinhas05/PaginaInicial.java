@@ -163,7 +163,7 @@ public class PaginaInicial extends Activity {
 				Toast.makeText(this,"Sem informacao na Base de dados local!\n"
 								+ "A descarregar BASE DADOS do servidor!\n",
 						Toast.LENGTH_LONG).show();
-                sincBd();
+                sincBd(0);
 				// /////////////////////////////////////////////////////////////////////////////////////////
 			} catch (Exception e2) {
                 txtViewMSG.setText("ERROO....");
@@ -200,19 +200,22 @@ public class PaginaInicial extends Activity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Configuracoes");
                 builder.setItems(new CharSequence[]
-                                {"Sinc Manual", "Enviar todas as Correcoes", "Cancelar"},
+                                {"Sinc Manual","Receber apenas Correcoes" , "Enviar todas as Correcoes", "Cancelar"},
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // The 'which' argument contains the index position
                                 // of the selected item
                                 switch (which) {
                                     case 0:
-                                        sincBd();
+                                        sincBd(0);
                                         break;
                                     case 1:
-                                        EnviarCorrecoes();
+                                        sincBd(2);
                                         break;
                                     case 2:
+                                        EnviarCorrecoes();
+                                        break;
+                                    case 3:
                                         break;
                                 }
                             }
@@ -232,7 +235,7 @@ public class PaginaInicial extends Activity {
     /**
      * sinc fAZ A SINCRONIZACAO
      */
-    private void sincBd() {
+    private void sincBd(int tipo) {
         bentrar.setEnabled(false);
         txtViewMSG.setText("A carregar....");
         progBar.setVisibility(View.VISIBLE);
@@ -245,12 +248,12 @@ public class PaginaInicial extends Activity {
         // Forma o endere�o http
         String URlString = "http://" + ip + ":" + porta + "/";
         String[] myTaskParams = { URlString, URlString, URlString };
-        new SincAllBd(this, this, 0).execute(myTaskParams);
+        new SincAllBd(this, this, tipo).execute(myTaskParams);
     }
 
         public void EnviarCorrecoes(){
             bentrar.setEnabled(false);
-            txtViewMSG.setText("A carregar....");
+            txtViewMSG.setText("A Enviar....");
             progBar.setVisibility(View.VISIBLE);
             txtViewMSG.setVisibility(View.VISIBLE);
             String URlString = "http://code.dei.estt.ipt.pt:80/Api/Tests/Submit";
