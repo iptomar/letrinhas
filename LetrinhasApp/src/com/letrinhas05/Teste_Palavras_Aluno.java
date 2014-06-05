@@ -4,11 +4,12 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -29,8 +30,10 @@ import android.widget.Toast;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
+import com.letrinhas05.ClassesObjs.Professor;
 import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.ClassesObjs.TesteLeitura;
+import com.letrinhas05.util.Autenticacao;
 import com.letrinhas05.util.SystemUiHider;
 
 public class Teste_Palavras_Aluno extends Activity{
@@ -50,7 +53,7 @@ public class Teste_Palavras_Aluno extends Activity{
 			int tipo, idTesteAtual;
 			String[] Nomes;
 			int[] iDs, testesID;
-			int testeid;
+			int testeid,source;
 			/**
 			 * Whether or not the system UI should be auto-hidden after
 			 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -108,7 +111,6 @@ public class Teste_Palavras_Aluno extends Activity{
 				// buscar os parametros
 				Bundle b = getIntent().getExtras();
 				inicia(b);
-			///	fileName = getCurrentTimeStamp() + ".3gpp";
 				Log.d("Debug-idTest", "testesID->"+String.valueOf(testeid));
 
 				endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
@@ -122,6 +124,12 @@ public class Teste_Palavras_Aluno extends Activity{
 				voltar = (ImageButton) findViewById(R.id.tlaVoltar);
 				avancar = (ImageButton) findViewById(R.id.tlaAvaliar);
 				escutaBotoes();
+			}
+			
+			@Override
+			public void onBackPressed() {
+				// TODO Auto-generated method stub
+				voltar.performClick();
 			}
 			
 			/**
@@ -350,17 +358,95 @@ public class Teste_Palavras_Aluno extends Activity{
 				avancar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						// voltar para pag inicial
-						submit();
+						android.app.AlertDialog alerta;
+						// Cria o gerador do AlertDialog
+						AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+						// define o titulo
+						builder.setTitle("Letrinhas");
+						// define a mensagem
+						builder.setMessage("Confirmas a submissao deste teste?");
+						// define os botoes
+						builder.setNegativeButton("Nao", null);
+
+						builder.setPositiveButton("Sim",
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										stopPlayRec();
+										submit();
+									}
+								});
+						// cria o AlertDialog
+						alerta = builder.create();
+						// Mostra
+						alerta.show();
 					}
+
 				});
 				voltar.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						// voltar para pag inicial
-						finish();
+						android.app.AlertDialog alerta;
+						// Cria o gerador do AlertDialog
+						AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+						// define o titulo
+						builder.setTitle("Letrinhas");
+						// define a mensagem
+						builder.setMessage("Tens a certeza que queres voltar para a listagem dos testes\n"+ "E abandonar este?");
+						// define os botoes
+						builder.setNegativeButton("Nao", null);
+						builder.setPositiveButton("Sim",
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,int which) {
+										LetrinhasDB bd = new LetrinhasDB(getApplicationContext());
+										Professor prf = bd.getProfessorById(iDs[1]);
+										String PIN = prf.getPassword();
+										Bundle wrap = new Bundle();
+										wrap.putString("PIN", PIN);
+										// iniciar a pagina (Autenticacao)
+										Intent at = new Intent(getApplicationContext(),Autenticacao.class);
+										at.putExtras(wrap);
+										startActivityForResult(at, 1);
+										source = 0;
+									}
+
+								});
+						// cria o AlertDialog
+						alerta = builder.create();
+						// Mostra
+						alerta.show();
+
 					}
 				});
+			}
+			
+			@Override
+			protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+				// TODO Auto-generated method stub
+
+				if (data.getExtras().getBoolean("Resultado")) {
+					stopPlayRec();
+					elimina();
+					if (source == 1) {
+						finaliza();
+					} else {
+						finish();
+					}
+				}
+			}
+			
+			// forcar a paragem da reproducao e gravacao do audio!
+			private void stopPlayRec() {
+				if (recording) {
+					gravador.stop();
+					gravador.release();
+				}
+				if (playing) {
+					reprodutor.stop();
+					reprodutor.release();
+				}
 			}
 			
 			/**
