@@ -128,10 +128,8 @@
         android:id="@+id/tlaRecordPalavras"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tlaVoltar"
-        android:layout_alignLeft="@+id/tlaTela"
         android:contentDescription="@string/Recording"
-        android:src="@drawable/record" />
+        android:src="@drawable/record" android:layout_toRightOf="@+id/tlaVoltar" android:layout_below="@+id/tlaTela1"/>
 
     <ImageButton
         android:id="@+id/tlaDemoPlay"
@@ -148,19 +146,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/tlaVoltar"
-        android:layout_marginLeft="@dimen/dim24"
-        android:layout_toRightOf="@+id/tlaVoicePlay"
         android:contentDescription="@string/entrar"
-        android:src="@drawable/valido" />
+        android:src="@drawable/valido" android:layout_alignParentEnd="false" android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" android:layout_toRightOf="@+id/tlaTela2"/>
 
     <ImageButton
         android:id="@+id/tlaVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/dim24"
-        android:layout_toRightOf="@+id/tlaAvaliar"
         android:contentDescription="@string/voltar"
-        android:src="@drawable/voltar" />
+        android:src="@drawable/voltar" android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"
+        android:layout_marginRight="@dimen/dim40"/>
 
 </RelativeLayout>

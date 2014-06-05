@@ -76,22 +76,13 @@
                 android:id="@+id/imgPerguntaTestM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dip"
-                android:paddingBottom="10dip"
+                android:paddingTop="@dimen/dim10"
+                android:paddingBottom="@dimen/dim10"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"/>
     </RelativeLayout>
-
-
-
-
-
-
-
-
-
 
 
 
@@ -115,7 +106,7 @@
             android:layout_alignBottom="@id/bt1M"
             android:layout_alignRight="@id/bt1M"
             android:layout_alignLeft="@id/bt1M" android:background="#cfb78c"
-            android:textColor="#000000" android:textStyle="bold" android:textSize="24dp"/>
+            android:textColor="#000000" android:textStyle="bold" android:textSize="@dimen/dim24"/>
     <RelativeLayout
             android:id="@id/bt1M"
             android:layout_width="@dimen/dim220"
@@ -127,8 +118,8 @@
                 android:id="@+id/btnOpcao1IMG"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dip"
-                android:paddingBottom="10dip"
+                android:paddingTop="@dimen/dim10"
+                android:paddingBottom="@dimen/dim10"
 
                 android:layout_alignParentRight="true"
                 android:layout_alignParentLeft="true"
@@ -144,7 +135,7 @@
             android:layout_alignTop="@+id/bt2M"
             android:layout_alignBottom="@id/bt2M"
             android:layout_alignRight="@id/bt2M"
-            android:layout_alignLeft="@id/bt2M" android:textStyle="bold" android:textSize="24dp"
+            android:layout_alignLeft="@id/bt2M" android:textStyle="bold" android:textSize="@dimen/dim24"
             android:textColor="#000000" android:background="#cfb78c"/>
     <RelativeLayout
             android:id="@id/bt2M"
@@ -156,8 +147,8 @@
                 android:id="@+id/btnOpcao2IMG"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dip"
-                android:paddingBottom="10dip"
+                android:paddingTop="@dimen/dim10"
+                android:paddingBottom="@dimen/dim10"
 
                 android:layout_alignParentRight="true"
                 android:layout_alignParentLeft="true"
@@ -173,7 +164,7 @@
             android:layout_alignTop="@+id/bt3M"
             android:layout_alignBottom="@id/bt3M"
             android:layout_alignRight="@id/bt3M"
-            android:layout_alignLeft="@id/bt3M" android:textStyle="bold" android:textSize="24dp"
+            android:layout_alignLeft="@id/bt3M" android:textStyle="bold" android:textSize="@dimen/dim24"
             android:textColor="#000000" android:background="#cfb78c"/>
     <RelativeLayout
             android:id="@id/bt3M"
@@ -185,18 +176,14 @@
                 android:id="@+id/btnOpcao3IMG"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dip"
-                android:paddingBottom="10dip"
+                android:paddingTop="@dimen/dim10"
+                android:paddingBottom="@dimen/dim10"
 
                 android:layout_alignParentRight="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"/>
     </RelativeLayout>
-
-
-
-
 
     <ImageView
         android:layout_width="@dimen/dim100"

@@ -35,19 +35,17 @@ import com.letrinhas05.util.SystemUiHider;
 
 public class Teste_Palavras_Aluno extends Activity{
 	// flags para verificar os diversos estados do teste
-			boolean modo, gravado, recording, playing;
+			boolean recording, playing;
 			// objetos
 			ImageButton record, play, voltar, avancar,voicePlay;
 			// variaveis contadoras para a avaliacao
-			int numero=0,nTestes,testeId;
 			private MediaRecorder gravador;
 			private MediaPlayer reprodutor = new MediaPlayer();
-			String endereco,yo,yo1,yo2,profSound,tempo,path;
-			String uuid = UUID.randomUUID().toString();
+			String endereco,profSound,tempo;
 			String fileName;
 			LetrinhasDB db;
 			CorrecaoTesteLeitura ctl;
-			
+            long timeStamp;
 			TesteLeitura teste;
 			int tipo, idTesteAtual;
 			String[] Nomes;
@@ -110,14 +108,13 @@ public class Teste_Palavras_Aluno extends Activity{
 				// buscar os parametros
 				Bundle b = getIntent().getExtras();
 				inicia(b);
-				fileName = getCurrentTimeStamp() + ".3gpp";
+			///	fileName = getCurrentTimeStamp() + ".3gpp";
 				Log.d("Debug-idTest", "testesID->"+String.valueOf(testeid));
-				endereco = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/CorrectionReadTest/"+testeid+"/"+iDs[3]+"/"+fileName;
-				path =  "/School-Data/CorrectionReadTest/"+testeid+"/"+iDs[3]+"/"+fileName;
+
+				endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
+                        + "/School-Data/CorrectionReadTest/"+testeid+"/"+iDs[3]+"/";
+
 				profSound = Environment.getExternalStorageDirectory().getAbsolutePath() + "/School-Data/ReadingTests/"+teste.getProfessorAudioUrl();
-				Log.d("Debug-SoundProf", "/School-Data/ReadingTests/"+teste.getProfessorAudioUrl()+".mp3");
-				Log.d("Debug-ButtonRecord", String.valueOf(findViewById(R.id.tlaRecordPalavras)));
-				Log.d("Debug-ButtonComeca", String.valueOf(findViewById(R.id.tlaVoicePlay)));
 				record = (ImageButton) findViewById(R.id.tlaRecordPalavras);
 				play = (ImageButton) findViewById(R.id.tlaDemoPlay);
 				play.setVisibility(View.INVISIBLE);
@@ -310,16 +307,20 @@ public class Teste_Palavras_Aluno extends Activity{
 			}
 
 			public void setUp() {
+
+                timeStamp = System.currentTimeMillis() / 1000;
+                fileName = timeStamp + ".3gpp";
+
 				gravador = new MediaRecorder();
 				gravador.setAudioSource(MediaRecorder.AudioSource.MIC);
 				gravador.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 				gravador.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
 				// construir as pastas caso necessario
-				File file = new File(endereco);
+				File file = new File(endereco + fileName);
 				if (file.getParent() != null && !file.getParentFile().exists()) {
 					file.getParentFile().mkdirs();
 				}
-				gravador.setOutputFile(endereco);
+				gravador.setOutputFile(endereco + fileName);
 			}
 
 			private void escutaBotoes() {
@@ -368,15 +369,15 @@ public class Teste_Palavras_Aluno extends Activity{
 			 */
 			public void submit(){
 				ctl = new CorrecaoTesteLeitura();
-				File file = new File(endereco);
+				File file = new File(endereco + fileName);
 				if(!file.exists()){
 					Toast.makeText(getApplicationContext(),"Nao gravou nada",Toast.LENGTH_SHORT).show();
 				}else{
-					long time = System.currentTimeMillis() / 1000;
-					String aux = idTesteAtual + iDs[3] + time + "";
+					String aux = idTesteAtual +""+ iDs[3] +""+ timeStamp + "";
 					ctl.setIdCorrrecao(Long.parseLong(aux));
-					ctl.setAudiourl(path);
-					ctl.setDataExecucao(time);
+                    String[] yo = endereco.split("School-Data");
+                    ctl.setAudiourl("/School-Data" + yo[1] + fileName);
+					ctl.setDataExecucao(timeStamp);
 					ctl.setTipo(2);// pois estou num teste texto
 					ctl.setEstado(0);
 					ctl.setTestId(idTesteAtual);
@@ -436,7 +437,7 @@ public class Teste_Palavras_Aluno extends Activity{
 				}		
 			}
 			
-			//temos de manter o onDestroy, devido a existir a possibilidade de fazer finhish() através da barra de sistema!
+			//temos de manter o onDestroy, devido a existir a possibilidade de fazer finhish() atravï¿½s da barra de sistema!
 			@Override
 			protected void onDestroy() {
 				if(recording){
@@ -566,7 +567,7 @@ public class Teste_Palavras_Aluno extends Activity{
 							Log.d("Debug-vozProf", profSound);
 							reprodutor.setDataSource(profSound);
 						}else if(path=="gravacao"){
-							reprodutor.setDataSource(endereco);
+							reprodutor.setDataSource(endereco + fileName);
 						}
 						reprodutor.prepare();
 						reprodutor.start();
