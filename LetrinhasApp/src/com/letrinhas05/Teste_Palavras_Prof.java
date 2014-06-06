@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,26 +40,23 @@ import com.letrinhas05.util.SystemUiHider;
 import com.letrinhas05.util.Teste;
 
 public class Teste_Palavras_Prof extends Activity {
-	boolean playing, flag;
+	boolean playing;
 	// objetos
 	ImageButton play, voltar, cancelar, avancar;
 	int plvErradas = 0, id_teste, totalDePalavras = 0;
 	private MediaPlayer reprodutor = new MediaPlayer();
 	private String endereco, uuidAudio;
 	CorrecaoTesteLeitura ctl;
-	Teste[] lista;
 	LetrinhasDB db;
 	String[] nomes;
 	int[] ids;
 	String text;
 	TextView valueWord;
-	int testId = 0, idEstudante = 0, tipo = 0, estado = 0,
-			numPalavCorretas = 0, numPalavIncorretas = 0;
-	long dataExecucao = 0, idCorrrecao = 0, idCorrecao;
+	int numPalavCorretas = 0, numPalavIncorretas = 0;
+	long  idCorrrecao;
 	float numPalavrasMin = 0, precisao = 0, velocidade = 0, expressividade = 0,
 			ritmo = 0;
-	double milisegundos;
-	int segundos, minutos, horas, auxiliar;
+	int segundos, minutos, auxiliar;
 	String observacoes = "empty", detalhes = "empty", stringAuxForType,
 			dataDeExecucao;
 	Avaliacao eval;
@@ -128,41 +126,18 @@ public class Teste_Palavras_Prof extends Activity {
 		ids = b.getIntArray("IDs");
 		id_teste = b.getInt("ID_teste");
 
-		idCorrecao = b.getLong("ID_Correcao");
-
-		dataDeExecucao = b.getString("dataDeExecucao");
+        idCorrrecao = b.getLong("ID_Correcao");
+        dataDeExecucao = b.getString("dataDeExecucao");
 		db = new LetrinhasDB(this);
 
-		List<CorrecaoTesteLeitura> a = db
-				.getAllCorrecaoTesteLeitura_ByIDaluno_TestID(ids[3], id_teste);
-		String[] g = new String[a.size()];
-		int x = 0;
-		for (CorrecaoTesteLeitura asdf : a) {
-			g[x] = asdf.getAudiourl().toString();
-			auxiliar = asdf.getTipo();
-			idCorrrecao = asdf.getIdCorrrecao();
-			uuidAudio = g[x];
-			// Log.d("Debug-url", g[x] + " awehfe " + x);
-			x++;
-		}
-		// Log.d("Debug-id_teste", String.valueOf(id_teste));
-
-		// Log.d("Debug-uuidAudio", uuidAudio);
-
+        //////////////CORRIGIDO AQUI/////////////////////
+		CorrecaoTesteLeitura correcaoTesteLeitura = db.getCorrecaoTesteLeirutaById(Long.parseLong(""+idCorrrecao));
+        auxiliar =  correcaoTesteLeitura.getTipo();
+        uuidAudio = correcaoTesteLeitura.getAudiourl();
 		text = db.getTesteLeituraById(id_teste).getConteudoTexto();
-		/*
-		 * Log.d("Debug-text", text); Log.d("Debug-nomes.lenght",
-		 * String.valueOf(nomes.length)); for (int i = 0; i < nomes.length; i++)
-		 * { // String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
-		 * Log.d("Debug-nomes", nomes[i]); } for (int i = 0; i < ids.length;
-		 * i++) { // int's - idEscola, idProfessor, idTurma, idAluno
-		 * Log.d("Debug-ids", String.valueOf(ids[i])); } Log.d("Debug-id_teste",
-		 * String.valueOf(id_teste)); // Consultar a BD para preencher o
-		 * conteï¿½do.... // ((TextView) //
-		 * findViewById(R.id.textCabecalho)).setText(lista[0].getTitulo()); //
-		 * ((TextView) //
-		 * findViewById(R.id.textRodape)).setText(b.getString("Aluno"));
-		 */endereco = Environment.getExternalStorageDirectory()
+
+
+		endereco = Environment.getExternalStorageDirectory()
 				.getAbsolutePath() + uuidAudio;
 		// Log.d("Debug-pathAudio", endereco);
 		valueWord = (TextView) findViewById(R.id.ValueWord);
@@ -176,8 +151,8 @@ public class Teste_Palavras_Prof extends Activity {
 		lenght = ar.length / 3;
 		// Log.d("Debug-length_totil", String.valueOf(ar.length));
 		// Log.d("Debug-length", String.valueOf(ar.length / 3));
-		// Log.d("Debug-Resto", String.valueOf(ar.length % 3));
-		if (ar.length % 3 == 2) {
+            // Log.d("Debug-Resto", String.valueOf(ar.length % 3));
+            if (ar.length % 3 == 2) {
 			restoVal[0] = 1;
 			restoVal[1] = 1;
 		} else if (ar.length % 3 == 1) {
@@ -416,20 +391,19 @@ public class Teste_Palavras_Prof extends Activity {
 	}
 
 	/**
-	 * Método para verificar se existe mais algum resultado deste aluno, sobre
+	 * Mï¿½todo para verificar se existe mais algum resultado deste aluno, sobre
 	 * este teste e caso exista apresente o mais recente para comparar com este.
-	 * 
-	 * @param resultado
+	 *
 	 * @author Thiago
 	 */
 	private void lancaResultados() {
-		ctl = db.getCorrecaoTesteLeirutaById(idCorrecao);
+		ctl = db.getCorrecaoTesteLeirutaById(idCorrrecao);
 
 		List<CorrecaoTesteLeitura> crt = db
 				.getAllCorrecaoTesteLeitura_ByIDaluno_TestID(
 						ctl.getIdEstudante(), ctl.getTestId());
 
-		// Se o resultado for superior a 1 então vai procurar o mais recente
+		// Se o resultado for superior a 1 entï¿½o vai procurar o mais recente
 		if (1 < crt.size()) {
 			// recebe o primeiro para comparar
 			int contador = 0, ponteiro = 0;
@@ -475,7 +449,7 @@ public class Teste_Palavras_Prof extends Activity {
 				finish();
 			}
 
-		}// Senão apresenta apenas este.
+		}// Senï¿½o apresenta apenas este.
 		else {
 			// teste do resultado!
 			Bundle wrap = new Bundle();
@@ -691,7 +665,6 @@ public class Teste_Palavras_Prof extends Activity {
 			buttonSetUp(ar, i, ll, tg);
 			totalDePalavras++;
 		}
-		// Log.d("Debug-totalDePalavras", String.valueOf(totalDePalavras));
 	}
 
 	/**
