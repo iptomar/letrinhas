@@ -1666,7 +1666,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         values2.put(CORRTLEIT_NUMPALAVRASCORRET, numPalavrasCorr );
         values2.put(CORRTLEIT_NUMPALAVRASINCORRE, numPalavrasInc );
         values2.put(CORRTLEIT_PRECISAO, precisao );
-        values2.put(CORRTLEIT_PRECISAO, velocidade );
+        values2.put(CORRTLEIT_VELOCIDADE, velocidade );
         values2.put(CORRTLEIT_EXPRESSIVIDADE, expressividade );
         values2.put(CORRTLEIT_RITMO, ritmo );
         values2.put(CORRTLEIT_DETALHES, detalhes );
@@ -1696,7 +1696,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
         values2.put(CORRTLEIT_NUMPALAVRASCORRET, correcaoTesteLeitura.getNumPalavCorretas() );
         values2.put(CORRTLEIT_NUMPALAVRASINCORRE, correcaoTesteLeitura.getNumPalavIncorretas() );
         values2.put(CORRTLEIT_PRECISAO, correcaoTesteLeitura.getPrecisao() );
-        values2.put(CORRTLEIT_PRECISAO, correcaoTesteLeitura.getVelocidade() );
+        values2.put(CORRTLEIT_VELOCIDADE, correcaoTesteLeitura.getVelocidade() );
         values2.put(CORRTLEIT_EXPRESSIVIDADE, correcaoTesteLeitura.getExpressividade() );
         values2.put(CORRTLEIT_RITMO, correcaoTesteLeitura.getRitmo() );
         values2.put(CORRTLEIT_DETALHES, correcaoTesteLeitura.getDetalhes() );
