@@ -256,27 +256,10 @@ public class ListaResultados extends Activity {
 				}
 
 				if (ctAux[i].getTipo() != 1) { // tipo texto / Lista /poema
-					CorrecaoTesteLeitura ctl = bd
+					final CorrecaoTesteLeitura ctl = bd
 							.getCorrecaoTesteLeirutaById(ctAux[i]
 									.getIdCorrrecao());
 
-					final String resultado, titulo = title;
-
-					resultado = "==========Avaliação============\n"
-							+ ctl.getObservacoes() + "\n"
-							+ "Palavras lidas por minuto (plm): "
-							+ ctl.getNumPalavrasMin() + "\n"
-							+ "Palavras corretamente lidas (pcl): "
-							+ ctl.getNumPalavCorretas() + "\n"
-							+ "Precisão de Leitura (PL): " + ctl.getPrecisao()
-							+ "\n" + "Velocidade de leitura (VL): "
-							+ ctl.getVelocidade() + "\n" + "Expressividade: "
-							+ ctl.getExpressividade() + "\n" + "Ritmo: "
-							+ ctl.getRitmo() + "\n\n"
-							+ "===============================\n"
-							+ "Detalhes\n"
-							+ "===============================\n"
-							+ ctl.getDetalhes();
 					// Defenir o que faz o botao ao clicar
 					btIn.setOnClickListener(new View.OnClickListener() {
 						@Override
@@ -285,11 +268,7 @@ public class ListaResultados extends Activity {
 
 							// teste do resultado!
 							Bundle wrap = new Bundle();
-							wrap.putString("teste", titulo);// titulo do teste +
-															// data
-							wrap.putString("Avaliac", resultado); // descritivo
-																	// do
-																	// resultado
+							wrap.putLong("ID", ctl.getIdCorrrecao());
 							// listar submissoes anteriores do mesmo teste
 							Intent it = new Intent(getApplicationContext(),
 									Resultado.class);

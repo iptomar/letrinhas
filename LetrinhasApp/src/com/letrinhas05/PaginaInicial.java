@@ -80,6 +80,8 @@ public class PaginaInicial extends Activity {
         txtViewMSG.setVisibility(View.INVISIBLE);
         findViewById(R.id.bEntrar1).setOnTouchListener(mDelayHideTouchListener);
         bentrar = (Button) findViewById(R.id.bEntrar1);
+       
+        
         btnSair = (ImageButton) findViewById(R.id.iBSair);
         btnSettings = (ImageButton) findViewById(R.id.btnSettingsMenuP);
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
@@ -182,6 +184,7 @@ public class PaginaInicial extends Activity {
 
 
 	private void escutaBotoes() {
+				
 		bentrar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -226,7 +229,7 @@ public class PaginaInicial extends Activity {
         btnSair.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// sair da aplica��o
+				// sair da aplicacao
 				java.lang.System.exit(RESULT_OK);
 			}
 		});

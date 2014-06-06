@@ -5,11 +5,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.james.mime4j.stream.Event;
 
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
+import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.Estudante;
 import com.letrinhas05.ClassesObjs.TesteLeitura;
@@ -53,7 +55,7 @@ public class Correcao_Texto extends Activity {
 	LetrinhasDB bd = new LetrinhasDB(this);
 	CorrecaoTesteLeitura crt;
 	int iDs[], minuto, segundo;
-	String Nomes[], demoUrl, audioUrl, s;
+	String Nomes[], demoUrl, audioUrl, titulo;
 	int PalavrasErr = 0;
 	int RetirarSeleccao = 0;
 	boolean EscreverNaLista = true;
@@ -102,11 +104,11 @@ public class Correcao_Texto extends Activity {
 		// Teste para buscar o texto, titulo e o endereï¿½o da demonstraï¿½ï¿½o
 		TesteLeitura teste = bd.getTesteLeituraById(crt.getTestId());
 
-		s = teste.getTitulo() + " - ";
+		titulo = teste.getTitulo() + " - ";
 
-		s += "" + getDate(crt.getDataExecucao());
+		titulo += "" + getDate(crt.getDataExecucao());
 
-		this.setTitle(s);
+		this.setTitle(titulo);
 		// tiulo do teste
 		// ((TextView) findViewById(R.id.textCabecalho)).setText(s);
 		// coteudo do teste
@@ -513,7 +515,6 @@ public class Correcao_Texto extends Activity {
 				stopPlay();
 				// inicia a avaliaCAo
 				String resultado = avaliador.calcula(minuto, segundo);
-				long time = System.currentTimeMillis() / 1000;
 				try {
 					bd.updateCorrecaoTesteLeitura(crt.getIdCorrrecao(),
 							avaliador.obs, avaliador.PLM(minuto, segundo),
@@ -525,22 +526,90 @@ public class Correcao_Texto extends Activity {
 				} catch (Exception ex) {
 				}
 
-				// teste do resultado!
-				Bundle wrap = new Bundle();
-				wrap.putString("teste", s);// titulo do teste + data
-				wrap.putString("Avaliac", resultado); // descritivo do resultado
-				// listar submissoes anteriores do mesmo teste
-				Intent it = new Intent(getApplicationContext(), Resultado.class);
-				it.putExtras(wrap);
-				startActivity(it);
+				lancaResultados(resultado);
 
-				finish();
 			}
 		});
 		// cria o AlertDialog
 		alerta = builder.create();
 		// Mostra
 		alerta.show();
+	}
+
+	/**
+	 * Método para verificar se existe mais do que um resultado deste aluno,
+	 * sobre este teste e caso exista apresente o mais recente para comparar com
+	 * este.
+	 * 
+	 * @param resultado
+	 * @author Thiago
+	 */
+	private void lancaResultados(String resultado) {
+
+		List<CorrecaoTesteLeitura> crl = bd
+				.getAllCorrecaoTesteLeitura_ByIDaluno_TestID(
+						crt.getIdEstudante(), crt.getTestId());
+
+		// Se o resultado for superior a 1 então vai procurar o mais recente
+		// já corrigido
+		if (1 < crl.size()) {
+			// recebe o primeiro para comparar
+
+			int contador = 0, ponteiro = 0;
+			long data = crl.get(0).getDataExecucao();
+			CorrecaoTeste CTT = new CorrecaoTeste();
+			// corre o resto da lista e procura o mais recente, anterior a este
+			for (int i = 1; i < crl.size(); i++) {
+				CTT = bd.getCorrecaoTesteById(crl.get(i).getIdCorrrecao());
+				if (crl.get(i).getDataExecucao() < crt.getDataExecucao()
+						&& data < crl.get(i).getDataExecucao()
+						&& CTT.getEstado() == 1) {
+					ponteiro = i;
+					data = crl.get(i).getDataExecucao();
+					contador++;
+				}
+			}
+
+			if (contador > 0) {
+				long id1, id2;
+				id1 = crl.get(ponteiro).getIdCorrrecao();
+				id2 = crt.getIdCorrrecao();
+				Bundle wrap = new Bundle();
+				// ID da correcao antiga
+				wrap.putLong("ID1", id1);
+				// ID desta correcao
+				wrap.putLong("ID2", id2);
+				// Mostrar os resultados das correcoe dos testes
+				Intent it = new Intent(getApplicationContext(),
+						RelatasCorrection.class);
+				it.putExtras(wrap);
+				startActivity(it);
+				finish();
+			}else{
+				// teste do resultado!
+				Bundle wrap = new Bundle();
+				// ID desta correcao
+				wrap.putLong("ID", crt.getIdCorrrecao());
+				// Mostrar o resultado da correcao do teste
+				Intent it = new Intent(getApplicationContext(), Resultado.class);
+				it.putExtras(wrap);
+				startActivity(it);
+				finish();
+			}
+
+		}// Senão apresenta apenas este.
+		else {
+			// teste do resultado!
+			Bundle wrap = new Bundle();
+			// ID desta correcao
+			wrap.putLong("ID", crt.getIdCorrrecao());
+			// Mostrar o resultado da correcao do teste
+			Intent it = new Intent(getApplicationContext(), Resultado.class);
+			it.putExtras(wrap);
+			startActivity(it);
+			finish();
+		}
+
 	}
 
 	private void cancelAvaliacao() {
@@ -787,7 +856,8 @@ public class Correcao_Texto extends Activity {
 		final TextView TextoLido = texto;
 		TextoLido.performLongClick();
 
-		// Variï¿½veis que contem o inicio e o fim da palavra que foi selecionada
+		// Variï¿½veis que contem o inicio e o fim da palavra que foi
+		// selecionada
 		final int startSelection = TextoLido.getSelectionStart();
 		final int endSelection = TextoLido.getSelectionEnd();
 
@@ -804,7 +874,8 @@ public class Correcao_Texto extends Activity {
 			for (int i = 0; i < ListaPalavrasErradas.size(); i++) {
 				// "if" que verifica se a cordenada inicial da palavra
 				// seleccionada
-				// estï¿½ inserida no array, se sim guarda o valor da posiï¿½ï¿½o
+				// estï¿½ inserida no array, se sim guarda o valor da
+				// posiï¿½ï¿½o
 				if (ListaPalavrasErradas.get(i) == startSelection) {
 					EscreverNaLista = false;
 					RetirarSeleccao = i;

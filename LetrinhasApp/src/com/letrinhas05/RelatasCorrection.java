@@ -1,8 +1,12 @@
 package com.letrinhas05;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -11,70 +15,115 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.letrinhas05.BaseDados.LetrinhasDB;
+import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
+import com.letrinhas05.ClassesObjs.TesteLeitura;
 
 public class RelatasCorrection extends Activity {
 
-	LetrinhasDB db;
-	int[] valueInt;
-	long[] valueLong;
-	float[] valueFloat;
-	String[] valueString;
-	TextView testId, idEstudante, tipo, estado, numPalavCorretas, numPalavIncorretas, dataExecucao, idCorrrecao, numPalavrasMin, precisao, velocidade, expressividade, ritmo, observacoes, detalhes, totalDePalavras, Duracao;
+	LetrinhasDB db = new LetrinhasDB(this);
+	TextView cab1, cab2, result1, result2;
 	Button next;
-	String DuracaoTime;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_relatas_correction);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.activity_relatas_correction);
+
+		long id1, id2;
 		Bundle b = getIntent().getExtras();
-	
-		valueInt = b.getIntArray("ints");
-		Log.d("Debug-valueInt[0]", String.valueOf(valueInt[0]));
-		valueLong = b.getLongArray("longs");
-		valueFloat = b.getFloatArray("floats");
-		valueString = b.getStringArray("strings");
+		id1 = b.getLong("ID1");
+		id2 = b.getLong("ID2");
+
+		cab1 = (TextView) findViewById(R.id.resCabecalho1);
+		cab2 = (TextView) findViewById(R.id.resCabecalho2);
+		result1 = (TextView) findViewById(R.id.tvResultado1);
+		result2 = (TextView) findViewById(R.id.tvResultado2);
+
+
+		//1a Correcao
+		CorrecaoTesteLeitura crt = db.getCorrecaoTesteLeirutaById(id1);
+
+		// Teste para buscar titulo
+		TesteLeitura teste = db.getTesteLeituraById(crt.getTestId());
+		String titulo = teste.getTitulo() + " - ";
+		titulo += "" + getDate(crt.getDataExecucao());
+		cab1.setText(titulo);
+
+		// agora que temos a correcção vamos reconstruir o 1o relatorio
+		String resultado = "==========Avaliação============\n"
+				+ crt.getObservacoes() + "\n";
+		resultado += "Palavras lidas por minuto (plm): "
+				+ crt.getNumPalavrasMin() + "\n";
+		resultado += "Palavras corretamente lidas (pcl): "
+				+ crt.getNumPalavCorretas() + "\n";
+		resultado += "Precisão de Leitura (PL): " + crt.getPrecisao() + "\n";
+		resultado += "Velocidade de leitura (VL): " + crt.getVelocidade()
+				+ "\n";
+		resultado += "Expressividade: " + crt.getExpressividade() + "\n";
+		resultado += "Ritmo: " + crt.getRitmo() + "\n\n";
+		resultado += "===============================\n" + "Detalhes\n"
+				+ "===============================\n" + crt.getDetalhes();
+		result1.setText(resultado);
+
 		
-		DuracaoTime = b.getString("DuracaoTime");
-		tipo =  (TextView) findViewById(R.id.tipo);
-		numPalavCorretas = (TextView) findViewById(R.id.numPalavCorretas);
-		numPalavIncorretas = (TextView) findViewById(R.id.numPalavIncorretas);
-		dataExecucao = (TextView) findViewById(R.id.dataExecucao);
-		numPalavrasMin = (TextView) findViewById(R.id.numPalavrasMin);
-		precisao = (TextView) findViewById(R.id.precisao);
-		velocidade = (TextView) findViewById(R.id.velocidade);
-		expressividade = (TextView) findViewById(R.id.expressividade);
-		ritmo = (TextView) findViewById(R.id.ritmo);
-		observacoes = (TextView) findViewById(R.id.observacoes);
-		detalhes = (TextView) findViewById(R.id.detalhes);
-		totalDePalavras = (TextView) findViewById(R.id.totalDePalavras);
+		//2a Correcao
+		crt = db.getCorrecaoTesteLeirutaById(id2);
+
+		// Teste para buscar titulo
+		teste = db.getTesteLeituraById(crt.getTestId());
+		titulo = teste.getTitulo() + " - ";
+		titulo += "" + getDate(crt.getDataExecucao());
+		cab2.setText(titulo);
+
+		// agora que temos a correcção vamos reconstruir o 2o relatorio
+		resultado = "==========Avaliação============\n"
+				+ crt.getObservacoes() + "\n";
+		resultado += "Palavras lidas por minuto (plm): "
+				+ crt.getNumPalavrasMin() + "\n";
+		resultado += "Palavras corretamente lidas (pcl): "
+				+ crt.getNumPalavCorretas() + "\n";
+		resultado += "Precisão de Leitura (PL): " + crt.getPrecisao() + "\n";
+		resultado += "Velocidade de leitura (VL): " + crt.getVelocidade()
+				+ "\n";
+		resultado += "Expressividade: " + crt.getExpressividade() + "\n";
+		resultado += "Ritmo: " + crt.getRitmo() + "\n\n";
+		resultado += "===============================\n" + "Detalhes\n"
+				+ "===============================\n" + crt.getDetalhes();
+		
+		result2.setText(resultado);
+
+		
+
 		next = (Button) findViewById(R.id.next);
-		Duracao = (TextView) findViewById(R.id.Duracao);
-		
-		tipo.setText(valueString[2]);
-		
-		String[] ar = valueString[3].split("[ ]");
-		numPalavCorretas.setText(String.valueOf(valueInt[4]));
-		numPalavIncorretas.setText(String.valueOf(valueInt[5]));
-		dataExecucao.setText(ar[0]);
-		numPalavrasMin.setText(String.valueOf(valueFloat[0]));
-		precisao.setText(String.valueOf(valueFloat[1]));
-		velocidade.setText(String.valueOf(valueFloat[2]));
-		expressividade.setText(String.valueOf(valueFloat[3]));
-		ritmo.setText(String.valueOf(valueFloat[4]));
-		observacoes.setText(valueString[0]);
-		detalhes.setText(valueString[1]);
-		totalDePalavras.setText(String.valueOf(valueInt[6]));
-		Duracao.setText(DuracaoTime);
-		
 		next.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				finish();
 			}
 		});
-		
+
+	}
+
+	/**
+	 * Funcao importante que transforma um TimeStamp em uma data com hora
+	 * 
+	 * @param timeStamp
+	 *            timestamp a converter
+	 * @return retorna uma string
+	 */
+	@SuppressLint("SimpleDateFormat")
+	private String getDate(long timeStamp) {
+		try {
+			long timeStampCorrigido = timeStamp * 1000;
+			DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			Date netDate = (new Date(timeStampCorrigido));
+			return sdf.format(netDate);
+		} catch (Exception ex) {
+			return "0";
+		}
 	}
 
 	@Override

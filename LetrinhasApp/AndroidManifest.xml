@@ -148,7 +148,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_relatas_correction"
             android:screenOrientation="landscape"
-            android:theme="@style/FullscreenTheme" >
+            android:theme="@style/AppTheme" >
         </activity>
         <activity
             android:name="com.letrinhas05.escolhe.ListaResultados"
