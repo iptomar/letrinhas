@@ -849,6 +849,37 @@ public class LetrinhasDB extends SQLiteOpenHelper {
     }
 
     /**
+     * Buscar Um Campo getCorrecaoTesteById pelo o id
+     * @id recebe o id
+     * Retorna um objecto que contem Teste preenchido
+     */
+    public CorrecaoTeste getCorrecaoTesteById(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABELA_CORRECAOTESTE,
+                new String[]{CORRT_ID, CORRT_IDTESTE, CORRT_IDALUNO,
+                        CORRT_DATAEXEC, CORRT_TIPO,CORRT_ESTADO },
+                CORRT_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null
+        );
+        CorrecaoTeste corrteste = new CorrecaoTeste();
+        ////// Se existir dados comeca a preencher o Objecto getCorrecaoTesteById
+        if (cursor != null) {
+            cursor.moveToFirst();
+            corrteste.setIdCorrrecao(cursor.getLong(0));
+            corrteste.setTestId(cursor.getInt(1));
+            corrteste.setIdEstudante(cursor.getInt(2));
+            corrteste.setDataExecucao(cursor.getLong(3));
+            corrteste.setTipo(cursor.getInt(4));
+            corrteste.setEstado(cursor.getInt(5));
+        }
+        // return o Item ja carregado com os dados
+        cursor.close();
+        db.close();
+        return corrteste;
+    }
+
+
+    /**
      * Buscar Um Campo turma pelo o id
      * @id recebe o id
      * Retorna um objecto que contem turma preenchido
