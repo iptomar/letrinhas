@@ -545,6 +545,9 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
         JSONArray tests = JSONParser.getJSONArray(url, params);
+
+        System.out.println(tests);
+
         try {
             CorrecaoTesteLeitura[] arrCorrTestesLeitura = new CorrecaoTesteLeitura[tests.length()];
             // For (loop)looping atraves de todos os Testes
@@ -584,8 +587,10 @@ public class SincAllBd extends AsyncTask<String, String, String> {
             }
            guardarCorrecaoTesteLeituraBD(arrCorrTestesLeitura);
         } catch (Exception e) {
+            e.printStackTrace();
+
             Log.d("ERRO",
-                    "ERRO DE SINC Correcao TESTES LEITURA TALVEZ SERVIDOR EM BAIXO");
+                    "ERRO DE SINC Correcao TESTES LEITURA "+ e.getMessage());
             msg += " CorrecaoTestesLeitura ||";
         }
     }
@@ -975,6 +980,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
         Log.d("DB", "Inserir Dados na base de dados dos TESTES ..");
         for (int i = 0; i < correcaoTesteLeituras.length; i++) {
 
+
             if (!db.isExistsCorrecaoTest(correcaoTesteLeituras[i].getTestId(), correcaoTesteLeituras[i].getIdEstudante(), correcaoTesteLeituras[i].getDataExecucao()))
             {
                 Log.e("DB", "VAI FAZER INSERT CorrecaoTesteLeitura");
@@ -983,7 +989,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
             else
             {
                 Log.e("DB", "VAI FAZER UPDATE CorrecaoTesteLeitura");
-                int estadoExistente =  db.getCorrecaoTesteLeirutaById(correcaoTesteLeituras[i].getTestId()).getEstado();
+                int estadoExistente =  db.getCorrecaoTesteById(correcaoTesteLeituras[i].getIdCorrrecao()).getEstado();
                 int estadoNovo = correcaoTesteLeituras[i].getEstado();
                 if (estadoNovo == estadoExistente)
                 db.updateCorrecaoTesteLeituraPorObjecto(correcaoTesteLeituras[i]);
