@@ -84,6 +84,15 @@ public class SincAllBd extends AsyncTask<String, String, String> {
             mActivity.progBar.setProgress(prog);
             if (listCrtl.size() != 0)
             for (CorrecaoTesteLeitura cn : listCrtl) {
+
+                Log.e("CENAAAA" ,"Testid:"+ cn.getTestId()+"");
+                Log.e("CENAAAA" ,"estudante:"+  cn.getIdEstudante()+"");
+                Log.e("CENAAAA" ,"expressividad:"+  cn.getExpressividade()+"");
+                Log.e("CENAAAA" ,"readingspeed:"+  cn.getVelocidade()+"");
+                Log.e("CENAAAA" ,"precisao:"+  cn.getPrecisao()+"");
+                Log.e("CENAAAA" ,"*************************************");
+
+
                 NetworkUtils.postResultados(strings[0], cn);
                 mActivity.progBar.setProgress(prog);
                 prog++;
@@ -92,7 +101,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
             for (CorrecaoTesteMultimedia tstM : listCrtM) {
                 Log.e("CENAAAA" ,"Testid:"+ tstM.getTestId()+"");
                 Log.e("CENAAAA" ,"estudante:"+  tstM.getIdEstudante()+"");
-                Log.e("CENAAAA" ,"data:"+  tstM.getDataExecucao()+"");
+                Log.e("CENAAAA" ,"readingspeed:"+  tstM.getDataExecucao()+"");
                 Log.e("CENAAAA" ,"*************************************");
                 NetworkUtils.postResultados(strings[0], tstM);
 
@@ -974,7 +983,10 @@ public class SincAllBd extends AsyncTask<String, String, String> {
             else
             {
                 Log.e("DB", "VAI FAZER UPDATE CorrecaoTesteLeitura");
-               db.updateCorrecaoTesteLeituraPorObjecto(correcaoTesteLeituras[i]);
+                int estadoExistente =  db.getCorrecaoTesteLeirutaById(correcaoTesteLeituras[i].getTestId()).getEstado();
+                int estadoNovo = correcaoTesteLeituras[i].getEstado();
+                if (estadoNovo == estadoExistente)
+                db.updateCorrecaoTesteLeituraPorObjecto(correcaoTesteLeituras[i]);
             }
             }
 

@@ -556,17 +556,18 @@ public class Correcao_Texto extends Activity {
 			// recebe o primeiro para comparar
 
 			int contador = 0, ponteiro = 0;
-			long data = crl.get(0).getDataExecucao();
-			CorrecaoTeste CTT = new CorrecaoTeste();
+			long data = 0;
 			// corre o resto da lista e procura o mais recente, anterior a este
-			for (int i = 1; i < crl.size(); i++) {
-				CTT = bd.getCorrecaoTesteById(crl.get(i).getIdCorrrecao());
-				if (crl.get(i).getDataExecucao() < crt.getDataExecucao()
-						&& data < crl.get(i).getDataExecucao()
-						&& CTT.getEstado() == 1) {
-					ponteiro = i;
-					data = crl.get(i).getDataExecucao();
-					contador++;
+			for (int i = 0; i < crl.size(); i++) {
+				if (crl.get(i).getEstado()==1) {//estado
+					if (data < crl.get(i).getDataExecucao()) {//Data mais recente
+						if (crt.getIdCorrrecao()!= crl.get(i)
+								.getIdCorrrecao()) { //Correção_ID
+							ponteiro = i;
+							data = crl.get(i).getDataExecucao();
+							contador++;
+						}
+					}
 				}
 			}
 
@@ -585,7 +586,7 @@ public class Correcao_Texto extends Activity {
 				it.putExtras(wrap);
 				startActivity(it);
 				finish();
-			}else{
+			} else {
 				// teste do resultado!
 				Bundle wrap = new Bundle();
 				// ID desta correcao

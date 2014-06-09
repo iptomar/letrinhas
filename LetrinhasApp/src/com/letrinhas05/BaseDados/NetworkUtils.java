@@ -15,10 +15,13 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.StringBody;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 public class NetworkUtils {
     @SuppressWarnings("unused")
@@ -97,7 +100,14 @@ public class NetworkUtils {
             builder.addTextBody("expressiveness", teste.getExpressividade()+"");
             builder.addTextBody("rhythm", teste.getRitmo()+"");
             builder.addTextBody("speed", teste.getVelocidade()+"");
-            builder.addTextBody("details", detalhes+"");
+
+            try {
+                builder.addPart("details",  new StringBody(detalhes, Charset.forName("UTF-8")) );
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+//            builder.addTextBody("details", detalhes+"");
                 //// Envia Um ficheiro////
             builder.addBinaryBody("audio", Utils.getFileSD2(teste.getAudiourl()), ContentType.APPLICATION_OCTET_STREAM, "cenas.3gp");
         } else {
