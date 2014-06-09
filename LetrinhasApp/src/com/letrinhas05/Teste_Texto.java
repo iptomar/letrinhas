@@ -816,7 +816,7 @@ public class Teste_Texto extends Activity {
 				break;
 			default:
 				Toast.makeText(getApplicationContext(),
-						" - Tipo n�o defenido", Toast.LENGTH_SHORT).show();
+						" - Tipo não defenido", Toast.LENGTH_SHORT).show();
 				// retirar o teste errado e continuar
 
 				// descontar este teste da lista.
@@ -884,7 +884,6 @@ public class Teste_Texto extends Activity {
 					ResumoSubmissoes.class);
 			it.putExtras(wrap);
 			startActivity(it);
-
 		}
 	}
 

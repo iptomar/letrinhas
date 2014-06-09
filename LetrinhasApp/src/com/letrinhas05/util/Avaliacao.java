@@ -1,6 +1,6 @@
 /*
- * Esta classe serve para calcular todos os possiveis parâmetros de avaliação dos testes realizados
- * @author Dário
+ * Esta classe serve para calcular todos os possiveis parï¿½metros de avaliaï¿½ï¿½o dos testes realizados
+ * @author Dï¿½rio
  */
 
 package com.letrinhas05.util;
@@ -107,26 +107,26 @@ public class Avaliacao {
 
 	public String calcula(int minutos, int segundos) {
 		obs = "Tempo de Leitura (em segundos): " + (minutos * 60 + segundos);
-		String resultado = "==========Avaliação============\n"
+		String resultado = "==========AvaliaÃ§Ã£o============\n"
 				+ "Tempo de Leitura (em segundos): "
 				+ (minutos * 60 + segundos) + "\n";
 		resultado += "Palavras lidas por minuto (plm): "
 				+ PLM(minutos, segundos) + "\n";
 		resultado += "Palavras corretamente lidas (pcl): " + palavrasCertas()
 				+ "\n";
-		resultado += "Precisão de Leitura (PL): " + PL() + "\n";
+		resultado += "PrecisÃ£o de Leitura (PL): " + PL() + "\n";
 		resultado += "Velocidade de leitura (VL): " + VL(minutos, segundos)
 				+ "\n";
 		resultado += "Expressividade: " + Expressividade() + "\n";
 		resultado += "Ritmo: " + Ritmo() + "\n\n";
 		detalhes = "Tempo: " + minutos + ":" + segundos + "\n"
 				+ "Total de Palavras no texto: " + totalDePalavras + "\n"
-				+ "Total de sinais de pontuação no texto: "
+				+ "Total de sinais de pontuaÃ§Ã£o no texto: "
 				+ TotalDeSinaisPontuacao + "\n"
 				+ "Palavras lidas incorretamente: " + plvErradas + "\n"
-				+ "Sinais de pontuação desrespeitados: " + pontua + "\n"
-				+ "Vacilações: " + vacil + "\n" + "Fragmentações: " + fragment
-				+ "\n" + "Silabações: " + silabs + "\n" + "Repetições: "
+				+ "Sinais de pontuaÃ§Ã£o desrespeitados: " + pontua + "\n"
+				+ "VacilaÃ§Ãµes: " + vacil + "\n" + "FragmentaÃ§Ãµes: " + fragment
+				+ "\n" + "SilabaÃ§Ãµes: " + silabs + "\n" + "RepetiÃ§Ãµes: "
 				+ repeti + "\n";
 
 		resultado += "===============================\n" + "Detalhes\n"
@@ -137,7 +137,7 @@ public class Avaliacao {
 	/**
 	 * palavras lidas por minuto
 	 * 
-	 * @author Dário
+	 * @author Dï¿½rio
 	 */
 	public float PLM(int minuts, int segundos) {
 		float minutos = minuts;
@@ -154,9 +154,9 @@ public class Avaliacao {
 	}
 
 	/**
-	 * precisão na leitura
+	 * precisï¿½o na leitura
 	 * 
-	 * @author Dário
+	 * @author Dario
 	 */
 	public float PL() {
 		float d = palavrasCertas() * 100;
@@ -168,7 +168,7 @@ public class Avaliacao {
 	/**
 	 * velocidade de leitura
 	 * 
-	 * @author Dário
+	 * @author Dario
 	 */
 	public float VL(int minuts, int segundos) {
 		float minutos = minuts;
@@ -181,20 +181,20 @@ public class Avaliacao {
 	}
 
 	/**
-	 * calculo do nº total de sinais de pontuação menos os sinais de pontuação
+	 * calculo do nï¿½ total de sinais de pontuaï¿½ï¿½o menos os sinais de pontuaï¿½ï¿½o
 	 * desrespeitados
 	 * 
-	 * @author Dário
+	 * @author Dï¿½rio
 	 */
 	public int Expressividade() {
 		return TotalDeSinaisPontuacao - pontua;
 	}
 
 	/**
-	 * calculo do nº total de palavras menos o total de falhas(repetições,
-	 * vacilações, silibações e fragmentações)
+	 * calculo do nï¿½ total de palavras menos o total de falhas(repetiï¿½ï¿½es,
+	 * vacilaï¿½ï¿½es, silibaï¿½ï¿½es e fragmentaï¿½ï¿½es)
 	 * 
-	 * @author Dário
+	 * @author Dï¿½rio
 	 */
 	public int Ritmo() {
 		return totalDePalavras - (fragment + vacil + silabs + repeti);
