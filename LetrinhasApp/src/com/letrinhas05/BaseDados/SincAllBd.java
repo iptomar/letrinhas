@@ -89,6 +89,7 @@ public class SincAllBd extends AsyncTask<String, String, String> {
                 Log.e("CENAAAA" ,"estudante:"+  cn.getIdEstudante()+"");
                 Log.e("CENAAAA" ,"expressividad:"+  cn.getExpressividade()+"");
                 Log.e("CENAAAA" ,"readingspeed:"+  cn.getVelocidade()+"");
+                Log.e("CENAAAA" ,"precisao:"+  cn.getPrecisao()+"");
                 Log.e("CENAAAA" ,"*************************************");
 
 

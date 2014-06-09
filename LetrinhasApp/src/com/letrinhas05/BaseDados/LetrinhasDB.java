@@ -1297,6 +1297,7 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_VELOCIDADE +", "+
                 TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_EXPRESSIVIDADE +", "+
                 TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_RITMO +", "+
+                TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_PRECISAO +", "+
                 TABELA_CORRECAOTESTELEITURA +"."+ CORRTLEIT_DETALHES +
 
                 " FROM " + TABELA_CORRECAOTESTE + ", "+ TABELA_CORRECAOTESTELEITURA +
@@ -1322,7 +1323,8 @@ public class LetrinhasDB extends SQLiteOpenHelper {
                 corrtesteLeit.setVelocidade(cursor.getFloat(11));
                 corrtesteLeit.setExpressividade(cursor.getInt(12));
                 corrtesteLeit.setRitmo(cursor.getInt(13));
-                corrtesteLeit.setDetalhes(cursor.getString(14));
+                corrtesteLeit.setPrecisao(cursor.getFloat(14));
+                corrtesteLeit.setDetalhes(cursor.getString(15));
                 // Adicionar os os items da base de dados a lista
                 listcorrecaoTestes.add(corrtesteLeit);
             } while (cursor.moveToNext());
