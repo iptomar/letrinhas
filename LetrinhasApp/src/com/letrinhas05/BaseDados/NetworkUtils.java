@@ -68,7 +68,7 @@ public class NetworkUtils {
      *  array de bytes representando o ficheiro que foi lido, ou null
      * se ocorreu um erro.
      */
-    public static void postResultados(final String url, CorrecaoTeste correcaoTeste) {
+    public static boolean postResultados(final String url, CorrecaoTeste correcaoTeste) {
         AndroidHttpClient client = AndroidHttpClient.newInstance("letrinhas");
 
         HttpPost postRequest = new HttpPost(url);
@@ -127,11 +127,16 @@ public class NetworkUtils {
         try {
             Log.d("Letrinhas", "Enviando um http request. para os resultados do teste");
             client.execute(postRequest);
+            //Fecha a ligação
+            client.close();
+            return true;
         } catch (Exception e) {
             Log.e("Letrinhas", e.getMessage());
             e.printStackTrace();
+            //Fecha a ligação
+            client.close();
+            return false;
         }
-        //Fecha a ligação
-        client.close();
+
     }
 }
