@@ -409,18 +409,17 @@ public class Teste_Palavras_Prof extends Activity {
 			int contador = 0, ponteiro = 0;
 			long data = crt.get(0).getDataExecucao();
 
-			CorrecaoTeste CTT = new CorrecaoTeste();
-
 			// corre o resto da lista e procura o mais recente, anterior a este
-			for (int i = 1; i < crt.size(); i++) {
-				CTT = db.getCorrecaoTesteById(crt.get(i).getIdCorrrecao());
-				if (crt.get(i).getDataExecucao() < ctl.getDataExecucao()
-						&& data < crt.get(i).getDataExecucao()
-						&& CTT.getEstado() == 1) {
-					
-					ponteiro = i;
-					data = crt.get(i).getDataExecucao();
-					contador++;
+			for (int i = 0; i < crt.size(); i++) {
+				if (crt.get(i).getEstado()==1) {//estado
+					if (data < crt.get(i).getDataExecucao()) {//Data mais recente
+						if (ctl.getIdCorrrecao()!= crt.get(i)
+								.getIdCorrrecao()) { //Correção_ID
+							ponteiro = i;
+							data = crt.get(i).getDataExecucao();
+							contador++;
+						}
+					}
 				}
 			}
 			if (contador > 0) {
