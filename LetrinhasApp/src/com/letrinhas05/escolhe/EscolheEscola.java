@@ -20,8 +20,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
-
 import com.letrinhas05.PaginaInicial;
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
@@ -137,10 +135,6 @@ public class EscolheEscola extends Activity {
 			img[i] = listaEscolas.get(i).getLogotipoNome();
 		}
 
-		for (Escola cn : listaEscolas) {
-			String storage = cn.getMorada() + "," + cn.getIdEscola() + ","
-					+ cn.getNome() + "," + cn.getLogotipoNome();
-		}
 
 		/**
 		 * Scroll view com uma table de 4 colunas(max)

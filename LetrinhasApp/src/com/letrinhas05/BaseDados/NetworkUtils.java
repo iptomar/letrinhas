@@ -5,9 +5,9 @@ import android.util.Log;
 
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
-
 import com.letrinhas05.ClassesObjs.CorrecaoTesteMultimedia;
 import com.letrinhas05.util.Utils;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -23,6 +23,11 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
+/**
+ * 
+ * @author Alexandre
+ *
+ */
 public class NetworkUtils {
     @SuppressWarnings("unused")
 	private static final String TAG_NET_UTILS = "net-utils";
@@ -68,7 +73,8 @@ public class NetworkUtils {
      *  array de bytes representando o ficheiro que foi lido, ou null
      * se ocorreu um erro.
      */
-    public static boolean postResultados(final String url, CorrecaoTeste correcaoTeste) {
+    @SuppressWarnings("deprecation")
+	public static boolean postResultados(final String url, CorrecaoTeste correcaoTeste) {
         AndroidHttpClient client = AndroidHttpClient.newInstance("letrinhas");
 
         HttpPost postRequest = new HttpPost(url);

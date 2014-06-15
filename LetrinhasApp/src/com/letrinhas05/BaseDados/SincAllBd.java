@@ -17,11 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Alex on 03/05/2014. ESTA CLASSE VAI FAZER A SINCRON DAS TABELAS EM
+ * CLASSE QUE VAI FAZER A SINCRON DAS TABELAS EM
  * BACKGROUND
+ * 
+ * @author Alexandre
  */
 public class SincAllBd extends AsyncTask<String, String, String> {
-
     public Context context;
     public String msg = "";
     private PaginaInicial mActivity;

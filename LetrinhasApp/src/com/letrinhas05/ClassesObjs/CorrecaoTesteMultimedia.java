@@ -1,7 +1,7 @@
 package com.letrinhas05.ClassesObjs;
 
 /**
- * Created by Alex on 18/05/2014.
+ * @author Alexandre
  */
 public class CorrecaoTesteMultimedia extends CorrecaoTeste {
 

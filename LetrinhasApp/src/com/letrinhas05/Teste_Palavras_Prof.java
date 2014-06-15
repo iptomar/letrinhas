@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,12 +32,16 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.letrinhas05.BaseDados.LetrinhasDB;
-import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.util.Avaliacao;
 import com.letrinhas05.util.SystemUiHider;
-import com.letrinhas05.util.Teste;
 
+/**
+ * Classe para apoiar a activity de corrigir um teste de lista de palavras
+ * 
+ * @author Dário
+ * 
+ */
 public class Teste_Palavras_Prof extends Activity {
 	boolean playing;
 	// objetos
@@ -53,7 +56,7 @@ public class Teste_Palavras_Prof extends Activity {
 	String text;
 	TextView valueWord;
 	int numPalavCorretas = 0, numPalavIncorretas = 0;
-	long  idCorrrecao;
+	long idCorrrecao;
 	float numPalavrasMin = 0, precisao = 0, velocidade = 0, expressividade = 0,
 			ritmo = 0;
 	int segundos, minutos, auxiliar;
@@ -126,19 +129,19 @@ public class Teste_Palavras_Prof extends Activity {
 		ids = b.getIntArray("IDs");
 		id_teste = b.getInt("ID_teste");
 
-        idCorrrecao = b.getLong("ID_Correcao");
-        dataDeExecucao = b.getString("dataDeExecucao");
+		idCorrrecao = b.getLong("ID_Correcao");
+		dataDeExecucao = b.getString("dataDeExecucao");
 		db = new LetrinhasDB(this);
 
-        //////////////CORRIGIDO AQUI/////////////////////
-		CorrecaoTesteLeitura correcaoTesteLeitura = db.getCorrecaoTesteLeirutaById(Long.parseLong(""+idCorrrecao));
-        auxiliar =  correcaoTesteLeitura.getTipo();
-        uuidAudio = correcaoTesteLeitura.getAudiourl();
+		// ////////////CORRIGIDO AQUI/////////////////////
+		CorrecaoTesteLeitura correcaoTesteLeitura = db
+				.getCorrecaoTesteLeirutaById(Long.parseLong("" + idCorrrecao));
+		auxiliar = correcaoTesteLeitura.getTipo();
+		uuidAudio = correcaoTesteLeitura.getAudiourl();
 		text = db.getTesteLeituraById(id_teste).getConteudoTexto();
 
-
-		endereco = Environment.getExternalStorageDirectory()
-				.getAbsolutePath() + uuidAudio;
+		endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
+				+ uuidAudio;
 		// Log.d("Debug-pathAudio", endereco);
 		valueWord = (TextView) findViewById(R.id.ValueWord);
 		valueWord.setText("0");
@@ -151,8 +154,8 @@ public class Teste_Palavras_Prof extends Activity {
 		lenght = ar.length / 3;
 		// Log.d("Debug-length_totil", String.valueOf(ar.length));
 		// Log.d("Debug-length", String.valueOf(ar.length / 3));
-            // Log.d("Debug-Resto", String.valueOf(ar.length % 3));
-            if (ar.length % 3 == 2) {
+		// Log.d("Debug-Resto", String.valueOf(ar.length % 3));
+		if (ar.length % 3 == 2) {
 			restoVal[0] = 1;
 			restoVal[1] = 1;
 		} else if (ar.length % 3 == 1) {
@@ -235,6 +238,11 @@ public class Teste_Palavras_Prof extends Activity {
 		escutaBotoes();
 	}
 
+	/**
+	 * Eliminar a correção
+	 * 
+	 * @author Thiago
+	 */
 	public void elimina() {
 		File file = new File(endereco);
 		if (file.exists()) {
@@ -244,8 +252,15 @@ public class Teste_Palavras_Prof extends Activity {
 		finish();
 	}
 
-	// m�todo para acrescentar um 0 nas casas das dezenas,
-	// caso o n�mer seja inferior a 10
+	/**
+	 * método para acrescentar um 0 nas casas das dezenas, caso o numero seja
+	 * inferior a 10
+	 * 
+	 * @param n
+	 *            Numero inteiro a ser verificado
+	 * @return String adaptada.
+	 * @author Thiago
+	 */
 	private String n2d(int n) {
 		String num;
 		if (n / 10 == 0) {
@@ -256,7 +271,11 @@ public class Teste_Palavras_Prof extends Activity {
 		return num;
 	}
 
-	// for�ar a paragem da reprodu��o do audio!
+	/**
+	 * forçar a paragem da reprodução do audio!
+	 * 
+	 * @author Thiago
+	 */
 	private void stopPlay() {
 		if (playing) {
 			reprodutor.stop();
@@ -305,6 +324,12 @@ public class Teste_Palavras_Prof extends Activity {
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
 
+	/**
+	 * temos de manter o onDestroy, devido a existir a possibilidade de fazer
+	 * finhish() através da barra de sistema!
+	 * 
+	 * @author Thiago
+	 */
 	@Override
 	protected void onDestroy() {
 		if (playing) {
@@ -314,6 +339,9 @@ public class Teste_Palavras_Prof extends Activity {
 		super.onDestroy();
 	}
 
+	/** Método para defenir o Touchlistener de cada botão
+	 * @author Thiago
+	 */
 	private void escutaBotoes() {
 		play.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -391,9 +419,10 @@ public class Teste_Palavras_Prof extends Activity {
 	}
 
 	/**
-	 * M�todo para verificar se existe mais algum resultado deste aluno, sobre
-	 * este teste e caso exista apresente o mais recente para comparar com este.
-	 *
+	 * Método para verificar se existe mais do que um resultado deste aluno,
+	 * sobre este teste e caso exista apresente o mais recente para comparar com
+	 * este.
+	 * 
 	 * @author Thiago
 	 */
 	private void lancaResultados() {
@@ -411,10 +440,10 @@ public class Teste_Palavras_Prof extends Activity {
 
 			// corre o resto da lista e procura o mais recente, anterior a este
 			for (int i = 0; i < crt.size(); i++) {
-				if (crt.get(i).getEstado()==1) {//estado
-					if (data < crt.get(i).getDataExecucao()) {//Data mais recente
-						if (ctl.getIdCorrrecao()!= crt.get(i)
-								.getIdCorrrecao()) { //Corre��o_ID
+				if (crt.get(i).getEstado() == 1) {// estado
+					if (data < crt.get(i).getDataExecucao()) {// Data mais
+																// recente
+						if (ctl.getIdCorrrecao() != crt.get(i).getIdCorrrecao()) { // Corre��o_ID
 							ponteiro = i;
 							data = crt.get(i).getDataExecucao();
 							contador++;
@@ -564,6 +593,10 @@ public class Teste_Palavras_Prof extends Activity {
 		}
 	}
 
+	/** Método para reposicionar a progress bar no inicio e voltar 
+	 * a colocar o timer no inicio.
+	 * @author Thiago
+	 */
 	protected void resetTimer() {
 		try {
 			reprodutor.setDataSource(endereco);
@@ -577,8 +610,8 @@ public class Teste_Palavras_Prof extends Activity {
 		chrono.setText(n2d(tMinuto) + ":" + n2d(tSegundo));
 	}
 
-	/**
-	 * Este metodo servirco para iniciar a avaliacao
+	/** Método para iniciar o processo de avaliar a submissão
+	 * @author Thiago, adaqptado por Dário
 	 */
 	private void startAvalia() {
 		File file = new File(endereco);
@@ -632,6 +665,7 @@ public class Teste_Palavras_Prof extends Activity {
 	/**
 	 * Neste metodo irao criar o primeiro butao, que irao servir de modelo para
 	 * os restantes
+	 * @author Dário
 	 */
 	public void initSetup(Resources res, int list, int toggle, int layout,
 			String[] ar) {
@@ -673,6 +707,7 @@ public class Teste_Palavras_Prof extends Activity {
 	 * @param i
 	 * @param ll
 	 * @param tg1
+	 * @author Dário
 	 */
 	public void buttonSetUp(String[] teste, int i, LinearLayout ll,
 			ToggleButton tg1) {

@@ -1,10 +1,11 @@
-/*
- * Esta classe serve para calcular todos os possiveis par�metros de avalia��o dos testes realizados
- * @author D�rio
- */
-
 package com.letrinhas05.util;
 
+/**
+ * Esta classe serve para calcular todos os possiveis parametros de avaliação
+ *  dos testes realizados
+ * 
+ * @author Dàrio & Thiago
+ */
 public class Avaliacao {
 	private int totalDePalavras, TotalDeSinaisPontuacao;
 	private int plvErradas, pontua, vacil, fragment, silabs, repeti;

@@ -18,6 +18,13 @@ import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.TesteLeitura;
 
+/**
+ * Classe para apresentar apÃ³s uma correÃ§Ã£o de um teste de leitura
+ * a comparaÃ§Ã£o de um relatÃ³rio anterior, com o que acabou de ser corrigido
+ * 
+ * @author Thiago
+ *
+ */
 public class RelatasCorrection extends Activity {
 
 	LetrinhasDB db = new LetrinhasDB(this);
@@ -52,14 +59,14 @@ public class RelatasCorrection extends Activity {
 		titulo += "" + getDate(crt.getDataExecucao());
 		cab1.setText(titulo);
 
-		// agora que temos a correcção vamos reconstruir o 1o relatorio
-		String resultado = "==========Avaliação============\n"
+		// agora que temos a correcÃ§Ã£o vamos reconstruir o 1o relatorio
+		String resultado = "==========Avaliaï¿½ï¿½o============\n"
 				+ crt.getObservacoes() + "\n";
 		resultado += "Palavras lidas por minuto (plm): "
 				+ crt.getNumPalavrasMin() + "\n";
 		resultado += "Palavras corretamente lidas (pcl): "
 				+ crt.getNumPalavCorretas() + "\n";
-		resultado += "Precisão de Leitura (PL): " + crt.getPrecisao() + "\n";
+		resultado += "PrecisÃ£o de Leitura (PL): " + crt.getPrecisao() + "\n";
 		resultado += "Velocidade de leitura (VL): " + crt.getVelocidade()
 				+ "\n";
 		resultado += "Expressividade: " + crt.getExpressividade() + "\n";
@@ -78,14 +85,14 @@ public class RelatasCorrection extends Activity {
 		titulo += "" + getDate(crt.getDataExecucao());
 		cab2.setText(titulo);
 
-		// agora que temos a correcção vamos reconstruir o 2o relatorio
-		resultado = "==========Avaliação============\n"
+		// agora que temos a correcï¿½ï¿½o vamos reconstruir o 2o relatorio
+		resultado = "==========Avaliaï¿½ï¿½o============\n"
 				+ crt.getObservacoes() + "\n";
 		resultado += "Palavras lidas por minuto (plm): "
 				+ crt.getNumPalavrasMin() + "\n";
 		resultado += "Palavras corretamente lidas (pcl): "
 				+ crt.getNumPalavCorretas() + "\n";
-		resultado += "Precisão de Leitura (PL): " + crt.getPrecisao() + "\n";
+		resultado += "Precisï¿½o de Leitura (PL): " + crt.getPrecisao() + "\n";
 		resultado += "Velocidade de leitura (VL): " + crt.getVelocidade()
 				+ "\n";
 		resultado += "Expressividade: " + crt.getExpressividade() + "\n";
@@ -108,11 +115,12 @@ public class RelatasCorrection extends Activity {
 	}
 
 	/**
-	 * Funcao importante que transforma um TimeStamp em uma data com hora
+	 * FunÃ§Ã£o importante que transforma um TimeStamp em uma data com hora
 	 * 
 	 * @param timeStamp
 	 *            timestamp a converter
 	 * @return retorna uma string
+	 * @author Alexandre
 	 */
 	@SuppressLint("SimpleDateFormat")
 	private String getDate(long timeStamp) {

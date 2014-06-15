@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+/**
+ * 
+ * @author Thiago
+ *
+ */
 public class Autenticacao extends Activity {
 	String userName, passWord="", pin="";
 	// EditText password;
@@ -19,7 +24,7 @@ public class Autenticacao extends Activity {
 	int id, controlo = 0;
 
 	/**
-	 * Atcivity para bloquear o acesso do aluno às escolhas de modo de execução
+	 * Atcivity para bloquear o acesso do aluno ï¿½s escolhas de modo de execuï¿½ï¿½o
 	 * dos testes e escolha dos intervenientes
 	 * 
 	 * @author Thiago
@@ -176,7 +181,7 @@ public class Autenticacao extends Activity {
 	}
 
 	private void ins(int input) {
-		// se o botão ainda nao esta disponivel, inserir numeros
+		// se o botï¿½o ainda nao esta disponivel, inserir numeros
 		if (!login.isEnabled()) {
 			pin += "" + input;
 			img[controlo].setVisibility(View.VISIBLE);
@@ -185,7 +190,7 @@ public class Autenticacao extends Activity {
 			if (controlo == 4) {
 				//desbloqueia o avancar
 				login.setEnabled(true);
-				//bloqueia o botoes numéricos
+				//bloqueia o botoes numï¿½ricos
 				for (int i = 0; i < btn.length; i++) {
 					btn[i].setEnabled(false);
 				}

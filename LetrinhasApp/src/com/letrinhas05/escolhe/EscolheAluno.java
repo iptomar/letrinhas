@@ -156,11 +156,6 @@ public class EscolheAluno extends Activity {
 			fotoAluno[i]= alunos.get(i).getNomefoto();
 		}
 
-		for (Estudante cn : alunos) {
-			String storage = cn.getNome() + "," + cn.getIdEstudante() + ","
-					+ cn.getNomefoto()+ "," + cn.getEstado() + "," + cn.getIdTurma();
-		}
-
 		/**
 		 * Scroll view com uma tabela de 4 colunas(max)
 		 */

@@ -19,6 +19,11 @@ import org.json.JSONObject;
 import android.net.http.AndroidHttpClient;
 import android.util.Log;
 
+/**
+ * 
+ * @author Alexandre
+ *
+ */
 public class JSONParser {
 
     // static InputStream is = null;

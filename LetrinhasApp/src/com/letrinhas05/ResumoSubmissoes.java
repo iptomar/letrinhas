@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Listar o hitorico de submissoes do teste executado do aluno atual
+ * Listar o hitórico de submissoes do teste executado do aluno atual
  * 
  * @author Thiago
  * 
@@ -55,6 +55,7 @@ public class ResumoSubmissoes extends Activity {
 	 * metodo para iniciar os componetes, que dependem do conteudo passado por
 	 * parametros (extras)
 	 * @param b Bundle, contem informacao da activity anterior
+	 * @author Thiago
 	 */
 	@SuppressLint("NewApi")
 	public void inicia(Bundle b) {
@@ -105,7 +106,7 @@ public class ResumoSubmissoes extends Activity {
                 }
             });
         }
-        else        ////////////Teste do tipo texto
+        else ////////////Teste do tipo texto
         {
             List<CorrecaoTesteLeitura> crt = bd
                     .getAllCorrecaoTesteLeitura_ByIDaluno_TestID(alunoID, testeID);
@@ -157,8 +158,9 @@ public class ResumoSubmissoes extends Activity {
 	}
 
     /**
-     * Toca a partir de um arudioURL
+     * Toca a partir de um arudioURL, neste caso a gravação do aluno
      * @param audioUrl audioURL que se quer reproduzir
+     * @author Thiago & Dário
      */
 	@SuppressLint("HandlerLeak")
 	private void play(String audioUrl) {
@@ -196,7 +198,7 @@ public class ResumoSubmissoes extends Activity {
 								reprodutor.stop();
 								reprodutor.release();
 								Toast.makeText(getApplicationContext(),
-										"Fim da reproducao.",
+										"Fim da reprodução.",
 										Toast.LENGTH_SHORT).show();
 								playing=false;
 							} catch (Exception ex) {
@@ -220,7 +222,7 @@ public class ResumoSubmissoes extends Activity {
 				playing = true;
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproducao.\n" + ex.getMessage(),
+						"Erro na reprodução.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		} else {
@@ -235,16 +237,19 @@ public class ResumoSubmissoes extends Activity {
 				reprodutor.stop();
 				reprodutor.release();
 				Toast.makeText(getApplicationContext(),
-						"Reprodu��o interrompida.", Toast.LENGTH_SHORT).show();
+						"Reprodução interrompida.", Toast.LENGTH_SHORT).show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reprodu��o.\n" + ex.getMessage(),
+						"Erro na reprodução.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
 	
-	// for�ar a paragem da reprodu��o do audio!
+	/**
+	 * forçar a paragem da reprodução do audio!
+	 * @author Thiago
+	 */
 		private void stopPlay() {
 			if (playing) {
 				reprodutor.stop();
@@ -252,8 +257,10 @@ public class ResumoSubmissoes extends Activity {
 			}
 		}
 
-		// temos de manter o onDestroy, devido a existir a possibilidade de fazer
-		// finhish() atrav�s da barra de sistema!
+		/** temos de manter o onDestroy, devido a existir a possibilidade de fazer
+		 *  finhish() através da barra de sistema!
+		 *  @author Thiago
+		 */
 		@Override
 		protected void onDestroy() {
 			stopPlay();
@@ -265,6 +272,7 @@ public class ResumoSubmissoes extends Activity {
      * Funcao importante que transforma um TimeStamp em uma data com hora
      * @param timeStamp timestamp a converter
      * @return retorna uma string
+     * @author Alexandre
      */
     @SuppressLint("SimpleDateFormat")
 	private String getDate(long timeStamp){

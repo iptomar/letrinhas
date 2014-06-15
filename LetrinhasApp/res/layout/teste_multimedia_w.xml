@@ -25,16 +25,15 @@
             android:textSize="@dimen/dim50"
             android:textStyle="bold" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"/>
 
-    <ImageButton
-            android:id="@+id/btnVoltarTestMult"
-            android:layout_width="@dimen/dim100"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:contentDescription="@string/voltar"
-            android:src="@drawable/voltar"/>
-
-
+    <Button
+        android:id="@+id/btnVoltarTestMult"
+        android:layout_width="@dimen/dim100"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/voltar"
+        android:drawableTop="@drawable/voltar"
+        android:text="@string/voltar" />
 
     <TextView
             android:id="@+id/textRodapeTestMult"

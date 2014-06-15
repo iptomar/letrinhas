@@ -23,7 +23,8 @@ import android.widget.TextView;
 /**
  * 
  * Escolher modo
- *
+ * 
+ * @author Thiago
  */
 public class EscModo extends Activity {
     protected Button btnModoAluno, btnLResultados, btnModoProf, btnVoltar;
@@ -190,6 +191,7 @@ public class EscModo extends Activity {
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
 
+	
 	private void escutaBotoes() {
         btnModoAluno.setOnClickListener(new View.OnClickListener() {
 			@Override

@@ -35,12 +35,17 @@ import android.widget.Toast;
 
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
-import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.Estudante;
 import com.letrinhas05.ClassesObjs.TesteLeitura;
 import com.letrinhas05.util.Avaliacao;
 
+/**
+ * Classe para apoiar a activity de corrigir um teste de texto de poema
+ * 
+ * @author Thiago
+ * 
+ */
 public class Correcao_Poema extends Activity {
 
 	boolean playing;
@@ -59,7 +64,7 @@ public class Correcao_Poema extends Activity {
 	Chronometer chrono;
 	ProgressBar pbDuracao;
 
-	// Objeto controlador para a avaliacao
+	// Objeto controlador para a avaliação
 	Avaliacao avaliador;
 	String avaliacao;
 
@@ -71,7 +76,7 @@ public class Correcao_Poema extends Activity {
 		setContentView(R.layout.correcao_poema);
 		ListaPalavrasErradas.add(-1);
 
-		// new line faz a rota��o do ecr�n 180 graus
+		// new line faz a rotação do ecrãn 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -88,11 +93,11 @@ public class Correcao_Poema extends Activity {
 		iDs = b.getIntArray("IDs");
 		long idCorrecao = b.getLong("ID_Correcao");
 
-		// correcao para buscar o id do teste, titulo e o endere�o do audio do
+		// correcao para buscar o id do teste, titulo e o endereço do audio do
 		// aluno
 		crt = bd.getCorrecaoTesteLeirutaById(idCorrecao);
 
-		// Teste para buscar o texto, titulo e o endere�o da demonstra��o
+		// Teste para buscar o texto, titulo e o endereço da demonstração
 		TesteLeitura teste = bd.getTesteLeituraById(crt.getTestId());
 
 		titulo = teste.getTitulo() + " - ";
@@ -147,6 +152,7 @@ public class Correcao_Poema extends Activity {
 	 * @param timeStamp
 	 *            timestamp a converter
 	 * @return retorna uma string
+	 * @author Alexandre
 	 */
 	@SuppressLint("SimpleDateFormat")
 	private String getDate(long timeStamp) {
@@ -160,8 +166,15 @@ public class Correcao_Poema extends Activity {
 		}
 	}
 
-	// m�todo para acrescentar um 0 nas casas das dezenas,
-	// caso o n�mer seja inferior a 10
+	/**
+	 * método para acrescentar um 0 nas casas das dezenas, caso o numero seja
+	 * inferior a 10
+	 * 
+	 * @param n
+	 *            Numero inteiro a ser verificado
+	 * @return String adaptada.
+	 * @author Thiago
+	 */
 	private String n2d(int n) {
 		String num;
 		if (n / 10 == 0) {
@@ -172,8 +185,13 @@ public class Correcao_Poema extends Activity {
 		return num;
 	}
 
+	/**
+	 * Método para defenir o Touchlistener de cada botão
+	 * 
+	 * @author Thiago
+	 */
 	private void escutaBotoes() {
-		// Bloqueio do multi-touch na textView (s� para Asus)
+		// Bloqueio do multi-touch na textView (só para Asus)
 		texto.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent e) {
@@ -224,14 +242,17 @@ public class Correcao_Poema extends Activity {
 		voltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// voltar para pag inicial
+				// voltar para pagina anterior
 				stopPlay();
 				finish();
 			}
 		});
 	}
 
-	// for�ar a paragem da reprodu��o do audio!
+	/**
+	 * forçar a paragem da reprodução do audio!
+	 * @author Thiago
+	 */
 	private void stopPlay() {
 		if (playing) {
 			reprodutor.stop();
@@ -239,8 +260,10 @@ public class Correcao_Poema extends Activity {
 		}
 	}
 
-	// temos de manter o onDestroy, devido a existir a possibilidade de fazer
-	// finhish() atrav�s da barra de sistema!
+	/** temos de manter o onDestroy, devido a existir a possibilidade de fazer
+	 *  finhish() através da barra de sistema!
+	 *  @author Thiago
+	 */
 	@Override
 	protected void onDestroy() {
 		if (playing) {
@@ -255,7 +278,8 @@ public class Correcao_Poema extends Activity {
 	private Handler play_handler, play_handler2;
 
 	/**
-	 * M�todo para reproduzir a demosntracao do professor
+	 * Método para reproduzir a demosntracao do professor
+	 * @author Thiago & Dário
 	 */
 	@SuppressLint("HandlerLeak")
 	private void startDemo() {
@@ -312,7 +336,7 @@ public class Correcao_Poema extends Activity {
 
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reprodu��o da demo.\n" + ex.getMessage(),
+						"Erro na reprodução da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 
 				img.setImageResource(R.drawable.palyoff);
@@ -337,7 +361,7 @@ public class Correcao_Poema extends Activity {
 
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reprodu��o da demo.\n" + ex.getMessage(),
+						"Erro na reprodução da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -345,9 +369,8 @@ public class Correcao_Poema extends Activity {
 	}
 
 	/**
-	 * serve para a aplicacao reproduzir ou parar o som
-	 * 
-	 * @author Dario Jorge
+	 * Método para reproduzir ou parar o som do aluno
+	 * @author Thiago & Dário
 	 */
 	@SuppressLint("HandlerLeak")
 	private void startPlay() {
@@ -472,6 +495,10 @@ public class Correcao_Poema extends Activity {
 
 	}
 
+	/** Método para reposicionar a progress bar no inicio e voltar 
+	 * a colocar o timer no inicio.
+	 * @author Thiago
+	 */
 	protected void resetTimer() {
 		try {
 			reprodutor.setDataSource(audioUrl);
@@ -486,6 +513,9 @@ public class Correcao_Poema extends Activity {
 		chrono.setText(n2d(tMinuto) + ":" + n2d(tSegundo));
 	}
 
+	/** Método para iniciar o processo de avaliar a submissão
+	 * @author Thiago
+	 */
 	@SuppressLint("ShowToast")
 	private void startAvalia() {
 		android.app.AlertDialog alerta;
@@ -494,17 +524,17 @@ public class Correcao_Poema extends Activity {
 		// define o titulo
 		builder.setTitle("Letrinhas");
 		// define a mensagem
-		builder.setMessage("Tem a certeza que quer submeter a avaliacao?");
+		builder.setMessage("Tem a certeza que quer submeter a avaliação?");
 
 		// define os botoes
-		builder.setNegativeButton("Nao", null);
+		builder.setNegativeButton("Não", null);
 
 		builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				stopPlay();
 				// inicia a avaliaCAo
-				String resultado = avaliador.calcula(minuto, segundo);
+				avaliador.calcula(minuto, segundo);
 				try {
 					bd.updateCorrecaoTesteLeitura(crt.getIdCorrrecao(),
 							avaliador.obs, avaliador.PLM(minuto, segundo),
@@ -516,7 +546,7 @@ public class Correcao_Poema extends Activity {
 				} catch (Exception ex) {
 				}
 
-				lancaResultados(resultado);
+				lancaResultados();
 
 			}
 		});
@@ -527,21 +557,21 @@ public class Correcao_Poema extends Activity {
 	}
 
 	/**
-	 * M�todo para verificar se existe mais do que um resultado deste aluno,
+	 * Método para verificar se existe mais do que um resultado deste aluno,
 	 * sobre este teste e caso exista apresente o mais recente para comparar com
 	 * este.
 	 * 
 	 * @param resultado
 	 * @author Thiago
 	 */
-	private void lancaResultados(String resultado) {
+	private void lancaResultados() {
 
 		List<CorrecaoTesteLeitura> crl = bd
 				.getAllCorrecaoTesteLeitura_ByIDaluno_TestID(
 						crt.getIdEstudante(), crt.getTestId());
 
-		// Se o resultado for superior a 1 ent�o vai procurar o mais recente
-		// j� corrigido
+		// Se o resultado for superior a 1 então vai procurar o mais recente
+		// já corrigido
 		if (1 < crl.size()) {
 			// recebe o primeiro para comparar
 
@@ -549,10 +579,10 @@ public class Correcao_Poema extends Activity {
 			long data = crl.get(0).getDataExecucao();
 			// corre o resto da lista e procura o mais recente, anterior a este
 			for (int i = 0; i < crl.size(); i++) {
-				if (crl.get(i).getEstado()==1) {//estado
-					if (data < crl.get(i).getDataExecucao()) {//Data mais recente
-						if (crt.getIdCorrrecao()!= crl.get(i)
-								.getIdCorrrecao()) { //Corre��o_ID
+				if (crl.get(i).getEstado() == 1) {// estado
+					if (data < crl.get(i).getDataExecucao()) {// Data mais
+																// recente
+						if (crt.getIdCorrrecao() != crl.get(i).getIdCorrrecao()) { // Corre��o_ID
 							ponteiro = i;
 							data = crl.get(i).getDataExecucao();
 							contador++;
@@ -570,13 +600,13 @@ public class Correcao_Poema extends Activity {
 				wrap.putLong("ID1", id1);
 				// ID desta correcao
 				wrap.putLong("ID2", id2);
-				// Mostrar os resultados das correcoe dos testes
+				// Mostrar os resultados das correções dos testes
 				Intent it = new Intent(getApplicationContext(),
 						RelatasCorrection.class);
 				it.putExtras(wrap);
 				startActivity(it);
 				finish();
-			}else{
+			} else {
 				// teste do resultado!
 				Bundle wrap = new Bundle();
 				// ID desta correcao
@@ -588,7 +618,7 @@ public class Correcao_Poema extends Activity {
 				finish();
 			}
 
-		}// Sen�o apresenta apenas este.
+		}// Senão apresenta apenas este.
 		else {
 			// teste do resultado!
 			Bundle wrap = new Bundle();
@@ -603,17 +633,20 @@ public class Correcao_Poema extends Activity {
 
 	}
 
-	private void cancelAvaliacao() {
+	/** método para calcelar a correção
+	 * @author Thiago
+	 */
+	/*private void cancelAvaliacao() {
 		android.app.AlertDialog alerta;
 		// Cria o gerador do AlertDialog
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		// define o titulo
 		builder.setTitle("Letrinhas");
 		// define a mensagem
-		builder.setMessage("Tem a certeza que quer eliminar esta submissao?");
+		builder.setMessage("Tem a certeza que quer eliminar esta submissão?");
 
 		// define os botoes
-		builder.setNegativeButton("N�o", null);
+		builder.setNegativeButton("Não", null);
 
 		builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 			@Override
@@ -626,8 +659,11 @@ public class Correcao_Poema extends Activity {
 		alerta = builder.create();
 		// Mostra
 		alerta.show();
-	}
+	}*/
 
+	/** método para eliminar a correção
+	 * @author Thiago
+	 */
 	public void elimina() {
 		File file = new File(audioUrl);
 		if (file.exists()) {
@@ -640,6 +676,7 @@ public class Correcao_Poema extends Activity {
 	/**
 	 * Procedimento para ativar a seleccao das palavras erradas no texto e o
 	 * painel de controlo de erros.
+	 * @author Thiago
 	 */
 	private void setCorreccao() {
 		// Painel de controlo:
@@ -666,7 +703,7 @@ public class Correcao_Poema extends Activity {
 		// objeto para avaliacao
 
 		// necessitamos de contar no texto, o n. de palavras
-		// de sinais de pontua��o
+		// de sinais de pontuação
 		avaliador = new Avaliacao(contaPalavras(), contaSinais());
 		pnt.setText("" + avaliador.getPontua());
 		vcl.setText("" + avaliador.getVacil());
@@ -762,6 +799,11 @@ public class Correcao_Poema extends Activity {
 				});
 	}
 
+	/** Método para contabilizar o numero de sinais de pontuação
+	 * 
+	 * @return numer de sinais
+	 * @author Thiago
+	 */
 	private int contaSinais() {
 		boolean flag = false;
 		int sinal = 0;
@@ -806,6 +848,11 @@ public class Correcao_Poema extends Activity {
 		return sinal; // devolvo o num de pontuacoes existentes no texto
 	}
 
+	/** Método para contar o numero de palavras do texto
+	 * 
+	 * @return nº de palavras
+	 * @author Thiago
+	 */
 	private int contaPalavras() {
 		boolean flag = false;
 		int palavras = 0;
@@ -834,27 +881,27 @@ public class Correcao_Poema extends Activity {
 		return palavras;
 	}
 
-	/******************************************************
-	 * ***************** Marcar a palvra errada no texto *** A melhorar, devera
-	 * contabilizar correctamente a palavra, e desmarcar se repetir a selecao da
+	/**
+	 * Marcar a palvra errada no texto 
+	 * contabiliza a palavra, e desmarcar se repetir a selecao da
 	 * palavra.
 	 * 
 	 * @author Jorge
 	 */
 	public void marcaPalavra() { // Marcar Palavra Errada
 
-		// Associar a variav�l TextoLido a Textview que cont�m o texto
+		// Associar a variavel TextoLido a Textview que contém o texto
 		final TextView TextoLido = texto;
 		TextoLido.performLongClick();
 
-		// Vari�veis que contem o inicio e o fim da palavra que foi
+		// Variáveis que contem o inicio e o fim da palavra que foi
 		// selecionada
 		final int startSelection = TextoLido.getSelectionStart();
 		final int endSelection = TextoLido.getSelectionEnd();
 
 		if (startSelection != endSelection) {
 
-			// Defini��o do Span para pintar a palavra seleccionada
+			// Definição do Span para pintar a palavra seleccionada
 			Spannable WordtoSpan = (Spannable) TextoLido.getText();
 			ForegroundColorSpan cor = new ForegroundColorSpan(Color.BLACK);
 
@@ -865,8 +912,8 @@ public class Correcao_Poema extends Activity {
 			for (int i = 0; i < ListaPalavrasErradas.size(); i++) {
 				// "if" que verifica se a cordenada inicial da palavra
 				// seleccionada
-				// est� inserida no array, se sim guarda o valor da
-				// posi��o
+				// está inserida no array, se sim guarda o valor da
+				// posição
 				if (ListaPalavrasErradas.get(i) == startSelection) {
 					EscreverNaLista = false;
 					RetirarSeleccao = i;

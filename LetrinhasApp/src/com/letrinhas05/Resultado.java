@@ -17,7 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
- * Classe para apresentar o descritivo do resultado
+ * Classe para apresentar o descritivo do resultado de uma correÃ§Ã£o
  * 
  * @author Thiago
  * 
@@ -46,14 +46,14 @@ public class Resultado extends Activity {
 		cab = ((TextView) findViewById(R.id.resCabecalho));
 		cab.setText(titulo);
 
-		// agora que temos a correcção vamos reconstruir o relatorio
-		String resultado = "==========Avaliação============\n"
+		// agora que temos a correcï¿½ï¿½o vamos reconstruir o relatorio
+		String resultado = "==========Avaliaï¿½ï¿½o============\n"
 				+ crt.getObservacoes() + "\n";
 		resultado += "Palavras lidas por minuto (plm): "
 				+ crt.getNumPalavrasMin() + "\n";
 		resultado += "Palavras corretamente lidas (pcl): "
 				+ crt.getNumPalavCorretas() + "\n";
-		resultado += "Precisão de Leitura (PL): " + crt.getPrecisao() + "\n";
+		resultado += "PrecisÃ£o de Leitura (PL): " + crt.getPrecisao() + "\n";
 		resultado += "Velocidade de leitura (VL): " + crt.getVelocidade()
 				+ "\n";
 		resultado += "Expressividade: " + crt.getExpressividade() + "\n";
@@ -81,6 +81,7 @@ public class Resultado extends Activity {
 	 * @param timeStamp
 	 *            timestamp a converter
 	 * @return retorna uma string
+	 * @author Alexandre
 	 */
 	@SuppressLint("SimpleDateFormat")
 	private String getDate(long timeStamp) {

@@ -1,11 +1,8 @@
 package com.letrinhas05.ClassesObjs;
 
-import android.util.Log;
-import android.widget.Toast;
-
 
 /**
- * Created by Alex on 23/04/2014.
+ * @author Alexandre
  */
 public class CorrecaoTesteLeitura extends CorrecaoTeste {
     protected String audiourl;

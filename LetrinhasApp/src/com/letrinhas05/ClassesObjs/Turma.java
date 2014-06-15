@@ -1,7 +1,7 @@
 package com.letrinhas05.ClassesObjs;
 
 /**
- * Created by Alex on 11/05/2014.
+ * @author Alexandre
  */
 public class Turma {
 

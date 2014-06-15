@@ -27,13 +27,15 @@ import com.letrinhas05.util.Autenticacao;
 import com.letrinhas05.util.SystemUiHider;
 
 /**
- * Created by Alex on 23/05/2014.
+ * Classe de apoio à activity de execução de um teste de texto simples
+ * 
+ * @author Alexandre
  */
 public class TesteMultimediaW extends Activity {
 
 	protected TesteMultimedia testeM;
 	protected TextView txtCabeTituloMul;
-	protected Button bntOpcao1, bntOpcao2, bntOpcao3;
+	protected Button voltar,bntOpcao1, bntOpcao2, bntOpcao3;
 	protected int tipo, idTesteAtual, opcaoCerta;
 	protected String[] Nomes;
 	protected int[] iDs, testesID;
@@ -65,7 +67,7 @@ public class TesteMultimediaW extends Activity {
 
 		// //////////////////////Aceder a objectos visuais da
 		// Janela//////////////////////////////////////////7
-		ImageButton btnVoltar = (ImageButton) findViewById(R.id.btnVoltarTestMult);
+		voltar = (Button) findViewById(R.id.btnVoltarTestMult);
 		txtCabeTituloMul = (TextView) findViewById(R.id.txtCabeTituloTextMult);
 		bntOpcao1 = (Button) findViewById(R.id.btnOpcao1Mult);
 		bntOpcao2 = (Button) findViewById(R.id.btnOpcao2Mult);
@@ -111,18 +113,18 @@ public class TesteMultimediaW extends Activity {
 		inicia(getIntent().getExtras());
 
 		// Botao de voltar
-		btnVoltar.setOnClickListener(new View.OnClickListener() {
+		voltar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				android.app.AlertDialog alerta;
 				// Cria o gerador do AlertDialog
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
 				// define o titulo
-				builder.setTitle("Letrinhas - AVISO");
+				builder.setTitle("Letrinhas");
 				// define a mensagem
 				builder.setMessage("Tem a certeza que deseja sair deste teste?");
 				// define os botoes
-				builder.setNegativeButton("Nao", null);
+				builder.setNegativeButton("Não", null);
 				builder.setPositiveButton("Sim",
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -173,11 +175,13 @@ public class TesteMultimediaW extends Activity {
 	}
 
 	/**
-	 * Inicia toda a atividade preenche variaveis e carrega a janela de acordo
-	 * com o tipo de campos
+	 * metodo para iniciar os componetes, que dependem do conteudo passado por
+	 * parametros (extras)
 	 * 
 	 * @param b
-	 *            Bundle da janela anterior
+	 *            Bundle, contem informação da activity anterior
+	 * 
+	 * @author Thiago
 	 */
 	public void inicia(Bundle b) {
 		testesID = b.getIntArray("ListaID");
@@ -186,7 +190,7 @@ public class TesteMultimediaW extends Activity {
 		// int's - idEscola, idProfessor, idTurma, idAluno
 		iDs = b.getIntArray("IDs");
 
-		/** Consultar a BD para preencher o conte�do.... */
+		/** Consultar a BD para preencher o conteúdo.... */
 		LetrinhasDB bd = new LetrinhasDB(this);
 		testeM = bd.getTesteMultimediaById(testesID[0]);
 
@@ -277,6 +281,11 @@ public class TesteMultimediaW extends Activity {
 
 	}
 
+	/**
+	 * método que fica à espera de um resultado da ativity de autenticação
+	 * 
+	 * @author Thiago
+	 */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
@@ -286,12 +295,25 @@ public class TesteMultimediaW extends Activity {
                 finish();
         }
     }
+    
+    /**
+	 * Garantir que o existe controlo mesmo quando se clica em Back na tecla de
+	 * sistema
+	 * 
+	 * @author Thiago
+	 */
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		voltar.performClick();
+	}
 
 	/**
 	 * Submete o teste na bd e termina a actividade
 	 * 
 	 * @param opcaoEscolhida
 	 *            opcao escolhida pelo aluno
+	 * @author Alexandre
 	 */
 	public void submit(int opcaoEscolhida) {
 		final CorrecaoTesteMultimedia ctM = new CorrecaoTesteMultimedia();
@@ -345,6 +367,7 @@ public class TesteMultimediaW extends Activity {
 	/**
 	 * Prepara a finalizacao da activity, descobrindo qual o proximo teste a
 	 * realizar Este metodo devera ser usado em todas as paginas de teste.
+	 * @author Thiago
 	 */
 	private void finaliza() {
 
@@ -354,14 +377,14 @@ public class TesteMultimediaW extends Activity {
 			wrap.putIntArray("ListaID", testesID);// id's dos testes
 			wrap.putStringArray("Nomes", Nomes);
 			wrap.putIntArray("IDs", iDs);
-			// identifico o tipo do pr�ximo teste
+			// identifico o tipo do próximo teste
 			LetrinhasDB bd = new LetrinhasDB(this);
 			Teste tst = bd.getTesteById(testesID[0]);
 			tipo = tst.getTipo();
 
 			switch (tipo) {
 			case 0:
-				// lan�ar a nova activity do tipo texto,
+				// lançar a nova activity do tipo texto,
 				Intent it = new Intent(getApplicationContext(),
 						Teste_Texto.class);
 				it.putExtras(wrap);
@@ -369,7 +392,7 @@ public class TesteMultimediaW extends Activity {
 				startActivity(it);
 
 				break;
-			case 1:// lan�ar a nova activity do tipo imagem
+			case 1:// lançar a nova activity do tipo imagem
 				Intent ip = new Intent(getApplicationContext(),
 						TesteMultimediaW.class);
 				ip.putExtras(wrap);
@@ -377,7 +400,7 @@ public class TesteMultimediaW extends Activity {
 				startActivity(ip);
 
 				break;
-			case 2: // lan�ar a nova activity do tipo Palavras
+			case 2: // lançar a nova activity do tipo Palavras
 				Intent ipm = new Intent(getApplicationContext(),
 						Teste_Palavras_Aluno.class);
 				ipm.putExtras(wrap);
@@ -385,7 +408,7 @@ public class TesteMultimediaW extends Activity {
 				startActivity(ipm);
 
 				break;
-			case 3: // lan�ar a nova activity do tipo poema
+			case 3: // lançar a nova activity do tipo poema
 				Intent ipp = new Intent(getApplicationContext(),
 						Teste_Palavras_Aluno.class);
 				ipp.putExtras(wrap);
@@ -394,7 +417,7 @@ public class TesteMultimediaW extends Activity {
 				break;
 			default:
 				Toast.makeText(getApplicationContext(),
-						" - Tipo n�o defenido", Toast.LENGTH_SHORT).show();
+						" - Tipo não defenido", Toast.LENGTH_SHORT).show();
 				// retirar o teste errado e continuar
 
 				// descontar este teste da lista.

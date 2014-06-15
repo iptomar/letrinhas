@@ -1,9 +1,6 @@
 package com.letrinhas05;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import com.letrinhas05.R;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
@@ -37,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
+ * Classe de apoio à activity de execução de um teste de texto de poema
  * 
  * @author Thiago
  * 
@@ -125,7 +123,7 @@ public class Teste_Poema extends Activity {
 		Bundle b = getIntent().getExtras();
 		inicia(b);
 
-		// atribuir os bot�es
+		// atribuir os botões
 		record = (Button) findViewById(R.id.txtRecord);
 		demo = (Button) findViewById(R.id.txtDemo);
 		play = (Button) findViewById(R.id.txtPlay);
@@ -140,11 +138,13 @@ public class Teste_Poema extends Activity {
 	}
 
 	/**
-	 * m�todo para iniciar os componetes, que dependem do conteudo passado por
+	 * metodo para iniciar os componetes, que dependem do conteudo passado por
 	 * parametros (extras)
 	 * 
 	 * @param b
-	 *            Bundle, cont�m informa��o da activity anterior
+	 *            Bundle, contem informação da activity anterior
+	 * 
+	 * @author Thiago
 	 */
 	public void inicia(Bundle b) {
 		// Compor novamente e lista de testes
@@ -162,8 +162,6 @@ public class Teste_Poema extends Activity {
 		((TextView) findViewById(R.id.txtTexto)).setText(teste
 				.getConteudoTexto());
 
-		// **********************************************************************************************
-
 		idTesteAtual = testesID[0];
 		endereco = Environment.getExternalStorageDirectory().getAbsolutePath()
 				+ "/School-Data/CorrectionReadTest/" + idTesteAtual + "/"
@@ -180,33 +178,6 @@ public class Teste_Poema extends Activity {
 		}
 		testesID = aux;
 
-	}
-
-	/**
-	 * 
-	 * @return yyyy-MM-dd HH:mm:ss formate date as string
-	 */
-	@SuppressLint("SimpleDateFormat")
-	public static String getCurrentTimeStamp() {
-		String aux = "";
-		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat(
-					"yyyy-MM-dd HH:mm:ss");
-			String currentTimeStamp = dateFormat.format(new Date()); // Find
-																		// todays
-																		// date
-			for (int i = 0; i < currentTimeStamp.length(); i++) {
-				// descarto tudo o que n�o � um numero
-				if (currentTimeStamp.charAt(i) >= '0'
-						&& currentTimeStamp.charAt(i) < '9') {
-					aux += currentTimeStamp.charAt(i);
-				}
-			}
-
-		} catch (Exception e) {
-			aux = "today";
-		}
-		return aux;
 	}
 
 	@Override
@@ -251,6 +222,11 @@ public class Teste_Poema extends Activity {
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
 
+	/**
+	 * Preparar os parametros do gravador
+	 * 
+	 * @author Dário
+	 */
 	public void setUp() {
 
 		timeStamp = System.currentTimeMillis() / 1000;
@@ -270,12 +246,20 @@ public class Teste_Poema extends Activity {
 
 	}
 
+	/**
+	 * Garantir que o existe controlo mesmo quando se clica em Back na tecla de sistema
+	 * @author Thiago
+	 */
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		voltar.performClick();
 	}
 
+	/**
+	 * método que fica à espera de um resultado da ativity de autenticação
+	 * @author Thiago
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -291,6 +275,9 @@ public class Teste_Poema extends Activity {
 		}
 	}
 
+	/** Método para defenir o Touchlistener de cada botão
+	 * @author Thiago
+	 */
 	private void escutaBotoes() {
 		record.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -389,7 +376,7 @@ public class Teste_Poema extends Activity {
 				builder.setMessage("Tens a certeza que queres voltar para a listagem dos testes\n"
 						+ "E abandonar este?");
 				// define os botoes
-				builder.setNegativeButton("Nao", null);
+				builder.setNegativeButton("Não", null);
 
 				builder.setPositiveButton("Sim",
 						new DialogInterface.OnClickListener() {
@@ -422,7 +409,10 @@ public class Teste_Poema extends Activity {
 		});
 	}
 
-	// for�ar a paragem da reprodu��o e grava��o do audio!
+	/**
+	 * forçar a paragem da gravação / reprodução do audio!
+	 * @author Thiago
+	 */
 	private void stopPlayRec() {
 		if (recording) {
 			gravador.stop();
@@ -434,8 +424,10 @@ public class Teste_Poema extends Activity {
 		}
 	}
 
-	// temos de manter o onDestroy, devido a existir a possibilidade de fazer
-	// finhish() atrav�s da barra de sistema!
+	/** temos de manter o onDestroy, devido a existir a possibilidade de fazer
+	 *  finhish() através da barra de sistema!
+	 *  @author Thiago
+	 */
 	@Override
 	protected void onDestroy() {
 		if (recording) {
@@ -449,6 +441,10 @@ public class Teste_Poema extends Activity {
 		super.onDestroy();
 	}
 
+	/**
+	 * Eliminar o audio gravado
+	 * @author Thiago
+	 */
 	public void elimina() {
 		File file = new File(endereco + fileName);
 		if (file.exists()) {
@@ -459,9 +455,9 @@ public class Teste_Poema extends Activity {
 	int minuto, segundo;
 
 	/**
-	 * Serve para come�ar ou parar o recording do audio
+	 * Serve para começar ou parar o recording do audio
 	 * 
-	 * @author D�rio Jorge
+	 * @author Dário Jorge, adaptado por Thiago
 	 */
 	@SuppressLint("HandlerLeak")
 	private void startGrava() {
@@ -510,7 +506,7 @@ public class Teste_Poema extends Activity {
 
 				} catch (Exception e) {
 					Toast.makeText(getApplicationContext(),
-							"Erro na gravacao.\n" + e.getMessage(),
+							"Erro na gravação.\n" + e.getMessage(),
 							Toast.LENGTH_SHORT).show();
 					record.performClick();
 					gravado = false;
@@ -532,7 +528,7 @@ public class Teste_Poema extends Activity {
 					gravador.stop();
 					gravador.release();
 					Toast.makeText(getApplicationContext(),
-							"Gravacao efetuada com sucesso!",
+							"Gravação efetuada com sucesso!",
 							Toast.LENGTH_SHORT).show();
 					Toast.makeText(getApplicationContext(),
 							"Tempo de leitura: " + minuto + ":" + segundo,
@@ -542,7 +538,7 @@ public class Teste_Poema extends Activity {
 					record.setVisibility(View.INVISIBLE);
 				} catch (Exception e) {
 					Toast.makeText(getApplicationContext(),
-							"Erro na gravacao.\n" + e.getMessage(),
+							"Erro na gravação.\n" + e.getMessage(),
 							Toast.LENGTH_SHORT).show();
 					gravado = false;
 					record.setVisibility(View.VISIBLE);
@@ -555,9 +551,9 @@ public class Teste_Poema extends Activity {
 	private Handler play_handler;
 
 	/**
-	 * serve para a aplicacao reproduzir ou parar o som
+	 * serve para a aplicacao reproduzir ou parar o audio do aluno
 	 * 
-	 * @author Dario Jorge
+	 * @author Dario Jorge, adaptado por Thiago
 	 */
 	@SuppressLint("HandlerLeak")
 	private void startPlay() {
@@ -597,7 +593,7 @@ public class Teste_Poema extends Activity {
 								reprodutor.stop();
 								reprodutor.release();
 								Toast.makeText(getApplicationContext(),
-										"Fim da reproducao.",
+										"Fim da reprodução.",
 										Toast.LENGTH_SHORT).show();
 							} catch (Exception ex) {
 							}
@@ -620,7 +616,7 @@ public class Teste_Poema extends Activity {
 
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproducao.\n" + ex.getMessage(),
+						"Erro na reprodução.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 
 				img.setImageResource(R.drawable.play);
@@ -645,16 +641,21 @@ public class Teste_Poema extends Activity {
 				reprodutor.stop();
 				reprodutor.release();
 				Toast.makeText(getApplicationContext(),
-						"Reproducao interrompida.", Toast.LENGTH_SHORT).show();
+						"Reprodução interrompida.", Toast.LENGTH_SHORT).show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro a finalizar a reproducao.\n" + ex.getMessage(),
+						"Erro a finalizar a reprodução.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
 
 	}
 
+	/**
+	 * serve para a aplicacao reproduzir ou parar o audio do professor
+	 * 
+	 * @author Dario Jorge, adaptado por Thiago
+	 */
 	@SuppressLint("HandlerLeak")
 	private void startDemo() {
 		if (!playing) {
@@ -672,7 +673,7 @@ public class Teste_Poema extends Activity {
 				reprodutor.prepare();
 				reprodutor.start();
 				Toast.makeText(getApplicationContext(),
-						"A reproduzir Demonstracao.", Toast.LENGTH_SHORT)
+						"A reproduzir demonstração.", Toast.LENGTH_SHORT)
 						.show();
 
 				final ImageView img2 = new ImageView(this);
@@ -695,7 +696,7 @@ public class Teste_Poema extends Activity {
 								reprodutor.stop();
 								reprodutor.release();
 								Toast.makeText(getApplicationContext(),
-										"Fim da reproducao da demo.",
+										"Fim da reprodução da demo.",
 										Toast.LENGTH_SHORT).show();
 							} catch (Exception ex) {
 							}
@@ -718,7 +719,7 @@ public class Teste_Poema extends Activity {
 
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproducao da demo.\n" + ex.getMessage(),
+						"Erro na reprodução da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 
 				img.setImageResource(R.drawable.palyoff);
@@ -747,24 +748,23 @@ public class Teste_Poema extends Activity {
 				reprodutor.stop();
 				reprodutor.release();
 				Toast.makeText(getApplicationContext(),
-						"Reproducao da demo interrompida.", Toast.LENGTH_SHORT)
+						"Reprodução da demo interrompida.", Toast.LENGTH_SHORT)
 						.show();
 			} catch (Exception ex) {
 				Toast.makeText(getApplicationContext(),
-						"Erro na reproducao da demo.\n" + ex.getMessage(),
+						"Erro na reprodução da demo.\n" + ex.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
 		}
 
 	}
 
-
 	/**
 	 * Prepara a finalizacao da activity, descobrindo qual o proximo teste a
 	 * realizar Este metodo devera ser usado em todas as paginas de teste.
+	 * @author Thiago
 	 */
 	private void finaliza() {
-
 		if (testesID.length != 0) {
 			// enviar o parametro de modo
 			Bundle wrap = new Bundle();
@@ -773,14 +773,14 @@ public class Teste_Poema extends Activity {
 			wrap.putStringArray("Nomes", Nomes);
 			wrap.putIntArray("IDs", iDs);
 
-			// identifico o tipo do pr�ximo teste
+			// identifico o tipo do proximo teste
 			LetrinhasDB bd = new LetrinhasDB(this);
 			Teste tst = bd.getTesteById(testesID[0]);
 			tipo = tst.getTipo();
 
 			switch (tipo) {
 			case 0:
-				// lan�ar a nova activity do tipo texto,
+				// lançar a nova activity do tipo texto,
 				Intent it = new Intent(getApplicationContext(),
 						Teste_Texto.class);
 				it.putExtras(wrap);
@@ -788,7 +788,7 @@ public class Teste_Poema extends Activity {
 				startActivity(it);
 
 				break;
-			case 1:// lan�ar a nova activity do tipo imagem
+			case 1:// lançar a nova activity do tipo imagem
 				Intent ip = new Intent(getApplicationContext(),
 						TesteMultimediaW.class);
 				ip.putExtras(wrap);
@@ -796,7 +796,7 @@ public class Teste_Poema extends Activity {
 				startActivity(ip);
 
 				break;
-			case 2: // lan�ar a nova activity do tipo Palavras
+			case 2: // lançar a nova activity do tipo Palavras
 				Intent ipm = new Intent(getApplicationContext(),
 						Teste_Palavras_Aluno.class);
 				ipm.putExtras(wrap);
@@ -804,7 +804,7 @@ public class Teste_Poema extends Activity {
 				startActivity(ipm);
 
 				break;
-			case 3: // lan�ar a nova activity do tipo poema
+			case 3: // lançar a nova activity do tipo poema
 				Intent ipp = new Intent(getApplicationContext(),
 						Teste_Poema.class);
 				ipp.putExtras(wrap);
@@ -812,8 +812,8 @@ public class Teste_Poema extends Activity {
 				startActivity(ipp);
 				break;
 			default:
-				Toast.makeText(getApplicationContext(),
-						" - Tipo n�o defenido", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), " - Tipo não defenido",
+						Toast.LENGTH_SHORT).show();
 				// retirar o teste errado e continuar
 
 				// descontar este teste da lista.
@@ -831,6 +831,12 @@ public class Teste_Poema extends Activity {
 		finish();
 	}
 
+	/**
+	 * este metodo serve para enviar todos os dados para a tabela respectiva e
+	 * preparar os dados para a activity seguinte
+	 * 
+	 * @author Thiago
+	 */
 	@SuppressLint("ShowToast")
 	public void submit() {
 		CorrecaoTesteLeitura ctl = new CorrecaoTesteLeitura();
@@ -843,7 +849,7 @@ public class Teste_Poema extends Activity {
 			// define o titulo
 			builder.setTitle("Letrinhas");
 			// define a mensagem
-			builder.setMessage("Para Avancar e avaliar, necessitas de fazer uma gravacao da tua leitura!");
+			builder.setMessage("Para Avancar e avaliar, necessitas de fazer uma gravação da tua leitura!");
 			// define um bot�o como positivo
 			builder.setPositiveButton("OK", null);
 			// cria o AlertDialog

@@ -17,6 +17,11 @@ import com.letrinhas05.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author Alexandre
+ *
+ */
 public class LetrinhasDB extends SQLiteOpenHelper {
 
     // Versao da base de dados

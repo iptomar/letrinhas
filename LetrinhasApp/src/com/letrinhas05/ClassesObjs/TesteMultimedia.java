@@ -1,7 +1,7 @@
 package com.letrinhas05.ClassesObjs;
 
 /**
- * Created by Alex on 29/04/2014.
+ * @author Alexandre
  */
 public class TesteMultimedia extends Teste{
 

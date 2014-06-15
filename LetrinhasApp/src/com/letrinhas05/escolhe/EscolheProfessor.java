@@ -144,11 +144,6 @@ public class EscolheProfessor extends Activity {
 			arridProfs[i] = listaProfs.get(i).getId();
 			arrNomesFotosProfs[i] = listaProfs.get(i).getFotoNome();
 		}
-		for (Professor cn : listaProfs) {
-			String storage = cn.getEmail() + "," + cn.getFotoNome() + ","
-					+ cn.getId() + "," + cn.getNome() + "," + cn.getPassword()
-					+ "," + cn.getTelefone() + "," + cn.getUsername();
-		}
 
 		/**
 		 * Scroll view com uma table de 4 colunas(max)
@@ -216,7 +211,7 @@ public class EscolheProfessor extends Activity {
 						Bundle wrap = new Bundle();
 						wrap.putString("PIN", PIN);
 
-						// iniciar a pagina (Autenticação)
+						// iniciar a pagina (Autenticaï¿½ï¿½o)
 						Intent at = new Intent(getApplicationContext(),
 								Autenticacao.class);
 						at.putExtras(wrap);
@@ -286,7 +281,7 @@ public class EscolheProfessor extends Activity {
 						Bundle wrap = new Bundle();
 						wrap.putString("PIN", PIN);
 
-						// iniciar a pagina (Autenticação)
+						// iniciar a pagina (Autenticaï¿½ï¿½o)
 						Intent at = new Intent(getApplicationContext(),
 								Autenticacao.class);
 						at.putExtras(wrap);

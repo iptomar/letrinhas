@@ -1,5 +1,8 @@
 package com.letrinhas05.ClassesObjs;
 
+/**
+ * @author Alexandre
+ */
 public class Escola {
     // private variables
     protected int idEscola;

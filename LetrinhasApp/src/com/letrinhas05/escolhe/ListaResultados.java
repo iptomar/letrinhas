@@ -5,18 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.letrinhas05.Correcao_Poema;
-import com.letrinhas05.Correcao_Texto;
 import com.letrinhas05.R;
 import com.letrinhas05.Resultado;
-import com.letrinhas05.Teste_Palavras_Prof;
 import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.CorrecaoTeste;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteLeitura;
 import com.letrinhas05.ClassesObjs.CorrecaoTesteMultimedia;
 import com.letrinhas05.ClassesObjs.Estudante;
 import com.letrinhas05.ClassesObjs.Teste;
-import com.letrinhas05.util.Avaliacao;
 import com.letrinhas05.util.SystemUiHider;
 
 import android.annotation.SuppressLint;
@@ -28,7 +24,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -37,7 +32,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.os.Build;
 
@@ -167,7 +161,7 @@ public class ListaResultados extends Activity {
 		// ... dos alunos selecionado.
 		List<CorrecaoTeste> ct = bd.getAllCorrecaoTesteByProfID(iDs[1]);
 
-		// verifico se estas submissoes estao corrigidas e são do aluno
+		// verifico se estas submissoes estao corrigidas e sï¿½o do aluno
 		// selecionado
 		int cont = 0;
 		for (int i = 0; i < ct.size(); i++) {
@@ -276,7 +270,7 @@ public class ListaResultados extends Activity {
 							startActivity(it);
 						}
 					});
-				} else {// tipo multimédia
+				} else {// tipo multimï¿½dia
 					CorrecaoTesteMultimedia ctm = bd
 							.getCorrecaoTesteMultimediaById(ctAux[i]
 									.getIdCorrrecao());

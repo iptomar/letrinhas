@@ -135,8 +135,8 @@ public class EscolheTurma extends Activity {
 	}
 
 	/**
-	 * Novo m�todo para criar o painel din�mico para os bot�es de
-	 * selec��o da turma
+	 * Novo m�todo para criar o painel dinâmico para os botões de
+	 * seleção da turma
 	 * 
 	 * @author Thiago
 	 */
@@ -152,7 +152,7 @@ public class EscolheTurma extends Activity {
 		int[] idTurmas = new int[turmas.size()];
 		String nomeTurma[] = new String[turmas.size()];
 		int anoEscolarTurmas[] = new int[turmas.size()];
-		// preenche os arrays com a informa��o necess�ria
+		// preenche os arrays com a informação necessária
 		for (int i = 0; i < nTurmas; i++) {
 			idTurmas[i] = turmas.get(i).getId();
 			nomeTurma[i] = turmas.get(i).getNome();
@@ -165,17 +165,17 @@ public class EscolheTurma extends Activity {
 		TableLayout tabela = (TableLayout) findViewById(R.id.tblEscolheTurm);
 		// linha da tabela a editar
 		TableRow linha = (TableRow) findViewById(R.id.Turmlinha01);
-		// 1� bot�o
+		// 1º botão
 		Button bt = (Button) findViewById(R.id.TurmBtOriginal);
 		bt.setText("teste turmas");
 
 		// Contador de controlo
 		int cont = 0;
-		// criar o n� de linhas a dividir por 4 colunas
+		// criar o nº de linhas a dividir por 4 colunas
 		for (int i = 0; i < nTurmas / 4; i++) {
 			// nova linha da tabela
 			TableRow linha1 = new TableRow(getBaseContext());
-			// Copiar os parametros da 1� linha
+			// Copiar os parametros da 1ª linha
 			linha1.setLayoutParams(linha.getLayoutParams());
 			// criar os 4 bot�es da linha
 			for (int j = 0; j < 4; j++) {
@@ -186,17 +186,17 @@ public class EscolheTurma extends Activity {
 				// ***********************************
 				// novo bot�o
 				Button bt1 = new Button(bt.getContext());
-				// copiar os parametros do bot�o original
+				// copiar os parametros do botão original
 				bt1.setLayoutParams(bt.getLayoutParams());
-				// copia a imagem do bot�o original
+				// copia a imagem do botão original
 				bt1.setCompoundDrawables(null,
 						bt.getCompoundDrawablesRelative()[1], null, null);
 
-				final String aux = anoEscolarTurmas[cont] + "� - "
+				final String aux = anoEscolarTurmas[cont] + "º - "
 						+ nomeTurma[cont];
 				// addicionar o nome
 				bt1.setText(aux);
-				// Defenir o que faz o bot�o ao clicar
+				// Defenir o que faz o botão ao clicar
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -217,7 +217,7 @@ public class EscolheTurma extends Activity {
 						startActivity(it);
 					}
 				});
-				// inserir o bot�o na linha
+				// inserir o botão na linha
 				linha1.addView(bt1);
 				// incrementar o contador de controlo
 				cont++;
@@ -235,7 +235,7 @@ public class EscolheTurma extends Activity {
 				// ***********************************
 				// novo botao
 				Button bt1 = new Button(bt.getContext());
-				// copiar os parametros do bot�o original
+				// copiar os parametros do botão original
 				bt1.setLayoutParams(bt.getLayoutParams());
 
 				// copia a imagem do bot�o original
@@ -243,10 +243,10 @@ public class EscolheTurma extends Activity {
 						bt.getCompoundDrawablesRelative()[1], null, null);
 
 				// addicionar o nome
-				final String aux = anoEscolarTurmas[cont] + "� - "
+				final String aux = anoEscolarTurmas[cont] + "º - "
 						+ nomeTurma[cont];
 				bt1.setText(aux);
-				// Defenir o que faz o bot�o ao clicar
+				// Defenir o que faz o botão ao clicar
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -267,7 +267,7 @@ public class EscolheTurma extends Activity {
 						startActivity(it);
 					}
 				});
-				// inserir o bot�o na linha
+				// inserir o botão na linha
 				linha1.addView(bt1);
 				// incrementar o contador de controlo
 				cont++;
@@ -275,7 +275,7 @@ public class EscolheTurma extends Activity {
 			// inserir a linha criada
 			tabela.addView(linha1);
 		}
-		// por fim escondo a 1� linha
+		// por fim elimino a 1ª linha
 		tabela.removeView(linha);
 	}
 
