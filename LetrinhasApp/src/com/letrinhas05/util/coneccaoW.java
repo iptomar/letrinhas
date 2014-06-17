@@ -6,11 +6,9 @@ import android.net.wifi.WifiManager;
 import android.widget.Toast;
 
 /**
- * Classe para garantir que existe conecÁ„o ‡ rede, seja por WI-FI
- * (preferencialmente) 3G, 4G, GSM
+ * Classe para garantir que existe conec√ß√£o √† rede, por WI-FI
  * 
- * 
- * @author D·rio
+ * @author D√°rio
  * 
  */
 public class coneccaoW extends Thread {
@@ -26,12 +24,12 @@ public class coneccaoW extends Thread {
 		mainWifiObj = (WifiManager) act.getSystemService(Context.WIFI_SERVICE);
 		// Automatic Connection to wifi
 		if (!mainWifiObj.isWifiEnabled()) {// se estiver desligado, vai ligar-se
-			Toast.makeText(act.getApplicationContext(), "WI-FI est· desligado.", 
+			Toast.makeText(act.getApplicationContext(), "WI-FI est√° desligado.", 
 					Toast.LENGTH_SHORT).show();
 			Toast.makeText(act.getApplicationContext(), "Estou a Ligar WI-FI.",
 					Toast.LENGTH_SHORT).show();
 			mainWifiObj.setWifiEnabled(true);
-			Toast.makeText(act.getApplicationContext(), "O WI-FI j· est· ligado.", 
+			Toast.makeText(act.getApplicationContext(), "O WI-FI j√° est√° ligado.", 
 					Toast.LENGTH_SHORT).show();
 		}
 

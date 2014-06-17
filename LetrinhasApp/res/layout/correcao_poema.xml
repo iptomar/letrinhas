@@ -15,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/pbText"
+        android:layout_alignLeft="@+id/txtVoltar"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/txtControlo"
         android:background="#ccccff"

@@ -47,7 +47,7 @@ public class Resultado extends Activity {
 		cab.setText(titulo);
 
 		// agora que temos a correc��o vamos reconstruir o relatorio
-		String resultado = "==========Avalia��o============\n"
+		String resultado = "==========Avaliação============\n"
 				+ crt.getObservacoes() + "\n";
 		resultado += "Palavras lidas por minuto (plm): "
 				+ crt.getNumPalavrasMin() + "\n";

@@ -103,7 +103,7 @@ public class EscModo extends Activity {
 					largura, false));
 		}
 
-		// new line faz a rota��o do ecr�n em 180 graus
+		// new line faz a rotação do ecrãn em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -111,7 +111,7 @@ public class EscModo extends Activity {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 		}
 
-        // juntar tudo num array, para simplificar o c�digo
+        // juntar tudo num array, para simplificar o código
         // String's - Escola, Professor, fotoProf, Turma, Aluno, fotoAluno
         Nomes = new String[6];
         Nomes[0] = nomeEscola;
@@ -191,7 +191,11 @@ public class EscModo extends Activity {
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
 
-	
+	/**
+	 * Método para defenir o Touchlistener de cada botão
+	 * 
+	 * @author Thiago
+	 */
 	private void escutaBotoes() {
         btnModoAluno.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -219,6 +223,10 @@ public class EscModo extends Activity {
 		});
 	}
 
+	/** 
+	 * selecionar o modo aluno - executar os testes
+	 * @author Thiago 
+	 */
 	public void modAluno() {
 		btnModoAluno.setTextColor(Color.GREEN);
 		btnModoProf.setTextColor(Color.rgb(0x5d,
@@ -235,6 +243,10 @@ public class EscModo extends Activity {
 		startActivity(it);
 	}
 
+	/**
+	 * Selecionar o modo professor corrigir - testes
+	 * @author Thiago
+	 */
 	public void modProf() {
 		btnModoProf.setTextColor(Color.GREEN);
 		btnModoAluno.setTextColor(Color.rgb(0x5d,
@@ -254,6 +266,10 @@ public class EscModo extends Activity {
 		startActivity(it);
 	}
 
+	/**
+	 * Selecionar o modo de listar os resultados das correções
+	 * @author Thiago
+	 */
 	public void modResult() {
 		btnLResultados.setTextColor(Color.GREEN);
 		btnModoAluno.setTextColor(Color.rgb(0x5d,

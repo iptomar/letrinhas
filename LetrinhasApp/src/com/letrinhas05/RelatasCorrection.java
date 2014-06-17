@@ -60,7 +60,7 @@ public class RelatasCorrection extends Activity {
 		cab1.setText(titulo);
 
 		// agora que temos a correcção vamos reconstruir o 1o relatorio
-		String resultado = "==========Avalia��o============\n"
+		String resultado = "==========Avaliação============\n"
 				+ crt.getObservacoes() + "\n";
 		resultado += "Palavras lidas por minuto (plm): "
 				+ crt.getNumPalavrasMin() + "\n";
@@ -86,7 +86,7 @@ public class RelatasCorrection extends Activity {
 		cab2.setText(titulo);
 
 		// agora que temos a correc��o vamos reconstruir o 2o relatorio
-		resultado = "==========Avalia��o============\n"
+		resultado = "==========Avaliação============\n"
 				+ crt.getObservacoes() + "\n";
 		resultado += "Palavras lidas por minuto (plm): "
 				+ crt.getNumPalavrasMin() + "\n";

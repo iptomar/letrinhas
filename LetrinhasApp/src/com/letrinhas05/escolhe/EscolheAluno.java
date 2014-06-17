@@ -27,6 +27,11 @@ import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.Estudante;
 import com.letrinhas05.util.SystemUiHider;
 
+/**
+ * Classe de apaio para a escolha do aluno
+ * @author Thiago
+ *
+ */
 public class EscolheAluno extends Activity {
 
     protected Button btnVoltar;
@@ -131,7 +136,7 @@ public class EscolheAluno extends Activity {
 	}
 
 	/**
-	 * Novo m�todo para criar o painel din�mico para os bot�es de selec��o da
+	 * Novo método para criar o painel dinâmico para os botões de seleção da
 	 * turma
 	 * 
 	 * @author Thiago
