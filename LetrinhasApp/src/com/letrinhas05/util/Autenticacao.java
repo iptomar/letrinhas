@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 /**
+ * Classe de apoio à activity de autenticação PIN request.
  * 
  * @author Thiago
  *
@@ -71,19 +72,13 @@ public class Autenticacao extends Activity {
 
 		escutaBotoes();
 
-		/*
-		 * UI elements gets bind in form of Java Objects password =
-		 * (EditText)findViewById(R.id.password); login =
-		 * (Button)findViewById(R.id.login); // now we have got the handle over
-		 * the UI widgets // setting listener on Login Button // i.e. OnClick
-		 * Event db = new LetrinhasDB(this); Bundle b = getIntent().getExtras();
-		 * id = b.getInt("idProf"); //passWord = b.getString("pass"); passWord =
-		 * db.getProfessorById(id).getPassword(); Log.d("authentication",
-		 * "pass->"+passWord); login.setOnClickListener(loginListener);
-		 */
-
 	}
 
+	/**
+	 * Garantir que vai assumir o cancelar
+	 * 
+	 * @author Thiago
+	 */
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
@@ -119,61 +114,61 @@ public class Autenticacao extends Activity {
 
 		btn[0].setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {// sair da activity
+			public void onClick(View view) {
 				ins(0);
 			}
 		});
 		btn[1].setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {// sair da activity
+			public void onClick(View view) {
 				ins(1);
 			}
 		});
 		btn[2].setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {// sair da activity
+			public void onClick(View view) {
 				ins(2);
 			}
 		});
 		btn[3].setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {// sair da activity
+			public void onClick(View view) {
 				ins(3);
 			}
 		});
 		btn[4].setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {// sair da activity
+			public void onClick(View view) {
 				ins(4);
 			}
 		});
 		btn[5].setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {// sair da activity
+			public void onClick(View view) {
 				ins(5);
 			}
 		});
 		btn[6].setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {// sair da activity
+			public void onClick(View view) {
 				ins(6);
 			}
 		});
 		btn[7].setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {// sair da activity
+			public void onClick(View view) {
 				ins(7);
 			}
 		});
 		btn[8].setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {// sair da activity
+			public void onClick(View view) {
 				ins(8);
 			}
 		});
 		btn[9].setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {// sair da activity
+			public void onClick(View view) {
 				ins(9);
 			}
 		});
@@ -181,7 +176,7 @@ public class Autenticacao extends Activity {
 	}
 
 	private void ins(int input) {
-		// se o bot�o ainda nao esta disponivel, inserir numeros
+		// se o botão ainda nao esta disponivel, inserir numeros
 		if (!login.isEnabled()) {
 			pin += "" + input;
 			img[controlo].setVisibility(View.VISIBLE);
@@ -198,14 +193,4 @@ public class Autenticacao extends Activity {
 		}
 	}
 
-	/*
-	 * private OnClickListener loginListener = new OnClickListener() { public
-	 * void onClick(View v) { //vai buscar os dados que o utilizador introduzio
-	 * if(password.getText().toString().equals(passWord)){ //responde aos inputs
-	 * do user Toast.makeText(getApplicationContext(), "Login Successfully",
-	 * Toast.LENGTH_LONG).show(); //Intent it= new Intent(Autenticacao.this,
-	 * EscModo.class); // startActivity(it); }else
-	 * Toast.makeText(getApplicationContext(), "Wrong Pin",
-	 * Toast.LENGTH_LONG).show(); } };
-	 */
 }

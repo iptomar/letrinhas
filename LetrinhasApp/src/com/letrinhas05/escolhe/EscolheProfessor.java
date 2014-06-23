@@ -28,6 +28,11 @@ import com.letrinhas05.ClassesObjs.Professor;
 import com.letrinhas05.util.Autenticacao;
 import com.letrinhas05.util.SystemUiHider;
 
+/**
+ * Classe de apoio à Pagina de escolha de Professor
+ * 
+ * @author Thiago
+ */
 public class EscolheProfessor extends Activity {
 
 	// /Varivaveis/////////////////
@@ -75,7 +80,7 @@ public class EscolheProfessor extends Activity {
 		final View contentView = findViewById(R.id.escProf);
 		// ////////////////////////////////////////////////////////////
 
-		// new line faz a rota��o do ecr�n em 180 graus
+		// new line faz a rotação do ecrãn em 180 graus
 		int currentOrientation = getResources().getConfiguration().orientation;
 		if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -123,8 +128,8 @@ public class EscolheProfessor extends Activity {
 	}
 
 	/**
-	 * Novo m�todo para criar o painel din�mico para os bot�es de
-	 * selec��o do professor
+	 * Novo método para criar o painel dinâmico para os botões de
+	 * seleção do professor
 	 * 
 	 * @author Thiago
 	 */

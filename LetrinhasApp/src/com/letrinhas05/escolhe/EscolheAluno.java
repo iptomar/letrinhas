@@ -28,7 +28,8 @@ import com.letrinhas05.ClassesObjs.Estudante;
 import com.letrinhas05.util.SystemUiHider;
 
 /**
- * Classe de apaio para a escolha do aluno
+ * Classe de apoio para a escolha do aluno
+ * 
  * @author Thiago
  *
  */

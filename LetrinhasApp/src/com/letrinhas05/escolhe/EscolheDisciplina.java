@@ -24,9 +24,9 @@ import com.letrinhas05.util.Autenticacao;
 import com.letrinhas05.util.SystemUiHider;
 
 /**
- * 
+ * Classe de apoio Ã  Pagina de escolher disciplina
+ *  
  * @author Thiago
- * 
  */
 public class EscolheDisciplina extends Activity {
 
@@ -182,11 +182,21 @@ public class EscolheDisciplina extends Activity {
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
 
+	/**
+	 * Garantir que vai fazer um controlo de acesso quando tenta sair deste modo
+	 * 
+	 * @author Thiago
+	 */
 	@Override
 	public void onBackPressed() {
 		volt.performClick();
 	}
 	
+	/**
+	 * Fica Ã  espera da resposta da outra activity
+	 * 
+	 * @author Thiago
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(data.getExtras().getBoolean("Resultado")){
@@ -213,7 +223,7 @@ public class EscolheDisciplina extends Activity {
 					Bundle wrap = new Bundle();
 					wrap.putString("PIN", PIN);
 
-					// iniciar a pagina (Autenticação)
+					// iniciar a pagina (Autenticaï¿½ï¿½o)
 					Intent at = new Intent(getApplicationContext(),
 							Autenticacao.class);
 					at.putExtras(wrap);

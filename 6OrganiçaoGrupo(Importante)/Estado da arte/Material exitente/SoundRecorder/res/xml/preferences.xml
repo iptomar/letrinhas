@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Copyright (c) 2010-2011, The MiCode Open Source Community (www.micode.net)
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/settings_general">
+        <CheckBoxPreference
+            android:key="pref_key_enable_sound_effect"
+            android:title="@string/pref_title_enable_sound_effect"
+            android:summary="@string/pref_summary_enable_sound_effect"
+            android:defaultValue="true" />
+        <ListPreference 
+            android:title="@string/pref_title_localization" 
+            android:key="pref_key_localization" 
+            android:entries="@array/prefEntries_localization"
+            android:entryValues="@array/prefValues_localization" 
+            android:defaultValue="en" />
+    	<ListPreference
+            android:key="pref_key_record_type"
+            android:title="@string/pref_title_record_type"
+            android:entries="@array/prefEntries_record_type"
+            android:entryValues="@array/prefValues_record_type"
+            android:dialogTitle="@string/prefDialogTitle_recordType"
+            android:defaultValue="0" />
+    	<EditTextPreference
+            android:key="pref_key_save_path"
+            android:title="@string/pref_title_save_path"
+            android:dialogTitle="@string/pref_title_save_path"
+            android:defaultValue="Sound Recorder" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/settings_record">
+    	<ListPreference
+            android:key="pref_key_bitrate"
+            android:title="@string/pref_title_bitrate"
+            android:entries="@array/pref_bitrate"
+            android:entryValues="@array/pref_bitrate"
+            android:defaultValue="128" />
+    	<ListPreference
+            android:key="pref_key_sample_rate"
+            android:title="@string/pref_title_samplerate"
+            android:entries="@array/pref_samplerate"
+            android:entryValues="@array/pref_samplerate"
+            android:defaultValue="44100" />
+    	<ListPreference
+            android:key="pref_key_quality"
+            android:title="@string/pref_title_quality"
+            android:entries="@array/prefEntries_quality"
+            android:entryValues="@array/prefValues_quality"
+            android:defaultValue="5" />
+    	<ListPreference
+            android:key="pref_key_mode"
+            android:title="@string/pref_title_mode"
+            android:entries="@array/prefEntries_mode"
+            android:entryValues="@array/prefValues_mode"
+            android:defaultValue="16" />  	
+<!--     	<ListPreference -->
+<!--             android:key="pref_key_scale" -->
+<!--             android:title="@string/pref_title_scale" -->
+<!--             android:entries="@array/pref_scale" -->
+<!--             android:entryValues="@array/pref_scale" -->
+<!--             android:defaultValue="1" /> -->
+    </PreferenceCategory>
+  	<PreferenceCategory android:title="@string/pref_title_about">
+  		<Preference 
+  		    android:persistent="false" 
+  		    android:title="@string/pref_title_about" 
+  		    android:key="pref_key_about" />
+	</PreferenceCategory>
+</PreferenceScreen>

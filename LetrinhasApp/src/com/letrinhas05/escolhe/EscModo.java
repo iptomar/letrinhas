@@ -21,8 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * 
- * Escolher modo
+ * Classe de apoio à Pagina de escola do modo (menu)
  * 
  * @author Thiago
  */

@@ -27,6 +27,11 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.os.Build;
 
+/**
+ * Classe de apoio à Pagina de escolha da turma
+ * 
+ * @author Thiago
+ */
 public class EscolheTurma extends Activity {
 	protected Button btnVoltar;
 	protected String nomeEscola, nomeProfessor, fotoProfNome;
@@ -56,7 +61,7 @@ public class EscolheTurma extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.escolhe_turma);
 		// //////////// Retirar os Extras da janela
-		// anterior/////////////////////7
+		// anterior/////////////////////
 		Bundle b = getIntent().getExtras();
 		// escola/////////
 		idEscola = b.getInt("Escola_ID");

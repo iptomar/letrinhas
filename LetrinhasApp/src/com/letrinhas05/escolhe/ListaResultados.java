@@ -153,6 +153,11 @@ public class ListaResultados extends Activity {
 
 	}
 
+	/**
+	 * Procedimento de preenchimeto do painel
+	 * 
+	 * @author Thiago
+	 */
 	@SuppressLint("NewApi")
 	private void makeLista() {
 
@@ -315,6 +320,7 @@ public class ListaResultados extends Activity {
 	 * @param timeStamp
 	 *            timestamp a converter
 	 * @return retorna uma string
+	 * 
 	 */
 	@SuppressLint("SimpleDateFormat")
 	private String getDate(long timeStamp) {

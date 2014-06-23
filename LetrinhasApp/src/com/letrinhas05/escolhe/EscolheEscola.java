@@ -26,6 +26,11 @@ import com.letrinhas05.BaseDados.LetrinhasDB;
 import com.letrinhas05.ClassesObjs.Escola;
 import com.letrinhas05.util.SystemUiHider;
 
+/**
+ * Classe de apoio à Pagina de Escolher escola
+ * 
+ * @author Thiago
+ */
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class EscolheEscola extends Activity {
 
@@ -115,7 +120,7 @@ public class EscolheEscola extends Activity {
 	}
 
 	/**
-	 * Novo m�todo para criar o painel din�mico para os bot�es de selec��o da
+	 * Novo método para criar o painel dinâmico para os botões de seleção da
 	 * escola
 	 * 
 	 * @author Thiago
@@ -187,7 +192,7 @@ public class EscolheEscola extends Activity {
 					bt1.setCompoundDrawablesWithIntrinsicBounds(null, imageView.getDrawable(),
 							null, null);
 				} else {
-					// sen�o copia a imagem do bot�o original
+					// senão copia a imagem do botão original
 					bt1.setCompoundDrawables(null,
 							bt.getCompoundDrawablesRelative()[1], null, null);
 				}
@@ -195,7 +200,7 @@ public class EscolheEscola extends Activity {
 				// addicionar o nome
 				bt1.setText(arrNomeEscolas[cont]);
 				// Defenir o que faz o botao ao clicar, neste caso muda o texto
-				// do cabe�alho
+				// do cabeçalho
 				bt1.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -211,7 +216,7 @@ public class EscolheEscola extends Activity {
 						finish();
 					}
 				});
-				// inserir o bot�o na linha
+				// inserir o botão na linha
 				linha1.addView(bt1);
 				// incrementar o contador de controlo
 				cont++;
@@ -232,7 +237,7 @@ public class EscolheEscola extends Activity {
 				Button bt1 = new Button(bt.getContext());
 				bt1.setLayoutParams(bt.getLayoutParams());
 
-				// se a escola ja tiver logotipo, vou busca-lo
+				// se a escola já tiver logotipo, vou busca-lo
 				if (img[cont] != null) {
 					String imageInSD = Environment
 							.getExternalStorageDirectory().getAbsolutePath()
@@ -276,7 +281,7 @@ public class EscolheEscola extends Activity {
 			// inserir a linha criada com o resto dos botoes
 			tabela.addView(linha1);
 		}
-		// por fim escondo a 1� linha
+		// por fim elimino a 1ª linha
 		tabela.removeView(linha);
 	}
 

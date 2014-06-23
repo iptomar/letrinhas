@@ -26,9 +26,9 @@ import com.letrinhas05.ClassesObjs.Teste;
 import com.letrinhas05.util.SystemUiHider;
 
 /**
- *
+ * Classe de apoio à Pagina de escolher teste
+ *  
  * @author Thiago
- *
  */
 public class EscolheTeste extends Activity {
     ////Variaveis
@@ -150,7 +150,7 @@ public class EscolheTeste extends Activity {
                 });
 
         /************************************************************************
-         * Cria��o de um painel din�mico para os bot�es de sele��o dos testes
+         * Criação de um painel dinâmico para os botões de selecão dos testes
          * existentes.
          */
 
@@ -186,13 +186,13 @@ public class EscolheTeste extends Activity {
         
         // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-        // Painel din�mico
+        // Painel dinâmico
         // ****************************************************
         LinearLayout ll = (LinearLayout) findViewById(R.id.llescteste);
-        // Bot�o original que existe por defeni��o
+        // Botão original que existe por defenição
         ToggleButton tg1 = (ToggleButton) findViewById(R.id.escTtbtn);
-        // Se existirem testes no reposit�rio correspondentes, cria o n� de
-        // bot�es referentes ao n� de testes existentes
+        // Se existirem testes no repositório correspondentes, cria o nº de
+        // botões referentes ao nº de testes existentes
         if (0 < numero) {
             int i = 0;
             teste = titulo[i].toString();
@@ -201,9 +201,9 @@ public class EscolheTeste extends Activity {
             // ********************************+
             // texto por defeito
             tg1.setText(teste);
-            // texto se n�o seleccionado = "titulo do teste sem numera��o"
+            // texto se n�o seleccionado = "titulo do teste sem numeração"
             tg1.setTextOff(teste);
-            // texto se seleccionado = "titulo do teste com numera��o"
+            // texto se seleccionado = "titulo do teste com numeração"
             tg1.setTextOn((i + 1) + " - " + teste);
             i++;
 
@@ -211,16 +211,16 @@ public class EscolheTeste extends Activity {
             while (i < numero) {
                 // um novo bot�o
                 ToggleButton tg = new ToggleButton(getBaseContext());
-                // copiar os parametros de layout do 1� bot�o
+                // copiar os parametros de layout do 1º botão
                 tg.setLayoutParams(tg1.getLayoutParams());
                 tg.setTextSize(tg1.getTextSize());
                 teste = titulo[i].toString();
                 // texto por defeito
                 tg.setText(teste);
                 // texto se n�o seleccionado =
-                // "titulo do teste sem numera��o"
+                // "titulo do teste sem numeração"
                 tg.setTextOff(teste);
-                // texto se seleccionado = "titulo do teste com numera��o"
+                // texto se seleccionado = "titulo do teste com numeração"
                 tg.setTextOn((i + 1) + " - " + teste);
                 // inserir no scroll view
                 ll.addView(tg);
@@ -295,7 +295,7 @@ public class EscolheTeste extends Activity {
     }
 
     /**
-     * Procedimento para veirficar os bot�es
+     * Procedimento para veirficar os botões
      *
      * @author Thiago
      */
@@ -316,7 +316,8 @@ public class EscolheTeste extends Activity {
     }
 
     /**
-     * Procedimento para executar os testes selecionados, um de cada vez sequ�ncialmente
+     * Procedimento 1/2 para executar os testes selecionados, um de cada vez
+     * sequêncialmente, independentemente do seu tipo.
      *
      * @author Thiago
      */
@@ -333,8 +334,6 @@ public class EscolheTeste extends Activity {
                 j++;
             }
         }
-        
-
         // Copiar os id's dos testes seleccionados para uma lista auxiliar
         int[] lstID = new int[j];
         j = 0;
@@ -349,6 +348,12 @@ public class EscolheTeste extends Activity {
     }
 
 
+    /**
+     * Procedimento 2/2 para executar os testes selecionados, um de cada vez
+     * sequêncialmente, independentemente do seu tipo.
+     *
+     * @author Thiago
+     */
     public void iniciar(int[] lstID) {
         // iniciar os testes....
         // Se existir items seleccionados arranca com os testes,
@@ -365,7 +370,7 @@ public class EscolheTeste extends Activity {
             tipo = ldb.getTesteById(lstID[0]).getTipo();
 
             switch (tipo) {
-                case 0: // lan�ar a nova activity do tipo texto leitura,
+                case 0: // lançar a nova activity do tipo texto leitura,
 
                     Intent it = new Intent(getApplicationContext(),
                             Teste_Texto.class);

@@ -143,6 +143,11 @@ public class ListarSubmissoes extends Activity {
 
 	}
 
+	/**
+	 * Procedimento de preenchimeto do painel
+	 * 
+	 * @author Thiago
+	 */
 	@SuppressLint("NewApi")
 	public void makeLista() {
 
@@ -199,7 +204,7 @@ public class ListarSubmissoes extends Activity {
 			// Agora vou construir os botoes com a informacao necessaria:
 			for (int i = 0; i < ctAux.length; i++) {
 				
-				//descurar as correções do tipo multimedia
+				//descurar as correï¿½ï¿½es do tipo multimedia
 				if(ctAux[i].getTipo()==1) continue;
 				
 				//criar o botao
