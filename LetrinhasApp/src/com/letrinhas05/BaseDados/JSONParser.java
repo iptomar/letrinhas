@@ -9,6 +9,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpOptions;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
@@ -17,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.net.http.AndroidHttpClient;
+import android.util.Base64;
 import android.util.Log;
 
 /**
@@ -42,6 +44,15 @@ public class JSONParser {
         url += paramString.length() > 0 ? "?" + paramString : "";
 
         HttpGet httpGet = new HttpGet(url);
+      //B64***************************************
+        //String base64 = "bGV0cmluaGFzOmxldHJhc2lwdGxldHJhcw==";
+        
+        String credentials = "letrinhas" + ":" + "letrasiptletras";  
+        String base64EncodedCredentials = 
+        		Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);  
+        httpGet.addHeader("Authorization", "Basic " + base64EncodedCredentials);
+        //*****************************************
+        //httpGet.addHeader("Autorizacao", "Basic "+ base64);
         
         HttpResponse response = client.execute(httpGet);
         
@@ -114,8 +125,21 @@ public class JSONParser {
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
+            
+            //B64***************************************
+            //String base64 = "bGV0cmluaGFzOmxldHJhc2lwdGxldHJhcw==";
+            String credentials = "letrinhas" + ":" + "letrasiptletras";  
+            String base64EncodedCredentials = 
+            		Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);  
+            
+            //*****************************************
+           // httpPost.addHeader("Autorizacao", "Basic "+ base64);
+            
             httpPost.setHeader("Content-Type", "application/json");
             httpPost.setEntity(new StringEntity(json.toString()));
+            
+            httpPost.addHeader("Authorization", "Basic " + base64EncodedCredentials);
+            
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
