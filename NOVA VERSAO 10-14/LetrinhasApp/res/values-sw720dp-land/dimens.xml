@@ -1,0 +1,55 @@
+<resources>
+
+    <!--
+         Customize dimensions originally defined in res/values/dimens.xml (such as
+         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
+    -->
+        <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+	<dimen name="dim0">0sp</dimen>
+	<dimen name="dim5">5sp</dimen>
+	<dimen name="dim10">10sp</dimen>
+	<dimen name="dim12">12sp</dimen>
+	<dimen name="dim15">15sp</dimen>
+	<dimen name="dim18">18sp</dimen>
+	<dimen name="dim19">19sp</dimen>
+	<dimen name="dim20">20sp</dimen>
+	<dimen name="dim21">21sp</dimen>
+	<dimen name="dim22">22sp</dimen>
+	<dimen name="dim24">24sp</dimen>
+	<dimen name="dim25">25sp</dimen>
+	<dimen name="dim27">27sp</dimen>
+	<dimen name="dim30">30sp</dimen>
+	<dimen name="dim32">32sp</dimen>
+	<dimen name="dim34">34sp</dimen>
+	<dimen name="dim35">35sp</dimen>
+	<dimen name="dim40">40sp</dimen>
+	<dimen name="dim50">50sp</dimen>
+	<dimen name="dim60">60sp</dimen>
+	<dimen name="dim65">65sp</dimen>
+	<dimen name="dim70">70sp</dimen>
+	<dimen name="dim72">72sp</dimen>
+	<dimen name="dim75">75sp</dimen>
+	<dimen name="dim80">80sp</dimen>
+	<dimen name="dim83">83sp</dimen>
+	<dimen name="dim90">90sp</dimen>
+	<dimen name="dim100">100sp</dimen>
+	<dimen name="dim110">110sp</dimen>
+	<dimen name="dim120">120sp</dimen>
+	<dimen name="dim150">150sp</dimen>
+	<dimen name="dim152">152sp</dimen>
+	<dimen name="dim160">160sp</dimen>
+	<dimen name="dim165">165sp</dimen>
+	<dimen name="dim200">200sp</dimen>
+	<dimen name="dim205">205sp</dimen>
+	<dimen name="dim210">210sp</dimen>
+	<dimen name="dim220">220sp</dimen>
+	<dimen name="dim230">230sp</dimen>
+	<dimen name="dim240">240sp</dimen>
+	<dimen name="dim250">250sp</dimen>
+	<dimen name="dim260">260sp</dimen>
+	<dimen name="dim300">300sp</dimen>
+	<dimen name="dim350">350sp</dimen>
+	<dimen name="dim400">400sp</dimen>
+	<dimen name="dim457">457sp</dimen>
+</resources>

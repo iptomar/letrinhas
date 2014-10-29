@@ -1,0 +1,134 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/testPoema"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="clip_vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/dim30"
+    android:paddingRight="@dimen/dim30"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.letrinhas05.Teste_Poema" >
+
+    <ScrollView
+        android:id="@+id/txtTela"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtCancel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="#ccccff"
+        android:paddingBottom="@dimen/dim10"
+        android:paddingLeft="@dimen/dim10"
+        android:paddingRight="@dimen/dim10"
+        android:paddingTop="@dimen/dim10" android:layout_marginTop="@dimen/dim50">
+
+        <LinearLayout
+            android:id="@+id/llTexto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txtTexto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:text="@string/ExemploPoema"
+                android:textColor="#303030"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/dim35" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textRodape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtVoltar"
+        android:layout_toRightOf="@+id/txtVoltar"
+        android:text="@string/letrinhas"
+        android:textColor="#5ddfff"
+        android:textSize="@dimen/dim30"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/txtVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/voltar"
+        android:drawableTop="@drawable/voltar"
+        android:text="@string/voltar" />
+
+    <Button
+        android:id="@+id/txtCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/txtAvaliar"
+        android:contentDescription="@string/sair"
+        android:drawableTop="@drawable/cancelar"
+        android:text="@string/cancel" />
+
+    <Button
+        android:id="@+id/txtAvaliar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/txtCancel"
+        android:contentDescription="@string/entrar"
+        android:drawableTop="@drawable/valido"
+        android:text="@string/avancar" />
+
+    <LinearLayout
+        android:id="@+id/txtBarra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/txtVoltar"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/txtRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dim20"
+            style="@style/ButtonBarButton"
+            android:contentDescription="@string/Recording"
+            android:drawableTop="@drawable/record"
+            android:text="@string/iniciar" />
+
+        <Button
+            android:id="@+id/txtDemo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            style="@style/ButtonBarButton"
+            android:layout_marginRight="@dimen/dim20"
+            android:layout_marginLeft="@dimen/dim20"
+            android:contentDescription="@string/play"
+            android:drawableTop="@drawable/palyoff"
+            android:text="@string/demo" />
+
+        <Button
+            android:id="@+id/txtPlay"
+            style="@style/ButtonBarButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim20"
+            android:contentDescription="@string/play"
+            android:drawableTop="@drawable/play"
+            android:text="@string/play" />
+
+    </LinearLayout>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="New Text"
+              android:id="@+id/txtTituloTextLei2"
+              android:background="#927f8ec6" android:textSize="@dimen/dim35" android:textStyle="bold|italic"
+              android:autoText="false" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+              android:layout_alignParentRight="true"/>
+
+</RelativeLayout>
