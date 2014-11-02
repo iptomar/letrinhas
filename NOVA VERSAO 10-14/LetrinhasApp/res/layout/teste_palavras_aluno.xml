@@ -93,7 +93,7 @@
         android:layout_toRightOf="@+id/tlaDemoPlay"
         android:layout_marginTop="@dimen/dim20"
         android:contentDescription="@string/play"
-        android:src="@drawable/play" />
+        android:src="@drawable/palyoff" />
 
     <ScrollView
         android:id="@+id/tlaTela"
@@ -129,7 +129,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/Recording"
-        android:src="@drawable/record" android:layout_toRightOf="@+id/tlaVoltar" android:layout_below="@+id/tlaTela1"/>
+        android:src="@drawable/record" android:layout_toRightOf="@+id/tlaVoltar" android:layout_below="@+id/tlaTela1"
+        android:layout_marginTop="@dimen/dim10"/>
 
     <ImageButton
         android:id="@+id/tlaDemoPlay"
@@ -139,7 +140,7 @@
         android:layout_marginLeft="@dimen/dim24"
         android:layout_toRightOf="@+id/tlaRecordPalavras"
         android:contentDescription="@string/play"
-        android:src="@drawable/palyoff" />
+        android:src="@drawable/play" />
 
     <ImageButton
         android:id="@+id/tlaAvaliar"
@@ -152,8 +153,8 @@
 
     <ImageButton
         android:id="@+id/tlaVoltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dim100"
+        android:layout_height="@dimen/dim70"
         android:contentDescription="@string/voltar"
         android:src="@drawable/voltar" android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"
         android:layout_marginRight="@dimen/dim40"/>

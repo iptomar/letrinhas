@@ -609,7 +609,7 @@ public class Teste_Palavras_Aluno extends Activity {
 	@SuppressLint("HandlerLeak")
 	private void startPlay(String path) {
 		if (!playing) {
-			play.setImageResource(R.drawable.play_on);
+			play.setImageResource(R.drawable.pause);
 			record.setVisibility(View.INVISIBLE);
 			playing = true;
 			try {
@@ -634,7 +634,7 @@ public class Teste_Palavras_Aluno extends Activity {
 					public void handleMessage(Message msg) {
 						switch (msg.what) {
 						case PARADO:
-							play.setImageResource(R.drawable.palyoff);
+							play.setImageResource(R.drawable.play);
 							record.setVisibility(View.VISIBLE);
 							voicePlay.setVisibility(View.VISIBLE);
 							play.setVisibility(View.VISIBLE);
@@ -668,7 +668,7 @@ public class Teste_Palavras_Aluno extends Activity {
 						Toast.LENGTH_SHORT).show();
 			}
 		} else {
-			play.setImageResource(R.drawable.palyoff);
+			play.setImageResource(R.drawable.play);
 			record.setVisibility(View.VISIBLE);
 			voicePlay.setVisibility(View.VISIBLE);
 			play.setVisibility(View.VISIBLE);
