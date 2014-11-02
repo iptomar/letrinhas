@@ -30,10 +30,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView android:id="@+id/textView2" android:layout_width="wrap_content"
-                      android:layout_height="wrap_content" android:layout_gravity="right"
-                      android:text="@string/ExemploTexto" android:textColor="#303030" android:textIsSelectable="false"
-                      android:textSize="@dimen/dim35"/>
             <TextView
                 android:id="@+id/txtTexto"
                 android:layout_width="match_parent"
